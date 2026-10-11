@@ -22,11 +22,13 @@ add_library(osg_hal STATIC
   ${HAL}/Src/stm32g0xx_hal.c ${HAL}/Src/stm32g0xx_hal_cortex.c
   ${HAL}/Src/stm32g0xx_hal_rcc.c ${HAL}/Src/stm32g0xx_hal_rcc_ex.c
   ${HAL}/Src/stm32g0xx_hal_pwr.c ${HAL}/Src/stm32g0xx_hal_pwr_ex.c
+  ${HAL}/Src/stm32g0xx_hal_dma.c
+  ${HAL}/Src/stm32g0xx_hal_adc.c ${HAL}/Src/stm32g0xx_hal_adc_ex.c
   ${HAL}/Src/stm32g0xx_hal_gpio.c ${HAL}/Src/stm32g0xx_hal_fdcan.c
   ${CMSIS}/Source/Templates/system_stm32g0xx.c)
 target_include_directories(osg_hal PUBLIC include ${HAL}/Inc ${CMSIS}/Include ${OSG_CMSIS_CORE_DIR}/CMSIS/Core/Include)
 target_compile_definitions(osg_hal PUBLIC STM32G0B1xx USE_HAL_DRIVER)
-add_executable(osg_hello src/main.c src/usb_descriptors.c boards/starter_g0b1cb/board.c
+add_executable(osg_hello src/main.c src/profile.c src/usb_descriptors.c boards/starter_g0b1cb/board.c
   ${CMSIS}/Source/Templates/gcc/startup_stm32g0b1xx.s)
 target_include_directories(osg_hello PRIVATE include boards/starter_g0b1cb)
 target_compile_definitions(osg_hello PRIVATE OSG_USB_VID=${OSG_USB_VID} OSG_USB_PID=${OSG_USB_PID})

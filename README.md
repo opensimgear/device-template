@@ -4,10 +4,10 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 
 ## What is implemented
 
-- One physical HID joystick button, debounced with release required after startup/reconnect.
+- Representative physical controls: momentary button, analog axis, eight-way hat, rotary encoder with pushbutton, maintained toggle and three-position selector.
 - Composite USB HID + CDC serial, unique serial number from the MCU's 96-bit UID.
-- Serial `hello`, `info`, LED control and an internal CAN FD loopback diagnostic.
-- Shared button/line handling, USB descriptor helpers and pinned dependencies in [firmware-common](https://github.com/opensimgear/firmware-common).
+- Serial `hello`, `info`, `inputs`, LED control and an internal CAN FD loopback diagnostic.
+- Shared debouncing, axis scaling, hat decoding, bounded encoder events, line handling, USB descriptor helpers and pinned dependencies in [firmware-common](https://github.com/opensimgear/firmware-common).
 - KiCad schematic, project, local symbol/footprint libraries, electrical BOM and a placed, net-connected PCB.
 
 **Status:** firmware compiles; host behavior tests pass; schematic ERC passes. The PCB is intentionally unrouted and not for fabrication. Physical USB, CAN, power and recovery behavior has not been tested. CAN remains in standby: discovery, application Cyphal traffic, gateway handoff, persistent configuration and firmware updates are future integration work.
@@ -15,6 +15,7 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 ## Start here
 
 - [Firmware build, flash and console instructions](firmware/README.md)
+- [Input examples, HID mapping and control wiring](firmware/profiles/README.md)
 - [Starter board and pinout](electronics/boards/starter/rev-a/README.md)
 - [Validation record and remaining gates](electronics/boards/starter/rev-a/VALIDATION.md)
 - [Schematic PDF](electronics/boards/starter/rev-a/review/schematic.pdf)

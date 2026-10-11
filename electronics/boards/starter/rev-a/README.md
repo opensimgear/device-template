@@ -17,7 +17,12 @@ The CSV identifies IC/connector/fuse candidates. Passive values, voltage ratings
 | Signal | MCU port | LQFP48 pin |
 | --- | --- | --- |
 | Test button, active low | PA0 | 11 |
-| GPIO expansion | PA1 / PA2 / PA3 / PA4 | 12 / 13 / 14 / 15 |
+| Axis, ADC channel 1 | PA1 | 12 |
+| Hat N / E / S / W | PA2 / PA3 / PA4 / PA6 | 13 / 14 / 15 / 17 |
+| Encoder A / B | PA7 / PA8 | 18 / 28 |
+| Encoder push, active low | PA15 | 37 |
+| Maintained toggle, active low | PB1 | 20 |
+| Selector low / high, active low | PB2 / PB3 | 21 / 42 |
 | LED, active high through 1 kΩ | PA5 | 16 |
 | VBUS presence, 10 kΩ / 15 kΩ divider | PB0 | 19 |
 | USB D− / D+ | PA11 / PA12 pads | 33 / 34 |
@@ -28,7 +33,21 @@ The CSV identifies IC/connector/fuse candidates. Passive values, voltage ratings
 
 The PA11/PA12 pads may also serve remapped PA9/PA10 functions; leave remapping disabled for USB. PA9/PA10 dead-battery pads 29/32 are unused; firmware disables UCPD dead-battery pull-downs. Clocks use internal oscillators, so no crystal is fitted.
 
-J4 SWD: 1 target 3.3 V reference, 2 GND, 3 SWDIO, 4 SWCLK, 5 NRST. J5 GPIO: 1 3.3 V, 2 GND, 3 PA1, 4 PA2, 5 PA3, 6 PA4. J6 test: 1 CAN_H, 2 CAN_L, 3 GND; no power output on J6.
+J4 SWD: 1 target 3.3 V reference, 2 GND, 3 SWDIO, 4 SWCLK, 5 NRST. J6 test: 1 CAN_H, 2 CAN_L, 3 GND; no power output on J6.
+
+## External input controls
+
+The `Input examples` child schematic supplies the external control connections. These replace the previous generic J5 GPIO expansion; this unreleased draft revision now uses J5 for the axis. See the [control profile](../../../../firmware/profiles/README.md) for HID mapping and behavior.
+
+| Header | Pin sequence |
+| --- | --- |
+| J5 axis | 1 +3.3 V, 2 potentiometer wiper, 3 GND |
+| J7 hat | 1 GND, 2 N, 3 E, 4 S, 5 W |
+| J8 encoder | 1 GND, 2 A, 3 B, 4 push |
+| J9 toggle | 1 GND, 2 contact |
+| J10 selector | 1 GND, 2 low, 3 high |
+
+Use passive ground-switching contacts, an eight-way hat with adjacent contact pairs, a four-transition-per-detent bare encoder with open contacts at idle, a maintained toggle and a center-open selector. J5 expects a 10 kΩ linear potentiometer between 3.3 V and ground with its wiper on pin 2. External controls are not included in the PCB BOM; select their exact parts and verify contact behavior before assembly. Contacts have 10 kΩ external pull-ups. The axis has a 1 kΩ series resistor, 100 nF filter and 1 MΩ pull-up/down bias to give an unplugged input a defined midpoint. Input settling, analog noise and endpoint calibration need measurement. Never apply 5 V or bus 12 V to these 3.3 V control pins. Connect controls with power off; these headers have no qualified external cable ESD/hot-plug protection.
 
 ## CAN connectors and termination
 
@@ -47,7 +66,7 @@ Use a linear chain. Gateway termination is at one end; put 120 Ω across CAN_H/L
 
 ## Power paths
 
-12 V is carried on dedicated conductors alongside CAN, never on CAN_H/L. J2/J3 pass BUS_12V straight through; **their chain power is protected at the gateway**. F1 protects only this module's local branch. D1 guards that branch against reversed supply polarity; U4 makes 5 V. D2 and D3 diode-OR regulated bus power and USB VBUS into SYS_5V, then U5 makes 3.3 V. Nominal USB-reachable fitted capacitance is about 3.6 µF, excluding IC/internal capacitance; measure actual inrush.
+12 V is carried on dedicated conductors alongside CAN, never on CAN_H/L. J2/J3 pass BUS_12V straight through; **their chain power is protected at the gateway**. F1 protects only this module's local branch. D1 guards that branch against reversed supply polarity; U4 makes 5 V. D2 and D3 diode-OR regulated bus power and USB VBUS into SYS_5V, then U5 makes 3.3 V. Nominal USB-reachable fitted capacitance is about 3.7 µF, excluding IC/internal capacitance; measure actual inrush.
 
 The diodes block normal reverse power flow, but reverse leakage, simultaneous-source transitions, USB backfeed and fault behavior need measurement. This circuit does not feed external 12 V from USB and does not validate chain hot plugging. J2/J3 expose bus voltage whenever the chain is powered; local fuse removal does not isolate the through-power contacts.
 

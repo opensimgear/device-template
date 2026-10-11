@@ -24,7 +24,7 @@ cmake --build build/starter
 
 Outputs are `osg_hello.elf`, `.bin`, `.hex` and `.map` in `build/starter`. Configuration fails if identifiers are missing, zero or outside 16 bits. There are no default allocated USB IDs. CI uses `0xFFFF/0xFFFF` for **compilation only**, never as a recommended identity for flashed/distributed devices.
 
-CMake fetches an exact firmware-common commit; that repository owns all upstream pins. The first build needs network access. For common-code development, add `-DFETCHCONTENT_SOURCE_DIR_FIRMWARE_COMMON=/absolute/path/to/firmware-common`; do not copy common sources into this repository. Native shared-code tests are documented in that repository.
+CMake fetches an exact firmware-common commit; that repository owns all upstream pins. The first build needs network access. For common-code development, add `-DFETCHCONTENT_SOURCE_DIR_FIRMWARE_COMMON=/absolute/path/to/firmware-common`; do not copy common sources into this repository. Native shared-code tests are documented in that repository. Both embedded builds and the device tests use the single pin in `cmake/common-revision.cmake`.
 
 ## Flash and recover
 
@@ -34,19 +34,32 @@ Use STM32CubeProgrammer's SWD interface to program the ELF/HEX at `0x08000000`, 
 
 ## Observe hello world
 
-The PC should enumerate a one-button joystick and a diagnostic serial port. USB HID requires no OpenSimGear app; serial port names and permissions vary by OS. Open the serial port at 115200 baud with DTR asserted (the line rate is informational for USB CDC), send a command ending in LF or CRLF:
+The PC should enumerate a joystick with eight buttons, one X axis and an eight-way hat and a diagnostic serial port. USB HID requires no OpenSimGear app; serial port names and permissions vary by OS. Open the serial port at 115200 baud with DTR asserted (the line rate is informational for USB CDC), send a command ending in LF or CRLF:
 
 | Command | Response / effect |
 | --- | --- |
 | `hello` | `Hello from OpenSimGear!` |
 | `help` | List commands |
-| `info` | Model, board, UID, button count and internal-loopback status |
+| `info` | Model, board, UID, input counts and internal-loopback status |
+| `inputs` | Current button bitmask, X and hat, axis availability, contact conflicts and encoder diagnostics |
 | `led on` / `led off` / `led auto` | Override the physical LED or resume heartbeat |
 | `can loopback` | Transmit/receive one 8-byte CAN FD frame inside the MCU; return PASS/FAIL |
 
 Commands are case-sensitive, at most 63 characters. Oversized or NUL-containing input is discarded through the newline and returns an error. Unknown commands return an error. Opening/closing the serial session restores automatic LED behavior.
 
-After startup or USB reconnect/resume, release SW1 for at least 10 ms before pressing. A press held for 10 ms becomes button 1, and releasing for 10 ms releases it. The HID report is one byte: button 1 in bit 0, remaining bits zero. There are no synthetic axes or periodic button presses. Heartbeat changes from 1 s half-period before enumeration to 500 ms after mounting; suspend turns the LED off. Reports are refreshed at least every 10 ms while the host is polling and the endpoint is ready.
+See the [control profile](profiles/README.md) for all input pins, button numbers and recovery rules. The report is four bytes: eight button bits, a hat nibble with padding, and little-endian unsigned 16-bit X. Button 1 is SW1; the encoder emits queued direction pulses. Other state follows physical controls after debounce. USB device revision is now `0x0002` because the report layout changed; an OS or game may need its cached controller bindings refreshed. Heartbeat changes from 1 s half-period before enumeration to 500 ms after mounting; suspend turns the LED off. Reports are refreshed at least every 10 ms while the host is polling and the endpoint is ready.
+
+## Native device tests
+
+Run from the repository root with CMake, Git and a native C compiler; no MCU is needed:
+
+```sh
+cmake -S firmware/tests -B build/tests -DCMAKE_BUILD_TYPE=Release
+cmake --build build/tests
+ctest --test-dir build/tests --output-on-failure
+```
+
+These tests exercise the actual profile outputs and parse the actual USB report descriptor, including unsigned axis range and hat null state. Assertions stay enabled in Release. First configuration fetches the pinned common repository and TinyUSB headers. For common development, supply the same FetchContent override as the embedded build. CI runs both native tests and the Arm build.
 
 ## Scope and limits
 

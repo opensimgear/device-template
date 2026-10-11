@@ -3,6 +3,16 @@ on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
+  input-tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Configure native behavior tests
+        run: cmake -S firmware/tests -B build/tests -DCMAKE_BUILD_TYPE=Release
+      - name: Build and test
+        run: |
+          cmake --build build/tests --parallel
+          ctest --test-dir build/tests --output-on-failure
   firmware:
     runs-on: ubuntu-24.04
     steps:
