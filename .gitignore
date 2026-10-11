@@ -18,3 +18,4 @@ target/
 *.kicad_sch.lck
 *.kicad_pcb.lck
 *-backups/
+*.kicad_pro.lck
