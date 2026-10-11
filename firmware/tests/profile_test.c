@@ -32,16 +32,20 @@ int main(void) {
     s.axis_raw=4095;tick();assert(axis()==65535);
     s.axis_raw=2048;tick();assert(axis()==32776);
     s.axis_fresh=false;settle();assert(axis()==32776);
-    for(unsigned i=0;i<100;i++)tick();assert(axis()==32768 && !p.axis_available);
+    for(unsigned i=0;i<100;i++) { tick(); }
+    assert(axis()==32768 && !p.axis_available);
     s.axis_fresh=true;s.axis_raw=65535;tick();assert(axis()==32768 && !p.axis_available);
     s.axis_raw=0;tick();profile_rearm(&p,&s,now);s.axis_fresh=false;tick();assert(axis()==32768);
     init();detent(true);assert((report[0]&12)==4);
     /* A host stall must hold the press until it has actually completed. */
-    for(unsigned i=0;i<80;i++)tick();assert((report[0]&12)==4);
+    for(unsigned i=0;i<80;i++) { tick(); }
+    assert((report[0]&12)==4);
     profile_reported(&p,report,now);detent(false);
-    for(unsigned i=0;i<26;i++)tick();assert((report[0]&12)==0);
+    for(unsigned i=0;i<26;i++) { tick(); }
+    assert((report[0]&12)==0);
     profile_reported(&p,report,now);
-    for(unsigned i=0;i<26;i++)tick();assert((report[0]&12)==8);
+    for(unsigned i=0;i<26;i++) { tick(); }
+    assert((report[0]&12)==8);
     profile_update(&p,&s,now++,false,report);assert(report[0]==0 && report[1]==8 && axis()==32768);
     settle();assert((report[0]&12)==0);
     /* Startup/recovery with held momentary contacts or hat must not replay actions. */
