@@ -1,5 +1,5 @@
 # Board targets
 
-Add one validated target per electronics platform or pin mapping. A mechanical edition does not need a separate board target when it uses the same electronics. Exact board packages, pinouts, toolchains, and recovery wiring must be documented before firmware is buildable.
+`starter_g0b1cb` is implemented for the custom [starter rev-a electronics](../../electronics/boards/starter/rev-a/README.md). It selects STM32G0B1CBT6, internal clocks, physical pins, SWD recovery and a 128 KiB / 144 KiB linker map. It is build-checked, not bench-validated. An unchanged Nucleo board is not this target.
 
-No board target is implemented in this scaffold. Module baseline: STM32G0B1; gateway hardware: undecided.
+Add a target for a changed PCB or pin mapping. Mechanical Lite/Pro editions can share a target when electronics agree. Gateway hardware remains undecided.

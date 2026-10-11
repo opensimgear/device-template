@@ -1,5 +1,5 @@
-# Device profiles
+# Control profile
 
-Device profiles define controls, capabilities, product identity, and device-specific policies. Shared code supplies descriptor builders and generic behavior. Create separate profiles for real control/capability differences, not enclosure materials alone.
+The hello-world profile in `src/usb_descriptors.c` is one physical joystick button, with no axes and seven report-padding bits. USB identity uses explicitly supplied VID/PID and the MCU UID. The profile is an example, not a registered production device model.
 
-USB VID/PID allocation is pending; do not publish arbitrary identifiers as allocated IDs. Unit identity and calibration belong to the physical unit, not the Lite/Pro edition name.
+New devices define their own reports and capabilities here or in their application sources. Shared descriptor helpers stay in firmware-common. Lite/Pro mechanical editions may use the same profile.

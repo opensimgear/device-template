@@ -1,38 +1,45 @@
 # OpenSimGear device template
 
-GitHub template for a **complete device repository**, with firmware/, hardware/, electronics/, and a root README. Use it to start a new device while keeping its firmware, electronics, and mechanical design together. The intended starter includes hello-world firmware and an editable KiCad board.
+Start a new device with C firmware, electronics and mechanical designs in one repository. This template implements a **STM32G0B1CBT6 hello-world target** and an editable **KiCad 10 starter board**.
 
-## Status
+## What is implemented
 
-The repository layout is initialized. A buildable STM32G0B1 hello-world firmware target and starting KiCad schematic/PCB are planned implementation steps. The current scaffold does not contain working firmware or board designs.
+- One physical HID joystick button, debounced with release required after startup/reconnect.
+- Composite USB HID + CDC serial, unique serial number from the MCU's 96-bit UID.
+- Serial `hello`, `info`, LED control and an internal CAN FD loopback diagnostic.
+- Shared button/line handling, USB descriptor helpers and pinned dependencies in [firmware-common](https://github.com/opensimgear/firmware-common).
+- KiCad schematic, project, local symbol/footprint libraries, electrical BOM and a placed, net-connected PCB.
 
-The planned example pairs a documented real STM32G0B1 board target with shared firmware-common code, HID plus CDC serial, and an explicit test input. It must not synthesize automatic simulator commands. The starter KiCad board will provide editable schematic and PCB sources, a BOM, and documented pinout, power, and recovery wiring. Exact components and revisions remain to be selected and validated; ERC/DRC and hardware checks are required before recommending construction or advertising the example as usable.
+**Status:** firmware compiles; host behavior tests pass; schematic ERC passes. The PCB is intentionally unrouted and not for fabrication. Physical USB, CAN, power and recovery behavior has not been tested. CAN remains in standby: discovery, application Cyphal traffic, gateway handoff, persistent configuration and firmware updates are future integration work.
+
+## Start here
+
+- [Firmware build, flash and console instructions](firmware/README.md)
+- [Starter board and pinout](electronics/boards/starter/rev-a/README.md)
+- [Validation record and remaining gates](electronics/boards/starter/rev-a/VALIDATION.md)
+- [Schematic PDF](electronics/boards/starter/rev-a/review/schematic.pdf)
+- [PCB placement preview](electronics/boards/starter/rev-a/review/pcb.svg)
 
 ## Create a device
 
-1. Select **Use this template** in GitHub and choose the new device repository name.
-2. Replace this README with the device overview, control behavior, and status.
-3. Define the device model and capability profile; select a real board target. Allocate valid public USB identifiers before distribution and keep each unit's identity unique.
-4. Pin a tested firmware-common commit through firmware/cmake/dependencies.cmake when build integration is implemented.
-5. Add mechanical designs under hardware/variants/<edition>/<revision> and PCB designs under electronics/boards/<board>/<revision>.
-6. Document a compatibility table mapping editions to mechanical revisions, PCB revisions, and tested firmware versions. Remove unused edition placeholders from the new device.
+1. Select **Use this template** on GitHub. Replace the device overview and remove unused edition placeholders.
+2. Keep common implementation in firmware-common; update its full commit pin deliberately.
+3. Define the physical controls and device-specific HID report, identity and capability profile. The diagnostic console is not the ecosystem configuration protocol.
+4. Supply USB IDs you are authorized to use before flashing. No public OpenSimGear allocation exists yet; pid.codes is the planned allocation route when eligible.
+5. Change the board target and electronics together, route the PCB and complete the documented checks before fabrication.
+6. Add mechanical designs under `hardware/variants/<edition>/<revision>` and maintain a compatibility table mapping mechanical, PCB and firmware revisions.
 
 ## Layout
 
-- [firmware/](firmware/README.md): device-specific C sources, targets, profiles, and tests.
-- [hardware/](hardware/README.md): Lite/Pro edition folders and future mechanical sources.
-- [electronics/](electronics/README.md): shared PCB and wiring sources, including the [planned starter KiCad board](electronics/boards/starter/README.md).
+| Directory | Ownership |
+| --- | --- |
+| `firmware/` | Application, physical control profile, board target and build entry point |
+| `electronics/boards/starter/rev-a/` | Editable PCB/schematic, BOM, power/pinout and validation |
+| `hardware/variants/lite/` | Future 3D printed mechanical designs |
+| `hardware/variants/pro/` | Future laser-cut mechanical designs |
 
-Keep common electronics and firmware once. A new enclosure material alone does not require a new USB identity or duplicate firmware. Updates to this template do not automatically update repositories created from it; reusable implementation stays in firmware-common.
-
-## Related repositories
-
-- [Protocol](https://github.com/opensimgear/protocol): shared definitions and compatibility rules.
-- [Firmware common](https://github.com/opensimgear/firmware-common): reusable C implementation.
-- [Device template](https://github.com/opensimgear/device-template): new-device scaffold with planned hello-world firmware and starter KiCad board.
-- [Cockpit](https://github.com/opensimgear/cockpit): desktop configuration application.
-- [Website](https://github.com/opensimgear/opensimgear.github.io): system architecture and user documentation.
+Lite/Pro editions may share firmware and electronics. A material change alone does not require a new controller identity or copied firmware. This is a module template; it does not select the five-port gateway hardware. Template updates do not automatically update repositories created from it.
 
 ## Licensing
 
-License selection is pending. No license grant is implied by this scaffold. Firmware, mechanical design, and electronics will each need documented license coverage before releases and any public USB identifier application.
+OpenSimGear license selection remains pending; no license grant is implied for the new authored firmware, electronics or mechanical designs. Included KiCad library data retains its own [license](electronics/boards/starter/rev-a/LICENSE-KICAD.md). Fetched firmware dependencies retain their upstream licenses; see [third-party notices](firmware/THIRD_PARTY.md).

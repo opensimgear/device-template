@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "configurePresets": [{
+    "name": "starter", "displayName": "STM32G0B1CB starter board",
+    "generator": "Unix Makefiles", "binaryDir": "${sourceDir}/build/starter",
+    "toolchainFile": "${sourceDir}/cmake/arm-gcc.cmake",
+    "cacheVariables": {"CMAKE_BUILD_TYPE": "MinSizeRel", "OSG_BOARD": "starter_g0b1cb"}
+  }],
+  "buildPresets": [{"name": "starter", "configurePreset": "starter"}]
+}

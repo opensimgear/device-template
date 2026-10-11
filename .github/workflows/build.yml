@@ -1,0 +1,20 @@
+name: STM32G0B1 firmware build
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  firmware:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Install cross compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends gcc-arm-none-eabi libnewlib-arm-none-eabi
+      - name: Configure compile-only smoke build
+        # Unallocated placeholders; never flash/distribute a device with these IDs.
+        working-directory: firmware
+        run: cmake --preset starter -DOSG_USB_VID=0xFFFF -DOSG_USB_PID=0xFFFF
+      - name: Build real board target
+        working-directory: firmware
+        run: cmake --build --preset starter --parallel

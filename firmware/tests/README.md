@@ -1,3 +1,3 @@
-# Firmware validation
+# Validation
 
-Add tests for observable inputs, outputs, and side effects as implementation arrives. Hardware validation must cover USB HID/CDC enumeration, CAN communication, ownership handoff, power behavior, disconnect recovery, and interrupted updates as applicable. Build success alone is not hardware validation.
+The firmware CI compiles the real board target; common-code native tests cover debouncing/recovery, bounded command parsing and USB descriptor output. [Board validation](../../electronics/boards/starter/rev-a/VALIDATION.md) records checks and physical test gates. Compilation does not establish hardware behavior.

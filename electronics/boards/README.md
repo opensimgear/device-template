@@ -1,5 +1,5 @@
-# PCB designs
+# Boards
 
-The device template will include a [starter KiCad board](starter/README.md) matched to its hello-world firmware. Its folder is reserved; native board sources and components are not implemented or selected yet.
+- [starter / rev-a](starter/rev-a/README.md): STM32G0B1CBT6 module starter, matching firmware target `starter_g0b1cb`. Schematic passes ERC; PCB routing and bench qualification are pending.
 
-Add real board designs and independently identified revisions here. Each revision should include editable KiCad sources, an electrical BOM, wiring/pinout and power documentation, recovery connections, and compatibility with firmware targets and mechanical editions. Generated fabrication outputs belong in validated releases.
+Create a new revision when electrical changes require it. Maintain firmware compatibility separately from mechanical Lite/Pro revisions.
