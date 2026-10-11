@@ -1,6 +1,6 @@
 # STM32G0B1 starter — Rev A draft
 
-Open `starter.kicad_pro` in **KiCad 10**. The schematic and placed PCB are editable and include local libraries; the board is **unrouted and not for fabrication**. No Gerbers are provided. See [validation](VALIDATION.md), [schematic PDF](review/schematic.pdf), [placement SVG](review/pcb.svg) and [BOM](bom.csv).
+Open `starter.kicad_pro` in **KiCad 10**. The schematic and routed PCB are editable and include local libraries; the board is a **routed prototype pending manufacturing and electrical review**. No Gerbers are provided. See [validation](VALIDATION.md), [schematic PDF](review/schematic.pdf), [front copper](review/pcb.svg), [back copper](review/pcb-back.svg), [routing PDF](review/routing.pdf) and [BOM](bom.csv).
 
 ## Selected components
 
@@ -72,11 +72,11 @@ The diodes block normal reverse power flow, but reverse leakage, simultaneous-so
 
 USB descriptors request 100 mA. Use the actual host budget; the prototype only drives a small LED. Do not add high-current outputs to the 3.3 V rail without revisiting USB budgets, regulators and thermal design. U4's nominal 0.5 A rating is not an approved module/chain current budget. Power off before connecting unqualified cables. External CAN surge/ESD protection, live connector sequencing and hot-plug behavior remain review gates before external-bus operation.
 
-## Routing starting point
+## Routed prototype
 
-Two copper layers, 100 × 85 mm outline and four M3 mounting holes. Footprints carry exact exported schematic nets, with no copper tracks or zones. References are on F.Fab to keep placement silkscreen clear. Route and compact the board after component/connector review.
+Two copper layers, 100 × 85 mm outline and four M3 mounting holes. All schematic nets are connected on F.Cu/B.Cu. The board has 556 track segments, 140 through vias (81 for ground stitching) and ground pours on both faces. USB protection, regulator circuitry, MCU decoupling and the analog filter were moved to shorten their local connections. References are on F.Fab to keep the silkscreen clear. See [routing constraints and measurements](ROUTING.md).
 
-Keep decoupling close to supply pins and a continuous ground return. Route USB as a short pair with protection next to J1; follow the USB/PCB stackup impedance requirement. Keep CAN pass-through short with a short transceiver stub. Size bus conductors, pads and copper for measured chain load and connector limits. The explicit prototype rule sets pad-to-hole clearance to 0.15 mm to accommodate J1's library geometry; a fabricator must approve this and all other constraints. No DRC exclusions hide unfinished routing.
+Keep decoupling close to supply pins and a continuous ground return. Route USB as a short pair with protection next to J1; follow the USB/PCB stackup impedance requirement. Keep CAN pass-through short with a short transceiver stub. Size bus conductors, pads and copper for measured chain load and connector limits. The explicit prototype rule sets pad-to-hole clearance to 0.15 mm to accommodate J1's library geometry; a fabricator must approve this and all other constraints. No custom DRC exclusions hide routing errors. Native KiCad DRC reports zero geometric violations, zero unconnected items and zero schematic/PCB mismatches.
 
 ## Libraries and licensing
 

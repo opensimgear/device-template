@@ -8,9 +8,9 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 - Composite USB HID + CDC serial, unique serial number from the MCU's 96-bit UID.
 - Serial `hello`, `info`, `inputs`, LED control and an internal CAN FD loopback diagnostic.
 - Shared debouncing, axis scaling, hat decoding, bounded encoder events, line handling, USB descriptor helpers and pinned dependencies in [firmware-common](https://github.com/opensimgear/firmware-common).
-- KiCad schematic, project, local symbol/footprint libraries, electrical BOM and a placed, net-connected PCB.
+- KiCad schematic, project, local symbol/footprint libraries, electrical BOM and a routed two-layer PCB with ground pours and stitching vias.
 
-**Status:** firmware compiles; host behavior tests pass; schematic ERC passes. The PCB is intentionally unrouted and not for fabrication. Physical USB, CAN, power and recovery behavior has not been tested. CAN remains in standby: discovery, application Cyphal traffic, gateway handoff, persistent configuration and firmware updates are future integration work.
+**Status:** firmware compiles; host behavior tests pass; schematic ERC passes. The routed draft passes copper DRC with zero unconnected items and matches the schematic; manufacturing/impedance and physical validation are still pending. Physical USB, CAN, power and recovery behavior has not been tested. CAN remains in standby: discovery, application Cyphal traffic, gateway handoff, persistent configuration and firmware updates are future integration work.
 
 ## Start here
 
@@ -19,7 +19,7 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 - [Starter board and pinout](electronics/boards/starter/rev-a/README.md)
 - [Validation record and remaining gates](electronics/boards/starter/rev-a/VALIDATION.md)
 - [Schematic PDF](electronics/boards/starter/rev-a/review/schematic.pdf)
-- [PCB placement preview](electronics/boards/starter/rev-a/review/pcb.svg)
+- [Front copper preview](electronics/boards/starter/rev-a/review/pcb.svg)
 
 ## Create a device
 
@@ -27,7 +27,7 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 2. Keep common implementation in firmware-common; update its full commit pin deliberately.
 3. Define the physical controls and device-specific HID report, identity and capability profile. The diagnostic console is not the ecosystem configuration protocol.
 4. Supply USB IDs you are authorized to use before flashing. No public OpenSimGear allocation exists yet; pid.codes is the planned allocation route when eligible.
-5. Change the board target and electronics together, route the PCB and complete the documented checks before fabrication.
+5. Change the board target and electronics together, adapt the routing and complete the documented checks before fabrication.
 6. Add mechanical designs under `hardware/variants/<edition>/<revision>` and maintain a compatibility table mapping mechanical, PCB and firmware revisions.
 
 ## Layout

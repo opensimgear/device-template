@@ -28,7 +28,7 @@ CMake fetches an exact firmware-common commit; that repository owns all upstream
 
 ## Flash and recover
 
-The starter PCB is not routed or approved for construction yet. Once a reviewed board is assembled, connect an ST-Link or other compatible SWD probe to J4: 1 target 3.3 V reference, 2 ground, 3 SWDIO, 4 SWCLK, 5 NRST. Power the target from its USB or reviewed 12 V source; J4's 3.3 V pin is a reference, not an invitation to feed another supply into it.
+The starter PCB is a routed draft pending manufacturer and electrical review. Once a reviewed board is assembled, connect an ST-Link or other compatible SWD probe to J4: 1 target 3.3 V reference, 2 ground, 3 SWDIO, 4 SWCLK, 5 NRST. Power the target from its USB or reviewed 12 V source; J4's 3.3 V pin is a reference, not an invitation to feed another supply into it.
 
 Use STM32CubeProgrammer's SWD interface to program the ELF/HEX at `0x08000000`, verify and reset. Keep NRST available for **connect under reset** recovery. This image has no USB update/DFU command or bootloader. Do not change debug-related option bytes during initial bring-up. The firmware target only describes this custom board, not an unchanged Nucleo board.
 
