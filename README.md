@@ -1,12 +1,12 @@
-# OpenSimGear firmware template
+# OpenSimGear device template
 
-GitHub template for a **complete device repository**, with firmware/, hardware/, electronics/, and a root README. Use it to start a new device while keeping each device's firmware and physical design together.
+GitHub template for a **complete device repository**, with firmware/, hardware/, electronics/, and a root README. Use it to start a new device while keeping its firmware, electronics, and mechanical design together. The intended starter includes hello-world firmware and an editable KiCad board.
 
 ## Status
 
-The repository layout is initialized. The buildable STM32G0B1 hello-world firmware target is the next implementation step; this scaffold does not yet enumerate USB, communicate over CAN, or produce a flashable image.
+The repository layout is initialized. A buildable STM32G0B1 hello-world firmware target and starting KiCad schematic/PCB are planned implementation steps. The current scaffold does not contain working firmware or board designs.
 
-The planned example uses a documented real STM32G0B1 reference board, shared firmware-common code, HID plus CDC serial, and an explicit test input. It must not synthesize automatic simulator commands. Reference-board wiring and recovery instructions must exist before advertising the example as buildable.
+The planned example pairs a documented real STM32G0B1 board target with shared firmware-common code, HID plus CDC serial, and an explicit test input. It must not synthesize automatic simulator commands. The starter KiCad board will provide editable schematic and PCB sources, a BOM, and documented pinout, power, and recovery wiring. Exact components and revisions remain to be selected and validated; ERC/DRC and hardware checks are required before recommending construction or advertising the example as usable.
 
 ## Create a device
 
@@ -21,7 +21,7 @@ The planned example uses a documented real STM32G0B1 reference board, shared fir
 
 - [firmware/](firmware/README.md): device-specific C sources, targets, profiles, and tests.
 - [hardware/](hardware/README.md): Lite/Pro edition folders and future mechanical sources.
-- [electronics/](electronics/README.md): shared PCB and wiring sources.
+- [electronics/](electronics/README.md): shared PCB and wiring sources, including the [planned starter KiCad board](electronics/boards/starter/README.md).
 
 Keep common electronics and firmware once. A new enclosure material alone does not require a new USB identity or duplicate firmware. Updates to this template do not automatically update repositories created from it; reusable implementation stays in firmware-common.
 
@@ -29,7 +29,7 @@ Keep common electronics and firmware once. A new enclosure material alone does n
 
 - [Protocol](https://github.com/opensimgear/protocol): shared definitions and compatibility rules.
 - [Firmware common](https://github.com/opensimgear/firmware-common): reusable C implementation.
-- [Firmware template](https://github.com/opensimgear/firmware-template): starting layout for new devices.
+- [Device template](https://github.com/opensimgear/device-template): new-device scaffold with planned hello-world firmware and starter KiCad board.
 - [Cockpit](https://github.com/opensimgear/cockpit): desktop configuration application.
 - [Website](https://github.com/opensimgear/opensimgear.github.io): system architecture and user documentation.
 
