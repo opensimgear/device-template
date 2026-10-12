@@ -1,0 +1,132 @@
+(footprint "J8_PinHeader_Samtec_TSW-104-07-L-S_P2.54mm_Vertical_HomeMilling"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Samtec TSW-104-07-L-S, 2.54mm pitch .635mm square post, manufacturer recommended1.02mm finished drill; https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf and tsw-xxx-xx-xxx-x-xx-xxx-mkt.pdf. Pin1 origin, row toward positiveY. Body width2.54, length10.16mm.")
+	(property "Reference" "J8"
+		(at 0 -2.1 0)
+		(layer "F.Fab")
+		(uuid "51cb8cbe-1f00-44be-9d19-78eb9269ed1e")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "ENCODER A B PUSH"
+		(at 0 9.72 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3fd840d2-321f-4424-a51a-98decc978da5")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Datasheet" "https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c15179bc-d8da-4ad7-802c-001bb4d2afb2")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "8ddca43e-0bbd-4913-ab16-91670ba340eb")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "MPN" "TSW-104-07-L-S"
+		(at 0 0 270)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "9146fbc6-69e3-4302-8cdc-827b4d17a5f2")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -1.38 -1.38)
+		(end 1.38 9)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "d5eecc68-eedc-4ee1-af43-bff7b6af8bdd")
+	)
+	(fp_rect
+		(start -1.55 -1.55)
+		(end 1.55 9.17)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "bfc1245e-c420-4a9c-88b9-8a9e03b0d03c")
+	)
+	(fp_rect
+		(start -1.27 -1.27)
+		(end 1.27 8.89)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "a6230e89-b97e-4779-ac05-542f93769c8f")
+	)
+	(pad "1" thru_hole rect
+		(at 0 0)
+		(size 1.7 1.7)
+		(drill 1.02)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "21716165-6262-41b1-837b-3d0928b1f84a")
+	)
+	(pad "2" thru_hole circle
+		(at 0 2.54)
+		(size 1.7 1.7)
+		(drill 1.02)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "fa882bdc-eb0b-4080-855e-34ddc4941a21")
+	)
+	(pad "3" thru_hole circle
+		(at 0 5.08)
+		(size 1.7 1.7)
+		(drill 1.02)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "7b01b702-de15-43d6-85bb-0b4ee420e6ff")
+	)
+	(pad "4" thru_hole circle
+		(at 0 7.62)
+		(size 1.7 1.7)
+		(drill 1.02)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "b51971ee-5380-4372-a98e-8ec4bc2b7f31")
+	)
+	(embedded_fonts no)
+)

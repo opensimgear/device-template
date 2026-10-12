@@ -18,7 +18,10 @@ Production PCB/schematic checks were refreshed **2026-10-12** after compact plac
 | Manufacturing construction / USB geometry | JLC04161H-7628 and 0.2474/0.1501 mm calculated main pair recorded; fabricator approval, coupon and TDR pending |
 | Schematic PDF and copper previews | Exported for the revised layout; review package does not replace manufacturing-layer inspection |
 | Physical board / Windows, Linux, macOS USB / CAN / power tests | Not run; hardware not built |
-| Home-milling layout and coupon | Separate 85 × 85 mm board plus 5 mm rail in progress; machine/registration/assembly qualification pending |
+| Home-milling layout | 85 × 85 mm body plus removable 5 mm rail; 120 wire joins; ERC 0 errors/warnings, DRC 0 violations/unconnected/parity issues; [assembly and reports](home-milling/README.md) |
+| Home unplated-hole construction | Independent audit confirms unchanged manufacturer lands, accessible wire joins and connectivity with ordinary contacts bottom-only / USB shell front-only; [review](home-milling/review/CONSTRUCTION-AUDIT.md), [connectivity model](home-milling/review/UNPLATED-CONNECTIVITY.md) |
+| Milling qualification coupon | 45 × 35 mm; DRC 0 violations/unconnected items; includes USB/QFP/SC70 lands and measurement record; [coupon](home-milling/coupon/README.md) |
+| Makera Z1 process / physical assembly | Not run; cutter/laminate/registration/slot/hand-solder qualification pending |
 
 The DRC result uses the explicit 0.15 mm pad-to-hole rule for J1's library geometry, the USB class's 0.15 mm clearance, and the recorded minimum power widths. Saved ERC/DRC reports list ignored check categories. No per-item routing exclusions are used; the zero result applies to the enabled rules and does not certify fabricated clearances, assembly fit or electrical behaviour.
 

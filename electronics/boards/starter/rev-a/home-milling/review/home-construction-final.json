@@ -1,0 +1,40 @@
+{
+  "board_sha256": "f6a7428486e841b3b23a99f1f08ba89ce79c24e592b92395c2f1ca75ec7e06f6",
+  "board_unchanged_during_audit": true,
+  "mtime": 1791795255.180418,
+  "tracks": 1603,
+  "vias": 120,
+  "via_sizes_mm": [
+    [
+      1.8,
+      0.8
+    ]
+  ],
+  "minimum_track_mm": 0.2,
+  "minimum_via_land_to_component_bound_mm": 0.225,
+  "nearest": {
+    "via": [
+      176.9,
+      157.5
+    ],
+    "ref": "U7"
+  },
+  "production_pad_geometry_mismatches": [],
+  "long_lead_pad_count": 48,
+  "front_ground_fill_clearance_below_0_199mm": [],
+  "front_track_clearance_below_0_199mm": [],
+  "physical_ground_graph_nodes": 512,
+  "physical_ground_pad_groups": 1,
+  "usb_shell_ground_reaches_manual_wire": true,
+  "edge_bounds_mm": [
+    95.0,
+    100.0,
+    185.0,
+    185.0
+  ],
+  "connector_noses_x_mm": {
+    "J1": 185.0,
+    "J2": 185.0,
+    "J3": 185.0
+  }
+}

@@ -1,0 +1,115 @@
+(footprint "D4_LED_Kingbright_AP2012SGC_0805_HomeMilling"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Kingbright AP2012SGC DSAA4050 Rev15B 2021-01-15, https://www.kingbrightusa.com/images/catalog/SPEC/AP2012SGC.pdf; manufacturer lands 1.25x1.10, inner gap1.10. Pin1 cathode negative-X. Body2.00x1.25,height1.10max.")
+	(tags "Kingbright green LED cathode")
+	(property "Reference" "D4"
+		(at 0 -1.8 0)
+		(layer "F.Fab")
+		(uuid "b1bcd2a1-e880-4896-be27-5551de81f2d0")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "GREEN"
+		(at 0 1.8 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "4d5d6dfc-5f80-41ca-a527-20445016da38")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.kingbrightusa.com/images/catalog/SPEC/AP2012SGC.pdf"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2ba9341f-cca2-4ae0-b83f-cf7d834d21e9")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9d526d20-a07c-4a74-a42d-1d9758f532e9")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "MPN" "AP2012SGC"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "d354772c-f2e9-4608-aaba-b9519ef99b3e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -2.05 -1)
+		(end 2.05 1)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "05943ab5-ef66-47f6-848d-b5c408c07ce5")
+	)
+	(fp_rect
+		(start -1 -0.625)
+		(end 1 0.625)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "86529de6-3470-4e08-b937-8cb790fc773b")
+	)
+	(fp_circle
+		(center -0.8 -0.425)
+		(end -0.7 -0.425)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "1a0d8eb5-f96a-48f7-81dc-71d375f8f3fc")
+	)
+	(pad "1" smd roundrect
+		(at -1.175 0)
+		(size 1.25 1.1)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.125)
+		(uuid "3d950897-b542-4515-aa99-47f3ba7ab93e")
+	)
+	(pad "2" smd roundrect
+		(at 1.175 0)
+		(size 1.25 1.1)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.125)
+		(uuid "fa89a34a-127b-45fd-b99d-87bbdf1618d1")
+	)
+	(embedded_fonts no)
+)

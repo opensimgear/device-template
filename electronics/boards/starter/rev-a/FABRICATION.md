@@ -5,7 +5,7 @@ The starter has one shared schematic and BOM, with separate layouts for commerci
 | Layout | Board and construction | Purpose and status |
 | --- | --- | --- |
 | Production, `starter.kicad_pcb` | 65 × 55 mm, four copper layers, nominal 1.6 mm | Compact layout; J1 USB and J2/J3 CAN mouths face the east edge. Uses the impedance construction below. |
-| Home, `home-milling/starter.kicad_pcb` | 85 × 85 mm board plus alignment rail, two copper layers, 1.6 mm laminate | Separate Makera Z1 prototype layout and assembly plan, in progress. Not impedance qualified. Uses footprint-only schematic variants derived from the parent circuit; no independent electrical design is implied. |
+| Home, `home-milling/starter.kicad_pcb` | 85 × 85 mm board plus removable 5 mm rail, two copper layers, 1.6 mm laminate | Routed Makera Z1 prototype with 120 accessible wire joins; native and unplated-hole connectivity checks pass. Process qualification remains required. Uses footprint-only schematic variants derived from the parent circuit and the same purchasing BOM. Not impedance qualified. |
 
 ## Production construction and USB
 
