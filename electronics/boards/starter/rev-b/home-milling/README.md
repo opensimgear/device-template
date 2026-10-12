@@ -54,7 +54,7 @@ This is a bench prototype, with a two-layer ground arrangement and manually sold
 
 The exact CAN jack is Evercom 5301-4P4C (LCSC C3097715), with an 11.10 × 18.05 × 11.45 mm body and a nose 14.25 mm from its footprint origin. Both 3.20 mm locating holes retain the independently checked drawing dimensions. Pin 1 is BUS_12V, pin 2 CAN_H, pin 3 CAN_L and pin 4 GND; both jacks are parallel connections to one linear bus.
 
-The circuit and firmware pin mapping are shared with the canonical version: USB direct operation, two CAN pass-through connectors, 12 V alongside CAN, local protection/regulation and USB/bus power selection. The RJ sockets are powered CAN, not telephone or Ethernet ports. CAN/Cyphal discovery, hot plugging and duplicate-input arbitration remain firmware integration work in the starter scaffold; this PCB review does not establish their implementation. These functions still require populated-board tests. Perform continuity, shorts, power-rail and supply handover checks before connecting a PC or CAN chain.
+The circuit and firmware pin mapping are shared with the canonical version: USB direct operation, two CAN pass-through connectors, 12 V alongside CAN, local protection/regulation and USB/bus power selection. The RJ sockets are powered CAN, not telephone or Ethernet ports. Rev B firmware implements private CAN FD v2 discovery, gateway input delivery and direct USB ownership; see [CAN integration](../../../../../firmware/CAN_BRINGUP.md). Cyphal remains future work. Software tests and this PCB review do not establish physical hot-plug, ownership handover or USB/CAN behavior. Perform continuity, shorts, power-rail and supply handover checks before connecting a PC or CAN chain.
 
 ## Shared circuit and source refresh
 
