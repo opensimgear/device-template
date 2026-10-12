@@ -1,5 +1,5 @@
 # Board targets
 
-`starter_g0b1cb` is implemented for the custom [starter rev-a electronics](../../electronics/boards/starter/rev-a/README.md). It selects STM32G0B1CBT6, internal clocks, physical pins, SWD recovery and a 128 KiB / 144 KiB linker map. It is build-checked, not bench-validated. An unchanged Nucleo board is not this target.
+`starter_g0b1cb_rev_b` matches the [generic Rev B PCB](../../electronics/boards/starter/rev-b/README.md). It reserves USB, CAN, LED, VBUS sensing and SWD, and exposes eight analogue channels, 24 digital lines and PB6/PB7 I²C. Internal HSI/PLL provides 64 MHz; HSI48 uses USB SOF recovery. The linker map is 128 KiB flash / 144 KiB RAM.
 
-Add a target for a changed PCB or pin mapping. Mechanical Lite/Pro editions can share a target when electronics agree. Gateway hardware remains undecided.
+Rev A wiring is incompatible; its firmware is preserved at commit `5a78e46`. A requested `starter_g0b1cb` target fails clearly. Add a new board target when PCB pin assignments change. Mechanical Lite/Pro editions may share a board/profile when their electronics agree. The gateway remains a separate platform.

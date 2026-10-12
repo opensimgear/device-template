@@ -1,10 +1,13 @@
 #include "tusb.h"
+#include "profile.h"
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
 void board_uid_hex(char out[25]) { strcpy(out,"0123456789abcdef01234567"); }
 static unsigned u16(const uint8_t *p) {return p[0]|p[1]<<8;}
 int main(void) {
+    assert(device_profile_prepare());
+    const osg_profile_layout_t *layout=device_report_layout();
     const uint8_t *config=tud_descriptor_configuration_cb(0);
     unsigned config_length=u16(config+2),report_length=0,interfaces=0;
     for(unsigned i=0;i<config_length;) {
@@ -16,6 +19,7 @@ int main(void) {
     assert(interfaces==3 && report_length>0);
     const uint8_t *d=tud_hid_descriptor_report_cb(0);
     unsigned page=0,usage=0,min_usage=0,max_usage=0,size=0,count=0,bits=0,fields=0,collections=0,unit=0;
+    unsigned button_fields=0,hat_fields=0,axis_fields=0;
     int32_t logical_min=0,logical_max=0;
     for(unsigned i=0;i<report_length;) {
         uint8_t tag=d[i++];assert(tag!=0xfe);unsigned n=tag&3;n=n==3?4:n;
@@ -35,16 +39,17 @@ int main(void) {
             case 0xa0:assert(page==1 && usage==4 && value==1);collections++;usage=0;break;
             case 0xc0:assert(collections==1);collections--;break;
             case 0x80:
-                if(fields==0)assert(bits==0 && page==9 && min_usage==1 && max_usage==8 && size==1 && count==8 && value==2 && logical_min==0 && logical_max==1);
-                else if(fields==1)assert(bits==8 && page==1 && usage==0x39 && size==4 && count==1 && value==0x42 && logical_min==0 && logical_max==7 && unit==0x14);
-                else if(fields==2)assert(bits==12 && size==4 && count==1 && (value&1));
-                else if(fields==3)assert(bits==16 && page==1 && usage==0x30 && size==16 && count==1 && value==2 && logical_min==0 && logical_max==65535 && unit==0);
-                else assert(!"Unexpected input field");
+                if(!(value&1)) {
+                    if(page==9) { button_fields++; assert(size==1 && count==layout->buttons && logical_min==0 && logical_max==1 && min_usage==1 && max_usage==layout->buttons); }
+                    else if(usage==0x39) { hat_fields++; assert(page==1 && size==4 && count==layout->hats && logical_min==0 && logical_max==7 && unit==0x14 && value==0x42); }
+                    else { axis_fields++; assert(page==1 && usage>=0x30 && usage<=0x38 && size==16 && count==1 && logical_min==0 && logical_max==65535 && unit==0); }
+                }
                 bits+=size*count;fields++;usage=min_usage=max_usage=0;break;
             case 0x90:case 0xb0:assert(!"Unexpected output/feature field");break;
         }
     }
-    assert(bits==32 && fields==4 && collections==0);
+    assert(bits==8U*layout->length && fields>0 && collections==0);
+    assert(button_fields==(layout->buttons?1U:0U) && hat_fields==(layout->hats?1U:0U) && axis_fields==layout->axes);
     const uint16_t *serial=tud_descriptor_string_cb(3,0x409);assert((serial[0]&255)==50 && serial[1]=='0' && serial[24]=='7');
-    puts("Actual HID report exposes eight buttons, an eight-way null-state hat and unsigned X in four bytes");
+    printf("Profile %s: %u buttons, %u axes, %u hats, %u bytes\n",device_profile()->name,layout->buttons,layout->axes,layout->hats,layout->length);
 }

@@ -1,5 +1,7 @@
 # STM32G0B1 starter — Rev A fabrication candidate
 
+**Historical six-contact revision:** Rev A uses the previous 6P6C powered-CAN pinout. It is incompatible with the current 4P4C gateway/module cable standard. Use only its documented wiring and matching firmware; do not connect it through an unverified adapter.
+
 Open `starter.kicad_pro` in **KiCad 10**. The editable production board is **65 × 55 mm with four copper layers**, with USB and both CAN sockets facing the same edge. Its area is 58% smaller than the earlier 100 × 85 mm layout. Exact component footprints, power-source selection and USB construction have been reviewed; fabrication approval and assembled-board measurements remain required. See [fabrication plans](FABRICATION.md), [electrical review](ELECTRICAL.md), [footprint sources](FOOTPRINTS.md), [validation](VALIDATION.md), [schematic PDF](review/schematic.pdf), [front copper](review/pcb.svg), [back copper](review/pcb-back.svg), [routing PDF](review/routing.pdf) and [BOM](bom.csv).
 
 ## Selected components
@@ -38,7 +40,7 @@ J4 SWD: 1 target 3.3 V reference, 2 GND, 3 SWDIO, 4 SWCLK, 5 NRST. J6 test: 1 CA
 
 ## External input controls
 
-The `Input examples` child schematic supplies the external control connections. These replace the previous generic J5 GPIO expansion; this unreleased draft revision now uses J5 for the axis. See the [control profile](../../../../firmware/profiles/README.md) for HID mapping and behavior.
+The `Input examples` child schematic supplies the external control connections. These replace the previous generic J5 GPIO expansion; this unreleased draft revision now uses J5 for the axis. See the [control profile](https://github.com/opensimgear/device-template/blob/5a78e460645b46b0f28a00964a51d4030956c131/firmware/profiles/README.md) for HID mapping and behavior.
 
 | Header | Pin sequence |
 | --- | --- |

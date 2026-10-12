@@ -13,5 +13,5 @@
 #define CFG_TUD_CDC_RX_BUFSIZE 128
 #define CFG_TUD_CDC_TX_BUFSIZE 256
 #define CFG_TUD_CDC_EP_BUFSIZE 64
-#define CFG_TUD_HID_EP_BUFSIZE 8
+#define CFG_TUD_HID_EP_BUFSIZE 64
 #define CFG_TUSB_MEM_ALIGN __attribute__((aligned(4)))

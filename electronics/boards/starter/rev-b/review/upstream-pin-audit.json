@@ -1,0 +1,8 @@
+{
+  "tinyusb": "efab607b8b738224c27b5e9e6410f8c74da43373",
+  "stm32g0xx-hal-driver": "289ef6c8ff0922878e99d253f29be76851f8f28e",
+  "cmsis-device-g0": "7c77b7cbcee497dfbb5cc08f9562a80515e78013",
+  "CMSIS_5": "55b19837f5703e418ca37894d5745b1dc05e4c91",
+  "libcanard": "120600375535b6a383fbe99a9d77c04b7a65e81a",
+  "protocol": "5f72de7e855af67433e0dfcbd8859a7ab606dc6c"
+}

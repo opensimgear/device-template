@@ -1,0 +1,32 @@
+{
+  "scope": "Exact Evercom5301-4P4C drawing geometry, read-only library check",
+  "library_path": "/Users/ntrp/_pws/opensimgear/work/generic-template/production/OpenSimGear.pretty/RJ4P4C_Evercom_5301-4P4C_Horizontal.kicad_mod",
+  "library_sha256": "512696046cf274a6711e32f747aa8a949ae46c43432e40ebb6f3bf2cdec61706",
+  "drawing_evidence": "evercom-4p4c-geometry.json",
+  "checks": [
+    "Four contacts numbered1..4; no old6P6C contacts",
+    "Pin1 component-side position",
+    "Pin1 exact .90mm contact drill",
+    "Pin1 production PTH contact",
+    "Pin1 project 1.80mm land",
+    "Pin2 component-side position",
+    "Pin2 exact .90mm contact drill",
+    "Pin2 production PTH contact",
+    "Pin2 project 1.80mm land",
+    "Pin3 component-side position",
+    "Pin3 exact .90mm contact drill",
+    "Pin3 production PTH contact",
+    "Pin3 project 1.80mm land",
+    "Pin4 component-side position",
+    "Pin4 exact .90mm contact drill",
+    "Pin4 production PTH contact",
+    "Pin4 project 1.80mm land",
+    "Two nonplated locating holes",
+    "Post1 exact position;7.50mmspan",
+    "Post1 exact3.20mmdrill",
+    "Post2 exact position;7.50mmspan",
+    "Post2 exact3.20mmdrill",
+    "Exact manufacturer body/F.Fab extents"
+  ],
+  "issues": []
+}

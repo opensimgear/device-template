@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-12",
+  "common_revision": "35e06787fb9696977fe92d20c5ff5afc1e3e1ebf",
+  "shared_native_tests": "4/4 pass, AppleClang21 Release",
+  "device_native_tests": "7/7 pass, clean pinned source, AppleClang21 Release",
+  "cross_compiler": "Arm GNU 15.3.1",
+  "profiles": [
+    {
+      "profile": "example",
+      "flash_bytes": 34668,
+      "ram_bytes": 10656,
+      "bin_sha256": "b8009ae0dea4529e059ace4736c3672ff9f62a35417415c01e73f753f4845daa"
+    },
+    {
+      "profile": "shifter",
+      "flash_bytes": 34652,
+      "ram_bytes": 10656,
+      "bin_sha256": "063b5f378d4c17377cee55ba50675bc0faecd78e87726e031da7c3a74717dc00"
+    },
+    {
+      "profile": "expanded",
+      "flash_bytes": 34828,
+      "ram_bytes": 10656,
+      "bin_sha256": "ad46124433a97357b573f5bae74bb220ad1fdcb8cf326957cb06ec2c6c6253b6"
+    }
+  ],
+  "hardware_tested": false,
+  "notes": "Compile-only USB0xFFFF/0xFFFF; RAM includes linker-reserved heap/stack. Two-boundary I2C timeout and volatile interrupt-shared recovery flag corrections included."
+}

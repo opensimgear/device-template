@@ -1,0 +1,1083 @@
+{
+  "source_sha256": "7ba38c2eb668858974c2e1e376d83eced83b57f8917dde311d581c2b15a0cdac",
+  "dimensions_mm": [
+    85.0,
+    75.0
+  ],
+  "outline_stroke_bbox_mm": [
+    85.05,
+    75.05
+  ],
+  "edge_bbox_mm": [
+    79.975,
+    79.975,
+    165.025,
+    155.025
+  ],
+  "footprints": 111,
+  "populated_components": 107,
+  "segments": 3757,
+  "vias": 247,
+  "ground_vias": 64,
+  "copper_layers": 4,
+  "per_layer_segments": {
+    "F.Cu": 1360,
+    "B.Cu": 1294,
+    "In2.Cu": 1006,
+    "In1.Cu": 97
+  },
+  "track_width_mm_counts": {
+    "0.2": 556,
+    "0.15": 2747,
+    "0.5": 50,
+    "0.25": 135,
+    "0.1874": 6,
+    "0.2474": 24,
+    "0.3": 24,
+    "0.225": 16,
+    "1.0": 199
+  },
+  "via_size_mm_counts": {
+    "0.6/0.3": 130,
+    "0.5/0.3": 11,
+    "0.5/0.25": 106
+  },
+  "GPIOFanout_class": {
+    "bus_width": 12,
+    "clearance": 0.15,
+    "diff_pair_gap": 0.25,
+    "diff_pair_via_gap": 0.25,
+    "diff_pair_width": 0.2,
+    "line_style": 0,
+    "microvia_diameter": 0.3,
+    "microvia_drill": 0.1,
+    "name": "GPIOFanout",
+    "pcb_color": "rgba(0, 0, 0, 0.000)",
+    "priority": -2,
+    "schematic_color": "rgba(0, 0, 0, 0.000)",
+    "track_width": 0.15,
+    "tuning_profile": "",
+    "via_diameter": 0.5,
+    "via_drill": 0.25,
+    "wire_width": 6
+  },
+  "GPIOFanout_assignments": [
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "D*"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "A*_ADC"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "A*_RAW"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "I2C_*"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "/CAN_RX"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "/CAN_TX"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "/CAN_STB"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "/SWDIO"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "/SWCLK"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "/NRST"
+    },
+    {
+      "netclass": "GPIOFanout",
+      "pattern": "/LED_A"
+    }
+  ],
+  "L2_exceptions": {
+    "exceptions": [
+      {
+        "net": "D14",
+        "a": [
+          128.0,
+          126.2
+        ],
+        "b": [
+          128.05,
+          118.9
+        ],
+        "new_vias": [],
+        "length_mm": 8.314823227846045,
+        "route_points_mm": [
+          [
+            128.0,
+            126.2
+          ],
+          [
+            128.0,
+            124.05
+          ],
+          [
+            129.2,
+            122.85
+          ],
+          [
+            129.2,
+            122.8
+          ],
+          [
+            129.25,
+            122.75
+          ],
+          [
+            129.25,
+            122.35
+          ],
+          [
+            129.2,
+            122.3
+          ],
+          [
+            129.2,
+            122.25
+          ],
+          [
+            129.15,
+            122.2
+          ],
+          [
+            129.15,
+            122.1
+          ],
+          [
+            129.1,
+            122.05
+          ],
+          [
+            129.1,
+            122.0
+          ],
+          [
+            129.05,
+            121.95
+          ],
+          [
+            129.05,
+            121.85
+          ],
+          [
+            129.0,
+            121.8
+          ],
+          [
+            129.0,
+            121.7
+          ],
+          [
+            128.95,
+            121.65
+          ],
+          [
+            128.95,
+            121.55
+          ],
+          [
+            128.9,
+            121.5
+          ],
+          [
+            128.9,
+            121.4
+          ],
+          [
+            128.85,
+            121.35
+          ],
+          [
+            128.85,
+            121.25
+          ],
+          [
+            128.8,
+            121.2
+          ],
+          [
+            128.8,
+            121.1
+          ],
+          [
+            128.75,
+            121.05
+          ],
+          [
+            128.75,
+            120.95
+          ],
+          [
+            128.7,
+            120.9
+          ],
+          [
+            128.7,
+            120.8
+          ],
+          [
+            128.65,
+            120.75
+          ],
+          [
+            128.65,
+            120.65
+          ],
+          [
+            128.6,
+            120.6
+          ],
+          [
+            128.6,
+            120.5
+          ],
+          [
+            128.55,
+            120.45
+          ],
+          [
+            128.55,
+            120.35
+          ],
+          [
+            128.5,
+            120.3
+          ],
+          [
+            128.5,
+            120.2
+          ],
+          [
+            128.45,
+            120.15
+          ],
+          [
+            128.45,
+            120.05
+          ],
+          [
+            128.4,
+            120.0
+          ],
+          [
+            128.4,
+            119.45
+          ],
+          [
+            128.35,
+            119.4
+          ],
+          [
+            128.35,
+            119.35
+          ],
+          [
+            128.1,
+            119.1
+          ],
+          [
+            128.1,
+            119.0
+          ],
+          [
+            128.05,
+            118.95
+          ],
+          [
+            128.05,
+            118.9
+          ]
+        ]
+      },
+      {
+        "net": "D12",
+        "a": [
+          125.45714285714286,
+          129.00714285714287
+        ],
+        "b": [
+          117.65,
+          115.85
+        ],
+        "new_vias": [
+          [
+            125.45714285714286,
+            129.00714285714287
+          ],
+          [
+            117.65,
+            115.85
+          ]
+        ],
+        "length_mm": 17.04451949036589,
+        "route_points_mm": [
+          [
+            125.45714285714286,
+            129.00714285714287
+          ],
+          [
+            123.25,
+            126.8
+          ],
+          [
+            123.2,
+            126.8
+          ],
+          [
+            123.15,
+            126.75
+          ],
+          [
+            122.7,
+            126.75
+          ],
+          [
+            122.65,
+            126.7
+          ],
+          [
+            122.6,
+            126.7
+          ],
+          [
+            121.7,
+            125.8
+          ],
+          [
+            121.7,
+            124.85
+          ],
+          [
+            121.85,
+            124.7
+          ],
+          [
+            121.85,
+            124.65
+          ],
+          [
+            121.9,
+            124.6
+          ],
+          [
+            121.9,
+            124.1
+          ],
+          [
+            121.95,
+            124.05
+          ],
+          [
+            121.95,
+            124.0
+          ],
+          [
+            122.0,
+            123.95
+          ],
+          [
+            122.0,
+            123.45
+          ],
+          [
+            122.05,
+            123.4
+          ],
+          [
+            122.05,
+            123.35
+          ],
+          [
+            122.1,
+            123.3
+          ],
+          [
+            122.1,
+            122.2
+          ],
+          [
+            122.05,
+            122.15
+          ],
+          [
+            122.05,
+            122.1
+          ],
+          [
+            121.7,
+            121.75
+          ],
+          [
+            121.7,
+            121.15
+          ],
+          [
+            121.65,
+            121.1
+          ],
+          [
+            121.65,
+            121.05
+          ],
+          [
+            121.55,
+            120.95
+          ],
+          [
+            121.55,
+            120.9
+          ],
+          [
+            118.2,
+            117.55
+          ],
+          [
+            118.2,
+            117.45
+          ],
+          [
+            118.15,
+            117.4
+          ],
+          [
+            118.15,
+            117.3
+          ],
+          [
+            118.1,
+            117.25
+          ],
+          [
+            118.1,
+            117.15
+          ],
+          [
+            118.05,
+            117.1
+          ],
+          [
+            118.05,
+            117.0
+          ],
+          [
+            118.0,
+            116.95
+          ],
+          [
+            118.0,
+            116.85
+          ],
+          [
+            117.95,
+            116.8
+          ],
+          [
+            117.95,
+            116.7
+          ],
+          [
+            117.9,
+            116.65
+          ],
+          [
+            117.9,
+            116.55
+          ],
+          [
+            117.85,
+            116.5
+          ],
+          [
+            117.85,
+            116.4
+          ],
+          [
+            117.8,
+            116.35
+          ],
+          [
+            117.8,
+            116.25
+          ],
+          [
+            117.75,
+            116.2
+          ],
+          [
+            117.75,
+            116.1
+          ],
+          [
+            117.7,
+            116.05
+          ],
+          [
+            117.7,
+            115.95
+          ],
+          [
+            117.65,
+            115.9
+          ],
+          [
+            117.65,
+            115.85
+          ]
+        ]
+      }
+    ],
+    "width_mm": 0.15,
+    "via_mm": [
+      0.5,
+      0.25
+    ],
+    "USB_keepout_bbox_mm": [
+      128.425,
+      125.1,
+      159.22,
+      146.8
+    ]
+  },
+  "L2_segment_count": 97,
+  "L2_signal_nets": [
+    "D12",
+    "D14"
+  ],
+  "USB": {
+    "main_width_mm": 0.2474,
+    "main_edge_gap_mm": 0.1501,
+    "main_pair_signal_vias": 0,
+    "main_segments": 24,
+    "main_length_mm_by_net": {
+      "/USB_DP": 33.13880866017439,
+      "/USB_DM": 33.00240770238653
+    },
+    "back_bridges": [
+      {
+        "net": "/USB_DM",
+        "start_mm": [
+          156.2,
+          143.95
+        ],
+        "end_mm": [
+          156.4,
+          145.55
+        ],
+        "width_mm": 0.15,
+        "length_mm": 1.6124515496597098
+      },
+      {
+        "net": "/USB_DP",
+        "start_mm": [
+          155.3,
+          143.45
+        ],
+        "end_mm": [
+          155.3,
+          145.05
+        ],
+        "width_mm": 0.15,
+        "length_mm": 1.6
+      }
+    ]
+  },
+  "power_widths_mm": {
+    "/BUS_12V": [
+      1.0
+    ],
+    "/BUS_FUSED": [
+      0.5
+    ],
+    "/BUCK_IN": [
+      0.5
+    ],
+    "/BUCK_5V": [
+      0.5
+    ],
+    "/SYS_5V": [
+      0.5
+    ]
+  },
+  "footprints_by_reference": [
+    {
+      "ref": "R65",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "D1",
+      "footprint": "KiCad:D_SMA"
+    },
+    {
+      "ref": "R2",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "C18",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "C12",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R64",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "U2",
+      "footprint": "KiCad:SOT-23-6"
+    },
+    {
+      "ref": "R37",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J8",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "J16",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "R66",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R56",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J7",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "J11",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "H1",
+      "footprint": "KiCad:MountingHole_3.2mm_M3"
+    },
+    {
+      "ref": "J14",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "R63",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "U6",
+      "footprint": "OpenSimGear:TI_DCK0006A_SC70-6_LM66100"
+    },
+    {
+      "ref": "C4",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R60",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R38",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R29",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R49",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "H4",
+      "footprint": "KiCad:MountingHole_3.2mm_M3"
+    },
+    {
+      "ref": "J12",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "C10",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "J9",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "J3",
+      "footprint": "OpenSimGear:RJ4P4C_Evercom_5301-4P4C_Horizontal"
+    },
+    {
+      "ref": "R8",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R61",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "C20",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "J5",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "U1",
+      "footprint": "KiCad:LQFP-48_7x7mm_P0.5mm"
+    },
+    {
+      "ref": "R57",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J15",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "C9",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R32",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "SW2",
+      "footprint": "KiCad:SW_PUSH_6mm_H4.3mm"
+    },
+    {
+      "ref": "R28",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J17",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "U3",
+      "footprint": "KiCad:SOIC-8_3.9x4.9mm_P1.27mm"
+    },
+    {
+      "ref": "R67",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "D5",
+      "footprint": "KiCad:D_SMF"
+    },
+    {
+      "ref": "R51",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R31",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R50",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J18",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-104-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "C3",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "U7",
+      "footprint": "OpenSimGear:TI_DCK0006A_SC70-6_LM66100"
+    },
+    {
+      "ref": "R1",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R48",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "C7",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "C19",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R54",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R27",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R33",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R20",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R62",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R19",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "C1",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R53",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R21",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J1",
+      "footprint": "KiCad:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    {
+      "ref": "R59",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R41",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "F1",
+      "footprint": "OpenSimGear:Fuse_Littelfuse_1206L025-24YR"
+    },
+    {
+      "ref": "C2",
+      "footprint": "KiCad:C_1210_3225Metric"
+    },
+    {
+      "ref": "C17",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R5",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R36",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R44",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J2",
+      "footprint": "OpenSimGear:RJ4P4C_Evercom_5301-4P4C_Horizontal"
+    },
+    {
+      "ref": "R26",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "C13",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R30",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R7",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R22",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R43",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R47",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "U4",
+      "footprint": "KiCad:Converter_DCDC_RECOM_R-78E-0.5_THT"
+    },
+    {
+      "ref": "R24",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "C8",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R34",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J10",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "R55",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R40",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R68",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "C15",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "C11",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R39",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "D4",
+      "footprint": "OpenSimGear:LED_Kingbright_AP2012SGC_0805"
+    },
+    {
+      "ref": "R3",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R35",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R25",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "C16",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R45",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R4",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R23",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J6",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "H3",
+      "footprint": "KiCad:MountingHole_3.2mm_M3"
+    },
+    {
+      "ref": "C6",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "R58",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "R52",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "J13",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "R46",
+      "footprint": "KiCad:R_0805_2012Metric"
+    },
+    {
+      "ref": "H2",
+      "footprint": "KiCad:MountingHole_3.2mm_M3"
+    },
+    {
+      "ref": "J4",
+      "footprint": "OpenSimGear:PinHeader_Samtec_TSW-105-07-L-S_P2.54mm_Vertical"
+    },
+    {
+      "ref": "C14",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "C5",
+      "footprint": "KiCad:C_0805_2012Metric"
+    },
+    {
+      "ref": "U5",
+      "footprint": "KiCad:SOT-23-5"
+    },
+    {
+      "ref": "R42",
+      "footprint": "KiCad:R_0805_2012Metric"
+    }
+  ],
+  "thermal_overrides": {
+    "J11.GND": {
+      "gap_mm": 0.2,
+      "spoke_mm": 0.2
+    },
+    "J18.GND": {
+      "gap_mm": 0.15,
+      "spoke_mm": 0.15,
+      "angle_deg": 45
+    }
+  },
+  "required_native_checks": {
+    "ERC_violations": 0,
+    "DRC_violations": 0,
+    "unconnected_items": 0,
+    "schematic_parity": 0
+  }
+}

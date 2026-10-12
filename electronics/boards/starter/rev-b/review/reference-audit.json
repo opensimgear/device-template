@@ -1,0 +1,1358 @@
+{
+  "scope": "Native full-copper polygon projection check, with only the revised D12/D14 L2 exceptions. Does not certify impedance or hardware.",
+  "board_path": "work/generic-template/production/starter.kicad_pcb",
+  "board_sha256": "7ba38c2eb668858974c2e1e376d83eced83b57f8917dde311d581c2b15a0cdac",
+  "check_count": 11,
+  "checks": [
+    "Only the two authorized D12/D14 signal nets occupy L2",
+    "D14 connects the revised authorized transition sites",
+    "D14 stays at least1mm from every USB copper track/pad projection",
+    "D12 connects the revised authorized transition sites",
+    "D12 stays at least1mm from every USB copper track/pad projection",
+    "Filled L2 GND is exactly one connected region",
+    "All main front USB track full widths and endcaps have filled L2 GND beneath",
+    "All differential USB component/connector launch pad full widths have filled L2 GND beneath",
+    "/USB_DM back duplicate bridge has full-width filled L3 GND outside exact signal-via antipads",
+    "/USB_DP back duplicate bridge has full-width filled L3 GND outside exact signal-via antipads",
+    "Source unchanged throughout independent audit"
+  ],
+  "issues": [],
+  "l2_signal_bridges": [
+    {
+      "net": "D14",
+      "tracks": [
+        {
+          "start_mm": [
+            128.65,
+            120.75
+          ],
+          "end_mm": [
+            128.65,
+            120.65
+          ],
+          "width_mm": 0.15,
+          "uuid": "01c67ee2-2b73-4495-a602-46d19e845891"
+        },
+        {
+          "start_mm": [
+            129.199999,
+            122.3
+          ],
+          "end_mm": [
+            129.199999,
+            122.25
+          ],
+          "width_mm": 0.15,
+          "uuid": "03a23c26-ec8d-491d-bf48-20a068206533"
+        },
+        {
+          "start_mm": [
+            129.05,
+            121.85
+          ],
+          "end_mm": [
+            129.0,
+            121.8
+          ],
+          "width_mm": 0.15,
+          "uuid": "16bcdb6c-748c-4888-9d6d-e0374c04758b"
+        },
+        {
+          "start_mm": [
+            128.699999,
+            120.9
+          ],
+          "end_mm": [
+            128.699999,
+            120.8
+          ],
+          "width_mm": 0.15,
+          "uuid": "200cdd97-2b4b-421d-a024-4bdaa1be8f2c"
+        },
+        {
+          "start_mm": [
+            128.1,
+            119.0
+          ],
+          "end_mm": [
+            128.05,
+            118.95
+          ],
+          "width_mm": 0.15,
+          "uuid": "23d9b960-0b10-4306-af17-31868b2b240c"
+        },
+        {
+          "start_mm": [
+            128.55,
+            120.35
+          ],
+          "end_mm": [
+            128.5,
+            120.3
+          ],
+          "width_mm": 0.15,
+          "uuid": "35c8f055-07d6-4e14-9f64-8556d43e7201"
+        },
+        {
+          "start_mm": [
+            128.9,
+            121.4
+          ],
+          "end_mm": [
+            128.85,
+            121.35
+          ],
+          "width_mm": 0.15,
+          "uuid": "365a92d9-8986-4518-a673-7d72a2b7052c"
+        },
+        {
+          "start_mm": [
+            128.949999,
+            121.55
+          ],
+          "end_mm": [
+            128.9,
+            121.5
+          ],
+          "width_mm": 0.15,
+          "uuid": "410ed668-c18e-4b1f-a2e3-d92d83b90216"
+        },
+        {
+          "start_mm": [
+            128.85,
+            121.25
+          ],
+          "end_mm": [
+            128.8,
+            121.2
+          ],
+          "width_mm": 0.15,
+          "uuid": "434e2477-f0d0-41aa-8557-fc44b173fe40"
+        },
+        {
+          "start_mm": [
+            128.5,
+            120.2
+          ],
+          "end_mm": [
+            128.449999,
+            120.15
+          ],
+          "width_mm": 0.15,
+          "uuid": "488447c3-147c-4fe6-a1b6-68dfb327b003"
+        },
+        {
+          "start_mm": [
+            129.0,
+            121.8
+          ],
+          "end_mm": [
+            129.0,
+            121.7
+          ],
+          "width_mm": 0.15,
+          "uuid": "4d19c315-e957-4e2c-b75c-ea2ff0659628"
+        },
+        {
+          "start_mm": [
+            128.75,
+            120.95
+          ],
+          "end_mm": [
+            128.699999,
+            120.9
+          ],
+          "width_mm": 0.15,
+          "uuid": "4d1d1d44-648f-49dc-b4bb-aed235d40739"
+        },
+        {
+          "start_mm": [
+            128.05,
+            118.95
+          ],
+          "end_mm": [
+            128.05,
+            118.9
+          ],
+          "width_mm": 0.15,
+          "uuid": "4d3119fc-61d1-4a64-bd61-e9891f253ff9"
+        },
+        {
+          "start_mm": [
+            128.4,
+            119.45
+          ],
+          "end_mm": [
+            128.35,
+            119.4
+          ],
+          "width_mm": 0.15,
+          "uuid": "50317398-856a-4818-8130-b7968a687857"
+        },
+        {
+          "start_mm": [
+            129.199999,
+            122.85
+          ],
+          "end_mm": [
+            129.199999,
+            122.8
+          ],
+          "width_mm": 0.15,
+          "uuid": "5dbb25a0-a783-4ac7-8fa0-741dc5d8f945"
+        },
+        {
+          "start_mm": [
+            128.6,
+            120.6
+          ],
+          "end_mm": [
+            128.6,
+            120.5
+          ],
+          "width_mm": 0.15,
+          "uuid": "67eeb496-0b28-48ca-ad9d-0bf26a81547b"
+        },
+        {
+          "start_mm": [
+            128.4,
+            120.0
+          ],
+          "end_mm": [
+            128.4,
+            119.45
+          ],
+          "width_mm": 0.15,
+          "uuid": "6ca44279-d56b-4017-ba6e-7b3b2d401679"
+        },
+        {
+          "start_mm": [
+            128.75,
+            121.05
+          ],
+          "end_mm": [
+            128.75,
+            120.95
+          ],
+          "width_mm": 0.15,
+          "uuid": "6dab5481-f196-4087-ac85-01de9bd30512"
+        },
+        {
+          "start_mm": [
+            128.0,
+            126.2
+          ],
+          "end_mm": [
+            128.0,
+            124.05
+          ],
+          "width_mm": 0.15,
+          "uuid": "6ece28ef-256a-4592-a2c5-bf268ca3c960"
+        },
+        {
+          "start_mm": [
+            129.25,
+            122.75
+          ],
+          "end_mm": [
+            129.25,
+            122.35
+          ],
+          "width_mm": 0.15,
+          "uuid": "6ef98d6e-6cbd-46ca-9c5f-afec0d2e3ec7"
+        },
+        {
+          "start_mm": [
+            128.55,
+            120.45
+          ],
+          "end_mm": [
+            128.55,
+            120.35
+          ],
+          "width_mm": 0.15,
+          "uuid": "76d65284-0500-426f-b329-15cd5ab03abe"
+        },
+        {
+          "start_mm": [
+            129.1,
+            122.0
+          ],
+          "end_mm": [
+            129.05,
+            121.95
+          ],
+          "width_mm": 0.15,
+          "uuid": "7baf52e2-5ca1-462a-b0de-e0024a5083a8"
+        },
+        {
+          "start_mm": [
+            128.65,
+            120.65
+          ],
+          "end_mm": [
+            128.6,
+            120.6
+          ],
+          "width_mm": 0.15,
+          "uuid": "7ef8d4e8-e238-4e09-8780-f9493bbf8097"
+        },
+        {
+          "start_mm": [
+            128.5,
+            120.3
+          ],
+          "end_mm": [
+            128.5,
+            120.2
+          ],
+          "width_mm": 0.15,
+          "uuid": "888131c8-7efe-4d6b-9c87-60f61daf787d"
+        },
+        {
+          "start_mm": [
+            128.699999,
+            120.8
+          ],
+          "end_mm": [
+            128.65,
+            120.75
+          ],
+          "width_mm": 0.15,
+          "uuid": "8f7a3bef-6cd2-4e4b-b22b-e95c1b36a96d"
+        },
+        {
+          "start_mm": [
+            128.85,
+            121.35
+          ],
+          "end_mm": [
+            128.85,
+            121.25
+          ],
+          "width_mm": 0.15,
+          "uuid": "9298541c-5db6-4dda-b2c3-fcfbe4dd04fd"
+        },
+        {
+          "start_mm": [
+            129.05,
+            121.95
+          ],
+          "end_mm": [
+            129.05,
+            121.85
+          ],
+          "width_mm": 0.15,
+          "uuid": "956956f8-8a9a-4f2f-a8c4-bd0e93f50814"
+        },
+        {
+          "start_mm": [
+            129.1,
+            122.05
+          ],
+          "end_mm": [
+            129.1,
+            122.0
+          ],
+          "width_mm": 0.15,
+          "uuid": "9dcfeecf-7799-422c-b0e4-651d62806dd6"
+        },
+        {
+          "start_mm": [
+            128.0,
+            124.05
+          ],
+          "end_mm": [
+            129.199999,
+            122.85
+          ],
+          "width_mm": 0.15,
+          "uuid": "a19d33ac-278c-4c87-b847-0d0bf3b92a94"
+        },
+        {
+          "start_mm": [
+            128.449999,
+            120.05
+          ],
+          "end_mm": [
+            128.4,
+            120.0
+          ],
+          "width_mm": 0.15,
+          "uuid": "a565613e-e14f-4a22-85b3-3e6a727ec058"
+        },
+        {
+          "start_mm": [
+            129.15,
+            122.1
+          ],
+          "end_mm": [
+            129.1,
+            122.05
+          ],
+          "width_mm": 0.15,
+          "uuid": "b58ea796-a00f-4412-bd95-b346469c0007"
+        },
+        {
+          "start_mm": [
+            128.35,
+            119.35
+          ],
+          "end_mm": [
+            128.1,
+            119.1
+          ],
+          "width_mm": 0.15,
+          "uuid": "be2a483e-35e1-43a6-8819-347299bcdc7c"
+        },
+        {
+          "start_mm": [
+            129.199999,
+            122.8
+          ],
+          "end_mm": [
+            129.25,
+            122.75
+          ],
+          "width_mm": 0.15,
+          "uuid": "c0d9e50a-e954-43e6-9da0-a706f5e6b581"
+        },
+        {
+          "start_mm": [
+            128.8,
+            121.2
+          ],
+          "end_mm": [
+            128.8,
+            121.1
+          ],
+          "width_mm": 0.15,
+          "uuid": "cf7a02f6-e4d6-4328-83ed-2ad26a0aec5d"
+        },
+        {
+          "start_mm": [
+            128.949999,
+            121.65
+          ],
+          "end_mm": [
+            128.949999,
+            121.55
+          ],
+          "width_mm": 0.15,
+          "uuid": "d1f86060-a4d5-4410-bed5-bf31d81d18d7"
+        },
+        {
+          "start_mm": [
+            129.199999,
+            122.25
+          ],
+          "end_mm": [
+            129.15,
+            122.2
+          ],
+          "width_mm": 0.15,
+          "uuid": "d6be9b73-16da-4164-b535-567debe72f91"
+        },
+        {
+          "start_mm": [
+            128.9,
+            121.5
+          ],
+          "end_mm": [
+            128.9,
+            121.4
+          ],
+          "width_mm": 0.15,
+          "uuid": "d81aab0e-1919-4051-9cbe-c88364667dbb"
+        },
+        {
+          "start_mm": [
+            129.25,
+            122.35
+          ],
+          "end_mm": [
+            129.199999,
+            122.3
+          ],
+          "width_mm": 0.15,
+          "uuid": "ded45ef8-bcac-4d60-bac7-ea0ffdc2038b"
+        },
+        {
+          "start_mm": [
+            128.35,
+            119.4
+          ],
+          "end_mm": [
+            128.35,
+            119.35
+          ],
+          "width_mm": 0.15,
+          "uuid": "e25c4780-68f4-4cd5-8ea4-626b5c8b2b67"
+        },
+        {
+          "start_mm": [
+            128.6,
+            120.5
+          ],
+          "end_mm": [
+            128.55,
+            120.45
+          ],
+          "width_mm": 0.15,
+          "uuid": "ea505c0b-ecd8-4c0a-adc5-54a9944409f7"
+        },
+        {
+          "start_mm": [
+            129.0,
+            121.7
+          ],
+          "end_mm": [
+            128.949999,
+            121.65
+          ],
+          "width_mm": 0.15,
+          "uuid": "eb414958-02fd-42b1-948d-ce10f541ec7a"
+        },
+        {
+          "start_mm": [
+            128.1,
+            119.1
+          ],
+          "end_mm": [
+            128.1,
+            119.0
+          ],
+          "width_mm": 0.15,
+          "uuid": "f0174cb6-2f26-426e-ab7d-50d37cfcffc1"
+        },
+        {
+          "start_mm": [
+            129.15,
+            122.2
+          ],
+          "end_mm": [
+            129.15,
+            122.1
+          ],
+          "width_mm": 0.15,
+          "uuid": "f9485d03-4776-4d4c-90f7-a8ad8de5a1ae"
+        },
+        {
+          "start_mm": [
+            128.8,
+            121.1
+          ],
+          "end_mm": [
+            128.75,
+            121.05
+          ],
+          "width_mm": 0.15,
+          "uuid": "fba78e08-45ec-4d84-839f-0bd8b1b7693e"
+        },
+        {
+          "start_mm": [
+            128.449999,
+            120.15
+          ],
+          "end_mm": [
+            128.449999,
+            120.05
+          ],
+          "width_mm": 0.15,
+          "uuid": "fe8be11c-dbc4-40ab-b43b-3ff58d143331"
+        }
+      ],
+      "transition_vias": [
+        {
+          "position_mm": [
+            128.05,
+            118.9
+          ],
+          "l2_copper_diameter_mm": 0.5,
+          "uuid": "369528c7-b0ce-4ab3-8946-b844d4717d95"
+        },
+        {
+          "position_mm": [
+            128.0,
+            126.2
+          ],
+          "l2_copper_diameter_mm": 0.5,
+          "uuid": "52debe1f-bfb8-488d-9ec3-7b58a3991472"
+        }
+      ],
+      "authorized_transition_sites_mm": [
+        [
+          128.0,
+          126.2
+        ],
+        [
+          128.05,
+          118.9
+        ]
+      ],
+      "total_trace_length_mm": 8.314823227846047,
+      "minimum_planar_copper_gap_including_transition_vias_to_all_usb_mm": 1.175001
+    },
+    {
+      "net": "D12",
+      "tracks": [
+        {
+          "start_mm": [
+            122.05,
+            122.1
+          ],
+          "end_mm": [
+            121.7,
+            121.75
+          ],
+          "width_mm": 0.15,
+          "uuid": "01ef41b1-2031-4537-89c8-06f4122cef9a"
+        },
+        {
+          "start_mm": [
+            122.1,
+            122.2
+          ],
+          "end_mm": [
+            122.05,
+            122.15
+          ],
+          "width_mm": 0.15,
+          "uuid": "09bfacbf-5245-44c8-8be8-2e9dfc8e1bdc"
+        },
+        {
+          "start_mm": [
+            125.457142,
+            129.007142
+          ],
+          "end_mm": [
+            123.25,
+            126.8
+          ],
+          "width_mm": 0.15,
+          "uuid": "0d3ce4be-9904-43c3-a980-73bf4d92b60e"
+        },
+        {
+          "start_mm": [
+            122.7,
+            126.75
+          ],
+          "end_mm": [
+            122.65,
+            126.7
+          ],
+          "width_mm": 0.15,
+          "uuid": "1081b5e3-7652-4ccd-9ca5-8f65840a2b52"
+        },
+        {
+          "start_mm": [
+            121.9,
+            124.1
+          ],
+          "end_mm": [
+            121.95,
+            124.05
+          ],
+          "width_mm": 0.15,
+          "uuid": "109ffff1-eb5e-4c68-b5ee-2d1d367558ec"
+        },
+        {
+          "start_mm": [
+            117.8,
+            116.35
+          ],
+          "end_mm": [
+            117.8,
+            116.25
+          ],
+          "width_mm": 0.15,
+          "uuid": "16ac4703-9e9b-431d-a88c-d81df08de8a8"
+        },
+        {
+          "start_mm": [
+            117.85,
+            116.4
+          ],
+          "end_mm": [
+            117.8,
+            116.35
+          ],
+          "width_mm": 0.15,
+          "uuid": "192e7fd2-ed18-44fe-a4f4-2e90dd7197da"
+        },
+        {
+          "start_mm": [
+            118.0,
+            116.95
+          ],
+          "end_mm": [
+            118.0,
+            116.85
+          ],
+          "width_mm": 0.15,
+          "uuid": "210bb302-c618-4545-9de8-a27f85757351"
+        },
+        {
+          "start_mm": [
+            117.75,
+            116.1
+          ],
+          "end_mm": [
+            117.7,
+            116.05
+          ],
+          "width_mm": 0.15,
+          "uuid": "2720baa0-72bd-4050-955f-12f02b59f7ae"
+        },
+        {
+          "start_mm": [
+            121.95,
+            124.05
+          ],
+          "end_mm": [
+            121.95,
+            124.0
+          ],
+          "width_mm": 0.15,
+          "uuid": "28f0fed6-c94a-4a22-86cf-b877874097d8"
+        },
+        {
+          "start_mm": [
+            118.1,
+            117.15
+          ],
+          "end_mm": [
+            118.05,
+            117.1
+          ],
+          "width_mm": 0.15,
+          "uuid": "2c7d1e80-2c7e-444d-863b-cbea0f5a7c0c"
+        },
+        {
+          "start_mm": [
+            121.7,
+            121.15
+          ],
+          "end_mm": [
+            121.65,
+            121.1
+          ],
+          "width_mm": 0.15,
+          "uuid": "2d747571-2bdb-4cfc-8964-4c6d4f202ebe"
+        },
+        {
+          "start_mm": [
+            122.0,
+            123.45
+          ],
+          "end_mm": [
+            122.05,
+            123.4
+          ],
+          "width_mm": 0.15,
+          "uuid": "2ddd38cf-83e9-478a-948a-462af37ffd38"
+        },
+        {
+          "start_mm": [
+            121.9,
+            124.6
+          ],
+          "end_mm": [
+            121.9,
+            124.1
+          ],
+          "width_mm": 0.15,
+          "uuid": "2f487a37-4f06-40a7-b7a2-288a1fdc833d"
+        },
+        {
+          "start_mm": [
+            121.7,
+            125.8
+          ],
+          "end_mm": [
+            121.7,
+            124.85
+          ],
+          "width_mm": 0.15,
+          "uuid": "46c5fead-cca3-426a-a20c-fee0179073f6"
+        },
+        {
+          "start_mm": [
+            118.2,
+            117.55
+          ],
+          "end_mm": [
+            118.2,
+            117.45
+          ],
+          "width_mm": 0.15,
+          "uuid": "4efd8e01-1590-42cf-b8e6-4d4e0bf395c9"
+        },
+        {
+          "start_mm": [
+            121.55,
+            120.95
+          ],
+          "end_mm": [
+            121.55,
+            120.9
+          ],
+          "width_mm": 0.15,
+          "uuid": "5054fbb7-89b6-4f08-b3d2-e6c6d0d8d8df"
+        },
+        {
+          "start_mm": [
+            122.0,
+            123.95
+          ],
+          "end_mm": [
+            122.0,
+            123.45
+          ],
+          "width_mm": 0.15,
+          "uuid": "51aacbe5-7dd8-46df-8680-1c06824f512d"
+        },
+        {
+          "start_mm": [
+            121.95,
+            124.0
+          ],
+          "end_mm": [
+            122.0,
+            123.95
+          ],
+          "width_mm": 0.15,
+          "uuid": "526d59c2-9f69-40c7-b382-58b6396bb0c7"
+        },
+        {
+          "start_mm": [
+            118.1,
+            117.25
+          ],
+          "end_mm": [
+            118.1,
+            117.15
+          ],
+          "width_mm": 0.15,
+          "uuid": "65397aa0-a337-48e7-880b-cf154395e9b6"
+        },
+        {
+          "start_mm": [
+            118.05,
+            117.0
+          ],
+          "end_mm": [
+            118.0,
+            116.95
+          ],
+          "width_mm": 0.15,
+          "uuid": "6543adef-fb5f-4f99-8af5-9d1f41c5ee50"
+        },
+        {
+          "start_mm": [
+            117.7,
+            116.05
+          ],
+          "end_mm": [
+            117.7,
+            115.95
+          ],
+          "width_mm": 0.15,
+          "uuid": "69d6ec77-dfac-44bc-9bd8-b2d65cfe7a71"
+        },
+        {
+          "start_mm": [
+            123.15,
+            126.75
+          ],
+          "end_mm": [
+            122.7,
+            126.75
+          ],
+          "width_mm": 0.15,
+          "uuid": "6b3cc5bb-1663-4252-8376-1eb1810c2b7e"
+        },
+        {
+          "start_mm": [
+            117.7,
+            115.95
+          ],
+          "end_mm": [
+            117.65,
+            115.9
+          ],
+          "width_mm": 0.15,
+          "uuid": "73b65a7e-e297-435b-933f-9143c103439b"
+        },
+        {
+          "start_mm": [
+            121.7,
+            121.75
+          ],
+          "end_mm": [
+            121.7,
+            121.15
+          ],
+          "width_mm": 0.15,
+          "uuid": "75b5dbd3-2970-4821-be9d-63b10c3e3f7b"
+        },
+        {
+          "start_mm": [
+            123.2,
+            126.8
+          ],
+          "end_mm": [
+            123.15,
+            126.75
+          ],
+          "width_mm": 0.15,
+          "uuid": "777225ed-d558-476c-80cc-0c4a7a995a56"
+        },
+        {
+          "start_mm": [
+            117.9,
+            116.65
+          ],
+          "end_mm": [
+            117.9,
+            116.55
+          ],
+          "width_mm": 0.15,
+          "uuid": "7a1e098e-2e9b-4c27-9a5a-c1a99230f715"
+        },
+        {
+          "start_mm": [
+            121.65,
+            121.1
+          ],
+          "end_mm": [
+            121.65,
+            121.05
+          ],
+          "width_mm": 0.15,
+          "uuid": "7acb2b22-4544-4dfe-a413-6e1c8edf3448"
+        },
+        {
+          "start_mm": [
+            118.0,
+            116.85
+          ],
+          "end_mm": [
+            117.95,
+            116.8
+          ],
+          "width_mm": 0.15,
+          "uuid": "932e0832-d400-449a-a4eb-f69346cfa40a"
+        },
+        {
+          "start_mm": [
+            122.05,
+            123.4
+          ],
+          "end_mm": [
+            122.05,
+            123.35
+          ],
+          "width_mm": 0.15,
+          "uuid": "9330f827-2165-45e9-806b-dff787b41306"
+        },
+        {
+          "start_mm": [
+            121.85,
+            124.7
+          ],
+          "end_mm": [
+            121.85,
+            124.65
+          ],
+          "width_mm": 0.15,
+          "uuid": "93b4e046-b746-4769-8fc7-2be446796d9a"
+        },
+        {
+          "start_mm": [
+            117.75,
+            116.2
+          ],
+          "end_mm": [
+            117.75,
+            116.1
+          ],
+          "width_mm": 0.15,
+          "uuid": "9832ff6d-1f33-4ea4-bc84-283915433621"
+        },
+        {
+          "start_mm": [
+            118.2,
+            117.45
+          ],
+          "end_mm": [
+            118.15,
+            117.4
+          ],
+          "width_mm": 0.15,
+          "uuid": "9bcbd89f-c46b-46ca-b8e3-82910958d552"
+        },
+        {
+          "start_mm": [
+            121.7,
+            124.85
+          ],
+          "end_mm": [
+            121.85,
+            124.7
+          ],
+          "width_mm": 0.15,
+          "uuid": "a1f4daac-7344-4623-8d7d-06ace8bf8760"
+        },
+        {
+          "start_mm": [
+            118.15,
+            117.3
+          ],
+          "end_mm": [
+            118.1,
+            117.25
+          ],
+          "width_mm": 0.15,
+          "uuid": "a71f3468-3620-4c3f-8f82-7f98266bb41d"
+        },
+        {
+          "start_mm": [
+            118.15,
+            117.4
+          ],
+          "end_mm": [
+            118.15,
+            117.3
+          ],
+          "width_mm": 0.15,
+          "uuid": "b64c0b81-4fd6-4971-aac7-afc3950c614a"
+        },
+        {
+          "start_mm": [
+            117.95,
+            116.8
+          ],
+          "end_mm": [
+            117.95,
+            116.7
+          ],
+          "width_mm": 0.15,
+          "uuid": "b9888506-db0b-4fca-8e95-76ee10cfe9d7"
+        },
+        {
+          "start_mm": [
+            117.9,
+            116.55
+          ],
+          "end_mm": [
+            117.85,
+            116.5
+          ],
+          "width_mm": 0.15,
+          "uuid": "bea9900c-5f1a-48d5-9451-e8473e01f98a"
+        },
+        {
+          "start_mm": [
+            122.05,
+            122.15
+          ],
+          "end_mm": [
+            122.05,
+            122.1
+          ],
+          "width_mm": 0.15,
+          "uuid": "bf9d98fb-626e-4044-abda-72fab4066f7e"
+        },
+        {
+          "start_mm": [
+            117.85,
+            116.5
+          ],
+          "end_mm": [
+            117.85,
+            116.4
+          ],
+          "width_mm": 0.15,
+          "uuid": "c486b60b-31ad-4fb0-8b2d-effcb3c41b59"
+        },
+        {
+          "start_mm": [
+            117.95,
+            116.7
+          ],
+          "end_mm": [
+            117.9,
+            116.65
+          ],
+          "width_mm": 0.15,
+          "uuid": "c4d4fa84-d728-4fea-a347-0427588f0d84"
+        },
+        {
+          "start_mm": [
+            122.65,
+            126.7
+          ],
+          "end_mm": [
+            122.6,
+            126.7
+          ],
+          "width_mm": 0.15,
+          "uuid": "c618111a-e23e-4ad8-b9d7-1918f7b8d24f"
+        },
+        {
+          "start_mm": [
+            122.1,
+            123.3
+          ],
+          "end_mm": [
+            122.1,
+            122.2
+          ],
+          "width_mm": 0.15,
+          "uuid": "c9cc7382-e69a-4aff-a783-90ffaa5b33f1"
+        },
+        {
+          "start_mm": [
+            122.6,
+            126.7
+          ],
+          "end_mm": [
+            121.7,
+            125.8
+          ],
+          "width_mm": 0.15,
+          "uuid": "cbbaa1d6-c9c4-4db6-8982-d51b42268ac7"
+        },
+        {
+          "start_mm": [
+            118.05,
+            117.1
+          ],
+          "end_mm": [
+            118.05,
+            117.0
+          ],
+          "width_mm": 0.15,
+          "uuid": "d489b901-800e-40b1-98ad-c7fb84d5ee99"
+        },
+        {
+          "start_mm": [
+            121.65,
+            121.05
+          ],
+          "end_mm": [
+            121.55,
+            120.95
+          ],
+          "width_mm": 0.15,
+          "uuid": "d6467a5b-9d71-46eb-931d-a9bf00b0e227"
+        },
+        {
+          "start_mm": [
+            123.25,
+            126.8
+          ],
+          "end_mm": [
+            123.2,
+            126.8
+          ],
+          "width_mm": 0.15,
+          "uuid": "d8652cc7-3998-4bb6-8665-ebcaea582c1f"
+        },
+        {
+          "start_mm": [
+            121.85,
+            124.65
+          ],
+          "end_mm": [
+            121.9,
+            124.6
+          ],
+          "width_mm": 0.15,
+          "uuid": "de6c94fc-44be-4a49-a054-a7ca820321db"
+        },
+        {
+          "start_mm": [
+            117.8,
+            116.25
+          ],
+          "end_mm": [
+            117.75,
+            116.2
+          ],
+          "width_mm": 0.15,
+          "uuid": "edecdbab-0f69-4d55-ad09-12def574dbad"
+        },
+        {
+          "start_mm": [
+            117.65,
+            115.9
+          ],
+          "end_mm": [
+            117.65,
+            115.85
+          ],
+          "width_mm": 0.15,
+          "uuid": "f6f67d3f-dc1f-47ee-87f2-00a53df1fd15"
+        },
+        {
+          "start_mm": [
+            121.55,
+            120.9
+          ],
+          "end_mm": [
+            118.2,
+            117.55
+          ],
+          "width_mm": 0.15,
+          "uuid": "f7a835d6-78c8-4ca1-90fd-6cfb0f0d6539"
+        },
+        {
+          "start_mm": [
+            122.05,
+            123.35
+          ],
+          "end_mm": [
+            122.1,
+            123.3
+          ],
+          "width_mm": 0.15,
+          "uuid": "fc21bd58-54fc-4e53-9833-99c97b9a37cc"
+        }
+      ],
+      "transition_vias": [
+        {
+          "position_mm": [
+            117.65,
+            115.85
+          ],
+          "l2_copper_diameter_mm": 0.5,
+          "uuid": "154e68c3-ff92-4d5c-ba49-cefdabce86dd"
+        },
+        {
+          "position_mm": [
+            125.457142,
+            129.007142
+          ],
+          "l2_copper_diameter_mm": 0.5,
+          "uuid": "ea3c16f1-aa32-4e72-9435-681fd0cf0515"
+        }
+      ],
+      "authorized_transition_sites_mm": [
+        [
+          125.4571429,
+          129.0071429
+        ],
+        [
+          117.65,
+          115.85
+        ]
+      ],
+      "total_trace_length_mm": 17.04451949036587,
+      "minimum_planar_copper_gap_including_transition_vias_to_all_usb_mm": 4.269176
+    }
+  ],
+  "l2_ground_regions": 1,
+  "l3_ground_regions": 13,
+  "main_front_usb_track_count": 37,
+  "main_usb_fullwidth_uncovered": [],
+  "usb_pad_fullwidth_uncovered": [],
+  "duplicate_front_branch_tracks": 6,
+  "back_bridge_coverage": [
+    {
+      "net": "/USB_DM",
+      "start_mm": [
+        156.2,
+        143.95
+      ],
+      "end_mm": [
+        156.4,
+        145.55
+      ],
+      "length_mm": 1.6124515496597345,
+      "width_mm": 0.15,
+      "passes": true,
+      "reference_projection_empty_after_antipads": false,
+      "full_track_projection_area_mm2": 0.2596413991055,
+      "required_reference_area_after_launch_antipads_mm2": 0.10703175435,
+      "uncovered_area_mm2": 0.0,
+      "uncovered_outline_count": 0,
+      "uncovered_projection_bounds_mm": null
+    },
+    {
+      "net": "/USB_DP",
+      "start_mm": [
+        155.3,
+        143.45
+      ],
+      "end_mm": [
+        155.3,
+        145.05
+      ],
+      "length_mm": 1.6000000000000227,
+      "width_mm": 0.15,
+      "passes": true,
+      "reference_projection_empty_after_antipads": false,
+      "full_track_projection_area_mm2": 0.25777311172,
+      "required_reference_area_after_launch_antipads_mm2": 0.104981945619,
+      "uncovered_area_mm2": 0.0,
+      "uncovered_outline_count": 0,
+      "uncovered_projection_bounds_mm": null
+    }
+  ],
+  "unavoidable_l3_signal_via_antipad_exclusions": [
+    {
+      "via_mm": [
+        156.4,
+        145.55
+      ],
+      "net": "/USB_DM",
+      "via_l3_copper_diameter_mm": 0.5,
+      "clearance_mm": 0.2,
+      "native_zone_polygon_max_error_mm": 0.005,
+      "nominal_antipad_radius_mm": 0.45,
+      "actual_hole_clip_radius_mm": 0.455,
+      "actual_clipped_antipad_area_mm2": 0.6412533704385
+    },
+    {
+      "via_mm": [
+        156.2,
+        143.95
+      ],
+      "net": "/USB_DM",
+      "via_l3_copper_diameter_mm": 0.5,
+      "clearance_mm": 0.2,
+      "native_zone_polygon_max_error_mm": 0.005,
+      "nominal_antipad_radius_mm": 0.45,
+      "actual_hole_clip_radius_mm": 0.455,
+      "actual_clipped_antipad_area_mm2": 0.642378393452
+    },
+    {
+      "via_mm": [
+        155.3,
+        145.05
+      ],
+      "net": "/USB_DP",
+      "via_l3_copper_diameter_mm": 0.5,
+      "clearance_mm": 0.2,
+      "native_zone_polygon_max_error_mm": 0.005,
+      "nominal_antipad_radius_mm": 0.45,
+      "actual_hole_clip_radius_mm": 0.455,
+      "actual_clipped_antipad_area_mm2": 0.641253344239
+    },
+    {
+      "via_mm": [
+        155.3,
+        143.45
+      ],
+      "net": "/USB_DP",
+      "via_l3_copper_diameter_mm": 0.5,
+      "clearance_mm": 0.2,
+      "native_zone_polygon_max_error_mm": 0.005,
+      "nominal_antipad_radius_mm": 0.45,
+      "actual_hole_clip_radius_mm": 0.455,
+      "actual_clipped_antipad_area_mm2": 0.642378501948
+    }
+  ]
+}

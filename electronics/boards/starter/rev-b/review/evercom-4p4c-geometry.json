@@ -1,0 +1,72 @@
+{
+  "manufacturer": "Evercom Electronic Technology Co., Ltd.",
+  "selected_part": "5301-4P4C",
+  "ordering_code": "LCSC C3097715",
+  "drawing_number": "5301-440XXX",
+  "drawing_title": "5301 4P4C",
+  "drawing_revision": "A",
+  "drawing_date": "2025-09-23",
+  "drawing_archive": ".research/gateway-datasheets/evercom-5301.pdf",
+  "drawing_sha256": "870bbd7e703e2c971a4a50ef716cff00093e3872e34a4494434166ad0d645695",
+  "source_product_url": "https://jlcpcb.com/partdetail/EVERCOM-53014P4C/C3097715",
+  "primary_download_location": "Product Documents section; PDF hosted through an expiring signed download URL. Unsigned link returned403. Advertised LCSC link returned HTML; no stable direct PDF link positively verified.",
+  "verification_method": "Rendered exact manufacturer drawing pixels and cross-checked extracted vector text; component-side PCB view determines numbering, not mirrored bottom view.",
+  "component_side_coordinate_system": "Pin1=(0,0); +X moves from contact1 toward contact3/contact4; +Y faces mating nose.",
+  "contact_positions_mm": {
+    "1": [
+      0,
+      0
+    ],
+    "2": [
+      1.27,
+      -2.54
+    ],
+    "3": [
+      2.54,
+      0
+    ],
+    "4": [
+      3.81,
+      -2.54
+    ]
+  },
+  "contact_hole_diameter_mm": 0.9,
+  "peg_positions_mm": [
+    [
+      -1.91,
+      6.35
+    ],
+    [
+      5.59,
+      6.35
+    ]
+  ],
+  "peg_hole_diameter_mm": 3.2,
+  "peg_center_span_mm": 7.5,
+  "body_extents_mm": {
+    "min_x": -3.71,
+    "max_x": 7.39,
+    "rear_y": -3.8,
+    "nose_y": 14.25
+  },
+  "body_width_depth_height_mm": [
+    11.1,
+    18.05,
+    11.45
+  ],
+  "nose_offset_derivation_mm": "7.90+8.89-2.54=14.25 from pin1/front-contact row; body center X=-1.91+7.50/2=1.84; body sides=center\u00b111.10/2.",
+  "tail_length_mm": 3.0,
+  "electrical": {
+    "rated_current_A": 1.5,
+    "rated_voltage_Vrms": 125,
+    "contact_resistance_max_milliohm": 30
+  },
+  "durability_min_mating_cycles": 750,
+  "temperature_C": [
+    -40,
+    85
+  ],
+  "project_copper_land_choice": "1.80\u00d71.80 contacts, 0.90mm drill, pin1roundrect/othersround; manufacturer drawing specifies hole diameters and locations, not copper land diameter.",
+  "initial_shared_library_finding": "Right locating post drill=3.25 instead of exactdrawing3.20. All other numbered contacts/postcenters/body/F.Fab extents match. Root and both CAD agents notified; import only after rightdrill correction.",
+  "qualification_limits": "Geometry review only. Mating plug dimensions, cable pin reversal, CAN signal quality, power voltage drop, current protection, thermal margin and unplated home-board assembly still require physical prototype qualification."
+}

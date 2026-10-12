@@ -2,6 +2,7 @@
 #define HAL_FLASH_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 #define HAL_ADC_MODULE_ENABLED
+#define HAL_I2C_MODULE_ENABLED
 #define HAL_MODULE_ENABLED
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
@@ -24,6 +25,7 @@
 #define INSTRUCTION_CACHE_ENABLE 1U
 #include "stm32g0xx_hal_dma.h"
 #include "stm32g0xx_hal_adc.h"
+#include "stm32g0xx_hal_i2c.h"
 #include "stm32g0xx_hal_flash.h"
 #include "stm32g0xx_hal_rcc.h"
 #include "stm32g0xx_hal_gpio.h"
