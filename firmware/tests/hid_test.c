@@ -52,4 +52,22 @@ int main(void) {
     assert(button_fields==(layout->buttons?1U:0U) && hat_fields==(layout->hats?1U:0U) && axis_fields==layout->axes);
     const uint16_t *serial=tud_descriptor_string_cb(3,0x409);assert((serial[0]&255)==50 && serial[1]=='0' && serial[24]=='7');
     printf("Profile %s: %u buttons, %u axes, %u hats, %u bytes\n",device_profile()->name,layout->buttons,layout->axes,layout->hats,layout->length);
+    /* Exercise runtime descriptor replacement through the actual callbacks. */
+    osg_runtime_config_t *runtime=device_runtime_config();bool apply=false;
+    assert(!osg_runtime_command(runtime,"claim 42",0,&apply));
+    assert(!osg_runtime_command(runtime,"counts 42 0 1 0 0 0 0",1,&apply));
+    assert(!osg_runtime_command(runtime,"axis 42 0 7 56 100 4000 32768 1 500",2,&apply));
+    assert(!osg_runtime_command(runtime,"name 42 53c3a9f09f9880",3,&apply));
+    assert(!osg_runtime_command(runtime,"apply 42",4,&apply) && apply);
+    assert(osg_runtime_finish_apply(runtime));
+    assert(device_report_layout()->length==2 && device_report_layout()->buttons==0);
+    size_t dynamic_length;const uint8_t *dynamic=device_report_descriptor(&dynamic_length);
+    assert(tud_hid_descriptor_report_cb(0)==dynamic);
+    const uint8_t *dynamic_config=tud_descriptor_configuration_cb(0);bool found=false;
+    for(unsigned i=0;i<u16(dynamic_config+2);i+=dynamic_config[i]) if(dynamic_config[i+1]==HID_DESC_TYPE_HID) {
+        assert(u16(dynamic_config+i+7)==dynamic_length);found=true;
+    }
+    assert(found && !tud_descriptor_configuration_cb(1) && !tud_hid_descriptor_report_cb(1));
+    const uint16_t *label=tud_descriptor_string_cb(5,0x409);
+    assert((label[0]&255)==10 && label[1]=='S' && label[2]==0xe9 && label[3]==0xd83d && label[4]==0xde00);
 }

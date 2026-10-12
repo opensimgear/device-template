@@ -157,8 +157,8 @@ void board_init(void) {
     HAL_GPIO_Init(GPIOA, &gpio); HAL_GPIO_Init(GPIOB, &gpio); board_led(false);
     for(unsigned i=0;i<24;i++) {
         gpio.Pin=digital_pins[i].pin;
-        bool used=(device_report_layout()->digital_mask&(1UL<<i))!=0;
-        gpio.Mode=used?GPIO_MODE_INPUT:GPIO_MODE_ANALOG; gpio.Pull=used?GPIO_PULLUP:GPIO_NOPULL;
+        /* All physical resources remain available to validated runtime profiles. */
+        gpio.Mode=GPIO_MODE_INPUT; gpio.Pull=GPIO_PULLUP;
         HAL_GPIO_Init(digital_pins[i].port,&gpio);
     }
     gpio.Pin=GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_6|GPIO_PIN_7;
@@ -170,7 +170,7 @@ void board_init(void) {
     gpio.Pin = GPIO_PIN_11 | GPIO_PIN_12; gpio.Mode = GPIO_MODE_INPUT; gpio.Pull = GPIO_NOPULL; HAL_GPIO_Init(GPIOA, &gpio);
     __HAL_RCC_USB_CLK_ENABLE(); HAL_PWREx_EnableVddUSB();
     NVIC_SetPriority(USB_UCPD1_2_IRQn, 1); NVIC_EnableIRQ(USB_UCPD1_2_IRQn);
-    if(device_report_layout()->adc_mask) {
+    {
     __HAL_RCC_ADC_CLK_ENABLE();
     adc.Instance=ADC1;
     adc.Init.ClockPrescaler=ADC_CLOCK_SYNC_PCLK_DIV4; adc.Init.Resolution=ADC_RESOLUTION_12B;
@@ -194,7 +194,7 @@ void board_init(void) {
     HAL_NVIC_SetPriority(DMA1_Channel1_IRQn,2,0); HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
     const uint32_t channels[8]={ADC_CHANNEL_0,ADC_CHANNEL_1,ADC_CHANNEL_2,ADC_CHANNEL_3,
         ADC_CHANNEL_4,ADC_CHANNEL_6,ADC_CHANNEL_7,ADC_CHANNEL_9};
-    for(unsigned i=0;i<8;i++) if(device_report_layout()->adc_mask&(1U<<i)) {
+    for(unsigned i=0;i<8;i++) {
         adc_indexes[adc_count++]=(uint8_t)i;
         ADC_ChannelConfTypeDef channel={.Channel=channels[i],.Rank=ADC_RANK_CHANNEL_NUMBER,
             .SamplingTime=ADC_SAMPLINGTIME_COMMON_1};
@@ -203,7 +203,7 @@ void board_init(void) {
     check(HAL_ADCEx_Calibration_Start(&adc));
     check(HAL_ADC_Start_DMA(&adc,(uint32_t *)dma_samples,2*adc_count));
     }
-    if(device_profile()->expander_mask) {
+    {
         gpio.Pin=GPIO_PIN_6|GPIO_PIN_7; gpio.Mode=GPIO_MODE_AF_OD; gpio.Pull=GPIO_NOPULL;
         gpio.Speed=GPIO_SPEED_FREQ_HIGH; gpio.Alternate=GPIO_AF6_I2C1; HAL_GPIO_Init(GPIOB,&gpio);
         __HAL_RCC_I2C1_CLK_ENABLE();
@@ -220,6 +220,10 @@ void board_init(void) {
         osg_tca9555_init(&expanders,(osg_i2c_t){.write=i2c_write,.read=i2c_read});
     }
     board_can_init();
+}
+void board_inputs_reconfigured(void) {
+    uint32_t irq_state=__get_PRIMASK(); __disable_irq(); axis_fresh=false; __set_PRIMASK(irq_state);
+    expanders.configured=0; expanders.available=0;
 }
 void I2C1_IRQHandler(void) { HAL_I2C_EV_IRQHandler(&i2c); HAL_I2C_ER_IRQHandler(&i2c); }
 void DMA1_Channel1_IRQHandler(void) { HAL_DMA_IRQHandler(&adc_dma); }

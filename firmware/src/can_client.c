@@ -9,7 +9,7 @@ bool osg_can_client_init(osg_can_client_t *c,const osg_gateway_identity_t *id,
     const osg_gateway_profile_t *profile,uint32_t boot,osg_can_send_t send,void *context) {
     if(!c || !osg_gateway_identity_valid(id) || !osg_gateway_profile_valid(profile) || !boot || !send) return false;
     memset(c,0,sizeof *c); c->identity=*id; c->profile=*profile; c->boot=boot;
-    c->send=send; c->context=context; c->next_sequence=1;
+    c->send=send; c->context=context; c->next_sequence=1;c->configuration_generation=1;
     if(!osg_cyphal_init(&c->cyphal,id,boot,"org.opensimgear.device",send,context)) return false;
     c->random=osg_gateway_crc32(id->bytes,sizeof id->bytes)^boot; if(!c->random) c->random=1; invalidate(c); return true;
 }
@@ -33,7 +33,7 @@ void osg_can_client_tick(osg_can_client_t *c,uint32_t now,const uint8_t report[O
     osg_cyphal_tick(&c->cyphal,now);
     if(!c->announce_waiting || (int32_t)(now-c->announce_due)>=0) {
         osg_gateway_message_t m={.type=OSG_GW_ANNOUNCE,.identity=c->identity,.boot_session=c->boot,
-            .direct_usb=c->direct,.profile=c->profile};
+            .direct_usb=c->direct,.profile=c->profile,.configuration_generation=c->configuration_generation};
         if(send(c,&m,now)) {
             c->announced=true; c->announced_at=now;
             /* Spread periodic discovery across devices on a shared bus. */
@@ -84,6 +84,14 @@ bool osg_can_client_receive(osg_can_client_t *c,const osg_gateway_frame_t *frame
         c->node=m.node; c->lease=m.lease; c->epoch=m.gateway_epoch;
         c->gateway_source=m.source_node; c->assigned_at=now;
         return false;
+    }
+    if(m.type==OSG_GW_CONFIG_REQUEST) {
+        if(!c->node || !c->lease || m.source_node!=c->gateway_source || m.node!=c->node ||
+           m.lease!=c->lease || m.gateway_epoch!=c->epoch ||
+           !osg_gateway_identity_equal(&m.identity,&c->identity) || !c->config_receive) {
+            c->rejected++; return false;
+        }
+        (void)c->config_receive(c->config_context,&m,now); return false;
     }
     if(m.type!=OSG_GW_INPUT_ACK || !osg_can_client_active(c) || m.source_node!=c->gateway_source ||
        m.node!=c->node || m.lease!=c->lease ||

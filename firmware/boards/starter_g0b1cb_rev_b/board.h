@@ -23,6 +23,8 @@ void board_can_reset(uint32_t now);
 osg_profile_sample_t board_read_inputs(void);
 void board_module_identity(uint8_t out[16]);
 uint32_t board_boot_session(void);
+const osg_journal_io_t *board_settings_io(void);
+void board_inputs_reconfigured(void);
 void board_led(bool on);
 bool board_usb_present(void);
 void board_uid_hex(char out[25]);

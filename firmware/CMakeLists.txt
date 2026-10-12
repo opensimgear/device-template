@@ -4,7 +4,7 @@ set(OSG_BOARD "starter_g0b1cb_rev_b" CACHE STRING "Board target")
 if(NOT OSG_BOARD STREQUAL "starter_g0b1cb_rev_b")
   message(FATAL_ERROR "Unknown board: ${OSG_BOARD}; generic firmware requires starter_g0b1cb_rev_b. Rev A firmware is preserved at commit 5a78e46.")
 endif()
-set(OSG_DEVICE_PROFILE "example" CACHE STRING "Build-time input profile: example, shifter or expanded")
+set(OSG_DEVICE_PROFILE "example" CACHE STRING "Factory input defaults: example, shifter or expanded")
 set_property(CACHE OSG_DEVICE_PROFILE PROPERTY STRINGS example shifter expanded)
 if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/profiles/${OSG_DEVICE_PROFILE}.h" OR NOT OSG_DEVICE_PROFILE MATCHES "^[A-Za-z0-9_]+$")
   message(FATAL_ERROR "Unknown or invalid OSG_DEVICE_PROFILE: ${OSG_DEVICE_PROFILE}")
@@ -36,7 +36,7 @@ add_library(osg_hal STATIC
   ${CMSIS}/Source/Templates/system_stm32g0xx.c)
 target_include_directories(osg_hal PUBLIC include ${HAL}/Inc ${CMSIS}/Include ${OSG_CMSIS_CORE_DIR}/CMSIS/Core/Include)
 target_compile_definitions(osg_hal PUBLIC STM32G0B1xx USE_HAL_DRIVER)
-add_executable(osg_hello src/main.c src/profile.c src/usb_descriptors.c src/can_client.c src/can_delivery.c src/boot_session.c
+add_executable(osg_hello src/main.c src/profile.c src/usb_descriptors.c src/can_client.c src/can_delivery.c src/boot_session.c src/runtime_config.c src/config_can.c
   shared-gateway/src/gateway_journal.c
   boards/starter_g0b1cb_rev_b/board.c boards/starter_g0b1cb_rev_b/can_transport.c boards/starter_g0b1cb_rev_b/storage.c
   ${CMSIS}/Source/Templates/gcc/startup_stm32g0b1xx.s)

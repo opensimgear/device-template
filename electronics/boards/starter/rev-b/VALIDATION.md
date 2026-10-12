@@ -7,18 +7,18 @@ Firmware and circuit checks were refreshed **2026-10-12** for the generic input 
 | Check | Result |
 | --- | --- |
 | Shared native Release tests, AppleClang 21 | **4/4 pass**, including profile bounds/recovery, expansion polling/freshness and USB descriptors |
-| Device native Release tests, AppleClang 21 | **7/7 pass**: behavior/actual descriptors for example, shifter and expanded, plus USB delivery recovery |
+| Device native Debug tests with AddressSanitizer/UndefinedBehaviorSanitizer, AppleClang 21 | **10/10 pass**: runtime transactions; all 80 factory-baseline and all 80 first-save flash interruptions; behavior/actual dynamic descriptors for example, shifter and expanded; USB delivery recovery; CAN client/boot journal; shared Cyphal transport |
 | Independent source review | Corrected a millisecond-boundary I²C timeout; no remaining code blocker found in ADC DMA, input ownership, fault/rearm or HID packing/delivery |
 | Clean pinned dependency build | Shared source fetched at `35e06787fb9696977fe92d20c5ff5afc1e3e1ebf`; no local shared-code override |
 | Cross compiler / target | Arm GNU 15.3.1, STM32G0B1CBT6 / `starter_g0b1cb_rev_b`; all three profiles build ELF/BIN/HEX/MAP |
 
 | Profile | Report layout | Flash | RAM including linker-reserved heap/stack |
 | --- | --- | ---: | ---: |
-| example | 8 buttons, 1 hat, 1 axis; 4 bytes | 34,668 B | 10,656 B |
-| shifter | 3 buttons; 1 byte | 34,652 B | 10,656 B |
-| expanded | 40 buttons, 8 axes; 21 bytes | 34,828 B | 10,656 B |
+| example | 8 buttons, 1 hat, 1 axis; 4 bytes | 65,840 B | 71,032 B |
+| shifter | 3 buttons; 1 byte | 65,824 B | 71,032 B |
+| expanded | 40 buttons, 8 axes; 21 bytes | 66,004 B | 71,032 B |
 
-Firmware builds use `0xFFFF/0xFFFF` compile-only placeholders, not allocated USB IDs. Profile selection is build-time. Current Rev B firmware enables the transceiver and implements Cyphal/CAN Heartbeat/GetInfo, profile discovery and gateway input delivery with direct USB ownership. [CAN integration](../../../../firmware/CAN_BRINGUP.md) records software checks; physical CAN/USB handoff, runtime configuration, updates and SimHub outputs remain unqualified or future integration. Native tests cannot measure ADC/I²C/encoder timing or USB host compatibility. A USB packet submitted before suspend can still complete after resume; software queues/generation guards do not claim transparent cancellation of that packet. Record physical suspend/resume behavior before release.
+Firmware builds use `0xFFFF/0xFFFF` compile-only placeholders, not allocated USB IDs. Factory profile selection is build-time; runtime input mapping, calibration/inversion/deadzone, expansion masks and Unicode names are implemented with validated drafts and separate interrupted-write-safe settings storage. Current Rev B firmware enables the transceiver and implements Cyphal/CAN Heartbeat/GetInfo, profile discovery and gateway input delivery with direct USB ownership. [CAN integration](../../../../firmware/CAN_BRINGUP.md) records software checks; physical CAN/USB handoff and runtime descriptor reconnection remain unqualified; updates and SimHub outputs remain future integration. Native tests cannot measure ADC/I²C/encoder timing or USB host compatibility. A USB packet submitted before suspend can still complete after resume; software queues/generation guards do not claim transparent cancellation of that packet. Record physical suspend/resume behavior before release.
 
 ## Circuit and layout checks
 

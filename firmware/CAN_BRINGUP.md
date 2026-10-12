@@ -6,7 +6,7 @@ The generic Rev B firmware is a **Cyphal/CAN device** running the shared libcana
 
 The device operates independently of a gateway: it selects a Cyphal transport node ID, publishes the standard `uavcan.node.Heartbeat.1.0` message, and responds to `uavcan.node.GetInfo.1.0` with the name `org.opensimgear.device` and its stable unique ID. Transport node IDs are separate from the gateway's logical controller slots 1–10. Automatic node-ID selection is provided by the pinned Cyphal 1.1 libcanard implementation; it is not a private gateway allocation service.
 
-The module identity is 16 bytes: ASCII `OSGD` followed by the MCU's 12 raw UID bytes. Its USB serial remains the original 24 hexadecimal UID characters. The module commits a fresh nonzero boot counter before starting its announcement loop. The typed capability announcement repeats at a nominal 500 ms (450–550 ms with identity/session seeded jitter) and includes the enabled HID profile, direct USB ownership and boot session. A matching gateway returns a logical controller slot, lease and gateway epoch in a typed assignment transfer. The device records the assigning gateway's actual Cyphal source node ID and rejects assignment/ACK transfers from another source while that route is live. An unchanged live assignment is idempotent; a new lease rearms acquisition. Assignment absence for 2 s invalidates the route and returns to discovery.
+The module identity is 16 bytes: ASCII `OSGD` followed by the MCU's 12 raw UID bytes. Its USB serial remains the original 24 hexadecimal UID characters. The module commits a fresh nonzero boot counter before starting its announcement loop. The typed capability announcement repeats at a nominal 500 ms (450–550 ms with identity/session seeded jitter) and includes the enabled HID profile, direct USB ownership, boot session and runtime configuration generation. A changed configuration generation renews the gateway lease and invalidates queued input even when HID shape stays identical; it does not change the profile schema revision. A matching gateway returns a logical controller slot, lease and gateway epoch in a typed assignment transfer. The device records the assigning gateway's actual Cyphal source node ID and rejects assignment/ACK transfers from another source while that route is live. An unchanged live assignment is idempotent; a new lease rearms acquisition. Assignment absence for 2 s invalidates the route and returns to discovery.
 
 CAN input uses the same report layout as direct USB: up to 128 logical button bits, four packed hats and eight unsigned 16-bit axes, at most 34 bytes. All supplied profiles are lossless; no controls are silently removed. Invalid profiles fail before attachment. Unused padding is zero, and hats use 8 for neutral. Typed input normally refreshes every 10 ms while a current CAN assignment owns the route. A new route first sends neutral and requires fresh input acquisition.
 
@@ -22,20 +22,22 @@ The application stack emits extended FD+BRS frames. Hardware accepts all extende
 
 The last two 2 KiB flash pages, at `0x0801F000` and `0x0801F800`, contain a CRC-protected two-page boot journal. The commit marker is programmed last. One interrupted write preserves the prior valid record; the next successful boot advances from it before announcing. A virgin all-FF journal starts at session 1. Corruption with no valid record, an exhausted counter, or failed erase/program causes a fail-closed fault with CAN standby asserted. Boot writes consume flash endurance; no write occurs per report or discovery.
 
-Firmware code is restricted to 124 KiB flash and uses guaranteed 128 KiB SRAM, reserving 16 KiB stack and 512 bytes heap. Linker assertions prevent overlap with storage. Preserve the boot pages when programming an application update. If a full flash erase resets boot history, power-cycle the entire chain before resuming so no cached session remains. Runtime calibration and physical input configuration are still build-time declarations; this journal stores only boot freshness.
+Firmware code is restricted to 120 KiB flash and uses guaranteed 128 KiB SRAM, reserving 16 KiB stack and 512 bytes heap. Linker assertions prevent overlap with storage. Preserve the boot pages when programming an application update. If a full flash erase resets boot history, power-cycle the entire chain before resuming so no cached session remains. A separate settings journal at `0x0801E000` and `0x0801E800` stores the complete validated runtime input configuration and axis calibration in a canonical 598-byte record. The original final pages still store only boot freshness. Preserve both journals during application programming.
+
+Erased settings receive a committed factory baseline at generation 1 before configuration commands are served. The first user save therefore preserves that baseline when an erase/program operation is interrupted. Initialization can retry a torn baseline only if the first page contains cleared bits belonging to the exact factory image, its commit marker is incomplete and the second page is erased. A complete marker with invalid data and other corrupt nonblank settings fail closed. Saved settings restore on reboot; writer claims and drafts do not. A different firmware factory image during an interrupted baseline may require explicit storage recovery rather than automatic replacement.
 
 ## Validation on 2026-10-12
 
-- Native Release and AddressSanitizer/UndefinedBehaviorSanitizer: **9/9 tests pass**, including all three real profile descriptors, report compatibility, USB delivery recovery, the Cyphal client/encoder/journal suite and shared transport conformance.
+- Native Release and AddressSanitizer/UndefinedBehaviorSanitizer: **10/10 tests pass**, including all three real profile descriptors, report compatibility, USB delivery recovery, the Cyphal client/encoder/journal suite, shared transport conformance, runtime writer/draft/apply/save recovery and actual dynamic USB descriptor callbacks with Unicode names. Runtime storage tests interrupt all 80 erase/program operations during factory initialization and all 80 for both first-user `apply_save` and `save`, recover/retry successfully, and reject committed corruption and invalid schemas without rewriting them.
 - Cyphal client tests use actual transport peers and cover gateway source binding, boot/lease/sequence/report validation, direct USB ownership, bounded queue rejection, assignment timeout, sequence exhaustion, late same-direction phase ACKs and interrupted boot-counter writes.
 - All three profiles cross-build with Arm GNU 15.3.1 for STM32G0B1CBT6. Compilation uses `0xFFFF/0xFFFF` placeholders only; no firmware was flashed.
-- GCC stack usage is emitted as `.su` files. The boot journal commit frame is 2,168 bytes plus its 2,016-byte CRC scratch frame, below the 16 KiB reserved stack with the main/port frames. This is static evidence, not measured peak stack.
+- GCC stack usage is emitted as `.su` files. The shared journal commit frame is 2,160 bytes plus its 2,016-byte CRC scratch frame; runtime initialization uses 1,320 bytes and main uses 1,008 bytes, below the 16 KiB reserved stack with the port frames. This is static evidence, not measured peak stack.
 
 | Profile | Flash | SRAM including reserved heap/stack |
 | --- | ---: | ---: |
-| example | 55,472 B | 60,176 B |
-| shifter | 55,456 B | 60,176 B |
-| expanded | 55,632 B | 60,176 B |
+| example | 65,840 B | 71,032 B |
+| shifter | 65,824 B | 71,032 B |
+| expanded | 66,004 B | 71,032 B |
 
 Native reproduction from the repository root:
 
@@ -45,4 +47,8 @@ cmake --build ../.research/device-template/tests --parallel
 ctest --test-dir ../.research/device-template/tests --output-on-failure
 ```
 
-No assembled module/gateway CAN chain, USB suspend/fallback timing, ADC/I²C/encoder timing, signal margins or power behavior was tested. Bench qualification must verify discovery, all enabled controls including hats, gateway registry/apply/reconnect, cable removal, bus-off recovery, direct USB takeover/fallback, lost/delayed acknowledgements and no replay after reset. Runtime physical settings, output routing and firmware updates remain future work.
+No assembled module/gateway CAN chain, USB suspend/fallback timing, ADC/I²C/encoder timing, signal margins or power behavior was tested. Bench qualification must verify discovery, all enabled controls including hats, gateway registry/apply/reconnect, cable removal, bus-off recovery, direct USB takeover/fallback, lost/delayed acknowledgements and no replay after reset. Runtime settings and saved calibration now run through the same core in the native emulator and STM32 target. Output routing and firmware updates remain future work.
+
+## Runtime configuration delivery
+
+The matching gateway forwards bounded configuration commands over dedicated Cyphal subjects. The device accepts them only for its current identity, boot, gateway source, route, lease and epoch. Chunk assembly and reply buffers are bounded; an immutable cached reply prevents a retry from repeating a completed mutation. After a valid Apply, both transport and board transmit queues drain before direct USB detaches, acquisition and old completions are invalidated, and the new profile is announced. Descriptor/report shape remains neutral through the gateway until its stored profile matches the new announcement and the gateway layout is explicitly applied. See the [runtime contract](https://github.com/opensimgear/protocol/blob/main/serial/runtime-configuration.md).

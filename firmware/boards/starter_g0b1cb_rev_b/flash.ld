@@ -1,7 +1,8 @@
 ENTRY(Reset_Handler)
 MEMORY {
-  /* Last two 2 KiB pages are exclusively owned by the boot counter journal. */
-  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 124K
+  /* Independent settings pages precede the unchanged boot counter pages. */
+  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 120K
+  SETTINGS (r) : ORIGIN = 0x0801E000, LENGTH = 4K
   STORAGE (r) : ORIGIN = 0x0801F000, LENGTH = 4K
   /* 128 KiB is available without opting into the additional parity SRAM. */
   RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 128K
@@ -9,6 +10,8 @@ MEMORY {
 _estack = ORIGIN(RAM) + LENGTH(RAM);
 __boot_page0 = ORIGIN(STORAGE);
 __boot_page1 = ORIGIN(STORAGE) + 0x800;
+__settings_page0 = ORIGIN(SETTINGS);
+__settings_page1 = ORIGIN(SETTINGS) + 0x800;
 SECTIONS {
   .isr_vector : { KEEP(*(.isr_vector)) } > FLASH
   .text : { *(.text*) *(.rodata*) KEEP(*(.init)) KEEP(*(.fini)) . = ALIGN(4); } > FLASH
@@ -21,6 +24,6 @@ SECTIONS {
   .data : { . = ALIGN(4); _sdata = .; *(.data*) . = ALIGN(4); _edata = .; } > RAM AT > FLASH
   .bss (NOLOAD) : { . = ALIGN(4); _sbss = .; *(.bss*) *(COMMON) . = ALIGN(4); _ebss = .; } > RAM
   .heap_stack (NOLOAD) : { . = ALIGN(8); end = .; _end = .; . += 0x200; . += 0x4000; } > RAM
-  ASSERT(LOADADDR(.data) + SIZEOF(.data) <= ORIGIN(STORAGE), "Firmware overlaps boot counter storage")
+  ASSERT(LOADADDR(.data) + SIZEOF(.data) <= ORIGIN(SETTINGS), "Firmware overlaps settings storage")
   ASSERT(_ebss + 0x4200 <= _estack, "RAM exhausted: heap/stack reserved")
 }

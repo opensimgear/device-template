@@ -36,7 +36,7 @@ Every axis header has **pin 1 +3.3 V, pin 2 signal, pin 3 GND**. A 10 kΩ linear
 | A6 | J12 | PA7 | 18 | 7 |
 | A7 | J13 | PB1 | 20 | 9 |
 
-Each signal has a 1 kΩ series resistor, 100 nF filter and 1 MΩ pull-up/down bias for a defined unplugged midpoint. Firmware scans only enabled channels and scales the 12-bit ADC readings to the profile's 16-bit HID range; this does not make the ADC a 16-bit measurement device. Settling, noise, sensor loading and calibration need assembled-board measurement. The profile's disconnected value and the physical midpoint bias serve different purposes.
+Each signal has a 1 kΩ series resistor, 100 nF filter and 1 MΩ pull-up/down bias for a defined unplugged midpoint. Firmware continuously scans all eight channels and reports only enabled axes, scaling the 12-bit ADC readings to the profile's 16-bit HID range; this does not make the ADC a 16-bit measurement device. Settling, noise, sensor loading and calibration need assembled-board measurement. The profile's disconnected value and the physical midpoint bias serve different purposes.
 
 ### Twenty-four digital lines
 

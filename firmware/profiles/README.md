@@ -1,6 +1,6 @@
-# Build-time device profiles
+# Factory and runtime device profiles
 
-A device enables only fitted controls by declaring arrays in a profile header. Disabled controls are omitted entirely, including from the USB descriptor. Choose `-DOSG_DEVICE_PROFILE=example`, `shifter` or `expanded`; the filename under this directory selects the profile. Add a header with a `static const osg_profile_t selected_profile` to add a device. USB enumeration stays fixed during the session; a profile change currently requires rebuilding and reflashing.
+A device enables only fitted controls by declaring arrays in a profile header. Disabled controls are omitted entirely, including from the USB descriptor. Choose `-DOSG_DEVICE_PROFILE=example`, `shifter` or `expanded`; the filename under this directory selects the profile. Add a header with a `static const osg_profile_t selected_profile` to add a device. These declarations supply factory defaults. The runtime configuration core can stage every supported control kind, validate the complete draft, save it and publish changed USB descriptors after explicit detachment/reconnection. Changes to control counts, axis usages or neutral values require the gateway's own explicit Apply. Name changes, endpoint calibration, inversion and deadzone changes renew its input lease while retaining the gateway layout.
 
 Reusable validation, descriptor construction, debounce, report packing and input decoding are in firmware-common. This repository owns the selected declarations and Rev B physical mapping. Invalid profiles stop before USB attachment; validation rejects overlapping contacts/channels/usages, missing arrays, unsupported counts, invalid ranges, unmapped expansion banks and I²C encoders.
 
@@ -16,7 +16,7 @@ In `example`, HID buttons are 1 momentary, 2 toggle, 3 encoder push, 4 positive 
 
 ## Physical indexes
 
-A0–A7 map to PA0, PA1, PA2, PA3, PA4, PA6, PA7, PB1 (ADC channels 0, 1, 2, 3, 4, 6, 7, 9). Each axis connector supplies +3.3 V, signal and ground; use a suitable potentiometer or 0–3.3 V sensor. The PCB filters/biases each input. Scaling 12-bit samples into 16-bit HID fields does not create 16-bit measurement precision. Profile endpoint ranges and neutral values are compile-time settings; saved calibration is not implemented.
+A0–A7 map to PA0, PA1, PA2, PA3, PA4, PA6, PA7, PB1 (ADC channels 0, 1, 2, 3, 4, 6, 7, 9). Each axis connector supplies +3.3 V, signal and ground; use a suitable potentiometer or 0–3.3 V sensor. The PCB filters/biases each input. Scaling 12-bit samples into 16-bit HID fields does not create 16-bit measurement precision. Profiles supply default endpoint ranges and neutral values. Runtime settings can change and persist these values, invert an axis and apply a rescaled center deadzone in unsigned 16-bit HID units.
 
 | Digital indexes | MCU pins in order |
 | --- | --- |
@@ -25,7 +25,7 @@ A0–A7 map to PA0, PA1, PA2, PA3, PA4, PA6, PA7, PB1 (ADC channels 0, 1, 2, 3, 
 | D12–D17 | PB15, PC6, PC7, PC13, PC14, PC15 |
 | D18–D23 | PD0, PD1, PD2, PD3, PF0, PF1 |
 
-Digital banks expose six signals and ground. Contacts are active-low passive switches to ground; MCU pull-ups are enabled only for declared direct inputs. Do not apply 5 V or 12 V. Hats use four contacts NESW; adjacent pairs form diagonals. Encoders require a full four-transition cycle per detent, anchored at both contacts open. Powered encoder modules and other detent arrangements need their own supported interface/decoder.
+Digital banks expose six signals and ground. Contacts are active-low passive switches to ground; MCU pull-ups are enabled on all 24 direct inputs so runtime mappings can enable any contact; only declared contacts enter reports. Do not apply 5 V or 12 V. Hats use four contacts NESW; adjacent pairs form diagonals. Encoders require a full four-transition cycle per detent, anchored at both contacts open. Powered encoder modules and other detent arrangements need their own supported interface/decoder.
 
 Expansion input index `24 + 16*bank + pin` selects bank 0–7, pin 0–15, at seven-bit I²C address `0x20 + bank`. Set `expander_mask` for every referenced bank. The expanded sample uses indexes 24–39 and mask `1`. Four expansion boards add 64 contacts; eight add 128 contacts, subject to total report limits and tested bus loading. Each board requires suitable input pull-ups and unique address straps; TCA9555 has weak internal contact pull-ups, with external resistors selected for the actual wiring. See [electronics expansion wiring](../../electronics/expansion/tca9555/README.md).
 
