@@ -1,17 +1,7 @@
-# Starter KiCad board
+# Starter board
 
-This is the reserved location for the device template's starting KiCad board. No schematic, PCB, selected components, hardware revision, or manufacturing-ready design is provided yet.
+[Rev B](rev-b/README.md) is the generic STM32G0B1CBT6 starter: eight analogue headers, four banks of six digital lines and an I²C header for optional 16-input boards. Firmware profiles assign those resources to the controls each device needs. USB-C, both powered 4P4C CAN pass-through ports, regulation/power selection, SWD, reset and the status LED are retained.
 
-## Intended starting point
+Rev B has separate four-layer production and two-layer Makera Z1 layouts. [Rev A](rev-a/README.md) preserves the earlier example circuit, reviewed layouts and fine-pitch milling coupon. The electrical changes require the new `starter_g0b1cb_rev_b` firmware target; the Rev A firmware is retained at commit `5a78e46`. Rev A's six-contact CAN cabling is incompatible with Rev B's 4P4C standard. Physical qualification remains open.
 
-Pair a real STM32G0B1 board target with the hello-world firmware. Provide USB-C for standalone HID plus CDC serial and two parallel CAN connectors for linear pass-through. The module baseline uses external 12 V carried on dedicated supply conductors alongside CAN, local regulation, and protected power selection without backfeeding USB. Connector/cable/pinout qualification and exact component choices remain pending.
-
-## Files to provide during implementation
-
-- Editable KiCad project, schematic, and PCB sources under a named board revision.
-- Electrical BOM and connector/pinout documentation.
-- Power limits, protection behavior, and a debug/recovery connection.
-- Matching firmware board target and flashing instructions.
-- ERC/DRC results and physical USB/CAN, power, and recovery validation.
-
-Keep the starting board independent of mechanical Lite/Pro editions so they can share it when compatible. This template is a module starting point; five-port gateway hardware remains a separate undecided design.
+This is a module starting point, independent of Lite/Pro mechanical editions. It does not select the two-port, single-chain gateway platform or qualify a final CAN cable.

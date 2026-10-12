@@ -1,0 +1,11 @@
+{
+  "main_pair_reference_samples": 1350,
+  "samples_without_L2_GND": [],
+  "L2_filled_region_count": 1,
+  "main_width_mm": 0.2474,
+  "main_edge_gap_mm": 0.1501,
+  "production_dimensions_mm": [
+    65,
+    55
+  ]
+}

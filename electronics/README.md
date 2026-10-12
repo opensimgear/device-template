@@ -1,9 +1,5 @@
 # Electronics
 
-Add schematics, PCB source projects, electrical BOMs, pinouts, and wiring guides under boards/<board-name>/<revision> when implemented. Keep a shared PCB once when Lite and Pro use the same circuitry. An edition-specific harness can have its own wiring guide without copying the board project.
+The [Rev B starter board](boards/starter/rev-b/README.md) exposes eight analogue inputs, 24 digital lines and I²C for optional [16-input TCA9555 boards](expansion/tca9555/README.md). It includes editable KiCad 10 sources, local libraries, an exact-part BOM and separate production/home-milling layouts. The validation record distinguishes static checks from assembled-board qualification.
 
-Modules require USB-C plus two parallel powered-CAN connectors for linear daisy chaining. CAN carries data; a separate assigned supply pair carries the external 12 V feed. Local regulation, protected power feeds, reverse-current protection, and USB power-budget handling require electrical validation. Exact connector/cable/pinout selection remains pending qualification.
-
-Gateway electronics require five independent CAN controller/transceiver paths and separately protected 12 V port feeds. Gateway hardware selection is pending.
-
-This scaffold contains no selected PCB, circuitry, approved power limits, or manufacturing-ready files.
+Each electrical revision lives under `boards/<board>/<revision>`; mechanical editions can share it. [Rev A](boards/starter/rev-a/README.md) preserves the earlier example-control circuit and its reviewed layouts. Rev A and Rev B require their matching firmware pin maps.

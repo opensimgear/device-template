@@ -1,0 +1,46 @@
+{
+  "wire_joins": 224,
+  "component_long_lead_bottom_only_pads": 79,
+  "short_usb_shell_front_only_pads": 4,
+  "smd_front_pads": 247,
+  "smd_back_pads": 10,
+  "wire_drill_mm": [
+    0.8
+  ],
+  "wire_land_mm": [
+    1.8
+  ],
+  "min_track_width_mm": 0.2,
+  "segments": 1701,
+  "back_smd_refs": [
+    "C11",
+    "C6",
+    "C7",
+    "C8",
+    "C9"
+  ],
+  "track_width_lengths_mm": {
+    "0.2": 1395.108,
+    "0.225": 2.889,
+    "0.3": 4586.111,
+    "0.4002": 9.898,
+    "0.5": 219.416,
+    "1.0": 84.596
+  },
+  "blank_dimensions_mm": [
+    110.0,
+    125.0
+  ],
+  "registration_rail_width_mm": 5.0,
+  "body_dimensions_mm": [
+    105.0,
+    125.0
+  ],
+  "unplated_model_unconnected_items": 0,
+  "expected_diagnostic_warnings": {
+    "lib_footprint_mismatch": 20,
+    "padstack": 4
+  },
+  "source_sha256": "226ac51b054deb06d5f2783f80ed65319555dda89bbfc872e878c582b2b86aec",
+  "diagnostic_note": "Expected library/padstack warnings arise solely from replacing PTH component pads with single-face electrical contact models. This model is not a fabrication PCB."
+}

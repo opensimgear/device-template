@@ -1,0 +1,16 @@
+{
+  "wire_joins": 120,
+  "component_long_lead_bottom_only_pads": 48,
+  "short_usb_shell_front_only_pads": 4,
+  "smd_front_pads": 169,
+  "smd_back_pads": 2,
+  "wire_drill_mm": [
+    0.8
+  ],
+  "wire_land_mm": [
+    1.8
+  ],
+  "min_track_width_mm": 0.2,
+  "unplated_model_unconnected_items": 0,
+  "diagnostic_note": "Expected library/padstack warnings arise solely from replacing PTH component pads with single-face electrical contact models. This model is not a fabrication PCB."
+}

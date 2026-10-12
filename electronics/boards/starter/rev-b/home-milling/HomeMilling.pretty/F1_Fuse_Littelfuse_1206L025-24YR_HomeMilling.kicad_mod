@@ -1,0 +1,133 @@
+(footprint "F1_Fuse_Littelfuse_1206L025-24YR_HomeMilling"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Littelfuse 1206L025/24YR resettable PPTC, 250mA hold 24V; recommended 1.00x1.80mm lands with 1.80mm inner gap per 1206L datasheet revised 2024-02-26, page 4. https://www.littelfuse.com/assetdocs/resettable-ptcs-1206l-datasheet?assetguid=2b6a1515-d4ee-4c83-8bd4-152b4901b8f5")
+	(tags "PPTC fuse Littelfuse 1206L")
+	(property "Reference" "F1"
+		(at 0 -1.6 0)
+		(layer "F.Fab")
+		(uuid "e1d663fc-fdf8-433d-b220-89050bc7e081")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "0.25A hold / 24V"
+		(at 0 1.6 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "910faff5-c508-407d-ab9c-82ed9f3701d3")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.littelfuse.com/assetdocs/resettable-ptcs-1206l-datasheet?assetguid=2b6a1515-d4ee-4c83-8bd4-152b4901b8f5"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1c9dfa8d-52bd-4a5d-a771-cbb61db2e18b")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "7c3e7e77-ae74-42f3-8b82-00b8c3490cf0")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "MPN" "1206L025/24YR"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "5fad60e5-d41d-4c6f-a511-732b4f7bbc12")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -0.6 -1.02)
+		(end 0.6 -1.02)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "9cfbe036-6160-4134-ae88-61f681ebcdc2")
+	)
+	(fp_line
+		(start -0.6 1.02)
+		(end 0.6 1.02)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "41846922-830c-4d02-b4ad-0d0f4f1ea18e")
+	)
+	(fp_rect
+		(start -2.15 -1.15)
+		(end 2.15 1.15)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "d95cfa0e-d236-460e-8bf4-f682baa69d56")
+	)
+	(fp_rect
+		(start -1.7 -0.9)
+		(end 1.7 0.9)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "e121c3a6-31c5-4aca-a86f-3e3dbcbae2c5")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "4240799d-e724-4d16-864c-134a30d8a7b5")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.1)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -1.4 0)
+		(size 1 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "73337b96-fe5f-4830-af53-5e6bdc7c5ecf")
+	)
+	(pad "2" smd rect
+		(at 1.4 0)
+		(size 1 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "09e61e11-bddf-4ea1-9882-971dea40ae62")
+	)
+	(embedded_fonts no)
+)

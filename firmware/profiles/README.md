@@ -1,5 +1,46 @@
-# Device profiles
+# Build-time device profiles
 
-Device profiles define controls, capabilities, product identity, and device-specific policies. Shared code supplies descriptor builders and generic behavior. Create separate profiles for real control/capability differences, not enclosure materials alone.
+A device enables only fitted controls by declaring arrays in a profile header. Disabled controls are omitted entirely, including from the USB descriptor. Choose `-DOSG_DEVICE_PROFILE=example`, `shifter` or `expanded`; the filename under this directory selects the profile. Add a header with a `static const osg_profile_t selected_profile` to add a device. USB enumeration stays fixed during the session; a profile change currently requires rebuilding and reflashing.
 
-USB VID/PID allocation is pending; do not publish arbitrary identifiers as allocated IDs. Unit identity and calibration belong to the physical unit, not the Lite/Pro edition name.
+Reusable validation, descriptor construction, debounce, report packing and input decoding are in firmware-common. This repository owns the selected declarations and Rev B physical mapping. Invalid profiles stop before USB attachment; validation rejects overlapping contacts/channels/usages, missing arrays, unsupported counts, invalid ranges, unmapped expansion banks and I²C encoders.
+
+## Profile examples
+
+| Profile | Enabled controls | HID report |
+| --- | --- | --- |
+| `example` | Button D0, maintained toggle D1, encoder D2/D3 with push D4, NESW hat D5–D8, three-state selector D9/D10, axis A0 | 8 buttons, 1 hat, 1 X axis; 4 bytes |
+| `shifter` | D0 up, D1 down, D2 explicit neutral | 3 buttons; 1 byte; no hat or axes |
+| `expanded` | 24 direct momentary contacts, 16 contacts at TCA9555 address 0x20, all eight axes | 40 buttons, 8 axes; 21 bytes; no hat |
+
+In `example`, HID buttons are 1 momentary, 2 toggle, 3 encoder push, 4 positive encoder direction, 5 negative direction, 6 selector low, 7 selector centre and 8 selector high. Encoder direction can be reversed by swapping its A/B assignments. A centre-open ON–OFF–ON selector consumes two contacts; low/high together suppress all three selector outputs and set a diagnostic.
+
+## Physical indexes
+
+A0–A7 map to PA0, PA1, PA2, PA3, PA4, PA6, PA7, PB1 (ADC channels 0, 1, 2, 3, 4, 6, 7, 9). Each axis connector supplies +3.3 V, signal and ground; use a suitable potentiometer or 0–3.3 V sensor. The PCB filters/biases each input. Scaling 12-bit samples into 16-bit HID fields does not create 16-bit measurement precision. Profile endpoint ranges and neutral values are compile-time settings; saved calibration is not implemented.
+
+| Digital indexes | MCU pins in order |
+| --- | --- |
+| D0–D5 | PA8, PA9, PA10, PA15, PB2, PB3 |
+| D6–D11 | PB4, PB10, PB11, PB12, PB13, PB14 |
+| D12–D17 | PB15, PC6, PC7, PC13, PC14, PC15 |
+| D18–D23 | PD0, PD1, PD2, PD3, PF0, PF1 |
+
+Digital banks expose six signals and ground. Contacts are active-low passive switches to ground; MCU pull-ups are enabled only for declared direct inputs. Do not apply 5 V or 12 V. Hats use four contacts NESW; adjacent pairs form diagonals. Encoders require a full four-transition cycle per detent, anchored at both contacts open. Powered encoder modules and other detent arrangements need their own supported interface/decoder.
+
+Expansion input index `24 + 16*bank + pin` selects bank 0–7, pin 0–15, at seven-bit I²C address `0x20 + bank`. Set `expander_mask` for every referenced bank. The expanded sample uses indexes 24–39 and mask `1`. Four expansion boards add 64 contacts; eight add 128 contacts, subject to total report limits and tested bus loading. Each board requires suitable input pull-ups and unique address straps; TCA9555 has weak internal contact pull-ups, with external resistors selected for the actual wiring. See [electronics expansion wiring](../../electronics/expansion/tca9555/README.md).
+
+## Bounds and report construction
+
+The shared validator accepts at most 8 axes, 4 hats, 8 direct encoders, 8 selectors and **128 logical HID buttons total**. A declared button contributes one logical button, an encoder two, and a selector three; those counts share the 128-button budget. Physical direct/expansion contacts cannot overlap. The maximum allowed report is 34 bytes within the 64-byte HID endpoint: 128 button bits, four hat nibbles and eight little-endian 16-bit axes. The available physical pins and contacts still constrain combinations; these maxima are not additive promises.
+
+Wire order is button bits (declared buttons, encoder directions, then selector triples), padding to a byte, hat nibbles with padding to a byte, then axes in declaration order. There is no report ID. Hats use positions 0–7 clockwise from north and null 8; axes declare explicit Generic Desktop usages. Descriptor fields are generated from the same validated layout used to pack reports.
+
+## Recovery behavior
+
+Momentary contacts require a debounced 10 ms release before a new press at startup and USB recovery. Maintained contacts and selectors report fresh physical positions after 10 ms, even if already held. The shifter's three commands share an exclusive group: any simultaneous closures suppress all commands and require all contacts to release before rearming. Its neutral button means an explicit command, not the lever resting position.
+
+Hats arm only after all four contacts are debounced open. Opposite or three/four contacts force null and disarm until full release. A missing expansion bank forces affected controls neutral immediately; recovery requires fresh debounce, and already-held momentary contacts/hats stay disarmed until release. Selectors spanning banks remain neutral while either bank is unavailable. Unused selectors are absent, so they cannot generate a phantom centre button.
+
+Encoders use direct pins with a 1 ms main-loop sampling target. Bounded I²C transactions and bus recovery can lengthen the interval; measure the worst interval for profiles that combine encoders and expansion inputs. Each full detent queues a direction event; 16 waiting events are retained and overflow drops new events with a diagnostic. Illegal two-bit jumps increment another counter and require resynchronization at the open detent. Press and release each last at least 25 ms after the corresponding USB transfer completes; host stalls cannot consume queued events. Recovery discards queued turns and partial detents. Nominal sustained output is at most 20 detents/s before polling delays, and physical speed/bounce still need qualification.
+
+Transport-inactive reports are neutral. Axes require fresh conversion frames and revert to their profile neutral after 100 ms without one. Expansion scanning also has a 100 ms watchdog, with per-bank immediate transaction-failure suppression. Diagnostics are available through `inputs`; no CAN input handoff is implemented yet.

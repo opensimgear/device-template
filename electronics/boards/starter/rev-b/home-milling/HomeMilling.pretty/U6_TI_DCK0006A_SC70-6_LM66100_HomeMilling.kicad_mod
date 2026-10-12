@@ -1,0 +1,143 @@
+(footprint "U6_TI_DCK0006A_SC70-6_LM66100_HomeMilling"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "TI LM66100 DCK0006A (4214835/D 11-2024), https://www.ti.com/lit/ds/symlink/lm66100.pdf; manufacturer example lands 0.90x0.40 at x +/-1.10, y pitch 0.65. Body nominal 1.25x2.00, maximum 1.4x2.15; no thermal pad.")
+	(tags "TI DCK SC70 LM66100")
+	(property "Reference" "U6"
+		(at 0 -2.15 0)
+		(layer "F.Fab")
+		(uuid "d20c1dee-2647-41e5-a96b-22134f0e10cf")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "LM66100DCKR"
+		(at 0 2.15 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "68549e37-8928-4593-b29e-233b4b55ce3e")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm66100.pdf"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "a7eceb7e-73c1-4e65-8bf7-fc4fc160aaa2")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "4e16b4c6-3ea6-4636-a6d1-be25001473ea")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "MPN" "LM66100DCKR"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "0b036101-dd01-41d8-a440-4680218acd5f")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -1.8 -1.35)
+		(end 1.8 1.35)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "5504a8f5-e409-4356-9867-ad3e60136bc1")
+	)
+	(fp_rect
+		(start -0.625 -1)
+		(end 0.625 1)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "6c6eb609-7559-4f12-a66a-fe2f38f2a603")
+	)
+	(fp_circle
+		(center -0.425 -0.8)
+		(end -0.325 -0.8)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "387a6986-05f8-4f29-bb03-0d5f30e111a4")
+	)
+	(pad "1" smd roundrect
+		(at -1.1 -0.65)
+		(size 0.9 0.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.125)
+		(uuid "baa183b3-0919-4cf1-bede-e79315365562")
+	)
+	(pad "2" smd roundrect
+		(at -1.1 0)
+		(size 0.9 0.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.125)
+		(uuid "06c43452-4510-46d3-8cd4-2ab6624a2b5e")
+	)
+	(pad "3" smd roundrect
+		(at -1.1 0.65)
+		(size 0.9 0.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.125)
+		(uuid "52e224e2-2d50-43bd-a5f2-f2c6c620c987")
+	)
+	(pad "4" smd roundrect
+		(at 1.1 0.65)
+		(size 0.9 0.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.125)
+		(uuid "93e2b340-43a3-4a90-b593-1e2c346ddf5d")
+	)
+	(pad "5" smd roundrect
+		(at 1.1 0)
+		(size 0.9 0.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.125)
+		(uuid "9b4d272d-ed67-40a3-bf83-860025122e66")
+	)
+	(pad "6" smd roundrect
+		(at 1.1 -0.65)
+		(size 0.9 0.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.125)
+		(uuid "ba854617-cdc8-4683-b966-3deef2ce2d82")
+	)
+	(embedded_fonts no)
+)

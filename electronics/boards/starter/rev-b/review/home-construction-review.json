@@ -1,0 +1,104 @@
+{
+  "scope": "Independent read-only nominal construction review using physical copper faces, manual wire joins and the canonical netlist; no source modifications or hardware qualification.",
+  "board_path": "/Users/ntrp/_pws/opensimgear/work/generic-template/home/starter.kicad_pcb",
+  "canonical_directory": "/Users/ntrp/_pws/opensimgear/work/generic-template/production",
+  "netlist_sha256": "510e1b4e35d1a454b602c1aa606559a72b9e4bdc66664395a6184c723e1a73a4",
+  "source_footprints_sha256": "2b3940546d9a8ea0d555eb0ee7f9e2f5392424161fb74234cc5ebe13e2ced1ac",
+  "board_sha256": "226ac51b054deb06d5f2783f80ed65319555dda89bbfc872e878c582b2b86aec",
+  "board_unchanged_during_audit": true,
+  "mtime": 1791804784.3648882,
+  "copper_layer_count": 2,
+  "board_thickness_mm": 1.6,
+  "stackup_layers": [
+    {
+      "name": "F.Cu",
+      "type": "copper",
+      "thickness_mm": 0.035
+    },
+    {
+      "name": "dielectric 1",
+      "type": "core",
+      "thickness_mm": 1.53
+    },
+    {
+      "name": "B.Cu",
+      "type": "copper",
+      "thickness_mm": 0.035
+    }
+  ],
+  "bare_two_layer_nominal_stackup_matches": true,
+  "back_face_smd_refs": [
+    "C9",
+    "C7",
+    "C8",
+    "C11",
+    "C6"
+  ],
+  "tracks": 1701,
+  "vias": 224,
+  "via_sizes_mm": [
+    [
+      1.8,
+      0.8
+    ]
+  ],
+  "minimum_track_mm": 0.2,
+  "minimum_via_land_to_component_bound_mm": 0.2034,
+  "nearest": {
+    "via": [
+      120.1546,
+      77.3216
+    ],
+    "ref": "J16"
+  },
+  "via_access_below_0_199mm": [],
+  "missing_canonical_component_refs": [],
+  "embedded_pad_net_contract_mismatches": [],
+  "production_embedded_pad_geometry_mismatches": [],
+  "production_library_pad_geometry_mismatches": [],
+  "long_lead_pad_count": 79,
+  "short_usb_shell_pads": 4,
+  "physical_pad_moats_passed": 83,
+  "physical_pad_moats_missing_or_too_small": [],
+  "front_filled_copper_clearance_below_0_199mm": [],
+  "front_track_clearance_below_0_199mm": [],
+  "usb_shell_back_copper_clearance_below_0_199mm": [],
+  "physical_connectivity_graph_nodes": 2290,
+  "physical_connectivity_net_count": 70,
+  "physical_connectivity_disconnected_nets": {},
+  "physical_ground_pad_groups": 1,
+  "usb_shell_ground_reaches_manual_wire": true,
+  "edge_bounds_mm": [
+    75.0,
+    60.0,
+    185.0,
+    185.0
+  ],
+  "connector_noses_x_mm": {
+    "J1": 185.0,
+    "J2": 185.0,
+    "J3": 185.0
+  },
+  "check_count": 18,
+  "checks": [
+    "Source unchanged throughout independent audit",
+    "Exactly two copper faces",
+    "Nominal1.60mm laminate",
+    "Bare35um/1.53mm/35um two-face stackup",
+    "All111 canonical component references present",
+    "Every embedded contact matches canonical netlist contract",
+    "Every embedded manufacturer land/drill/pin geometry preserved",
+    "Every HomeMilling library manufacturer land/drill/pin geometry preserved",
+    "Every manual wire land accessible outside both-face component body bounds",
+    "At least.20mm nominal track width (1um audit tolerance)",
+    "All manual wire joins1.80mm lands/.80mm drills",
+    "Individual physical long-lead front moats and USB-shell back moats meet.20mm nominal target",
+    "No front track/fill reaches any bottom-only long-lead annulus",
+    "Exactly four front-only USB shell contacts; isolated back annuli",
+    "All physical ground contacts form one connected group using only documented solder faces and manual wire joins",
+    "All four USB shell contacts reach a manual ground wire join",
+    "All nets physically connected without imaginary plated component-hole barrels",
+    "USB and both4P4C mouths align with nominal east edge185mm"
+  ],
+  "issues": []
+}
