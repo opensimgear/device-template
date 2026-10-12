@@ -4,4 +4,8 @@ Run the native test commands in [firmware README](../README.md). A delivery-stat
 
 The CI cross-build matrix compiles `example`, `shifter` and `expanded` for `starter_g0b1cb_rev_b`. [Rev B validation](../../electronics/boards/starter/rev-b/VALIDATION.md) records CAD and physical gates. Native and compile checks do not replace physical USB, ADC, encoder timing or I²C fault tests.
 
-The eighth native suite exercises CAN assignment/timeout, lossless maximum profiles, exact gateway USB completion ACKs, stale boot/lease/sequence/duplicate/wrong-report rejection, direct USB priority, per-encoder phase sequence guards and interrupted boot-counter journal writes. Profile behavior tests also compare each supplied profile with the gateway codec report length and exact neutral bytes. See [CAN validation](../CAN_BRINGUP.md).
+The eighth native suite connects the device to real Cyphal peers and exercises assignment/timeout, lossless maximum profiles, exact gateway USB completion ACKs, gateway source binding, transport node-ID collision recovery, stale boot/lease/sequence/duplicate/wrong-report rejection, direct USB priority, per-encoder phase sequence guards and interrupted boot-counter journal writes. Profile behavior tests also compare each supplied profile with the generated Cyphal report length and exact neutral bytes. See [CAN validation](../CAN_BRINGUP.md).
+
+The ninth suite runs the canonical shared transport tests against the device's
+snapshot, including generated DSDL, FD/Classic transfers, node services,
+collision recovery, queue deadlines and bounded allocation.

@@ -11,14 +11,14 @@ cmake --preset starter -DOSG_DEVICE_PROFILE=example -DOSG_USB_VID=<your-VID> -DO
 cmake --build --preset starter
 ```
 
-`example`, `shifter` and `expanded` are provided. The [profile guide](profiles/README.md) documents wiring, report layouts and adding a profile. Outputs are `osg_hello.elf`, `.bin`, `.hex` and `.map` in `build/starter`. Missing, zero or out-of-range USB IDs are rejected. CI uses `0xFFFF/0xFFFF` only for compilation, never for distribution or flashing.
+`example`, `shifter` and `expanded` are provided. The [profile guide](profiles/README.md) documents wiring, report layouts and adding a profile. Outputs are `osg_hello.elf`, `.bin`, `.hex` and `.map` in the workspace `../../.research/device-template/starter` directory. Missing, zero or out-of-range USB IDs are rejected. CI uses `0xFFFF/0xFFFF` only for compilation, never for distribution or flashing.
 
 For Ninja instead of Make:
 
 ```sh
-cmake -S . -B build/starter-ninja -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/arm-gcc.cmake \
+cmake -S . -B ../../.research/device-template/starter-ninja -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/arm-gcc.cmake \
   -DOSG_DEVICE_PROFILE=shifter -DOSG_USB_VID=<your-VID> -DOSG_USB_PID=<your-PID>
-cmake --build build/starter-ninja
+cmake --build ../../.research/device-template/starter-ninja
 ```
 
 Both firmware and native tests use the full common-code pin in `cmake/common-revision.cmake`. Common code owns upstream dependency pins. For shared-code development add `-DFETCHCONTENT_SOURCE_DIR_FIRMWARE_COMMON=/absolute/path/to/firmware-common`, then update the commit pin after review. The first normal build needs network access.
@@ -36,7 +36,7 @@ The selected profile enumerates as one joystick and a diagnostic USB serial port
 | `info` | Rev B target, selected profile, MCU UID and HID counts |
 | `inputs` | Axis-availability mask, hat/selector conflicts, missing/stale expansion-bank mask, blocked command groups and encoder counters |
 | `led on`, `led off`, `led auto` | LED override or heartbeat |
-| `can status` | v2 node, lease, boot session, ownership, RX/TX and recovery counters |
+| `can status` | Cyphal node ID, logical route, lease, boot session, ownership, RX/TX and recovery counters |
 
 Lines are limited to 63 characters. Overflow and NUL input are discarded through newline with an error. The LED changes from 1 s to 500 ms half-period after mounting; suspend turns it off. Active USB reports refresh at least every 10 ms when the endpoint is ready. Changed reports can arrive sooner. Encoder pulses advance only after completed host transfers; stale-generation acknowledgements are rejected after USB recovery. TinyUSB retains a submitted interrupt packet across suspend. Its eventual completion cannot acknowledge a new encoder generation, and a canceled/free endpoint cannot leave the software submission flag stuck. A pre-suspend packet may still reach the host before the fresh neutral report on resume; exact host-visible behavior requires physical suspend/resume validation. The template does not claim transparent cancellation of already-submitted USB packets.
 
@@ -51,11 +51,11 @@ I²C uses PB6/PB7 AF6 with an initial 400 kHz timing target at 64 MHz PCLK. One 
 ## Validation and remaining integration
 
 ```sh
-cmake -S firmware/tests -B build/tests -DCMAKE_BUILD_TYPE=Release
-cmake --build build/tests
-ctest --test-dir build/tests --output-on-failure
+cmake -S firmware/tests -B ../.research/device-template/tests -DCMAKE_BUILD_TYPE=Release
+cmake --build ../.research/device-template/tests
+ctest --test-dir ../.research/device-template/tests --output-on-failure
 ```
 
 Run those commands from the repository root. Eight native tests exercise all supplied profiles and parse their real descriptors. Shared tests cover limits, invalid assignments, conflicts, stale axes, cross-bank recovery, encoder acknowledgements and expansion scanning. CI also cross-builds each profile. These checks do not establish physical timing or host compatibility.
 
-Profiles are build-time declarations. Runtime cockpit configuration, saved calibration, a production serial protocol, SimHub outputs, firmware updates remain future work. The module now announces and sends lossless input through the matching STM32 gateway using the private CAN FD v2 protocol. Gateway USB completion acknowledgements preserve encoder pulse delivery; direct USB takes priority. This is not Cyphal. See [CAN integration and validation](CAN_BRINGUP.md) for ownership, freshness, storage and qualification details. libcanard remains unused scaffolding. VBUS gates USB attachment when externally powered; assembled supply, suspend, inrush, USB and CAN tests remain required.
+Profiles are build-time declarations. Runtime cockpit configuration, saved calibration, a production serial protocol, SimHub outputs, firmware updates remain future work. The generic device is a Cyphal/CAN node. The shared libcanard stack selects its transport node ID, publishes standard Heartbeat, serves GetInfo, and carries generated OpenSimGear DSDL transfers for profile discovery and lossless input through the matching STM32 gateway. Gateway USB completion acknowledgements preserve encoder pulse delivery; direct USB takes priority. See [CAN integration and validation](CAN_BRINGUP.md) for ownership, freshness, storage and qualification details. VBUS gates USB attachment when externally powered; assembled supply, suspend, inrush, USB and CAN tests remain required.

@@ -1,10 +1,6 @@
 {
-  "source": "OpenSimGear gateway firmware working-tree v2 snapshot, 2026-10-12",
-  "baseline_revision": "844f0e1a13ad48864a5fe2213916ace22c9c9494",
-  "protocol_version": 2,
+  "source": "OpenSimGear gateway flash journal snapshot; Cyphal transport lives in shared-cyphal",
   "files": {
-    "include/opensimgear/gateway_protocol.h": "3934d8dbc909a8be9fe892f62cc0c3181822b79032e0a9270c70bc5182bde599",
-    "src/gateway_protocol.c": "a877a768680827a15853e8ecd595329935dedb7e0465ba25bd6affd40c369e45",
     "include/gateway_journal.h": "017703c8ca9c517e9f8436416cc1658803658d0beab936b224433940baf30c15",
     "src/gateway_journal.c": "6599a61a6c0ad2eb354e12002ceacd573a07ebcf114dbe8290faf99efeff64ff"
   }

@@ -21,6 +21,7 @@ foreach(id OSG_USB_VID OSG_USB_PID)
   endif()
 endforeach()
 include(cmake/dependencies.cmake)
+add_subdirectory(shared-cyphal)
 set(HAL ${OSG_STM32_HAL_DIR})
 set(CMSIS ${OSG_STM32_CMSIS_DIR})
 add_library(osg_hal STATIC
@@ -36,15 +37,15 @@ add_library(osg_hal STATIC
 target_include_directories(osg_hal PUBLIC include ${HAL}/Inc ${CMSIS}/Include ${OSG_CMSIS_CORE_DIR}/CMSIS/Core/Include)
 target_compile_definitions(osg_hal PUBLIC STM32G0B1xx USE_HAL_DRIVER)
 add_executable(osg_hello src/main.c src/profile.c src/usb_descriptors.c src/can_client.c src/can_delivery.c src/boot_session.c
-  shared-gateway/src/gateway_protocol.c shared-gateway/src/gateway_journal.c
+  shared-gateway/src/gateway_journal.c
   boards/starter_g0b1cb_rev_b/board.c boards/starter_g0b1cb_rev_b/can_transport.c boards/starter_g0b1cb_rev_b/storage.c
   ${CMSIS}/Source/Templates/gcc/startup_stm32g0b1xx.s)
 target_include_directories(osg_hello PRIVATE include profiles boards/starter_g0b1cb_rev_b shared-gateway/include)
 target_compile_definitions(osg_hello PRIVATE OSG_USB_VID=${OSG_USB_VID} OSG_USB_PID=${OSG_USB_PID}
   OSG_DEVICE_PROFILE_HEADER="${OSG_DEVICE_PROFILE}.h")
-target_link_libraries(osg_hello PRIVATE osg_core osg_usb osg_hal osg_canard)
+target_link_libraries(osg_hello PRIVATE osg_core osg_usb osg_hal osg_cyphal)
 target_compile_options(osg_hello PRIVATE -Wall -Wextra -Werror -fstack-usage)
-foreach(target osg_hello osg_hal osg_core osg_usb osg_tinyusb osg_canard)
+foreach(target osg_hello osg_hal osg_core osg_usb osg_tinyusb osg_cyphal)
   target_compile_options(${target} PRIVATE -Os -ffunction-sections -fdata-sections)
 endforeach()
 target_link_options(osg_hello PRIVATE -T${CMAKE_CURRENT_SOURCE_DIR}/boards/starter_g0b1cb_rev_b/flash.ld

@@ -4,51 +4,119 @@
 #include <assert.h>
 #include <string.h>
 
-static osg_gateway_message_t outgoing;
-static unsigned sent; static bool permit=true;
+typedef struct {
+    osg_gateway_frame_t frames[128];
+    unsigned head,count;
+    bool permit;
+} wire_t;
+static wire_t device_wire={.permit=true},gateway_wire[2]={{.permit=true},{.permit=true}};
+static osg_cyphal_t gateways[2];
+static osg_can_client_t client;
+static osg_gateway_message_t outgoing[6];
+static unsigned sent[6],completions;
 static bool send(void *context,const osg_gateway_frame_t *frame) {
-    (void)context; if(!permit) return false; sent++; return osg_gateway_frame_decode(frame,&outgoing);
+    wire_t *wire=context;
+    if(!wire->permit) return false;
+    assert(wire->count<128);
+    wire->frames[(wire->head+wire->count)%128]=*frame; wire->count++; return true;
 }
-static osg_gateway_frame_t encoded(osg_gateway_message_t m) {
-    osg_gateway_frame_t f; assert(osg_gateway_frame_encode(&m,&f)); return f;
+static bool take(wire_t *wire,osg_gateway_frame_t *frame) {
+    if(!wire->count) return false;
+    *frame=wire->frames[wire->head]; wire->head=(wire->head+1)%128; wire->count--; return true;
 }
-static osg_gateway_message_t assignment(const osg_can_client_t *c,uint32_t lease) {
-    return (osg_gateway_message_t){.type=OSG_GW_ASSIGN,.node=3,.identity=c->identity,
-        .boot_session=c->boot,.lease=lease,.gateway_epoch=2};
+static void pump(uint32_t now) {
+    for(unsigned rounds=0;rounds<128;rounds++) {
+        bool progress=false; osg_gateway_frame_t frame;
+        while(take(&device_wire,&frame)) {
+            progress=true;
+            for(unsigned i=0;i<2;i++) {
+                osg_gateway_message_t m;
+                if(osg_cyphal_receive(&gateways[i],&frame,now,&m) && i==0) {
+                    outgoing[m.type]=m; sent[m.type]++;
+                }
+            }
+        }
+        for(unsigned i=0;i<2;i++) while(take(&gateway_wire[i],&frame)) {
+            progress=true;
+            if(osg_can_client_receive(&client,&frame,now)) completions++;
+            osg_gateway_message_t ignored;
+            (void)osg_cyphal_receive(&gateways[1-i],&frame,now,&ignored);
+        }
+        if(!progress) return;
+    }
+    assert(false); /* The bounded transport must not create an endless exchange. */
+}
+static void tick(uint32_t now,const uint8_t report[OSG_GW_MAX_REPORT_SIZE]) {
+    osg_can_client_tick(&client,now,report);
+    for(unsigned i=0;i<2;i++) osg_cyphal_tick(&gateways[i],now);
+    pump(now);
+}
+static void emit(unsigned gateway,osg_gateway_message_t message,uint32_t now) {
+    assert(osg_cyphal_send(&gateways[gateway],&message,now)); pump(now);
+}
+static osg_gateway_message_t assignment(uint32_t lease) {
+    return (osg_gateway_message_t){.type=OSG_GW_ASSIGN,.node=3,.identity=client.identity,
+        .boot_session=client.boot,.lease=lease,.gateway_epoch=2};
+}
+static osg_gateway_message_t acknowledgement(void) {
+    osg_gateway_message_t m=outgoing[OSG_GW_INPUT]; m.type=OSG_GW_INPUT_ACK; return m;
 }
 static void client_test(void) {
     osg_gateway_identity_t id={{'O','S','G','D',1}};
     osg_gateway_profile_t p={.button_count=128,.axis_count=8,.hat_count=4,.revision=1};
     for(unsigned i=0;i<8;i++) { p.axis_usage[i]=(uint8_t)(0x30+i); p.axis_neutral[i]=32768; }
-    osg_can_client_t c; assert(osg_can_client_init(&c,&id,&p,7,send,NULL));
+    for(unsigned i=0;i<2;i++) {
+        osg_gateway_identity_t gateway_id={{'O','S','G','G',2}}; gateway_id.bytes[4]+=(uint8_t)i;
+        assert(osg_cyphal_init(&gateways[i],&gateway_id,9,"org.opensimgear.gateway",send,&gateway_wire[i]));
+        assert(canard_set_node_id(&gateways[i].canard,(uint8_t)(100+i)));
+    }
+    assert(osg_can_client_init(&client,&id,&p,7,send,&device_wire));
+    assert(canard_set_node_id(&client.cyphal.canard,21));
+    assert(osg_cyphal_node_id(&client.cyphal)<=127);
     uint8_t r[OSG_GW_MAX_REPORT_SIZE]; osg_gateway_profile_neutral(&p,r);
-    osg_can_client_tick(&c,0,r); assert(sent==1 && outgoing.type==OSG_GW_ANNOUNCE && outgoing.profile.hat_count==4);
-    osg_gateway_frame_t f=encoded(assignment(&c,100));
-    assert(!osg_can_client_receive(&c,&f,1)); assert(osg_can_client_active(&c));
-    osg_can_client_tick(&c,1,r); assert(outgoing.type==OSG_GW_INPUT && outgoing.sequence==1);
-    osg_gateway_message_t ack=outgoing; ack.type=OSG_GW_INPUT_ACK; f=encoded(ack);
-    assert(osg_can_client_receive(&c,&f,2)); assert(c.ack_sequence==1);
-    assert(!osg_can_client_receive(&c,&f,3)); /* duplicate */
-    osg_can_client_tick(&c,11,r); ack=outgoing; ack.type=OSG_GW_INPUT_ACK;
-    ack.report[0]^=1; f=encoded(ack); assert(!osg_can_client_receive(&c,&f,12)); /* exact report */
-    ack.report[0]^=1; ack.lease--; f=encoded(ack); assert(!osg_can_client_receive(&c,&f,12));
-    ack.lease++; ack.boot_session++; f=encoded(ack); assert(!osg_can_client_receive(&c,&f,12));
-    ack.boot_session--; f=encoded(ack); assert(osg_can_client_usb(&c,true));
-    assert(!osg_can_client_active(&c) && !osg_can_client_receive(&c,&f,13));
-    assert(osg_can_client_usb(&c,false)); assert(!osg_can_client_receive(&c,&f,14)); /* cleared history */
-    osg_can_client_tick(&c,14,r); ack=outgoing; ack.type=OSG_GW_INPUT_ACK; f=encoded(ack);
-    assert(osg_can_client_receive(&c,&f,15));
-    uint32_t generation=c.generation; f=encoded(assignment(&c,101));
-    assert(!osg_can_client_receive(&c,&f,16) && c.generation!=generation);
-    f=encoded(assignment(&c,100)); assert(!osg_can_client_receive(&c,&f,17) && c.lease==101);
-    ack.lease=100; f=encoded(ack); assert(!osg_can_client_receive(&c,&f,17));
-    permit=false; uint32_t sequence=c.next_sequence; osg_can_client_tick(&c,30,r); assert(c.next_sequence==sequence);
-    permit=true; osg_can_client_tick(&c,2016,r); assert(!osg_can_client_active(&c));
-    f=encoded(assignment(&c,102)); osg_can_client_receive(&c,&f,2020);
-    osg_can_client_tick(&c,2020,r); ack=outgoing; ack.type=OSG_GW_INPUT_ACK; f=encoded(ack);
-    assert(!osg_can_client_receive(&c,&f,4020) && !osg_can_client_active(&c)); /* timeout before tick */
-    f=encoded(assignment(&c,103)); osg_can_client_receive(&c,&f,4021);
-    c.next_sequence=UINT32_MAX; osg_can_client_tick(&c,4021,r); assert(c.exhausted && !osg_can_client_active(&c));
+    tick(0,r); assert(sent[OSG_GW_ANNOUNCE]==1 && outgoing[OSG_GW_ANNOUNCE].profile.hat_count==4);
+    emit(0,assignment(100),1); assert(osg_can_client_active(&client));
+    assert(client.gateway_source==osg_cyphal_node_id(&gateways[0]));
+    tick(1,r); assert(sent[OSG_GW_INPUT]==1 && outgoing[OSG_GW_INPUT].sequence==1);
+    osg_gateway_message_t ack=acknowledgement(); emit(0,ack,2);
+    assert(completions==1 && client.ack_sequence==1);
+    emit(0,ack,3); assert(completions==1); /* Duplicate application sequence. */
+    tick(11,r); ack=acknowledgement();
+    ack.report[0]^=1; emit(0,ack,12); assert(completions==1); /* Exact report. */
+    ack.report[0]^=1; ack.lease--; emit(0,ack,12); assert(completions==1);
+    ack.lease++; ack.boot_session++; emit(0,ack,12); assert(completions==1);
+    ack.boot_session--; emit(1,ack,12); assert(completions==1); /* Wrong gateway source. */
+    emit(1,assignment(999),12); assert(client.lease==100); /* Competing live gateway. */
+    assert(osg_can_client_usb(&client,true));
+    assert(!osg_can_client_active(&client)); emit(0,ack,13); assert(completions==1);
+    assert(osg_can_client_usb(&client,false)); emit(0,ack,14); assert(completions==1); /* Cleared history. */
+    tick(14,r); ack=acknowledgement(); emit(0,ack,15); assert(completions==2);
+    uint32_t generation=client.generation; emit(0,assignment(101),16);
+    assert(client.generation!=generation);
+    emit(0,assignment(100),17); assert(client.lease==101);
+    ack.lease=100; emit(0,ack,17); assert(completions==2);
+    uint8_t old_source=osg_cyphal_node_id(&client.cyphal);
+    generation=client.generation;
+    assert(canard_set_node_id(&gateways[1].canard,old_source));
+    gateways[1].heartbeat_sent=false; osg_cyphal_tick(&gateways[1],18); pump(18);
+    assert(osg_cyphal_node_id(&client.cyphal)!=old_source);
+    assert(!osg_can_client_active(&client) && !client.lease && !client.ack_sequence && client.generation!=generation);
+    unsigned old_inputs=sent[OSG_GW_INPUT],old_announces=sent[OSG_GW_ANNOUNCE];
+    tick(19,r); assert(sent[OSG_GW_INPUT]==old_inputs && sent[OSG_GW_ANNOUNCE]==old_announces+1);
+    emit(0,assignment(102),20); assert(osg_can_client_active(&client));
+    device_wire.permit=false;
+    for(unsigned i=0;i<40;i++) { client.input_due=true; tick(30,r); }
+    assert(client.tx_dropped>0); /* Driver refusal eventually fills the bounded transport queue. */
+    uint32_t sequence=client.next_sequence; tick(30,r); assert(client.next_sequence==sequence);
+    osg_can_client_reset(&client); /* Purges retained transfers before restoring the driver. */
+    device_wire.permit=true;
+    emit(0,assignment(103),2020); tick(2020,r); ack=acknowledgement();
+    emit(0,ack,4020); assert(completions==2 && !osg_can_client_active(&client)); /* Timeout before tick. */
+    emit(1,assignment(1),4021); assert(client.gateway_source==osg_cyphal_node_id(&gateways[1]));
+    /* Timeout cleared epoch/lease ordering, so the new gateway can start at lease 1. */
+    client.next_sequence=UINT32_MAX; tick(4021,r); assert(client.exhausted && !osg_can_client_active(&client));
+    for(unsigned i=0;i<2;i++) osg_cyphal_destroy(&gateways[i]);
+    osg_cyphal_destroy(&client.cyphal);
 }
 static void encoder_test(void) {
     static const osg_profile_encoder_t enc[]={{0,1}};

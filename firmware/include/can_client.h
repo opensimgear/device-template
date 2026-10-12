@@ -1,17 +1,18 @@
 #pragma once
-#include "opensimgear/gateway_protocol.h"
+#include "opensimgear/cyphal.h"
 
 enum { OSG_CAN_HISTORY=16, OSG_CAN_ANNOUNCE_MS=500, OSG_CAN_INPUT_MS=10,
        OSG_CAN_ASSIGN_TIMEOUT_MS=2000 };
 typedef bool (*osg_can_send_t)(void *,const osg_gateway_frame_t *);
 typedef struct { uint32_t sequence; uint8_t report[OSG_GW_MAX_REPORT_SIZE]; } osg_can_sent_t;
 typedef struct {
+    osg_cyphal_t cyphal;
     osg_gateway_identity_t identity;
     osg_gateway_profile_t profile;
     osg_can_send_t send; void *context;
     uint32_t boot,lease,epoch,next_sequence,ack_sequence,generation;
     uint32_t announced_at,announce_due,random,input_at,assigned_at,ack_at;
-    uint8_t node,history_head;
+    uint8_t node,gateway_source,history_head;
     bool direct,announced,announce_waiting,input_due,exhausted;
     osg_can_sent_t history[OSG_CAN_HISTORY];
     uint8_t acknowledged[OSG_GW_MAX_REPORT_SIZE];

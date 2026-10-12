@@ -4,7 +4,12 @@
 #include <stdint.h>
 #include "profile.h"
 
-typedef struct { uint32_t id; uint8_t size; uint8_t data[64]; } board_can_frame_t;
+typedef struct {
+    uint32_t id,deadline_ms;
+    uint8_t size;
+    bool fd,brs,deadline_valid;
+    uint8_t data[64];
+} board_can_frame_t;
 typedef struct {
     uint32_t rx, tx, rx_dropped, tx_dropped, tx_failed, recoveries;
     uint32_t hal_error;

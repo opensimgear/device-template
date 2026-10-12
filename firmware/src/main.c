@@ -18,7 +18,8 @@ static osg_can_client_t can_client;
 static osg_can_delivery_t can_delivery;
 static bool can_initialized,can_reset_requested;
 static bool can_send(void *context,const osg_gateway_frame_t *frame) {
-    (void)context; board_can_frame_t tx={.id=frame->id,.size=frame->length};
+    (void)context; board_can_frame_t tx={.id=frame->id,.size=frame->length,.fd=frame->fd,.brs=frame->brs,
+        .deadline_ms=frame->deadline_ms,.deadline_valid=frame->deadline_valid};
     memcpy(tx.data,frame->data,frame->length); return board_can_enqueue(&tx);
 }
 static void rearm_acquisition(void) {
@@ -37,7 +38,7 @@ static void command(const char *line) {
     else if (!strcmp(line, "help")) reply("hello | info | inputs | led on | led off | led auto | can status\r\n");
     else if (!strcmp(line, "info")) {
         char module[33], out[160]; osg_gateway_identity_format(&can_client.identity,module);
-        snprintf(out, sizeof out, "model=device-template board=rev-b profile=%s module=%s protocol=2 buttons=%u axes=%u hats=%u\r\n",
+        snprintf(out, sizeof out, "model=device-template board=rev-b profile=%s module=%s protocol=3 buttons=%u axes=%u hats=%u\r\n",
             device_profile()->name,module,inputs.layout.buttons,inputs.layout.axes,inputs.layout.hats);
         reply(out);
     } else if (!strcmp(line,"inputs")) {
@@ -56,8 +57,8 @@ static void command(const char *line) {
     else if (!strcmp(line, "led auto")) { led_override = false; reply("OK\r\n"); }
     else if (!strcmp(line, "can status")) {
         board_can_diagnostics_t d=board_can_diagnostics(); char out[160];
-        snprintf(out,sizeof out,"can=v2 node=%u lease=%lu boot=%lu usb=%u rx=%lu tx=%lu rejected=%lu recoveries=%lu\r\n",
-            can_client.node,(unsigned long)can_client.lease,(unsigned long)can_client.boot,can_client.direct,
+        snprintf(out,sizeof out,"can=cyphal node=%u route=%u lease=%lu boot=%lu usb=%u rx=%lu tx=%lu rejected=%lu recoveries=%lu\r\n",
+            osg_cyphal_node_id(&can_client.cyphal),can_client.node,(unsigned long)can_client.lease,(unsigned long)can_client.boot,can_client.direct,
             (unsigned long)d.rx,(unsigned long)d.tx,(unsigned long)can_client.rejected,(unsigned long)d.recoveries); reply(out);
     }
     else reply("ERR unknown command\r\n");
@@ -106,10 +107,16 @@ int main(void) {
         osg_can_delivery_observe(&can_delivery,&inputs,can_client.next_sequence);
         for(unsigned n=0;n<4;n++) {
             board_can_frame_t rx; if(!board_can_receive(&rx)) break;
-            osg_gateway_frame_t frame={.id=rx.id,.length=rx.size,.extended=true,.fd=true,.brs=true};
+            osg_gateway_frame_t frame={.id=rx.id,.length=rx.size,.extended=true,.fd=rx.fd,.brs=rx.brs};
             memcpy(frame.data,rx.data,rx.size);
+            uint8_t source=osg_cyphal_node_id(&can_client.cyphal);
             if(osg_can_client_receive(&can_client,&frame,now))
                 osg_can_delivery_completed(&can_delivery,&inputs,can_client.ack_sequence,can_client.acknowledged,now);
+            if(source!=osg_cyphal_node_id(&can_client.cyphal)) {
+                /* Frames already handed to the controller still carry the
+                 * old source ID. Purge them along with the invalidated route. */
+                board_can_reset(now); break;
+            }
         }
         if(can_generation!=can_client.generation) {
             /* A lease arriving after sampling must not publish an old pulse. */
@@ -122,7 +129,7 @@ int main(void) {
         if (connected != serial_open) {
             serial_open = connected; osg_line_init(&line, line_buffer, sizeof line_buffer);
             led_override = false; tud_cdc_read_flush();
-            if (connected) reply("OpenSimGear generic module v2 console; type help\r\n");
+            if (connected) reply("OpenSimGear generic Cyphal device console; type help\r\n");
         }
         for (unsigned n=0; connected && n<16 && tud_cdc_available() && tud_cdc_write_available()>=160; ++n) {
             char byte; if (tud_cdc_read(&byte, 1) != 1) break;

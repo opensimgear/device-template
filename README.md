@@ -9,11 +9,11 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 - Optional 3.3 V TCA9555 input boards on I²C, with missing-board diagnostics and recovery that prevents held momentary contacts from generating a new press.
 - Composite USB HID + CDC serial, unique serial number from the MCU's 96-bit UID.
 - Serial `hello`, `info`, `inputs`, LED control and CAN status diagnostics.
-- CAN FD v2 announcement, lease assignment and input delivery through the STM32 gateway; direct USB ownership and completion-acknowledged encoder events.
+- Cyphal/CAN device with automatic node-ID selection, standard Heartbeat/GetInfo, profile discovery and input delivery through the STM32 gateway; direct USB ownership and completion-acknowledged encoder events.
 - Shared profile validation, HID descriptor generation, debouncing, axis scaling, hat decoding, bounded encoder events, TCA9555 acquisition and line handling in [firmware-common](https://github.com/opensimgear/firmware-common), with pinned dependencies.
 - KiCad schematic, exact-part BOM and local libraries, with separate four-layer production and two-layer Makera Z1 layouts. Reviewed Rev A files remain available alongside Rev B.
 
-**Status on 2026-10-12:** all three profiles cross-build and eight native suites pass, including CAN delivery and interrupted boot-journal writes. Cross-firmware tests connect actual acquisition/client code to the [device-gateway](https://github.com/opensimgear/device-gateway) discovery, registry and USB completion logic. Production schematic ERC, PCB DRC and schematic/PCB parity pass with zero violations or missing connections. These are software and CAD checks; no STM32 board has been physically validated. Fabricator impedance approval, physical USB/CAN/power and recovery tests remain pending. Runtime input configuration, saved calibration, output sessions, application Cyphal traffic and firmware updates are future work.
+**Status on 2026-10-12:** all three profiles cross-build and eight native suites pass, including CAN delivery and interrupted boot-journal writes. Cross-firmware tests connect actual acquisition/client code to the [device-gateway](https://github.com/opensimgear/device-gateway) discovery, registry and USB completion logic. Production schematic ERC, PCB DRC and schematic/PCB parity pass with zero violations or missing connections. These are software and CAD checks; no STM32 board has been physically validated. Fabricator impedance approval, physical USB/CAN/power and recovery tests remain pending. Runtime input configuration, saved calibration, output sessions and firmware updates are future work.
 
 ## Start here
 
@@ -31,7 +31,7 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 
 1. Select **Use this template** on GitHub. Replace the device overview and remove unused edition placeholders.
 2. Keep common implementation in firmware-common; update its full commit pin deliberately.
-3. Copy a firmware profile, assign its physical inputs and HID usages, and select it with `OSG_DEVICE_PROFILE`. The profile generates the USB descriptor, input report and private CAN v2 capability announcement together. Cockpit can discover and register it through the matching gateway; runtime profile editing and calibration remain future work. The module's USB console provides diagnostics.
+3. Copy a firmware profile, assign its physical inputs and HID usages, and select it with `OSG_DEVICE_PROFILE`. The profile generates the USB descriptor, input report and Cyphal capability announcement together. Cockpit can discover and register it through the matching gateway; runtime profile editing and calibration remain future work. The module's USB console provides diagnostics.
 4. Supply USB IDs you are authorized to use before flashing. No public OpenSimGear allocation exists yet; pid.codes is the planned allocation route when eligible.
 5. Change the board target and electronics together, adapt the routing and complete the documented checks before fabrication.
 6. Add mechanical designs under `hardware/variants/<edition>/<revision>` and maintain a compatibility table mapping mechanical, PCB and firmware revisions.

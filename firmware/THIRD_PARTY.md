@@ -1,6 +1,6 @@
 # Third-party firmware notices
 
-Dependencies are fetched at the commits owned by firmware-common. Original files retain their upstream copyright notices. These licenses do not select a license for new OpenSimGear code. Preserve applicable notices when packaging binaries.
+HAL, CMSIS and TinyUSB dependencies are fetched at the commits owned by firmware-common. The application Cyphal transport is a self-contained `shared-cyphal` snapshot synchronized from the canonical `protocol/cyphal` directory; its SHA-256 manifest records the shipped files. Original files retain their upstream copyright notices. These licenses do not select a license for new OpenSimGear code. Preserve applicable notices when packaging binaries.
 
 ## TinyUSB
 
@@ -497,3 +497,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+
+## Generated Cyphal bindings
+
+`shared-cyphal/generated` contains C11 bindings generated with Nunavut 2.3.1 for the OpenSimGear input DSDL types and the standard `uavcan.node.Heartbeat.1.0` / `uavcan.node.GetInfo.1.0` types. The standard definitions originate from OpenCyphal `public_regulated_data_types` at commit `86e2f332419ff015f4cc9f1bb7843b02d5f7a5ed`; their MIT notice is retained in `shared-cyphal/vendor/REGULATED_DSDL_LICENSE` (Copyright 2014–2019 UAVCAN Development Team).
+
+The generated Nunavut serialization support runtime is distributed under MIT. Preserve `shared-cyphal/generated/NUNAVUT_LICENSE.rst`, including its notices for Pavel Kirienko and Amazon.com. The full libcanard MIT notice is also retained in `shared-cyphal/vendor/libcanard/LICENSE`. The shared snapshot and its canonical documentation record the upstream revision and generation command. These upstream licenses do not select a license for newly authored OpenSimGear DSDL or application code.
