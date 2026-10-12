@@ -1,6 +1,6 @@
 {
   "scope": "Native full-copper polygon projection check, with only the revised D12/D14 L2 exceptions. Does not certify impedance or hardware.",
-  "board_path": "work/generic-template/production/starter.kicad_pcb",
+  "board_path": ".research/generic-template/production/starter.kicad_pcb",
   "board_sha256": "7ba38c2eb668858974c2e1e376d83eced83b57f8917dde311d581c2b15a0cdac",
   "check_count": 11,
   "checks": [

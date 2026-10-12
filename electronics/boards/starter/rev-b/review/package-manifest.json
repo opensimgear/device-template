@@ -643,8 +643,8 @@
       "bytes": 986433
     },
     "electronics/boards/starter/rev-b/home-milling/review/home-construction-review.json": {
-      "sha256": "d4a897ba67ea63977badfc07a29ff257f450b9e70020bbf19a89cb531c0371a7",
-      "bytes": 3600
+      "sha256": "dcaf5071607927523a8e6c509a4ec44fe30018b74278dd61e02c3faa9fd16fc4",
+      "bytes": 3610
     },
     "electronics/boards/starter/rev-b/home-milling/review/home-construction-review.py": {
       "sha256": "6140248e2579c0d4d20283fee1d096e3cb87f2e9ca6ee4fb1cf9148576f3abc9",
@@ -699,8 +699,8 @@
       "bytes": 247883
     },
     "electronics/boards/starter/rev-b/netlist.xml": {
-      "sha256": "510e1b4e35d1a454b602c1aa606559a72b9e4bdc66664395a6184c723e1a73a4",
-      "bytes": 180081
+      "sha256": "e9f2eba73e17db37aa2cce0f1d9c256c60cbcd2e8895e4b7bcbe5a7f73112f0a",
+      "bytes": 180086
     },
     "electronics/boards/starter/rev-b/pin-allocation.json": {
       "sha256": "e7af2f3145e6a0b9db83c9b68503d654b96ed6215594c991e9466f19f5a98117",
@@ -711,12 +711,12 @@
       "bytes": 2807
     },
     "electronics/boards/starter/rev-b/review/circuit-review-4p4c.json": {
-      "sha256": "c77be9c6f846fd8912bd323c4b817ce9b1f8f7a2e97cb700ade465b066ce1606",
-      "bytes": 5978
+      "sha256": "a7ad1c18699647b446970070d84449c3582a182a351c833f43e70f7c713fd32e",
+      "bytes": 5983
     },
     "electronics/boards/starter/rev-b/review/connector-library-review.json": {
-      "sha256": "5572449418d015d743845cd769ddc6bf1fbcb4f67cd34386cbe6565a7d87e756",
-      "bytes": 1242
+      "sha256": "49d9a280f867a203812b76a8cb051f1b7ba38462945bbd449127ace237adc224",
+      "bytes": 1247
     },
     "electronics/boards/starter/rev-b/review/docs-review.json": {
       "sha256": "8b61c38dcc761c841a95118ea6224b9ac3e0fb388361c3fc9398529c30db7ca3",
@@ -815,8 +815,8 @@
       "bytes": 1234
     },
     "electronics/boards/starter/rev-b/review/home-construction-review.json": {
-      "sha256": "d4a897ba67ea63977badfc07a29ff257f450b9e70020bbf19a89cb531c0371a7",
-      "bytes": 3600
+      "sha256": "dcaf5071607927523a8e6c509a4ec44fe30018b74278dd61e02c3faa9fd16fc4",
+      "bytes": 3610
     },
     "electronics/boards/starter/rev-b/review/home-construction-review.py": {
       "sha256": "6140248e2579c0d4d20283fee1d096e3cb87f2e9ca6ee4fb1cf9148576f3abc9",
@@ -839,16 +839,16 @@
       "bytes": 1022135
     },
     "electronics/boards/starter/rev-b/review/production-usb-reference-review.json": {
-      "sha256": "eb38b511fb57ef47ee3a7fbbca675dbb17b801b064a17a027ff23b3d1e8fc2b2",
-      "bytes": 30290
+      "sha256": "fa24769ddabe49a353876b0eadbb18c321b9a420347577f1537ca5d272148800",
+      "bytes": 30295
     },
     "electronics/boards/starter/rev-b/review/production-usb-reference-review.py": {
       "sha256": "e174e3169ddc666d233f5dffe6921181d60450798420aeea1e19d1a1253961c5",
       "bytes": 8758
     },
     "electronics/boards/starter/rev-b/review/reference-audit.json": {
-      "sha256": "eb38b511fb57ef47ee3a7fbbca675dbb17b801b064a17a027ff23b3d1e8fc2b2",
-      "bytes": 30290
+      "sha256": "fa24769ddabe49a353876b0eadbb18c321b9a420347577f1537ca5d272148800",
+      "bytes": 30295
     },
     "electronics/boards/starter/rev-b/review/routing.pdf": {
       "sha256": "bf25399a6b1b6188e2ed625ea5a554b46a864a8b1927e0d606355c972ffc30df",

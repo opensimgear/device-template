@@ -187,7 +187,7 @@
   "bom_rows": 107,
   "mechanical_bom_rows": [],
   "source_sha256": {
-    "work/generic-template/production/netlist.xml": "510e1b4e35d1a454b602c1aa606559a72b9e4bdc66664395a6184c723e1a73a4",
+    ".research/generic-template/production/netlist.xml": "e9f2eba73e17db37aa2cce0f1d9c256c60cbcd2e8895e4b7bcbe5a7f73112f0a",
     "device-template/firmware/boards/starter_g0b1cb_rev_b/board.c": "c729cae211d9d5784de5790b15eef63ae70e6684316efc7c4909d65780b6ed9d"
   }
 }

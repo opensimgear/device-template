@@ -1,7 +1,7 @@
 {
   "scope": "Independent read-only nominal construction review using physical copper faces, manual wire joins and the canonical netlist; no source modifications or hardware qualification.",
-  "board_path": "/Users/ntrp/_pws/opensimgear/work/generic-template/home/starter.kicad_pcb",
-  "canonical_directory": "/Users/ntrp/_pws/opensimgear/work/generic-template/production",
+  "board_path": "/Users/ntrp/_pws/opensimgear/.research/generic-template/home/starter.kicad_pcb",
+  "canonical_directory": "/Users/ntrp/_pws/opensimgear/.research/generic-template/production",
   "netlist_sha256": "510e1b4e35d1a454b602c1aa606559a72b9e4bdc66664395a6184c723e1a73a4",
   "source_footprints_sha256": "2b3940546d9a8ea0d555eb0ee7f9e2f5392424161fb74234cc5ebe13e2ced1ac",
   "board_sha256": "226ac51b054deb06d5f2783f80ed65319555dda89bbfc872e878c582b2b86aec",

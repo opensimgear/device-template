@@ -1,6 +1,6 @@
 {
   "scope": "Exact Evercom5301-4P4C drawing geometry, read-only library check",
-  "library_path": "/Users/ntrp/_pws/opensimgear/work/generic-template/production/OpenSimGear.pretty/RJ4P4C_Evercom_5301-4P4C_Horizontal.kicad_mod",
+  "library_path": "/Users/ntrp/_pws/opensimgear/.research/generic-template/production/OpenSimGear.pretty/RJ4P4C_Evercom_5301-4P4C_Horizontal.kicad_mod",
   "library_sha256": "512696046cf274a6711e32f747aa8a949ae46c43432e40ebb6f3bf2cdec61706",
   "drawing_evidence": "evercom-4p4c-geometry.json",
   "checks": [
