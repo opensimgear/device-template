@@ -45,7 +45,7 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 | `hardware/variants/lite/` | Future 3D printed mechanical designs |
 | `hardware/variants/pro/` | Future laser-cut mechanical designs |
 
-Lite/Pro editions may share firmware and electronics. A material change alone does not require a new controller identity or copied firmware. This is a module template; it does not select the five-port gateway hardware. Template updates do not automatically update repositories created from it.
+Lite/Pro editions may share firmware and electronics. A material change alone does not require a new controller identity or copied firmware. This is a module template; it does not select the two-port, single-chain gateway hardware. Template updates do not automatically update repositories created from it.
 
 ## Licensing
 

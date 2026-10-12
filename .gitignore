@@ -19,3 +19,4 @@ target/
 *.kicad_pcb.lck
 *-backups/
 *.kicad_pro.lck
+.history/

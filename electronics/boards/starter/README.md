@@ -4,4 +4,4 @@
 
 Rev B has separate four-layer production and two-layer Makera Z1 layouts. [Rev A](rev-a/README.md) preserves the earlier example circuit, reviewed layouts and fine-pitch milling coupon. The electrical changes require the new `starter_g0b1cb_rev_b` firmware target; the Rev A firmware is retained at commit `5a78e46`. Rev A's six-contact CAN cabling is incompatible with Rev B's 4P4C standard. Physical qualification remains open.
 
-This is a module starting point, independent of Lite/Pro mechanical editions. It does not select the five-port gateway platform or qualify a final CAN cable.
+This is a module starting point, independent of Lite/Pro mechanical editions. It does not select the two-port, single-chain gateway platform or qualify a final CAN cable.
