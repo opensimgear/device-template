@@ -913,56 +913,16 @@
       (effects (font (size 1.27 1.27))))
     (symbol
       "USB_C_Receptacle_USB2.0_16P_0_0"
-      (rectangle
-        (start -0.254 -17.78)
-        (end 0.254 -16.764)
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (rectangle
-        (start 10.16 15.494)
-        (end 9.144 14.986)
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (rectangle
-        (start 10.16 10.414)
-        (end 9.144 9.906)
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (rectangle
-        (start 10.16 7.874)
-        (end 9.144 7.366)
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (rectangle
-        (start 10.16 2.794)
-        (end 9.144 2.286)
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (rectangle
-        (start 10.16 0.254)
-        (end 9.144 -0.254)
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (rectangle
-        (start 10.16 -2.286)
-        (end 9.144 -2.794)
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (rectangle
-        (start 10.16 -4.826)
-        (end 9.144 -5.334)
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (rectangle
-        (start 10.16 -12.446)
-        (end 9.144 -12.954)
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (rectangle
-        (start 10.16 -14.986)
-        (end 9.144 -15.494)
-        (stroke (width 0) (type default))
-        (fill (type none))))
+      (rectangle (start -0.254 -17.78) (end 0.254 -16.764) (stroke (width 0) (type default)) (fill (type none)))
+      (rectangle (start 10.16 15.494) (end 9.144 14.986) (stroke (width 0) (type default)) (fill (type none)))
+      (rectangle (start 10.16 10.414) (end 9.144 9.906) (stroke (width 0) (type default)) (fill (type none)))
+      (rectangle (start 10.16 7.874) (end 9.144 7.366) (stroke (width 0) (type default)) (fill (type none)))
+      (rectangle (start 10.16 2.794) (end 9.144 2.286) (stroke (width 0) (type default)) (fill (type none)))
+      (rectangle (start 10.16 0.254) (end 9.144 -0.254) (stroke (width 0) (type default)) (fill (type none)))
+      (rectangle (start 10.16 -2.286) (end 9.144 -2.794) (stroke (width 0) (type default)) (fill (type none)))
+      (rectangle (start 10.16 -4.826) (end 9.144 -5.334) (stroke (width 0) (type default)) (fill (type none)))
+      (rectangle (start 10.16 -12.446) (end 9.144 -12.954) (stroke (width 0) (type default)) (fill (type none)))
+      (rectangle (start 10.16 -14.986) (end 9.144 -15.494) (stroke (width 0) (type default)) (fill (type none))))
     (symbol
       "USB_C_Receptacle_USB2.0_16P_0_1"
       (rectangle
@@ -970,15 +930,8 @@
         (end 10.16 -17.78)
         (stroke (width 0.254) (type default))
         (fill (type background)))
-      (polyline
-        (pts (xy -8.89 -3.81) (xy -8.89 3.81))
-        (stroke (width 0.508) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -7.62 -3.81)
-        (end -6.35 3.81)
-        (stroke (width 0.254) (type default))
-        (fill (type outline)))
+      (polyline (pts (xy -8.89 -3.81) (xy -8.89 3.81)) (stroke (width 0.508) (type default)) (fill (type none)))
+      (rectangle (start -7.62 -3.81) (end -6.35 3.81) (stroke (width 0.254) (type default)) (fill (type outline)))
       (arc
         (start -7.62 3.81)
         (mid -6.985 4.4423)
@@ -1015,15 +968,8 @@
         (end -7.62 -3.81)
         (stroke (width 0.254) (type default))
         (fill (type outline)))
-      (polyline
-        (pts (xy -5.08 3.81) (xy -5.08 -3.81))
-        (stroke (width 0.508) (type default))
-        (fill (type none)))
-      (circle
-        (center -2.54 1.143)
-        (radius 0.635)
-        (stroke (width 0.254) (type default))
-        (fill (type outline)))
+      (polyline (pts (xy -5.08 3.81) (xy -5.08 -3.81)) (stroke (width 0.508) (type default)) (fill (type none)))
+      (circle (center -2.54 1.143) (radius 0.635) (stroke (width 0.254) (type default)) (fill (type outline)))
       (polyline
         (pts (xy -1.27 4.318) (xy 0 6.858) (xy 1.27 4.318) (xy -1.27 4.318))
         (stroke (width 0.254) (type default))
@@ -1036,16 +982,9 @@
         (pts (xy 0 -3.302) (xy -2.54 -0.762) (xy -2.54 0.508))
         (stroke (width 0.508) (type default))
         (fill (type none)))
-      (polyline
-        (pts (xy 0 -5.842) (xy 0 4.318))
-        (stroke (width 0.508) (type default))
-        (fill (type none)))
+      (polyline (pts (xy 0 -5.842) (xy 0 4.318)) (stroke (width 0.508) (type default)) (fill (type none)))
       (circle (center 0 -5.842) (radius 1.27) (stroke (width 0) (type default)) (fill (type outline)))
-      (rectangle
-        (start 1.905 1.778)
-        (end 3.175 3.048)
-        (stroke (width 0.254) (type default))
-        (fill (type outline))))
+      (rectangle (start 1.905 1.778) (end 3.175 3.048) (stroke (width 0.254) (type default)) (fill (type outline))))
     (symbol
       "USB_C_Receptacle_USB2.0_16P_1_1"
       (pin
@@ -1185,50 +1124,21 @@
     (symbol
       "USBLC6-2SC6_0_0"
       (circle (center -1.524 0) (radius 0.0001) (stroke (width 0.508) (type default)) (fill (type none)))
-      (circle
-        (center -0.508 2.032)
-        (radius 0.0001)
-        (stroke (width 0.508) (type default))
-        (fill (type none)))
-      (circle
-        (center -0.508 -4.572)
-        (radius 0.0001)
-        (stroke (width 0.508) (type default))
-        (fill (type none)))
-      (circle
-        (center 0.508 2.032)
-        (radius 0.0001)
-        (stroke (width 0.508) (type default))
-        (fill (type none)))
-      (circle
-        (center 0.508 -4.572)
-        (radius 0.0001)
-        (stroke (width 0.508) (type default))
-        (fill (type none)))
-      (circle
-        (center 1.524 -2.54)
-        (radius 0.0001)
-        (stroke (width 0.508) (type default))
-        (fill (type none))))
+      (circle (center -0.508 2.032) (radius 0.0001) (stroke (width 0.508) (type default)) (fill (type none)))
+      (circle (center -0.508 -4.572) (radius 0.0001) (stroke (width 0.508) (type default)) (fill (type none)))
+      (circle (center 0.508 2.032) (radius 0.0001) (stroke (width 0.508) (type default)) (fill (type none)))
+      (circle (center 0.508 -4.572) (radius 0.0001) (stroke (width 0.508) (type default)) (fill (type none)))
+      (circle (center 1.524 -2.54) (radius 0.0001) (stroke (width 0.508) (type default)) (fill (type none))))
     (symbol
       "USBLC6-2SC6_0_1"
       (polyline (pts (xy -2.54 0) (xy 2.54 0)) (stroke (width 0) (type default)) (fill (type none)))
-      (polyline
-        (pts (xy -2.54 -2.54) (xy 2.54 -2.54))
-        (stroke (width 0) (type default))
-        (fill (type none)))
+      (polyline (pts (xy -2.54 -2.54) (xy 2.54 -2.54)) (stroke (width 0) (type default)) (fill (type none)))
       (polyline
         (pts (xy -2.032 0.508) (xy -1.016 0.508) (xy -1.524 1.524) (xy -2.032 0.508))
         (stroke (width 0) (type default))
         (fill (type none)))
-      (polyline
-        (pts (xy -2.032 -3.048) (xy -1.016 -3.048))
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (polyline
-        (pts (xy -1.016 1.524) (xy -2.032 1.524))
-        (stroke (width 0) (type default))
-        (fill (type none)))
+      (polyline (pts (xy -2.032 -3.048) (xy -1.016 -3.048)) (stroke (width 0) (type default)) (fill (type none)))
+      (polyline (pts (xy -1.016 1.524) (xy -2.032 1.524)) (stroke (width 0) (type default)) (fill (type none)))
       (polyline
         (pts (xy -1.016 -4.064) (xy -2.032 -4.064) (xy -1.524 -3.048) (xy -1.016 -4.064))
         (stroke (width 0) (type default))
@@ -1253,14 +1163,8 @@
         (pts (xy 0.508 -1.778) (xy -0.508 -1.778) (xy 0 -0.762) (xy 0.508 -1.778))
         (stroke (width 0) (type default))
         (fill (type none)))
-      (polyline
-        (pts (xy 1.016 1.524) (xy 2.032 1.524))
-        (stroke (width 0) (type default))
-        (fill (type none)))
-      (polyline
-        (pts (xy 1.016 -3.048) (xy 2.032 -3.048))
-        (stroke (width 0) (type default))
-        (fill (type none)))
+      (polyline (pts (xy 1.016 1.524) (xy 2.032 1.524)) (stroke (width 0) (type default)) (fill (type none)))
+      (polyline (pts (xy 1.016 -3.048) (xy 2.032 -3.048)) (stroke (width 0) (type default)) (fill (type none)))
       (polyline
         (pts (xy 2.032 0.508) (xy 1.016 0.508) (xy 1.524 1.524) (xy 2.032 0.508))
         (stroke (width 0) (type default))
@@ -1397,13 +1301,7 @@
       (show_name no)
       (do_not_autoplace no)
       (effects (font (size 1.27 1.27))))
-    (property
-      "Value"
-      "R"
-      (at 0 0 90)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects (font (size 1.27 1.27))))
+    (property "Value" "R" (at 0 0 90) (show_name no) (do_not_autoplace no) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
       ""
@@ -1446,11 +1344,7 @@
       (effects (font (size 1.27 1.27))))
     (symbol
       "R_0_1"
-      (rectangle
-        (start -1.016 -2.54)
-        (end 1.016 2.54)
-        (stroke (width 0.254) (type default))
-        (fill (type none))))
+      (rectangle (start -1.016 -2.54) (end 1.016 2.54) (stroke (width 0.254) (type default)) (fill (type none))))
     (symbol
       "R_1_1"
       (pin
@@ -1689,10 +1583,7 @@
       (effects (font (size 1.27 1.27))))
     (symbol
       "C_0_1"
-      (polyline
-        (pts (xy -2.032 0.762) (xy 2.032 0.762))
-        (stroke (width 0.508) (type default))
-        (fill (type none)))
+      (polyline (pts (xy -2.032 0.762) (xy 2.032 0.762)) (stroke (width 0.508) (type default)) (fill (type none)))
       (polyline
         (pts (xy -2.032 -0.762) (xy 2.032 -0.762))
         (stroke (width 0.508) (type default))
@@ -1783,21 +1674,9 @@
         (end 1.27 -3.81)
         (stroke (width 0.254) (type default))
         (fill (type background)))
-      (rectangle
-        (start -1.27 2.667)
-        (end 0 2.413)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 0.127)
-        (end 0 -0.127)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 -2.413)
-        (end 0 -2.667)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
+      (rectangle (start -1.27 2.667) (end 0 2.413) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 0.127) (end 0 -0.127) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 -2.413) (end 0 -2.667) (stroke (width 0.1524) (type default)) (fill (type none)))
       (pin
         passive
         line
@@ -1889,11 +1768,7 @@
         (pts (xy -1.524 2.54) (xy -1.524 1.524) (xy 1.524 -1.524) (xy 1.524 -2.54))
         (stroke (width 0) (type default))
         (fill (type none)))
-      (rectangle
-        (start -0.762 2.54)
-        (end 0.762 -2.54)
-        (stroke (width 0.254) (type default))
-        (fill (type none)))
+      (rectangle (start -0.762 2.54) (end 0.762 -2.54) (stroke (width 0.254) (type default)) (fill (type none)))
       (polyline (pts (xy 0 2.54) (xy 0 -2.54)) (stroke (width 0) (type default)) (fill (type none))))
     (symbol
       "Polyfuse_1_1"
@@ -2186,31 +2061,11 @@
         (end 1.27 -6.35)
         (stroke (width 0.254) (type default))
         (fill (type background)))
-      (rectangle
-        (start -1.27 5.207)
-        (end 0 4.953)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 2.667)
-        (end 0 2.413)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 0.127)
-        (end 0 -0.127)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 -2.413)
-        (end 0 -2.667)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 -4.953)
-        (end 0 -5.207)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
+      (rectangle (start -1.27 5.207) (end 0 4.953) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 2.667) (end 0 2.413) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 0.127) (end 0 -0.127) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 -2.413) (end 0 -2.667) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 -4.953) (end 0 -5.207) (stroke (width 0.1524) (type default)) (fill (type none)))
       (pin
         passive
         line
@@ -2316,36 +2171,12 @@
         (end 1.27 -8.89)
         (stroke (width 0.254) (type default))
         (fill (type background)))
-      (rectangle
-        (start -1.27 5.207)
-        (end 0 4.953)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 2.667)
-        (end 0 2.413)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 0.127)
-        (end 0 -0.127)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 -2.413)
-        (end 0 -2.667)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 -4.953)
-        (end 0 -5.207)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 -7.493)
-        (end 0 -7.747)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
+      (rectangle (start -1.27 5.207) (end 0 4.953) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 2.667) (end 0 2.413) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 0.127) (end 0 -0.127) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 -2.413) (end 0 -2.667) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 -4.953) (end 0 -5.207) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 -7.493) (end 0 -7.747) (stroke (width 0.1524) (type default)) (fill (type none)))
       (pin
         passive
         line
@@ -2449,10 +2280,7 @@
       (circle (center -2.032 0) (radius 0.508) (stroke (width 0) (type default)) (fill (type none)))
       (polyline (pts (xy 0 1.27) (xy 0 3.048)) (stroke (width 0) (type default)) (fill (type none)))
       (circle (center 2.032 0) (radius 0.508) (stroke (width 0) (type default)) (fill (type none)))
-      (polyline
-        (pts (xy 2.54 1.27) (xy -2.54 1.27))
-        (stroke (width 0) (type default))
-        (fill (type none)))
+      (polyline (pts (xy 2.54 1.27) (xy -2.54 1.27)) (stroke (width 0) (type default)) (fill (type none)))
       (pin
         passive
         line
@@ -2550,10 +2378,7 @@
         (stroke (width 0) (type default))
         (fill (type none)))
       (polyline (pts (xy -1.27 0) (xy 1.27 0)) (stroke (width 0) (type default)) (fill (type none)))
-      (polyline
-        (pts (xy -1.27 -1.27) (xy -1.27 1.27))
-        (stroke (width 0.254) (type default))
-        (fill (type none)))
+      (polyline (pts (xy -1.27 -1.27) (xy -1.27 1.27)) (stroke (width 0.254) (type default)) (fill (type none)))
       (polyline
         (pts (xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27))
         (stroke (width 0.254) (type default))
@@ -2783,16 +2608,8 @@
         (end 1.27 -3.81)
         (stroke (width 0.254) (type default))
         (fill (type background)))
-      (rectangle
-        (start -1.27 0.127)
-        (end 0 -0.127)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 -2.413)
-        (end 0 -2.667)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
+      (rectangle (start -1.27 0.127) (end 0 -0.127) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 -2.413) (end 0 -2.667) (stroke (width 0.1524) (type default)) (fill (type none)))
       (pin
         passive
         line
@@ -2877,26 +2694,10 @@
         (end 1.27 -6.35)
         (stroke (width 0.254) (type default))
         (fill (type background)))
-      (rectangle
-        (start -1.27 2.667)
-        (end 0 2.413)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 0.127)
-        (end 0 -0.127)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 -2.413)
-        (end 0 -2.667)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
-      (rectangle
-        (start -1.27 -4.953)
-        (end 0 -5.207)
-        (stroke (width 0.1524) (type default))
-        (fill (type none)))
+      (rectangle (start -1.27 2.667) (end 0 2.413) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 0.127) (end 0 -0.127) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 -2.413) (end 0 -2.667) (stroke (width 0.1524) (type default)) (fill (type none)))
+      (rectangle (start -1.27 -4.953) (end 0 -5.207) (stroke (width 0.1524) (type default)) (fill (type none)))
       (pin
         passive
         line
@@ -2925,4 +2726,208 @@
         (length 3.81)
         (name "Pin_4" (effects (font (size 1.27 1.27))))
         (number "4" (effects (font (size 1.27 1.27))))))
-    (embedded_fonts no)))
+    (embedded_fonts no))
+  (symbol
+    "LM66100DCK"
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (in_pos_files yes)
+    (duplicate_pin_numbers_are_jumpers no)
+    (property
+      "Reference"
+      "U"
+      (at -5.08 6.096 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27)) (justify left)))
+    (property
+      "Value"
+      "LM66100DCK"
+      (at 0.254 -6.35 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27)) (justify left)))
+    (property
+      "Footprint"
+      "Package_TO_SOT_SMD:SOT-363_SC-70-6"
+      (at 0 1.27 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Datasheet"
+      "https://www.ti.com/lit/ds/symlink/lm66100.pdf"
+      (at 0 -1.016 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Description"
+      "Ideal Diode With Input Polarity Protection 1.5 - 5.5V  Input Voltage, 1.5A Output Current, Ron 141 mOhm, SC-70-6"
+      (at 0 -18.034 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "ki_keywords"
+      "Texas Instruments"
+      (at 0 0 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "ki_fp_filters"
+      "*SC?70*"
+      (at 0 0 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))
+    (symbol
+      "LM66100DCK_0_1"
+      (rectangle
+        (start -5.08 5.08)
+        (end 5.08 -5.08)
+        (stroke (width 0.254) (type default))
+        (fill (type background))))
+    (symbol
+      "LM66100DCK_1_1"
+      (pin
+        power_in
+        line
+        (at -7.62 2.54 0)
+        (length 2.54)
+        (name "VIN" (effects (font (size 1.27 1.27))))
+        (number "1" (effects (font (size 1.27 1.27)))))
+      (pin
+        power_in
+        line
+        (at 0 -7.62 90)
+        (length 2.54)
+        (name "GND" (effects (font (size 1.27 1.27))))
+        (number "2" (effects (font (size 1.27 1.27)))))
+      (pin
+        input
+        line
+        (at -7.62 -2.54 0)
+        (length 2.54)
+        (name "~{CE}" (effects (font (size 1.27 1.27))))
+        (number "3" (effects (font (size 1.27 1.27)))))
+      (pin
+        no_connect
+        line
+        (at 0 5.08 270)
+        (length 2.54)
+        (hide yes)
+        (name "NC" (effects (font (size 1.27 1.27))))
+        (number "4" (effects (font (size 1.27 1.27)))))
+      (pin
+        open_collector
+        line
+        (at 7.62 -2.54 180)
+        (length 2.54)
+        (name "ST" (effects (font (size 1.27 1.27))))
+        (number "5" (effects (font (size 1.27 1.27)))))
+      (pin
+        power_out
+        line
+        (at 7.62 2.54 180)
+        (length 2.54)
+        (name "VOUT" (effects (font (size 1.27 1.27))))
+        (number "6" (effects (font (size 1.27 1.27))))))
+    (embedded_fonts no))
+  (symbol
+    "SMF15A"
+    (pin_numbers (hide yes))
+    (pin_names (offset 1.016) (hide yes))
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (in_pos_files yes)
+    (duplicate_pin_numbers_are_jumpers no)
+    (symbol
+      "SMF15A_0_1"
+      (polyline
+        (pts (xy -0.762 1.27) (xy -1.27 1.27) (xy -1.27 -1.27))
+        (stroke (width 0.254) (type default))
+        (fill (type none)))
+      (polyline
+        (pts (xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27))
+        (stroke (width 0.254) (type default))
+        (fill (type none))))
+    (symbol
+      "SMF15A_1_1"
+      (pin
+        passive
+        line
+        (at -3.81 0 0)
+        (length 2.54)
+        (name "A1" (effects (font (size 1.27 1.27))))
+        (number "1" (effects (font (size 1.27 1.27)))))
+      (pin
+        passive
+        line
+        (at 3.81 0 180)
+        (length 2.54)
+        (name "A2" (effects (font (size 1.27 1.27))))
+        (number "2" (effects (font (size 1.27 1.27))))))
+    (embedded_fonts no)
+    (property
+      "Reference"
+      "D"
+      (at 0 2.54 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Value"
+      "SMF15A"
+      (at 0 -2.54 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Footprint"
+      "Diode_SMD:D_SMF"
+      (at 0 -5.08 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Datasheet"
+      "https://www.vishay.com/doc?85881"
+      (at -1.27 0 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Description"
+      "200W unidirectional Transil Transient Voltage Suppressor, 15Vrwm, SMF"
+      (at 0 0 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "ki_keywords"
+      "diode TVS voltage suppressor"
+      (at 0 0 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "ki_fp_filters"
+      "D*SMF*"
+      (at 0 0 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (hide yes)
+      (effects (font (size 1.27 1.27))))))

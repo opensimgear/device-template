@@ -1,16 +1,17 @@
-# STM32G0B1 starter — Rev A draft
+# STM32G0B1 starter — Rev A fabrication candidate
 
-Open `starter.kicad_pro` in **KiCad 10**. The schematic and routed PCB are editable and include local libraries; the board is a **routed prototype pending manufacturing and electrical review**. No Gerbers are provided. See [validation](VALIDATION.md), [schematic PDF](review/schematic.pdf), [front copper](review/pcb.svg), [back copper](review/pcb-back.svg), [routing PDF](review/routing.pdf) and [BOM](bom.csv).
+Open `starter.kicad_pro` in **KiCad 10**. The editable production board is **65 × 55 mm with four copper layers**, with USB and both CAN sockets facing the same edge. Its area is 58% smaller than the earlier 100 × 85 mm layout. Exact component footprints, power-source selection and USB construction have been reviewed; fabrication approval and assembled-board measurements remain required. See [fabrication plans](FABRICATION.md), [electrical review](ELECTRICAL.md), [footprint sources](FOOTPRINTS.md), [validation](VALIDATION.md), [schematic PDF](review/schematic.pdf), [front copper](review/pcb.svg), [back copper](review/pcb-back.svg), [routing PDF](review/routing.pdf) and [BOM](bom.csv).
 
 ## Selected components
 
 - ST STM32G0B1CBT6, LQFP48: 128 KiB flash, 144 KiB RAM. VDD/VDDA, VREF+ and VBAT use 3.3 V; this package internally ties VDDIO2/VDDUSB to VDD. [ST datasheet](https://www.st.com/resource/en/datasheet/stm32g0b1cb.pdf).
 - GCT USB4105-GF-A USB-C receptacle, external 5.1 kΩ Rd on each CC pin, ST USBLC6-2SC6 protection. USB data pins connect directly; external pull-up is not required.
-- TI TCAN3413D 3.3 V CAN FD transceiver, with VIO and VCC at 3.3 V and an external standby pull-up. [TI datasheet](https://www.ti.com/lit/ds/symlink/tcan3413.pdf).
+- TI TCAN3413D 3.3 V CAN FD transceiver, with VIO and VCC at 3.3 V, separate local C13/C1 100 nF bypass capacitors and an external standby pull-up. [TI datasheet](https://www.ti.com/lit/ds/symlink/tcan3413.pdf).
 - RECOM R-78E5.0-0.5 12 V-to-5 V switching module followed by TI TLV75533PDBVR 3.3 V LDO. [RECOM datasheet](https://recom-power.com/pdf/Innoline/R-78E-0.5.pdf), [TI LDO datasheet](https://www.ti.com/lit/ds/symlink/tlv755p.pdf).
-- Two Amphenol 54601-906WPLF RJ12 sockets, used only as a provisional connector candidate.
+- Two Amphenol RJE051660510H RJ12 sockets with manufacturer-derived local footprints and finished contact/locating-hole dimensions.
+- Two TI LM66100DCKR ideal-diode devices wired as TI's dual-source OR, plus Vishay SS14-E3/61T local polarity protection, SMF15A-E3-08 local transient protection and Littelfuse 1206L025/24YR local-branch fuse.
 
-The CSV identifies IC/connector/fuse candidates. Passive values, voltage ratings and footprints are specified; final vendor part numbers and availability require BOM review. Mounting holes are mechanical features, not components to order. Optional 3D models refer to a normal KiCad model installation and are not vendored.
+The BOM records exact manufacturer parts, datasheets and local footprint references for all **57 populated component instances**. Four mounting holes are mechanical features, giving 61 PCB footprints in total. Resistors and most capacitors remain 0805 for hand assembly; C2 is the specified 1210 Murata part. Availability and any substitutions must be checked before purchase. Authored footprints without a verified 3D model deliberately omit one; retained upstream models use a normal KiCad installation. See [footprint and model conventions](FOOTPRINTS.md).
 
 ## Firmware pin agreement
 
@@ -53,7 +54,7 @@ Use passive ground-switching contacts, an eight-way hat with adjacent contact pa
 
 J2 and J3 are electrically parallel pass-through ports on one CAN segment. Socket contacts are numbered by the KiCad footprint/manufacturer drawing, not an assumed cable color sequence.
 
-| Contact | Provisional signal |
+| Contact | Signal |
 | --- | --- |
 | 1, 6 | BUS_12V |
 | 2, 5 | GND |
@@ -66,18 +67,20 @@ Use a linear chain. Gateway termination is at one end; put 120 Ω across CAN_H/L
 
 ## Power paths
 
-12 V is carried on dedicated conductors alongside CAN, never on CAN_H/L. J2/J3 pass BUS_12V straight through; **their chain power is protected at the gateway**. F1 protects only this module's local branch. D1 guards that branch against reversed supply polarity; U4 makes 5 V. D2 and D3 diode-OR regulated bus power and USB VBUS into SYS_5V, then U5 makes 3.3 V. Nominal USB-reachable fitted capacitance is about 3.7 µF, excluding IC/internal capacitance; measure actual inrush.
+12 V is carried on dedicated conductors alongside CAN, never on CAN_H/L. J2/J3 pass BUS_12V straight through; **their chain power is protected at the gateway**. F1 protects only this module's local branch. D1 guards that branch against reversed supply polarity, D5 clamps local transients after D1, and U4 makes 5 V. U6/U7 LM66100 devices combine regulated bus power and USB VBUS into SYS_5V using cross-connected active-low CE inputs, following TI's dual-OR circuit; U5 then makes 3.3 V. C5 is 2.2 µF / 25 V X7R for regulator margin. Effective capacitance and actual USB inrush require measurement.
 
-The diodes block normal reverse power flow, but reverse leakage, simultaneous-source transitions, USB backfeed and fault behavior need measurement. This circuit does not feed external 12 V from USB and does not validate chain hot plugging. J2/J3 expose bus voltage whenever the chain is powered; local fuse removal does not isolate the through-power contacts.
+The LM66100 devices provide reverse blocking, with reverse leakage, simultaneous-source transitions, USB backfeed and fault behavior still to be measured. This circuit does not feed external 12 V from USB and does not validate chain hot plugging. J2/J3 expose bus voltage whenever the chain is powered; local fuse removal does not isolate the through-power contacts. The local TVS does not establish protection against sustained overvoltage or chain-wide faults.
 
-USB descriptors request 100 mA. Use the actual host budget; the prototype only drives a small LED. Do not add high-current outputs to the 3.3 V rail without revisiting USB budgets, regulators and thermal design. U4's nominal 0.5 A rating is not an approved module/chain current budget. Power off before connecting unqualified cables. External CAN surge/ESD protection, live connector sequencing and hot-plug behavior remain review gates before external-bus operation.
+USB descriptors request 100 mA. Use the actual host budget; the prototype only drives a small LED. Do not add high-current outputs to the 3.3 V rail without revisiting USB budgets, regulators and thermal design. U4's nominal 0.5 A rating is not an approved module/chain current budget. Power off before connecting unqualified cables. CAN cable qualification, live connector sequencing, surge/ESD and hot-plug behavior remain assembled-system test gates. Firmware suspend-current handling is also unverified; the PCB changes do not establish USB power compliance.
 
-## Routed prototype
+## Production layout
 
-Two copper layers, 100 × 85 mm outline and four M3 mounting holes. All schematic nets are connected on F.Cu/B.Cu. The board has 556 track segments, 140 through vias (81 for ground stitching) and ground pours on both faces. USB protection, regulator circuitry, MCU decoupling and the analog filter were moved to shorten their local connections. References are on F.Fab to keep the silkscreen clear. See [routing constraints and measurements](ROUTING.md).
+The 65 × 55 mm outline retains four M3 mounting holes. J1 is at (161.325, 144.500) mm and J2/J3 at (148.230, 113.000)/(148.230, 130.000) mm, all rotated 90°: their nominal mouths align with the east board edge at x=165.000 mm. The board has **657 track segments and 103 through vias, including 47 GND vias**. L2/In1.Cu is the continuous ground-reference plane; L3/In2.Cu is mostly ground with a local 1 mm BUS_12V feed and a short J6 CAN_L branch. Both outer faces have filled ground pours. USB protection, supply circuitry, MCU decoupling and the analog filter have short local connections. References are on F.Fab to keep silkscreen clear. See [routing constraints and measurements](ROUTING.md).
 
-Keep decoupling close to supply pins and a continuous ground return. Route USB as a short pair with protection next to J1; follow the USB/PCB stackup impedance requirement. Keep CAN pass-through short with a short transceiver stub. Size bus conductors, pads and copper for measured chain load and connector limits. The explicit prototype rule sets pad-to-hole clearance to 0.15 mm to accommodate J1's library geometry; a fabricator must approve this and all other constraints. No custom DRC exclusions hide routing errors. Native KiCad DRC reports zero geometric violations, zero unconnected items and zero schematic/PCB mismatches.
+USB's main pair uses 0.2474 mm width / 0.1501 mm edge gap over the specified JLC04161H-7628 L1–L2 construction, with three front-copper rule areas preserving its noncoplanar corridor. Request 90 Ω differential ±10% fabrication control, approval of final geometry, and a coupon/TDR report. Keep CAN pass-through and transceiver branches short. Size bus conductors, pads and copper for measured chain load and connector limits. The explicit rule sets pad-to-hole clearance to 0.15 mm for J1's library geometry; the fabricator must approve the hole/mask/edge constraints. Native KiCad checks on 2026-10-12 report **ERC 0 errors/warnings, DRC 0 violations, 0 unconnected items and 0 schematic/PCB mismatches**, with no per-item routing exclusions. These results establish static connectivity, not physical qualification.
+
+A separate [home-milling layout](home-milling/README.md) is in progress for an 85 × 85 mm board with a 5 mm alignment rail. It shares this schematic and BOM, but uses a two-layer wire-via construction and must pass the Makera Z1 qualification coupon before machining. It does not inherit the production USB impedance result.
 
 ## Libraries and licensing
 
-`KiCad.kicad_sym` and `KiCad.pretty/` contain selected KiCad 10.0.6 library entries under [KiCad's library license](LICENSE-KICAD.md); MCU and inherited symbols are flattened for local editing. `OpenSimGear.kicad_sym` contains the authored TCAN3413D and R-78E symbols. Project license selection is pending, separate from the upstream library license. Both local library tables use project-relative paths.
+`KiCad.kicad_sym` and `KiCad.pretty/` contain selected KiCad 10.0.6 library entries under [KiCad's library license](LICENSE-KICAD.md); MCU and inherited symbols are flattened for local editing. `OpenSimGear.kicad_sym` contains authored/application-specific symbols, including the reviewed LM66100 dual-OR model. `OpenSimGear.pretty/` contains manufacturer-derived RJ12, fuse, LED, TI DCK and Samtec header footprints. Project license selection remains pending, separate from the upstream library license. Both library tables use project-relative paths; authored geometry and model conventions are recorded in [FOOTPRINTS.md](FOOTPRINTS.md).

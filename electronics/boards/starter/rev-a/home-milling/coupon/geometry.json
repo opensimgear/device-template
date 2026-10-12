@@ -1,0 +1,229 @@
+{
+  "board_size_mm": [
+    45,
+    35
+  ],
+  "lanes": [
+    {
+      "gap_mm": 0.2,
+      "track_width_mm": 0.2,
+      "x_start_mm": 104.0,
+      "x_end_mm": 112.0,
+      "y_first_mm": 123.0,
+      "y_second_mm": 123.4
+    },
+    {
+      "gap_mm": 0.2,
+      "track_width_mm": 0.25,
+      "x_start_mm": 104.0,
+      "x_end_mm": 112.0,
+      "y_first_mm": 125.2,
+      "y_second_mm": 125.65
+    },
+    {
+      "gap_mm": 0.2,
+      "track_width_mm": 0.3,
+      "x_start_mm": 104.0,
+      "x_end_mm": 112.0,
+      "y_first_mm": 127.4,
+      "y_second_mm": 127.9
+    },
+    {
+      "gap_mm": 0.2,
+      "track_width_mm": 0.4,
+      "x_start_mm": 104.0,
+      "x_end_mm": 112.0,
+      "y_first_mm": 129.6,
+      "y_second_mm": 130.2
+    },
+    {
+      "gap_mm": 0.25,
+      "track_width_mm": 0.2,
+      "x_start_mm": 114.5,
+      "x_end_mm": 122.5,
+      "y_first_mm": 123.0,
+      "y_second_mm": 123.45
+    },
+    {
+      "gap_mm": 0.25,
+      "track_width_mm": 0.25,
+      "x_start_mm": 114.5,
+      "x_end_mm": 122.5,
+      "y_first_mm": 125.2,
+      "y_second_mm": 125.7
+    },
+    {
+      "gap_mm": 0.25,
+      "track_width_mm": 0.3,
+      "x_start_mm": 114.5,
+      "x_end_mm": 122.5,
+      "y_first_mm": 127.4,
+      "y_second_mm": 127.95
+    },
+    {
+      "gap_mm": 0.25,
+      "track_width_mm": 0.4,
+      "x_start_mm": 114.5,
+      "x_end_mm": 122.5,
+      "y_first_mm": 129.6,
+      "y_second_mm": 130.25
+    },
+    {
+      "gap_mm": 0.3,
+      "track_width_mm": 0.2,
+      "x_start_mm": 125.0,
+      "x_end_mm": 133.0,
+      "y_first_mm": 123.0,
+      "y_second_mm": 123.5
+    },
+    {
+      "gap_mm": 0.3,
+      "track_width_mm": 0.25,
+      "x_start_mm": 125.0,
+      "x_end_mm": 133.0,
+      "y_first_mm": 125.2,
+      "y_second_mm": 125.75
+    },
+    {
+      "gap_mm": 0.3,
+      "track_width_mm": 0.3,
+      "x_start_mm": 125.0,
+      "x_end_mm": 133.0,
+      "y_first_mm": 127.4,
+      "y_second_mm": 128.0
+    },
+    {
+      "gap_mm": 0.3,
+      "track_width_mm": 0.4,
+      "x_start_mm": 125.0,
+      "x_end_mm": 133.0,
+      "y_first_mm": 129.6,
+      "y_second_mm": 130.3
+    }
+  ],
+  "fine_pitch_mm": 0.5,
+  "fine_pad_width_mm": 0.3,
+  "fine_pad_gap_mm": 0.2,
+  "fanout_width_mm": 0.2,
+  "sc70_test": {
+    "mpn": "LM66100DCKR",
+    "footprint": "OpenSimGear:TI_DCK0006A_SC70-6_LM66100",
+    "source": "https://www.ti.com/lit/ds/symlink/lm66100.pdf",
+    "origin_mm": [
+      140.5,
+      117.5
+    ],
+    "pin_pitch_mm": 0.65,
+    "pad_size_mm": [
+      0.9,
+      0.4
+    ],
+    "adjacent_pad_gap_mm": 0.25,
+    "pad_roundrect_ratio": 0.125,
+    "fanout_width_mm": 0.2,
+    "probe_land_size_mm": [
+      0.5,
+      0.2
+    ],
+    "pads": [
+      {
+        "pin": "1",
+        "pad_center_mm": [
+          139.4,
+          116.85
+        ],
+        "probe_center_mm": [
+          138,
+          116.85
+        ]
+      },
+      {
+        "pin": "2",
+        "pad_center_mm": [
+          139.4,
+          117.5
+        ],
+        "probe_center_mm": [
+          138,
+          117.5
+        ]
+      },
+      {
+        "pin": "3",
+        "pad_center_mm": [
+          139.4,
+          118.15
+        ],
+        "probe_center_mm": [
+          138,
+          118.15
+        ]
+      },
+      {
+        "pin": "4",
+        "pad_center_mm": [
+          141.6,
+          118.15
+        ],
+        "probe_center_mm": [
+          143.4,
+          118.15
+        ]
+      },
+      {
+        "pin": "5",
+        "pad_center_mm": [
+          141.6,
+          117.5
+        ],
+        "probe_center_mm": [
+          143.4,
+          117.5
+        ]
+      },
+      {
+        "pin": "6",
+        "pad_center_mm": [
+          141.6,
+          116.85
+        ],
+        "probe_center_mm": [
+          143.4,
+          116.85
+        ]
+      }
+    ]
+  },
+  "wire_hole_mm": 0.8,
+  "wire_land_mm": 1.8,
+  "wire_positions_mm": [
+    [
+      138,
+      123
+    ],
+    [
+      141,
+      123
+    ],
+    [
+      138,
+      128
+    ],
+    [
+      141,
+      128
+    ]
+  ],
+  "alignment_hole_mm": 2,
+  "alignment_positions_mm": [
+    [
+      102.5,
+      102.5
+    ],
+    [
+      142.5,
+      132.5
+    ]
+  ],
+  "netlist": "none; independent milling test structures, not a functional USB device"
+}

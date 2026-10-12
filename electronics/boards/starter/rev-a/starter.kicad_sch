@@ -5,10 +5,10 @@
   (paper "A2")
   (title_block
     (title "OpenSimGear STM32G0B1 starter")
-    (date "2026-10-11")
+    (date "2026-10-12")
     (rev "A draft")
     (company "OpenSimGear")
-    (comment 1 "ROUTED PROTOTYPE - REVIEW BEFORE FABRICATION")
+    (comment 1 "FABRICATION REVIEW - FOUR-LAYER + MILLING PROTOTYPE")
     (comment 2 "RJ12 pinout provisional; use qualified straight-through cable only"))
   (lib_symbols
     (symbol
@@ -3044,7 +3044,211 @@
           (length 3.81)
           (name "Pin_4" (effects (font (size 1.27 1.27))))
           (number "4" (effects (font (size 1.27 1.27))))))
-      (embedded_fonts no)))
+      (embedded_fonts no))
+    (symbol
+      "OpenSimGear:LM66100DCK_OR"
+      (exclude_from_sim no)
+      (in_bom yes)
+      (on_board yes)
+      (in_pos_files yes)
+      (duplicate_pin_numbers_are_jumpers no)
+      (property
+        "Reference"
+        "U"
+        (at -5.08 6.096 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (effects (font (size 1.27 1.27)) (justify left)))
+      (property
+        "Value"
+        "LM66100DCK"
+        (at 0.254 -6.35 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (effects (font (size 1.27 1.27)) (justify left)))
+      (property
+        "Footprint"
+        "Package_TO_SOT_SMD:SOT-363_SC-70-6"
+        (at 0 1.27 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "Datasheet"
+        "https://www.ti.com/lit/ds/symlink/lm66100.pdf"
+        (at 0 -1.016 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "Description"
+        "LM66100 dual-OR-only model: switched VOUT passive; ST physical open-drain intentionally GND per TI; not a general purpose status-output symbol."
+        (at 0 -18.034 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "ki_keywords"
+        "Texas Instruments"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "ki_fp_filters"
+        "*SC?70*"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))
+      (symbol
+        "LM66100DCK_OR_0_1"
+        (rectangle
+          (start -5.08 5.08)
+          (end 5.08 -5.08)
+          (stroke (width 0.254) (type default))
+          (fill (type background))))
+      (symbol
+        "LM66100DCK_OR_1_1"
+        (pin
+          power_in
+          line
+          (at -7.62 2.54 0)
+          (length 2.54)
+          (name "VIN" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27)))))
+        (pin
+          power_in
+          line
+          (at 0 -7.62 90)
+          (length 2.54)
+          (name "GND" (effects (font (size 1.27 1.27))))
+          (number "2" (effects (font (size 1.27 1.27)))))
+        (pin
+          input
+          line
+          (at -7.62 -2.54 0)
+          (length 2.54)
+          (name "~{CE}" (effects (font (size 1.27 1.27))))
+          (number "3" (effects (font (size 1.27 1.27)))))
+        (pin
+          no_connect
+          line
+          (at 0 5.08 270)
+          (length 2.54)
+          (hide yes)
+          (name "NC" (effects (font (size 1.27 1.27))))
+          (number "4" (effects (font (size 1.27 1.27)))))
+        (pin
+          passive
+          line
+          (at 7.62 -2.54 180)
+          (length 2.54)
+          (name "ST" (effects (font (size 1.27 1.27))))
+          (number "5" (effects (font (size 1.27 1.27)))))
+        (pin
+          passive
+          line
+          (at 7.62 2.54 180)
+          (length 2.54)
+          (name "VOUT" (effects (font (size 1.27 1.27))))
+          (number "6" (effects (font (size 1.27 1.27))))))
+      (embedded_fonts no))
+    (symbol
+      "KiCad:SMF15A"
+      (pin_numbers (hide yes))
+      (pin_names (offset 1.016) (hide yes))
+      (exclude_from_sim no)
+      (in_bom yes)
+      (on_board yes)
+      (in_pos_files yes)
+      (duplicate_pin_numbers_are_jumpers no)
+      (symbol
+        "SMF15A_0_1"
+        (polyline
+          (pts (xy -0.762 1.27) (xy -1.27 1.27) (xy -1.27 -1.27))
+          (stroke (width 0.254) (type default))
+          (fill (type none)))
+        (polyline
+          (pts (xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27))
+          (stroke (width 0.254) (type default))
+          (fill (type none))))
+      (symbol
+        "SMF15A_1_1"
+        (pin
+          passive
+          line
+          (at -3.81 0 0)
+          (length 2.54)
+          (name "A1" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27)))))
+        (pin
+          passive
+          line
+          (at 3.81 0 180)
+          (length 2.54)
+          (name "A2" (effects (font (size 1.27 1.27))))
+          (number "2" (effects (font (size 1.27 1.27))))))
+      (embedded_fonts no)
+      (property
+        "Reference"
+        "D"
+        (at 0 2.54 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "Value"
+        "SMF15A"
+        (at 0 -2.54 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "Footprint"
+        "Diode_SMD:D_SMF"
+        (at 0 -5.08 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "Datasheet"
+        "https://www.vishay.com/doc?85881"
+        (at -1.27 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "Description"
+        "200W unidirectional Transil Transient Voltage Suppressor, 15Vrwm, SMF"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "ki_keywords"
+        "diode TVS voltage suppressor"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))
+      (property
+        "ki_fp_filters"
+        "D*SMF*"
+        (at 0 0 0)
+        (show_name no)
+        (do_not_autoplace no)
+        (hide yes)
+        (effects (font (size 1.27 1.27))))))
   (symbol
     (lib_id "KiCad:STM32G0B1CBTx")
     (at 100.33 100.33 0)
@@ -3108,8 +3312,15 @@
     (pin "46" (uuid "305f84e4-b13e-44d5-96a4-308abca285ea"))
     (pin "47" (uuid "7953f755-d00c-49f6-84c0-13f1ffb14a30"))
     (pin "48" (uuid "5907b71a-e8de-44d8-9630-6339c35b503b"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U1") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U1") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.st.com/resource/en/datasheet/stm32g0b1cb.pdf"
+      (at 100.33 100.33 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "STM32G0B1CBT6" (at 100.33 100.33 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:USB_C_Receptacle_USB2.0_16P")
     (at 209.55 95.25 0)
@@ -3142,8 +3353,15 @@
     (pin "B9" (uuid "998e7622-4146-43a6-a54f-189b3dc958f0"))
     (pin "B12" (uuid "52ec287f-6e01-4acb-a2ec-b79063990872"))
     (pin "SH" (uuid "11dc0cb8-4ad7-48df-804b-2b8709507305"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J1") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J1") (unit 1))))
+    (property
+      "Datasheet"
+      "https://gct.co/files/drawings/usb4105.pdf"
+      (at 209.55 95.25 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "USB4105-GF-A" (at 209.55 95.25 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:USBLC6-2SC6")
     (at 294.64 80.01 0)
@@ -3154,19 +3372,22 @@
     (uuid "4b0b92aa-5629-4764-8977-c3c6e412edc6")
     (property "Reference" "U2" (at 295.275 74.295 0) (effects (font (size 1.27 1.27))))
     (property "Value" "USBLC6-2SC6" (at 295.275 76.2 0) (effects (font (size 1.27 1.27))))
-    (property
-      "Footprint"
-      "KiCad:SOT-23-6"
-      (at 294.64 80.01 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Footprint" "KiCad:SOT-23-6" (at 294.64 80.01 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "589e0c19-33cc-4337-aa3b-3be62b04c5ad"))
     (pin "2" (uuid "382417fd-5886-40e9-8fbb-311d72e9c695"))
     (pin "3" (uuid "6bafd974-4c3a-41d4-8aa4-ee793fc902b9"))
     (pin "4" (uuid "b95bba12-98b1-42dc-847e-406e23fa52e3"))
     (pin "5" (uuid "ea285793-2870-41d7-86b9-0f7b724ec46c"))
     (pin "6" (uuid "2f056e8c-4039-416c-aaaa-d179398d872e"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U2") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U2") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.st.com/resource/en/datasheet/usblc6-2.pdf"
+      (at 294.64 80.01 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "USBLC6-2SC6" (at 294.64 80.01 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:R")
     (at 255.27 124.46000000000001 0)
@@ -3184,8 +3405,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "5ca412b7-3916-4eda-8aa6-cab76ad00507"))
     (pin "2" (uuid "49d79d73-41e4-4f48-bd79-a9639fde593b"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R1") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R1") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-075K1L"
+      (at 255.27 124.46 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RC0805FR-075K1L" (at 255.27 124.46 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:R")
     (at 275.59000000000003 124.46000000000001 0)
@@ -3203,8 +3431,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "1b513f96-4309-41ca-818d-9e8251dd71a7"))
     (pin "2" (uuid "2e36e294-e473-4197-a8cf-85ea18e19cfe"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R2") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R2") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-075K1L"
+      (at 275.59 124.46 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RC0805FR-075K1L" (at 275.59 124.46 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:R")
     (at 309.88 119.38 0)
@@ -3222,8 +3457,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "b4410ebc-8b50-4263-8b90-2d03265adfd9"))
     (pin "2" (uuid "e2c3bded-df4e-4aec-b7c4-77b885ac4d71"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R3") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R3") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL"
+      (at 309.88 119.38 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RC0805FR-0710KL" (at 309.88 119.38 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:R")
     (at 309.88 142.24 0)
@@ -3241,8 +3483,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "9ec614ff-6064-4c9b-9a18-678751bdf41b"))
     (pin "2" (uuid "be094050-a95d-46be-9273-29d5b9bded92"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R4") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R4") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0715KL"
+      (at 309.88 142.24 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RC0805FR-0715KL" (at 309.88 142.24 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "OpenSimGear:TCAN3413D")
     (at 389.89 85.09 0)
@@ -3266,8 +3515,15 @@
     (pin "2" (uuid "3a0bb130-df96-411f-894f-ae1d6e87f2a5"))
     (pin "7" (uuid "8a46b2bd-aa69-4c4d-90fc-0ed31a72f38d"))
     (pin "6" (uuid "c885f497-2108-4d32-b44b-78d66e5eb290"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U3") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U3") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.ti.com/lit/ds/symlink/tcan3413.pdf"
+      (at 389.89 85.09 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "TCAN3413D" (at 389.89 85.09 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:RJ12")
     (at 464.82 80.01 270)
@@ -3280,7 +3536,7 @@
     (property "Value" "12V CAN - NOT PHONE" (at 476.25 82.55 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
-      "KiCad:RJ12_Amphenol_54601-x06_Horizontal"
+      "OpenSimGear:RJ12_Amphenol_RJE051660510H_Horizontal"
       (at 464.82 80.01 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "30704d36-acf1-4aa9-9152-e272fa65582c"))
@@ -3289,8 +3545,15 @@
     (pin "4" (uuid "1132c213-6208-497b-8142-b3663a0f8dd9"))
     (pin "5" (uuid "85b1933a-8422-4156-8463-a3db9dd2f09a"))
     (pin "6" (uuid "62d59602-8d4f-48c9-91b5-6f306ffc2bbf"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J2") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J2") (unit 1))))
+    (property
+      "Datasheet"
+      "https://cdn.amphenol-cs.com/media/wysiwyg/files/drawing/p-rje05-166-0x10-h.pdf"
+      (at 464.82 80.01 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RJE051660510H" (at 464.82 80.01 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:RJ12")
     (at 519.4300000000001 80.01 270)
@@ -3303,7 +3566,7 @@
     (property "Value" "12V CAN - NOT PHONE" (at 530.86 82.55 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
-      "KiCad:RJ12_Amphenol_54601-x06_Horizontal"
+      "OpenSimGear:RJ12_Amphenol_RJE051660510H_Horizontal"
       (at 519.4300000000001 80.01 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "f38085ec-fd11-42ed-b9ee-27b35d0b9cb1"))
@@ -3312,8 +3575,15 @@
     (pin "4" (uuid "29281726-071b-4ca4-b096-fa3bc42eb604"))
     (pin "5" (uuid "f9fcdab2-7bce-4a68-aa0e-ccc24ffaffa8"))
     (pin "6" (uuid "81a88043-10b6-472b-91d7-bf01e9816954"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J3") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J3") (unit 1))))
+    (property
+      "Datasheet"
+      "https://cdn.amphenol-cs.com/media/wysiwyg/files/drawing/p-rje05-166-0x10-h.pdf"
+      (at 519.43 80.01 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RJE051660510H" (at 519.43 80.01 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:R")
     (at 389.89 134.62 0)
@@ -3331,8 +3601,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "4cd93ca4-b762-4be3-b30a-5ad3f6598537"))
     (pin "2" (uuid "11a18459-ee8f-4c83-a3b3-eebee8b0efc7"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R5") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R5") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL"
+      (at 389.89 134.62 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RC0805FR-0710KL" (at 389.89 134.62 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 420.37 134.62 0)
@@ -3350,8 +3627,22 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "fa05b40c-3d80-4a5c-8a4b-4035bd1eb691"))
     (pin "2" (uuid "cdc81adf-318b-4b63-b296-ff40ad55df6c"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C1") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C1") (unit 1))))
+    (property
+      "Datasheet"
+      "https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf"
+      (at 420.37 134.62 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Description"
+      "Local TCAN3413 VCC bypass"
+      (at 420.37 134.62 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C0805C104K3RACTU" (at 420.37 134.62 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:Conn_01x03")
     (at 464.82 129.54 0)
@@ -3361,21 +3652,24 @@
     (dnp no)
     (uuid "77624515-9460-43ac-af4d-a88d9442117a")
     (property "Reference" "J6" (at 464.82 124.46 0) (effects (font (size 1.27 1.27))))
-    (property
-      "Value"
-      "CAN TEST / END TERMINATION"
-      (at 464.82 134.62 0)
-      (effects (font (size 1.27 1.27))))
+    (property "Value" "CAN TEST / END TERMINATION" (at 464.82 134.62 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
-      "KiCad:PinHeader_1x03_P2.54mm_Vertical"
+      "OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical"
       (at 464.82 129.54 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "4850561f-5f04-4298-8148-6e76fceaeafe"))
     (pin "2" (uuid "486d98ec-dcbe-4852-9b9d-96b05331a789"))
     (pin "3" (uuid "2e0c07c3-89ab-4a80-813c-8ae86a75731b"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J6") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J6") (unit 1))))
+    (property
+      "Datasheet"
+      "https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf"
+      (at 464.82 129.54 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "TSW-103-07-L-S" (at 464.82 129.54 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:Polyfuse")
     (at 64.77 214.63 0)
@@ -3385,16 +3679,23 @@
     (dnp no)
     (uuid "83cdf438-0197-48c9-b1e3-5639629af964")
     (property "Reference" "F1" (at 62.23 214.63 0) (effects (font (size 1.27 1.27))))
-    (property "Value" "0.25A hold / 30V" (at 67.31 214.63 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "0.25A hold / 24V" (at 67.31 214.63 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
-      "KiCad:Fuse_1206_3216Metric"
+      "OpenSimGear:Fuse_Littelfuse_1206L025-24YR"
       (at 64.77 214.63 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "ee546208-5d22-40ca-85de-1c9cf4900100"))
     (pin "2" (uuid "e9130ae7-5332-4bd9-acd1-70b63c86a873"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "F1") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "F1") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.littelfuse.com/assetdocs/resettable-ptcs-1206l-datasheet?assetguid=2b6a1515-d4ee-4c83-8bd4-152b4901b8f5"
+      (at 64.77 214.63 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "1206L025/24YR" (at 64.77 214.63 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:D_Schottky")
     (at 115.57000000000001 214.63 0)
@@ -3412,8 +3713,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "f3a188da-d81b-4669-bdd2-7dc41af69fa5"))
     (pin "2" (uuid "48f7946b-dee6-4c5e-94e4-ef61ab514254"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "D1") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "D1") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.vishay.com/docs/88746/ss12.pdf"
+      (at 115.57 214.63 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "SS14-E3/61T" (at 115.57 214.63 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "OpenSimGear:R-78E5.0-0.5")
     (at 185.42000000000002 214.63 0)
@@ -3432,46 +3740,17 @@
     (pin "1" (uuid "1094e044-6871-4abd-9ede-49227c0a03f5"))
     (pin "2" (uuid "6261f0bc-c236-4890-8eef-6c8649d74404"))
     (pin "3" (uuid "02babcc1-a766-48d8-af27-e4657bb2c743"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U4") (unit 1)))))
-  (symbol
-    (lib_id "KiCad:D_Schottky")
-    (at 250.19 209.55 0)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "fc2fdfd6-e173-4d7d-aedd-59fea480d7e9")
-    (property "Reference" "D2" (at 250.19 207.01 0) (effects (font (size 1.27 1.27))))
-    (property "Value" "SS14" (at 250.19 212.09 0) (effects (font (size 1.27 1.27))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U4") (unit 1))))
     (property
-      "Footprint"
-      "KiCad:D_SMA"
-      (at 250.19 209.55 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-    (pin "1" (uuid "f2c1c4fa-5635-4f0a-92eb-c7340a414444"))
-    (pin "2" (uuid "0fe6155f-5115-4e9f-8781-04c3341f2ea2"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "D2") (unit 1)))))
-  (symbol
-    (lib_id "KiCad:D_Schottky")
-    (at 250.19 245.11 0)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "93c9536f-8e02-46af-b428-294fea125666")
-    (property "Reference" "D3" (at 250.19 242.57 0) (effects (font (size 1.27 1.27))))
-    (property "Value" "SS14" (at 250.19 247.65 0) (effects (font (size 1.27 1.27))))
-    (property
-      "Footprint"
-      "KiCad:D_SMA"
-      (at 250.19 245.11 0)
-      (effects (font (size 1.27 1.27)) (hide yes)))
-    (pin "1" (uuid "ddff4ca4-e4d8-4944-ab70-c2bbdff0cbb5"))
-    (pin "2" (uuid "ea4d7a81-63c6-4b83-9fe0-f09fa3402c18"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "D3") (unit 1)))))
+      "Datasheet"
+      "https://recom-power.com/pdf/Innoline/R-78E-0.5.pdf"
+      (at 185.42 214.63 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "R-78E5.0-0.5" (at 185.42 214.63 0) (effects (font (size 1 1)) (hide yes))))
+
+
   (symbol
     (lib_id "KiCad:TLV75533PDBV")
     (at 335.28000000000003 214.63 0)
@@ -3492,8 +3771,15 @@
     (pin "3" (uuid "7e3fb12a-c647-44e2-aa4b-3e58bf633a0a"))
     (pin "4" (uuid "8149a1d2-9d7f-4fa0-88d4-23fbd396e4ed"))
     (pin "5" (uuid "6d5f5679-4a90-4459-ab35-95b7464abe71"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U5") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U5") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.ti.com/lit/ds/symlink/tlv755p.pdf"
+      (at 335.28 214.63 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "TLV75533PDBVR" (at 335.28 214.63 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 85.09 279.4 0)
@@ -3506,13 +3792,20 @@
     (property "Value" "10uF 50V X7R" (at 85.725 281.94 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
-      "KiCad:C_0805_2012Metric"
+      "KiCad:C_1210_3225Metric"
       (at 85.09 279.4 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "76df4369-5b9d-43c6-9ada-b4150576dd42"))
     (pin "2" (uuid "43ba28a4-7a21-401a-b6e8-b05f27b1ba22"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C2") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C2") (unit 1))))
+    (property
+      "Datasheet"
+      "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM32ER71H106KA12-04A.pdf"
+      (at 85.09 279.4 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "GRM32ER71H106KA12L" (at 85.09 279.4 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 149.86 279.4 0)
@@ -3530,8 +3823,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "60e3713d-c876-4219-8b15-69043b5e0ce1"))
     (pin "2" (uuid "d25f16f6-87c0-4878-bc3a-0082e75d8b95"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C3") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C3") (unit 1))))
+    (property
+      "Datasheet"
+      "https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E105K125AB"
+      (at 149.86 279.4 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C2012X7R1E105K125AB" (at 149.86 279.4 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 284.48 279.4 0)
@@ -3549,8 +3849,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "76d08410-95d3-49b6-a0f4-15849ce9b508"))
     (pin "2" (uuid "0e7002b7-f493-453f-a46a-eb26007b38aa"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C4") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C4") (unit 1))))
+    (property
+      "Datasheet"
+      "https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E105K125AB"
+      (at 284.48 279.4 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C2012X7R1E105K125AB" (at 284.48 279.4 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 374.65 279.4 0)
@@ -3560,7 +3867,7 @@
     (dnp no)
     (uuid "52b8a30b-545c-441c-996f-742c1112efe3")
     (property "Reference" "C5" (at 375.285 276.86 0) (effects (font (size 1.27 1.27))))
-    (property "Value" "1uF 25V X7R" (at 375.285 281.94 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "2.2uF 25V X7R" (at 375.285 281.94 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
       "KiCad:C_0805_2012Metric"
@@ -3568,8 +3875,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "2a4a8b6f-c3c8-49b5-ac0a-902dd8156deb"))
     (pin "2" (uuid "9011ceac-8f29-49e4-ac54-91fd2532e94d"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C5") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C5") (unit 1))))
+    (property
+      "Datasheet"
+      "https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E225K125AB"
+      (at 374.65 279.4 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C2012X7R1E225K125AB" (at 374.65 279.4 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 415.29 279.4 0)
@@ -3587,8 +3901,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "548374a2-c1d2-4d00-9500-aeccc14a47f3"))
     (pin "2" (uuid "f9ed6559-488a-4281-a998-1e403b21132d"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C6") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C6") (unit 1))))
+    (property
+      "Datasheet"
+      "https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf"
+      (at 415.29 279.4 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C0805C104K3RACTU" (at 415.29 279.4 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 449.58 279.4 0)
@@ -3606,8 +3927,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "0a785b51-537e-4f55-9e4c-f3c73b765231"))
     (pin "2" (uuid "35a4f355-c734-4b43-bbca-75b0b2a9d5e3"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C7") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C7") (unit 1))))
+    (property
+      "Datasheet"
+      "https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E105K125AB"
+      (at 449.58 279.4 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C2012X7R1E105K125AB" (at 449.58 279.4 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 490.22 279.4 0)
@@ -3625,8 +3953,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "03a49aed-8e6e-4c09-a9df-96269eccce21"))
     (pin "2" (uuid "e6a0578e-857c-463c-a811-c4b322162750"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C8") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C8") (unit 1))))
+    (property
+      "Datasheet"
+      "https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf"
+      (at 490.22 279.4 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C0805C104K3RACTU" (at 490.22 279.4 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 529.59 279.4 0)
@@ -3644,8 +3979,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "fb0dd6cb-1eaa-41ec-a707-70523d66eb3e"))
     (pin "2" (uuid "c118ca96-6241-4d60-9566-b97853a97541"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C9") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C9") (unit 1))))
+    (property
+      "Datasheet"
+      "https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf"
+      (at 529.59 279.4 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C0805C104K3RACTU" (at 529.59 279.4 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:Conn_01x05")
     (at 100.33 355.6 0)
@@ -3655,14 +3997,10 @@
     (dnp no)
     (uuid "1b125e62-2d02-40dd-a5c8-cbdb80c453cb")
     (property "Reference" "J4" (at 100.33 347.98 0) (effects (font (size 1.27 1.27))))
-    (property
-      "Value"
-      "SWD / 3V3 REFERENCE ONLY"
-      (at 100.33 363.22 0)
-      (effects (font (size 1.27 1.27))))
+    (property "Value" "SWD / 3V3 REFERENCE ONLY" (at 100.33 363.22 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
-      "KiCad:PinHeader_1x05_P2.54mm_Vertical"
+      "OpenSimGear:PinHeader_Samtec_TSW-105-07-L-S_P2.54mm_Vertical"
       (at 100.33 355.6 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "817a916b-f9eb-4ed6-aea5-7bab78da157e"))
@@ -3670,8 +4008,15 @@
     (pin "3" (uuid "c051acf7-e55e-4e07-a3e8-9f3062afc681"))
     (pin "4" (uuid "f2e499ba-5a86-4d49-bcfd-de7421e22fb1"))
     (pin "5" (uuid "0faa2ee7-0821-4002-aff3-a0784cf7dff4"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J4") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "J4") (unit 1))))
+    (property
+      "Datasheet"
+      "https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf"
+      (at 100.33 355.6 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "TSW-105-07-L-S" (at 100.33 355.6 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:SW_Push")
     (at 299.72 340.36 0)
@@ -3684,13 +4029,20 @@
     (property "Value" "TEST BUTTON" (at 299.72 341.884 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
-      "KiCad:SW_PUSH_6mm_H5mm"
+      "KiCad:SW_PUSH_6mm_H4.3mm"
       (at 299.72 340.36 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "6b112da8-e5d4-4aac-8056-c5b5ddcedbf8"))
     (pin "2" (uuid "990c7e50-84a7-4572-b466-f1cc0395a713"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "SW1") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "SW1") (unit 1))))
+    (property
+      "Datasheet"
+      "https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf"
+      (at 299.72 340.36 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "B3F-1002-G" (at 299.72 340.36 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:R")
     (at 299.72 374.65 0)
@@ -3708,8 +4060,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "33050481-3b41-4294-84aa-12b07835f5c9"))
     (pin "2" (uuid "dcb62329-47c2-447a-b5e8-7d9b7672669e"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R6") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R6") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL"
+      (at 299.72 374.65 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RC0805FR-0710KL" (at 299.72 374.65 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:SW_Push")
     (at 400.05 340.36 0)
@@ -3722,13 +4081,20 @@
     (property "Value" "RESET" (at 400.05 341.884 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
-      "KiCad:SW_PUSH_6mm_H5mm"
+      "KiCad:SW_PUSH_6mm_H4.3mm"
       (at 400.05 340.36 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "a15e4920-a863-479c-abfe-67bad8c82d59"))
     (pin "2" (uuid "5eca0122-6537-4a8d-928a-684ad2f596f5"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "SW2") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "SW2") (unit 1))))
+    (property
+      "Datasheet"
+      "https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf"
+      (at 400.05 340.36 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "B3F-1002-G" (at 400.05 340.36 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:R")
     (at 379.73 374.65 0)
@@ -3746,8 +4112,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "70afbe56-aa4c-41cc-9dfd-6010107964d5"))
     (pin "2" (uuid "954209d5-876f-4a0f-8058-fb887bd168a1"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R7") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R7") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL"
+      (at 379.73 374.65 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RC0805FR-0710KL" (at 379.73 374.65 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:C")
     (at 420.37 374.65 0)
@@ -3765,8 +4138,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "cbfe9c0c-c09f-49e5-a8e2-9c039f513e56"))
     (pin "2" (uuid "dd058f62-130a-4998-9d59-9da848095e96"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C10") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C10") (unit 1))))
+    (property
+      "Datasheet"
+      "https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf"
+      (at 420.37 374.65 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C0805C104K3RACTU" (at 420.37 374.65 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:R")
     (at 510.54 335.28000000000003 0)
@@ -3784,8 +4164,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "b5c93490-2121-4bdd-b530-172ed7017b83"))
     (pin "2" (uuid "c0bda0e1-b660-46ae-bda0-6c9ce98ec165"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R8") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "R8") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL"
+      (at 510.54 335.28 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "RC0805FR-071KL" (at 510.54 335.28 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:LED")
     (at 510.54 374.65 0)
@@ -3798,13 +4185,20 @@
     (property "Value" "GREEN" (at 510.54 377.19 0) (effects (font (size 1.27 1.27))))
     (property
       "Footprint"
-      "KiCad:LED_0805_2012Metric"
+      "OpenSimGear:LED_Kingbright_AP2012SGC_0805"
       (at 510.54 374.65 0)
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "69283bb1-bcb2-46a1-86fe-48b81456b05f"))
     (pin "2" (uuid "500df414-1993-419f-8dfb-51dab7354f74"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "D4") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "D4") (unit 1))))
+    (property
+      "Datasheet"
+      "https://www.kingbrightusa.com/images/catalog/SPEC/AP2012SGC.pdf"
+      (at 510.54 374.65 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "AP2012SGC" (at 510.54 374.65 0) (effects (font (size 1 1)) (hide yes))))
   (symbol
     (lib_id "KiCad:MountingHole")
     (at 74.93 389.89 0)
@@ -3960,8 +4354,15 @@
       (effects (font (size 1.27 1.27)) (hide yes)))
     (pin "1" (uuid "c9acf30b-e377-4c62-92aa-4a212678aabf"))
     (pin "2" (uuid "210640d0-5444-4d16-bc3b-e9c6c96b53da"))
-    (instances
-      (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C11") (unit 1)))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C11") (unit 1))))
+    (property
+      "Datasheet"
+      "https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf"
+      (at 330.2 80.01 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property "MPN" "C0805C104K3RACTU" (at 330.2 80.01 0) (effects (font (size 1 1)) (hide yes))))
   (wire
     (pts (xy 100.33 52.07) (xy 100.33 46.99))
     (stroke (width 0) (type default))
@@ -4266,22 +4667,10 @@
     (pts (xy 195.58 212.09) (xy 200.66 212.09))
     (stroke (width 0) (type default))
     (uuid "530b14d3-9da8-45bc-8aaf-072cb48850ba"))
-  (wire
-    (pts (xy 246.38 209.55) (xy 241.3 209.55))
-    (stroke (width 0) (type default))
-    (uuid "f11cfd85-0e96-4671-a913-4aae399effdc"))
-  (wire
-    (pts (xy 254.0 209.55) (xy 259.08 209.55))
-    (stroke (width 0) (type default))
-    (uuid "d92f1f0d-b101-4b61-8826-1f1584af9252"))
-  (wire
-    (pts (xy 246.38 245.11) (xy 241.3 245.11))
-    (stroke (width 0) (type default))
-    (uuid "52f9423f-35fb-47a4-9516-fd8a2bcd7f4f"))
-  (wire
-    (pts (xy 254.0 245.11) (xy 259.08 245.11))
-    (stroke (width 0) (type default))
-    (uuid "c290683c-d956-4742-b38f-90e065a2002a"))
+
+
+
+
   (wire
     (pts (xy 327.66 212.09) (xy 322.58 212.09))
     (stroke (width 0) (type default))
@@ -4872,26 +5261,10 @@
     (at 200.66 212.09 0.0)
     (effects (font (size 1.016 1.016)) (justify left bottom))
     (uuid "12e59779-4ed4-47d0-b95f-471b497510db"))
-  (label
-    "SYS_5V"
-    (at 241.3 209.55 180.0)
-    (effects (font (size 1.016 1.016)) (justify left bottom))
-    (uuid "3a912003-4777-427f-967c-3f3b5f4ed66f"))
-  (label
-    "BUCK_5V"
-    (at 259.08 209.55 0.0)
-    (effects (font (size 1.016 1.016)) (justify left bottom))
-    (uuid "2bd9d903-5670-49ea-8619-aba528cd7721"))
-  (label
-    "SYS_5V"
-    (at 241.3 245.11 180.0)
-    (effects (font (size 1.016 1.016)) (justify left bottom))
-    (uuid "d039e377-35c8-43f9-9ca4-09ee897944db"))
-  (label
-    "USB_VBUS"
-    (at 259.08 245.11 0.0)
-    (effects (font (size 1.016 1.016)) (justify left bottom))
-    (uuid "5ff796cd-b623-4ff5-8d5e-1b1b0b06a2c5"))
+
+
+
+
   (label
     "SYS_5V"
     (at 322.58 212.09 180.0)
@@ -5188,7 +5561,8 @@
     (effects (font (size 1.5 1.5)) (justify left))
     (uuid "75c14cb0-d284-450a-9d81-3b12502216fa"))
   (text
-    "12V local branch + reverse polarity + diode OR + 3V3"
+    "12V local branch + reverse polarity + ideal-diode OR + TVS + 3V3"
+    (exclude_from_sim no)
     (at 55 170 0)
     (effects (font (size 1.5 1.5)) (justify left))
     (uuid "37910c38-c96e-4507-baf5-e02b3fbe4bb3"))
@@ -5299,4 +5673,282 @@
       "inputs.kicad_sch"
       (at 200.66 191.77 0)
       (effects (font (size 1.27 1.27)) (justify left top)))
-    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (page "2"))))))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (page "2")))))
+  (wire
+    (pts (xy 242.57 208.28) (xy 237.49 208.28))
+    (stroke (width 0) (type default))
+    (uuid "e9a223fa-fa55-400e-b53c-20fc5dcd0339"))
+  (label
+    "BUCK_5V"
+    (at 237.49 208.28 180)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "1c858b45-b41f-4938-b115-f46fb8cf4f32"))
+  (wire
+    (pts (xy 250.19 218.44) (xy 250.19 223.52))
+    (stroke (width 0) (type default))
+    (uuid "923ed1a1-b0f4-45f0-b731-35c506780ec2"))
+  (global_label
+    "GND"
+    (shape bidirectional)
+    (at 250.19 223.52 270)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "7b5e6490-6d1c-4fc3-93fd-a4b73e306750"))
+  (wire
+    (pts (xy 242.57 213.36) (xy 237.49 213.36))
+    (stroke (width 0) (type default))
+    (uuid "f3785b7a-1581-4446-a0b2-31328c469ba0"))
+  (label
+    "USB_VBUS"
+    (at 237.49 213.36 180)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "7337a119-10b2-425d-9fbb-93af1886dd64"))
+  (no_connect (at 250.19 205.74) (uuid "652025f3-1b70-4b83-808a-a176a6c8bd03"))
+  (wire
+    (pts (xy 257.81 213.36) (xy 262.89 213.36))
+    (stroke (width 0) (type default))
+    (uuid "4e194f52-da12-48a3-afee-a831aec283b7"))
+  (global_label
+    "GND"
+    (shape bidirectional)
+    (at 262.89 213.36 0)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "b7863131-2c33-443f-b0ab-422bd58f06b5"))
+  (wire
+    (pts (xy 257.81 208.28) (xy 262.89 208.28))
+    (stroke (width 0) (type default))
+    (uuid "435d3306-4af4-4b52-9c0d-1bc5e57f6d27"))
+  (label
+    "SYS_5V"
+    (at 262.89 208.28 0)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "180c8313-f920-405f-8b9d-598307e9b0b0"))
+  (symbol
+    (lib_id "OpenSimGear:LM66100DCK_OR")
+    (at 250.19 210.82 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "f96e1d8c-d72d-440b-8e79-d409d64517b1")
+    (property "Reference" "U6" (at 250.19 200.66 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "LM66100DCKR" (at 250.19 220.98 0) (effects (font (size 1.27 1.27))))
+    (property
+      "Footprint"
+      "OpenSimGear:TI_DCK0006A_SC70-6_LM66100"
+      (at 250.19 210.82 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "4068a5b1-6c9a-4e88-a0eb-04636850cbcb"))
+    (pin "2" (uuid "666f7b2d-381d-4b99-ab1e-20740468a333"))
+    (pin "3" (uuid "7175bee4-f211-4503-8083-e316c0e76e72"))
+    (pin "4" (uuid "188ebc96-a983-423f-bac3-35f660a549c6"))
+    (pin "5" (uuid "bd0b9348-534c-4f13-a0f0-b0dbb85febd3"))
+    (pin "6" (uuid "76f68fd1-6037-45dd-9927-9337444c83d2"))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U6") (unit 1))))
+    (property "MPN" "LM66100DCKR" (at 250.19 210.82 0) (effects (font (size 1 1)) (hide yes)))
+    (property
+      "Datasheet"
+      "https://www.ti.com/lit/ds/symlink/lm66100.pdf"
+      (at 250.19 210.82 0)
+      (effects (font (size 1 1)) (hide yes))))
+  (wire
+    (pts (xy 242.57 251.46) (xy 237.49 251.46))
+    (stroke (width 0) (type default))
+    (uuid "d69c990e-6eff-4e27-8799-858ffb6d92cf"))
+  (label
+    "USB_VBUS"
+    (at 237.49 251.46 180)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "26db03b3-d8e6-48bd-a630-00d51d0d367f"))
+  (wire
+    (pts (xy 250.19 261.62) (xy 250.19 266.7))
+    (stroke (width 0) (type default))
+    (uuid "73b327bd-69e7-466e-bf69-f1d5cbbefa41"))
+  (global_label
+    "GND"
+    (shape bidirectional)
+    (at 250.19 266.7 270)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "f3fa48fa-a269-4536-ba6a-ffb872c3e3d6"))
+  (wire
+    (pts (xy 242.57 256.54) (xy 237.49 256.54))
+    (stroke (width 0) (type default))
+    (uuid "58b3d9ec-7525-4b95-a647-107b7e1d6bb1"))
+  (label
+    "BUCK_5V"
+    (at 237.49 256.54 180)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "d829e1fc-f439-4b54-9479-1f7eb25aabd7"))
+  (no_connect (at 250.19 248.92) (uuid "12913188-0818-4f32-92e0-a06216f361ea"))
+  (wire
+    (pts (xy 257.81 256.54) (xy 262.89 256.54))
+    (stroke (width 0) (type default))
+    (uuid "eec98e32-bedd-48d7-a583-d9fa4d2d5363"))
+  (global_label
+    "GND"
+    (shape bidirectional)
+    (at 262.89 256.54 0)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "de0d0700-0d02-4b9c-a495-2e55afde51f5"))
+  (wire
+    (pts (xy 257.81 251.46) (xy 262.89 251.46))
+    (stroke (width 0) (type default))
+    (uuid "262430ee-f88a-4169-af40-54a2df7ed896"))
+  (label
+    "SYS_5V"
+    (at 262.89 251.46 0)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "28548321-2029-4428-9cff-3823cccf8da8"))
+  (symbol
+    (lib_id "OpenSimGear:LM66100DCK_OR")
+    (at 250.19 254.0 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "3900b461-2967-43d0-9742-382a66e5db18")
+    (property "Reference" "U7" (at 250.19 243.84 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "LM66100DCKR" (at 250.19 264.16 0) (effects (font (size 1.27 1.27))))
+    (property
+      "Footprint"
+      "OpenSimGear:TI_DCK0006A_SC70-6_LM66100"
+      (at 250.19 254.0 0)
+      (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "e7c5c4eb-cf65-4862-9bab-f01d4f0ba33b"))
+    (pin "2" (uuid "520e5552-f8b9-468f-848e-58f8fe15de58"))
+    (pin "3" (uuid "5dc3b8be-fe5b-4e94-a109-bb6da96a80e6"))
+    (pin "4" (uuid "521a50ea-5e64-4938-b5bb-423cb6988fd3"))
+    (pin "5" (uuid "74c7fd95-27d0-4657-b71a-c239bbe4f133"))
+    (pin "6" (uuid "8c178c43-5b81-4823-9bc4-901a8d47e3ad"))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "U7") (unit 1))))
+    (property "MPN" "LM66100DCKR" (at 250.19 254.0 0) (effects (font (size 1 1)) (hide yes)))
+    (property
+      "Datasheet"
+      "https://www.ti.com/lit/ds/symlink/lm66100.pdf"
+      (at 250.19 254.0 0)
+      (effects (font (size 1 1)) (hide yes))))
+  (wire
+    (pts (xy 181.61 280.67) (xy 176.53 280.67))
+    (stroke (width 0) (type default))
+    (uuid "9df67ddf-2149-4f22-8628-d3b58f561d11"))
+  (label
+    "BUCK_IN"
+    (at 176.53 280.67 180)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "351aef8e-626a-46d0-92d6-37fd4e4612a8"))
+  (wire
+    (pts (xy 189.23 280.67) (xy 194.31 280.67))
+    (stroke (width 0) (type default))
+    (uuid "308f491e-e56f-45d8-959a-41b193533efa"))
+  (global_label
+    "GND"
+    (shape bidirectional)
+    (at 194.31 280.67 0)
+    (effects (font (size 1.016 1.016)) (justify left))
+    (uuid "5978bbb1-1324-4c98-9448-fece961cfef8"))
+  (symbol
+    (lib_id "KiCad:SMF15A")
+    (at 185.42 280.67 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "507fce2a-f294-4ce9-8976-5de9c5aabc0e")
+    (property "Reference" "D5" (at 185.42 270.51 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "SMF15A-E3-08" (at 185.42 290.83000000000004 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "KiCad:D_SMF" (at 185.42 280.67 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "4fa63cc7-2b48-424d-8606-ce0926916dbe"))
+    (pin "2" (uuid "6bbfc0c1-769f-4a83-8f3b-5f5efaf49eac"))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "D5") (unit 1))))
+    (property "MPN" "SMF15A-E3-08" (at 185.42 280.67 0) (effects (font (size 1 1)) (hide yes)))
+    (property
+      "Datasheet"
+      "https://www.vishay.com/docs/85881/smf5v0atosmf58a.pdf"
+      (at 185.42 280.67 0)
+      (effects (font (size 1 1)) (hide yes))))
+  (symbol
+    (lib_id "KiCad:C")
+    (at 445.77 134.62 0)
+    (unit 1)
+    (body_style 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (in_pos_files yes)
+    (dnp no)
+    (uuid "b669fcd0-c224-4309-8a29-421bba0f956e")
+    (property
+      "Reference"
+      "C13"
+      (at 446.405 132.08 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Value"
+      "100nF 25V X7R"
+      (at 446.405 137.16 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Footprint"
+      "KiCad:C_0805_2012Metric"
+      (at 445.77 134.62 0)
+      (hide yes)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Datasheet"
+      "https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf"
+      (at 445.77 134.62 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (property
+      "Description"
+      "Local TCAN3413 VIO bypass"
+      (at 445.77 134.62 0)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))
+    (pin "1" (uuid "9d9d34ac-cd1b-4193-8118-2a56d056b6ef"))
+    (pin "2" (uuid "84d09030-4f35-4b98-825c-239f4cc42d80"))
+    (instances (project "starter" (path "/277e94a2-b7a7-4447-bb36-241781e0bffb" (reference "C13") (unit 1))))
+    (property "MPN" "C0805C104K3RACTU" (at 445.77 134.62 0) (effects (font (size 1 1)) (hide yes))))
+  (wire
+    (pts (xy 445.77 130.81) (xy 445.77 125.73))
+    (stroke (width 0) (type default))
+    (uuid "1773b32f-371a-45b4-83a5-d193285497f1"))
+  (global_label
+    "+3V3"
+    (shape bidirectional)
+    (at 445.77 125.73 90)
+    (effects (font (size 1.016 1.016)) (justify left bottom))
+    (uuid "22e21c65-2a9c-4368-b4db-cedeca545460")
+    (property
+      "Intersheetrefs"
+      "${INTERSHEET_REFS}"
+      (at 445.77 125.73 0)
+      (hide yes)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27)))))
+  (wire
+    (pts (xy 445.77 138.43) (xy 445.77 143.51))
+    (stroke (width 0) (type default))
+    (uuid "a543a91d-2c29-47d5-bbcf-1f1af435103c"))
+  (global_label
+    "GND"
+    (shape bidirectional)
+    (at 445.77 143.51 270)
+    (effects (font (size 1.016 1.016)) (justify right bottom))
+    (uuid "429c8621-f4f3-474f-b445-fac07524bd96")
+    (property
+      "Intersheetrefs"
+      "${INTERSHEET_REFS}"
+      (at 445.77 143.51 0)
+      (hide yes)
+      (show_name no)
+      (do_not_autoplace no)
+      (effects (font (size 1.27 1.27))))))

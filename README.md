@@ -8,15 +8,16 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 - Composite USB HID + CDC serial, unique serial number from the MCU's 96-bit UID.
 - Serial `hello`, `info`, `inputs`, LED control and an internal CAN FD loopback diagnostic.
 - Shared debouncing, axis scaling, hat decoding, bounded encoder events, line handling, USB descriptor helpers and pinned dependencies in [firmware-common](https://github.com/opensimgear/firmware-common).
-- KiCad schematic, project, local symbol/footprint libraries, electrical BOM and a routed two-layer PCB with ground pours and stitching vias.
+- KiCad schematic, exact-part BOM, local libraries and a compact 65 × 55 mm four-layer PCB. A separate two-layer layout and qualification coupon support Makera Z1 home prototypes.
 
-**Status:** firmware compiles; host behavior tests pass; schematic ERC passes. The routed draft passes copper DRC with zero unconnected items and matches the schematic; manufacturing/impedance and physical validation are still pending. Physical USB, CAN, power and recovery behavior has not been tested. CAN remains in standby: discovery, application Cyphal traffic, gateway handoff, persistent configuration and firmware updates are future integration work.
+**Status:** firmware compiles and host behavior tests pass. Production schematic ERC, PCB DRC and schematic/PCB parity pass with zero violations or missing connections. USB uses the specified JLCPCB four-layer construction; fabricator impedance approval and physical validation remain pending. Physical USB, CAN, power and recovery behavior has not been tested. CAN remains in standby: discovery, application Cyphal traffic, gateway handoff, persistent configuration and firmware updates are future integration work.
 
 ## Start here
 
 - [Firmware build, flash and console instructions](firmware/README.md)
 - [Input examples, HID mapping and control wiring](firmware/profiles/README.md)
 - [Starter board and pinout](electronics/boards/starter/rev-a/README.md)
+- [Fabrication construction and home-milling plan](electronics/boards/starter/rev-a/FABRICATION.md)
 - [Validation record and remaining gates](electronics/boards/starter/rev-a/VALIDATION.md)
 - [Schematic PDF](electronics/boards/starter/rev-a/review/schematic.pdf)
 - [Front copper preview](electronics/boards/starter/rev-a/review/pcb.svg)
