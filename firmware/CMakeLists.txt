@@ -31,16 +31,19 @@ add_library(osg_hal STATIC
   ${HAL}/Src/stm32g0xx_hal_adc.c ${HAL}/Src/stm32g0xx_hal_adc_ex.c
   ${HAL}/Src/stm32g0xx_hal_i2c.c ${HAL}/Src/stm32g0xx_hal_i2c_ex.c
   ${HAL}/Src/stm32g0xx_hal_gpio.c ${HAL}/Src/stm32g0xx_hal_fdcan.c
+  ${HAL}/Src/stm32g0xx_hal_flash.c ${HAL}/Src/stm32g0xx_hal_flash_ex.c
   ${CMSIS}/Source/Templates/system_stm32g0xx.c)
 target_include_directories(osg_hal PUBLIC include ${HAL}/Inc ${CMSIS}/Include ${OSG_CMSIS_CORE_DIR}/CMSIS/Core/Include)
 target_compile_definitions(osg_hal PUBLIC STM32G0B1xx USE_HAL_DRIVER)
-add_executable(osg_hello src/main.c src/profile.c src/usb_descriptors.c boards/starter_g0b1cb_rev_b/board.c
+add_executable(osg_hello src/main.c src/profile.c src/usb_descriptors.c src/can_client.c src/can_delivery.c src/boot_session.c
+  shared-gateway/src/gateway_protocol.c shared-gateway/src/gateway_journal.c
+  boards/starter_g0b1cb_rev_b/board.c boards/starter_g0b1cb_rev_b/can_transport.c boards/starter_g0b1cb_rev_b/storage.c
   ${CMSIS}/Source/Templates/gcc/startup_stm32g0b1xx.s)
-target_include_directories(osg_hello PRIVATE include profiles boards/starter_g0b1cb_rev_b)
+target_include_directories(osg_hello PRIVATE include profiles boards/starter_g0b1cb_rev_b shared-gateway/include)
 target_compile_definitions(osg_hello PRIVATE OSG_USB_VID=${OSG_USB_VID} OSG_USB_PID=${OSG_USB_PID}
   OSG_DEVICE_PROFILE_HEADER="${OSG_DEVICE_PROFILE}.h")
 target_link_libraries(osg_hello PRIVATE osg_core osg_usb osg_hal osg_canard)
-target_compile_options(osg_hello PRIVATE -Wall -Wextra -Werror)
+target_compile_options(osg_hello PRIVATE -Wall -Wextra -Werror -fstack-usage)
 foreach(target osg_hello osg_hal osg_core osg_usb osg_tinyusb osg_canard)
   target_compile_options(${target} PRIVATE -Os -ffunction-sections -fdata-sections)
 endforeach()

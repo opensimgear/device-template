@@ -25,7 +25,7 @@ Both firmware and native tests use the full common-code pin in `cmake/common-rev
 
 ## Flash and observe
 
-Connect a compatible SWD probe to J4: 1 target 3.3 V reference, 2 ground, 3 SWDIO, 4 SWCLK, 5 NRST. Power from the reviewed USB or 12 V path; the SWD reference is not a separate supply input. Use STM32CubeProgrammer to program and verify the ELF/HEX at `0x08000000`, retaining connect-under-reset recovery. This target is a custom PCB, not an unchanged Nucleo. There is no bootloader or USB flashing command yet.
+Connect a compatible SWD probe to J4: 1 target 3.3 V reference, 2 ground, 3 SWDIO, 4 SWCLK, 5 NRST. Power from the reviewed USB or 12 V path; the SWD reference is not a separate supply input. Use STM32CubeProgrammer to program and verify the ELF/HEX at `0x08000000`, retaining connect-under-reset recovery. This target is a custom PCB, not an unchanged Nucleo. There is no bootloader or USB flashing command yet. Preserve the boot-counter journal at `0x0801F000`–`0x0801FFFF` during application updates; if a full erase resets it, power-cycle the entire chain before reconnecting. See [CAN integration](CAN_BRINGUP.md).
 
 The selected profile enumerates as one joystick and a diagnostic USB serial port. HID contains only enabled controls. USB device revision is `0x0003`; changing profiles changes the report layout and may require refreshing OS/game bindings. Open serial with DTR asserted and send LF/CRLF-terminated commands (115200 is informational for USB CDC):
 
@@ -36,7 +36,7 @@ The selected profile enumerates as one joystick and a diagnostic USB serial port
 | `info` | Rev B target, selected profile, MCU UID and HID counts |
 | `inputs` | Axis-availability mask, hat/selector conflicts, missing/stale expansion-bank mask, blocked command groups and encoder counters |
 | `led on`, `led off`, `led auto` | LED override or heartbeat |
-| `can loopback` | Internal MCU CAN FD loopback PASS/FAIL |
+| `can status` | v2 node, lease, boot session, ownership, RX/TX and recovery counters |
 
 Lines are limited to 63 characters. Overflow and NUL input are discarded through newline with an error. The LED changes from 1 s to 500 ms half-period after mounting; suspend turns it off. Active USB reports refresh at least every 10 ms when the endpoint is ready. Changed reports can arrive sooner. Encoder pulses advance only after completed host transfers; stale-generation acknowledgements are rejected after USB recovery. TinyUSB retains a submitted interrupt packet across suspend. Its eventual completion cannot acknowledge a new encoder generation, and a canceled/free endpoint cannot leave the software submission flag stuck. A pre-suspend packet may still reach the host before the fresh neutral report on resume; exact host-visible behavior requires physical suspend/resume validation. The template does not claim transparent cancellation of already-submitted USB packets.
 
@@ -56,6 +56,6 @@ cmake --build build/tests
 ctest --test-dir build/tests --output-on-failure
 ```
 
-Run those commands from the repository root. Seven native tests exercise all supplied profiles and parse their real descriptors. Shared tests cover limits, invalid assignments, conflicts, stale axes, cross-bank recovery, encoder acknowledgements and expansion scanning. CI also cross-builds each profile. These checks do not establish physical timing or host compatibility.
+Run those commands from the repository root. Eight native tests exercise all supplied profiles and parse their real descriptors. Shared tests cover limits, invalid assignments, conflicts, stale axes, cross-bank recovery, encoder acknowledgements and expansion scanning. CI also cross-builds each profile. These checks do not establish physical timing or host compatibility.
 
-Profiles are build-time declarations. Runtime cockpit configuration, saved calibration, a production serial protocol, SimHub outputs, firmware updates and transport ownership remain future work. libcanard is linked scaffolding; the CAN transceiver remains in standby and no Cyphal application transfers, discovery or gateway registration are implemented. Internal loopback cannot validate a transceiver, cable or termination. VBUS gates USB attachment when externally powered; assembled supply, suspend, inrush, USB and CAN tests remain required.
+Profiles are build-time declarations. Runtime cockpit configuration, saved calibration, a production serial protocol, SimHub outputs, firmware updates remain future work. The module now announces and sends lossless input through the matching STM32 gateway using the private CAN FD v2 protocol. Gateway USB completion acknowledgements preserve encoder pulse delivery; direct USB takes priority. This is not Cyphal. See [CAN integration and validation](CAN_BRINGUP.md) for ownership, freshness, storage and qualification details. libcanard remains unused scaffolding. VBUS gates USB attachment when externally powered; assembled supply, suspend, inrush, USB and CAN tests remain required.

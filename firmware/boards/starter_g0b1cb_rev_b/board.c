@@ -4,7 +4,6 @@
 #include "opensimgear/tca9555.h"
 #include <string.h>
 
-static FDCAN_HandleTypeDef can;
 static ADC_HandleTypeDef adc;
 static DMA_HandleTypeDef adc_dma;
 static I2C_HandleTypeDef i2c;
@@ -80,7 +79,7 @@ static void i2c_recover(void) {
     i2c_recovery_needed=!restored;
     expanders.configured=0; expanders.available=0;
 }
-void board_fault(void) { __disable_irq(); for (;;) { } }
+void board_fault(void) { HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET); __disable_irq(); for (;;) { } }
 static void check(HAL_StatusTypeDef result) { if (result != HAL_OK) board_fault(); }
 void board_led(bool on) { HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, on ? GPIO_PIN_SET : GPIO_PIN_RESET); }
 osg_profile_sample_t board_read_inputs(void) {
@@ -110,6 +109,9 @@ void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *handle) { if(handle==&adc) 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *handle) { if(handle==&adc) capture_axes(adc_count); }
 void HAL_ADC_ErrorCallback(ADC_HandleTypeDef *handle) { if(handle==&adc) axis_fresh=false; }
 bool board_usb_present(void) { return HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0) == GPIO_PIN_SET; }
+void board_module_identity(uint8_t out[16]) {
+    memcpy(out,"OSGD",4); memcpy(out+4,(const void *)UID_BASE,12);
+}
 void board_uid_hex(char out[25]) {
     static const char hex[] = "0123456789ABCDEF";
     const volatile uint8_t *uid = (const volatile uint8_t *)UID_BASE;
@@ -217,39 +219,7 @@ void board_init(void) {
         HAL_NVIC_SetPriority(I2C1_IRQn,2,0); HAL_NVIC_EnableIRQ(I2C1_IRQn);
         osg_tca9555_init(&expanders,(osg_i2c_t){.write=i2c_write,.read=i2c_read});
     }
-    __HAL_RCC_FDCAN_CLK_ENABLE();
-    can.Instance = FDCAN1;
-    can.Init.ClockDivider = FDCAN_CLOCK_DIV1; can.Init.FrameFormat = FDCAN_FRAME_FD_BRS;
-    can.Init.Mode = FDCAN_MODE_INTERNAL_LOOPBACK; can.Init.AutoRetransmission = DISABLE;
-    can.Init.TransmitPause = DISABLE; can.Init.ProtocolException = DISABLE;
-    /* 64 MHz: 500 kbit/s nominal, 2 Mbit/s data. Internal loopback only. */
-    can.Init.NominalPrescaler = 8; can.Init.NominalSyncJumpWidth = 2;
-    can.Init.NominalTimeSeg1 = 13; can.Init.NominalTimeSeg2 = 2;
-    can.Init.DataPrescaler = 2; can.Init.DataSyncJumpWidth = 2;
-    can.Init.DataTimeSeg1 = 13; can.Init.DataTimeSeg2 = 2;
-    can.Init.StdFiltersNbr = 0; can.Init.ExtFiltersNbr = 0; can.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
-    check(HAL_FDCAN_Init(&can));
-    check(HAL_FDCAN_ConfigGlobalFilter(&can, FDCAN_ACCEPT_IN_RX_FIFO0, FDCAN_ACCEPT_IN_RX_FIFO0,
-                                      FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE));
-    check(HAL_FDCAN_Start(&can));
-}
-bool board_can_loopback(void) {
-    uint8_t rx[64]; FDCAN_RxHeaderTypeDef received;
-    /* Drain old results so stale data cannot satisfy a new test. */
-    while (HAL_FDCAN_GetRxFifoFillLevel(&can, FDCAN_RX_FIFO0))
-        if (HAL_FDCAN_GetRxMessage(&can, FDCAN_RX_FIFO0, &received, rx) != HAL_OK) return false;
-    const uint8_t payload[8] = {'O','S','G','H','E','L','L','O'};
-    FDCAN_TxHeaderTypeDef tx = {.Identifier = 0x123, .IdType = FDCAN_STANDARD_ID,
-        .TxFrameType = FDCAN_DATA_FRAME, .DataLength = FDCAN_DLC_BYTES_8,
-        .ErrorStateIndicator = FDCAN_ESI_ACTIVE, .BitRateSwitch = FDCAN_BRS_ON,
-        .FDFormat = FDCAN_FD_CAN, .TxEventFifoControl = FDCAN_NO_TX_EVENTS};
-    if (HAL_FDCAN_AddMessageToTxFifoQ(&can, &tx, payload) != HAL_OK) return false;
-    uint32_t start = HAL_GetTick();
-    while (!HAL_FDCAN_GetRxFifoFillLevel(&can, FDCAN_RX_FIFO0))
-        if ((uint32_t)(HAL_GetTick() - start) >= 20) return false;
-    return HAL_FDCAN_GetRxMessage(&can, FDCAN_RX_FIFO0, &received, rx) == HAL_OK &&
-        received.Identifier == tx.Identifier && received.DataLength == FDCAN_DLC_BYTES_8 &&
-        received.FDFormat == FDCAN_FD_CAN && memcmp(rx, payload, sizeof payload) == 0;
+    board_can_init();
 }
 void I2C1_IRQHandler(void) { HAL_I2C_EV_IRQHandler(&i2c); HAL_I2C_ER_IRQHandler(&i2c); }
 void DMA1_Channel1_IRQHandler(void) { HAL_DMA_IRQHandler(&adc_dma); }
