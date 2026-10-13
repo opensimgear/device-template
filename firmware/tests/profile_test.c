@@ -12,6 +12,9 @@ int main(void) {
     } else if(!strcmp(profile->name,"shifter")) {
         assert(layout->buttons==3 && layout->axes==0 && layout->hats==0 && layout->length==1);
         assert(layout->digital_mask==7 && !layout->adc_mask);
+    } else if(!strcmp(profile->name,"Master Caution")) {
+        assert(layout->buttons==1 && !layout->axes && !layout->hats && layout->length==1);
+        assert(layout->digital_mask==1 && !layout->adc_mask);
     } else {
         assert(!strcmp(profile->name,"expanded"));
         assert(layout->buttons==40 && layout->axes==8 && layout->hats==0 && layout->length==21);

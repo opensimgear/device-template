@@ -11,8 +11,15 @@ Reusable validation, descriptor construction, debounce, report packing and input
 | `example` | Button D0, maintained toggle D1, encoder D2/D3 with push D4, NESW hat D5–D8, three-state selector D9/D10, axis A0 | 8 buttons, 1 hat, 1 X axis; 4 bytes |
 | `shifter` | D0 up, D1 down, D2 explicit neutral | 3 buttons; 1 byte; no hat or axes |
 | `expanded` | 24 direct momentary contacts, 16 contacts at TCA9555 address 0x20, all eight axes | 40 buttons, 8 axes; 21 bytes; no hat |
+| `master_caution` | Momentary contact D0 and the existing board status LED | 1 button; 1 byte; no hat or axes |
 
 In `example`, HID buttons are 1 momentary, 2 toggle, 3 encoder push, 4 positive encoder direction, 5 negative direction, 6 selector low, 7 selector centre and 8 selector high. Encoder direction can be reversed by swapping its A/B assignments. A centre-open ON–OFF–ON selector consumes two contacts; low/high together suppress all three selector outputs and set a diagnostic.
+
+The Master Caution native JSON example selects `outputs: "board-status"`, so it
+advertises the physical board's `led.status.set_mode` action (`auto`, `on`, `off`)
+instead of RGB/boolean endpoints. Its event control is zero-based index 0. This
+allows the same simulator binding to target native firmware and the board without
+changing an input mapping or output action ID. Electrical validation is deferred.
 
 ## Physical indexes
 
@@ -42,5 +49,12 @@ Momentary contacts require a debounced 10 ms release before a new press at start
 Hats arm only after all four contacts are debounced open. Opposite or three/four contacts force null and disarm until full release. A missing expansion bank forces affected controls neutral immediately; recovery requires fresh debounce, and already-held momentary contacts/hats stay disarmed until release. Selectors spanning banks remain neutral while either bank is unavailable. Unused selectors are absent, so they cannot generate a phantom centre button.
 
 Encoders use direct pins with a 1 ms main-loop sampling target. Bounded I²C transactions and bus recovery can lengthen the interval; measure the worst interval for profiles that combine encoders and expansion inputs. Each full detent queues a direction event; 16 waiting events are retained and overflow drops new events with a diagnostic. Illegal two-bit jumps increment another counter and require resynchronization at the open detent. Press and release each last at least 25 ms after the corresponding USB transfer completes; host stalls cannot consume queued events. Recovery discards queued turns and partial detents. Nominal sustained output is at most 20 detents/s before polling delays, and physical speed/bounce still need qualification.
+
+The independent panel event collector retains sampled debounced button/selector
+transitions in a 64-record log and emits a press/release pair for each completed
+encoder detent. Its zero-based controls use the same logical order as the HID
+report. It remains active without HID ownership, uses no InputAck and does not
+consume the HID encoder queue. HID recovery does not reset this log; a successful
+configuration activation starts a fresh stream. See the [event contract](https://github.com/opensimgear/protocol/blob/main/serial/panel-input-events.md).
 
 Reports are neutral while neither direct USB nor a current CAN assignment is active. Axes require fresh conversion frames and revert to their profile neutral after 100 ms without one. Expansion scanning also has a 100 ms watchdog, with per-bank immediate transaction-failure suppression. Diagnostics are available through `inputs`; CAN handoff uses the same packed report through the matching gateway Cyphal DSDL types, including hats and all 128 logical button bits. Encoder events advance only after the current direct USB transfer or the gateway acknowledges its completed USB transfer.

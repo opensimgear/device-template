@@ -24,7 +24,7 @@ class ConfigurationTests(unittest.TestCase):
         self.environment = {**os.environ, 'OSG_SIMULATION_NAMESPACE': f'device-tests-{os.getpid()}'}
 
     def test_examples_pass_native_validation(self):
-        for name in ('pedals', 'button-panel', 'shifter'):
+        for name in ('pedals', 'button-panel', 'shifter', 'master-caution'):
             result = subprocess.run([sys.executable, str(REPO / 'simulation/run.py'), '--config',
                                      str(REPO / f'simulation/configs/{name}.json'), '--output-dir', str(BINARY_DIR),
                                      '--no-build', '--validate'], capture_output=True, text=True,
@@ -37,6 +37,7 @@ class ConfigurationTests(unittest.TestCase):
             lambda p: p.update(name='bad\nname'),
             lambda p: p.update(identity='0' * 32),
             lambda p: p.update(extra=True),
+            lambda p: p.update(outputs='unsupported'),
             lambda p: p['inputs']['axes'][0].update(channel=True),
             lambda p: p['inputs']['axes'][0].update(inverted=1),
             lambda p: p['inputs']['axes'][0].update(deadzone=32768),
@@ -162,6 +163,86 @@ class ConfigurationTests(unittest.TestCase):
             finally:
                 if process is not None and not process.stdout.closed:
                     stop()
+
+    def test_master_caution_events_capture_between_reads_and_rebaseline(self):
+        with tempfile.TemporaryDirectory(dir=BINARY_DIR) as temporary:
+            command = [sys.executable, str(REPO / 'simulation/run.py'), '--config',
+                       str(REPO / 'simulation/configs/master-caution.json'), '--output-dir', str(BINARY_DIR),
+                       '--no-build', '--state-dir', str(Path(temporary) / 'state'),
+                       '--gateway', '8ea15ffe17734f2b81a12a12']
+            process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                       stderr=subprocess.PIPE, text=True, bufsize=1, env=self.environment)
+            request = 0
+
+            def admin(operation):
+                nonlocal request
+                request += 1
+                process.stdin.write(f'sim {request} {operation}\n'); process.stdin.flush()
+                with selectors.DefaultSelector() as selector:
+                    selector.register(process.stdout, selectors.EVENT_READ)
+                    self.assertTrue(selector.select(4), f'timed out: {operation}')
+                result = json.loads(process.stdout.readline())
+                self.assertTrue(result['ok'], result)
+                return result['simulation']
+
+            try:
+                initial = admin('advance 20')
+                baseline = admin('direct_events state')['eventResult']
+                self.assertEqual((baseline['buttonCount'], baseline['held'], baseline['encoderButtons']), (1, [False], []))
+                self.assertEqual(baseline['head'], 0)
+                descriptor = admin('direct_action describe 0')['actionResult']
+                self.assertEqual([a['id'] for a in descriptor['actions']], ['led.status.set_mode'])
+                self.assertEqual(admin('direct_action invoke 1 led.status.set_mode on')['actionResult']['values'], ['on'])
+                # Both edges occur before any event read, while HID has no owner.
+                admin('contact 0 1'); admin('contact 0 0')
+                result = admin('direct_events read 1 0')['eventResult']
+                self.assertEqual(result['events'], [{'sequence': 1, 'control': 0, 'pressed': True},
+                                                  {'sequence': 2, 'control': 0, 'pressed': False}])
+                self.assertEqual(admin('direct_events read 1 0')['eventResult'], result)
+                admin('direct 1'); admin('contact 0 1'); admin('contact 0 0'); admin('direct 0')
+                latest = admin('inspect')
+                self.assertEqual((latest['events']['stream'], latest['events']['head']), (1, 4))
+                for field in ('settingsErases', 'settingsPrograms', 'moduleReconnects', 'descriptorHex'):
+                    self.assertEqual(latest[field], initial[field], field)
+                for _ in range(40):
+                    admin('contact 0 1'); admin('contact 0 0')
+                overflow = admin('direct_events read 1 0')['eventResult']
+                self.assertEqual(overflow['error'], 'eventGap')
+                state = admin('direct_events state')['eventResult']
+                self.assertEqual((state['head'], state['oldest'], state['overflow']), (84, 21, 20))
+                after = state['oldest'] - 1
+                recovered = []
+                while True:
+                    page = admin(f'direct_events read 1 {after}')['eventResult']
+                    self.assertLessEqual(len(page['events']), 16)
+                    recovered.extend(page['events']); after = page['next']
+                    if not page['more']:
+                        break
+                self.assertEqual([event['sequence'] for event in recovered], list(range(21, 85)))
+                self.assertEqual(admin('direct_events read 1 85')['eventResult']['error'], 'invalidCursor')
+                admin('direct_config claim 81'); admin('direct_config name 81 4e6577206d617070696e67')
+                changed = admin('direct_config apply 81')
+                deadline = time.monotonic() + 4
+                while changed['module']['pendingApply'] and time.monotonic() < deadline:
+                    changed = admin('inspect')
+                self.assertFalse(changed['module']['pendingApply'])
+                self.assertEqual(changed['events']['stream'], 2)
+                self.assertEqual(admin('direct_events read 1 84')['eventResult']['error'], 'staleStream')
+                rebased = admin('direct_events state')['eventResult']
+                self.assertEqual((rebased['head'], rebased['held']), (0, [False]))
+                rebooted = admin('reboot')
+                self.assertGreater(rebooted['moduleBoot'], initial['moduleBoot'])
+                self.assertEqual((rebooted['events']['stream'], rebooted['events']['head']), (1, 0))
+                self.assertEqual(rebooted['actions']['states'][0]['values'], ['auto'])
+            finally:
+                if process.poll() is None:
+                    process.terminate()
+                process.wait(4)
+                errors = process.stderr.read()
+                self.assertNotIn('AddressSanitizer', errors)
+                self.assertNotIn('runtime error:', errors)
+                for stream in (process.stdin, process.stdout, process.stderr):
+                    stream.close()
 
     def test_actions_are_volatile_and_independent_of_input_configuration(self):
         with tempfile.TemporaryDirectory(dir=BINARY_DIR) as temporary:

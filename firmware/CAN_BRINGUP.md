@@ -14,7 +14,7 @@ CAN input uses the same report layout as direct USB: up to 128 logical button bi
 
 Mounted, awake direct USB has priority. While it owns input, announcements advertise `direct_usb=true` and the gateway neutralizes the enabled controller. Detach/suspend allows a fresh CAN fallback. Each ownership transition discards queued encoder events and stale report acknowledgements, clears pending CAN traffic through a bounded controller reset, then rearms held controls. Normal ownership changes restart immediately and send a priority ownership announcement. A real bus fault or failed restart waits 1 s before retrying. The direct USB HID completion behavior and retained-packet caveat in [README](README.md) still apply.
 
-After assignment, `opensimgear.input.Status.1.0` independently confirms the current identity, source, boot and lease every 500 ms, including direct USB ownership and periods with no HID report. This is route liveness, not a USB completion acknowledgement. Disabled gateway controllers remain reachable for configuration and device actions without an enabled HID collection.
+After assignment, `opensimgear.input.Status.1.0` independently confirms the current identity, source, boot and lease every 500 ms, including direct USB ownership and periods with no HID report. This is route liveness, not a USB completion acknowledgement. Disabled gateway controllers remain reachable for configuration, device actions and panel event reads without an enabled HID collection.
 
 Successful CAN transmission does not acknowledge an encoder pulse. The module waits for the typed input acknowledgement emitted only after the gateway's actual USB HID completion. ACK must come from the assigned gateway source and match the current boot, logical CAN route and lease; its sequence and exact report must be present in the bounded 16-report transmit history. Duplicate, older, unknown and mismatched acknowledgements are rejected. Each encoder phase records a minimum input sequence, so a delayed ACK for an earlier same-direction press cannot acknowledge a later press. Press and release hold times start only after their corresponding completion ACK. If USB delivery stalls, encoder queues remain bounded and phases wait; there is no synthetic delivery credit.
 
@@ -30,17 +30,18 @@ Erased settings receive a committed factory baseline at generation 1 before conf
 
 ## Validation on 2026-10-13
 
-- Native Debug and AddressSanitizer/UndefinedBehaviorSanitizer: **11/11 tests pass**, including all three real profile descriptors, report compatibility, USB delivery recovery, advertised actions/readback/validation/retry handling, the Cyphal client/encoder/journal suite, shared transport conformance, runtime writer/draft/apply/save recovery and actual dynamic USB descriptor callbacks with Unicode names. Runtime storage tests interrupt all 80 erase/program operations during factory initialization and all 80 for both first-user `apply_save` and `save`, recover/retry successfully, and reject committed corruption and invalid schemas without rewriting them.
+- Native Debug and AddressSanitizer/UndefinedBehaviorSanitizer: **13/13 tests pass**, including all four real profile descriptors, report compatibility, USB delivery recovery, advertised actions/readback/validation/retry handling, the Cyphal client/encoder/journal suite, shared transport conformance, runtime writer/draft/apply/save recovery and actual dynamic USB descriptor callbacks with Unicode names. Runtime storage tests interrupt all 80 erase/program operations during factory initialization and all 80 for both first-user `apply_save` and `save`, recover/retry successfully, and reject committed corruption and invalid schemas without rewriting them.
 - Cyphal client tests use actual transport peers and cover gateway source binding, boot/lease/sequence/report validation, direct USB ownership, bounded queue rejection, assignment timeout, sequence exhaustion, late same-direction phase ACKs and interrupted boot-counter writes.
-- All three profiles cross-build with Arm GNU 15.3.1 for STM32G0B1CBT6. Compilation uses `0xFFFF/0xFFFF` placeholders only; no firmware was flashed.
+- All four profiles cross-build with Arm GNU 15.3.1 for STM32G0B1CBT6. Compilation uses `0xFFFF/0xFFFF` placeholders only; no firmware was flashed.
 - GCC stack usage is emitted as `.su` files. The shared journal commit frame is 2,160 bytes plus its 2,016-byte CRC scratch frame; runtime definition initialization uses 1,912 bytes and main uses 1,008 bytes, below the 16 KiB reserved stack with the port frames. This is static evidence, not measured peak stack.
-- Five native JSON simulation suites pass with sanitizers, including volatile RGB/boolean LED state, ownership changes, unchanged flash/descriptor/reconnect counters and bounded discovery namespaces rejected before state access. The maintained Clang/LLVM gate measures 94.87% line coverage for `device_actions.c`, 90.11% for `config_can.c` and 90.82% for `can_client.c`; each must stay above 70%.
+- Six native JSON simulation suites pass with sanitizers, including volatile RGB/boolean and board-status LED state, independent events/paging/gaps/stream resets, ownership changes, unchanged flash/descriptor/reconnect counters and bounded discovery namespaces rejected before state access. The maintained Clang/LLVM gate measures 94.87% line coverage for `device_actions.c`, 90.62% for `config_can.c` and 90.82% for `can_client.c`; each must stay above 70%.
 
 | Profile | Flash | SRAM including reserved heap/stack |
 | --- | ---: | ---: |
-| example | 70,828 B | 71,088 B |
-| shifter | 70,812 B | 71,088 B |
-| expanded | 70,988 B | 71,088 B |
+| example | 72,936 B | 75,472 B |
+| shifter | 72,920 B | 75,472 B |
+| expanded | 73,092 B | 75,472 B |
+| master_caution | 72,920 B | 75,472 B |
 
 Native reproduction from the repository root:
 
@@ -54,6 +55,16 @@ No assembled module/gateway CAN chain, USB suspend/fallback timing, ADC/I²C/enc
 
 ## Runtime configuration delivery
 
-The matching gateway forwards bounded configuration commands over dedicated Cyphal subjects. The device accepts them only for its current identity, boot, gateway source, route, lease and epoch. Chunk assembly and reply buffers are bounded; an immutable cached reply prevents a retry from repeating a completed mutation. After a valid Apply, both transport and board transmit queues drain before direct USB detaches, acquisition and old completions are invalidated, and the new profile is announced. Descriptor/report shape remains neutral through the gateway until its stored profile matches the new announcement and the gateway layout is explicitly applied. See the [runtime contract](https://github.com/opensimgear/protocol/blob/main/serial/runtime-configuration.md).
+The matching gateway forwards bounded configuration commands over dedicated Cyphal subjects. The device accepts them only for its current identity, boot, gateway source, route, lease and epoch. Chunk assembly and reply buffers are bounded; an immutable cached reply prevents a retry from repeating a completed mutation. After a valid Apply on an assigned route, both transport and board transmit queues drain before direct USB detaches, acquisition and old completions are invalidated, and the new profile is announced. Descriptor/report shape remains neutral through the gateway until its stored profile matches the new announcement and the gateway layout is explicitly applied. Without an assigned route, queued discovery and standard heartbeat traffic cannot postpone activation indefinitely; pending old-source traffic is purged at activation. See the [runtime contract](https://github.com/opensimgear/protocol/blob/main/serial/runtime-configuration.md).
 
 The same bounded request/reply envelope carries `action describe`, `action state` and `action invoke` to a separate action dispatcher. A successful transport response contains `OK` followed by the action JSON; action validation failures stay inside that JSON. The current board advertises a readable `led.status.set_mode` enum (`auto`, `on`, `off`). The simulator advertises RGB and boolean LED setters through the identical production registry. Commands require the advertised catalogue revision and valid typed arguments, but no configuration claim. They never save settings, alter HID, or renew a lease. A duplicate complete request returns its original reply without executing again. LED mode persists across ownership changes; reboot restores `auto`. Suspend forces the physical LED off until resume. Software readback confirms the selected driver state, not an electrical measurement.
+
+The separate `events state` and `events read <stream> <after>` dispatcher uses
+these same envelopes and immutable retry cache. Always-running mapped input
+acquisition retains 64 transitions independently of HID ownership/ACKs; pages
+contain at most 16 records. Encoders use immediate detent press/release records,
+while the HID queue keeps its delivery pacing. Mapping activation clears the
+ring and changes its stream. Consumers baseline after reconnect/reboot and
+recover explicitly from gaps. Native and sealed-CAN integration tests exercise
+short presses, direct/disabled access, cached replies, overflow and stream
+activation. See the [panel event contract](https://github.com/opensimgear/protocol/blob/main/serial/panel-input-events.md).

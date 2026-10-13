@@ -34,6 +34,7 @@ static struct {
     osg_runtime_config_t runtime;
     osg_runtime_definition_t defaults;
     osg_device_actions_t actions;
+    osg_events_t events;
     osg_profile_state_t acquisition;
     osg_profile_sample_t sample;
     osg_can_delivery_t delivery;
@@ -41,9 +42,10 @@ static struct {
     flash_t settings_flash,boot_flash;
     osg_gateway_identity_t module_identity;
     uint32_t now,module_reconnects,can_frames,acks,node_collisions;
-    bool direct;
+    bool direct,board_actions;
     char active_config[4096];
     char action_result[OSG_ACTION_REPLY_CAPACITY];
+    char event_result[OSG_EVENTS_REPLY_CAPACITY];
 } emulator;
 static const char *state_directory;
 static const char *simulation_namespace;
@@ -113,6 +115,7 @@ static void init_module_client(uint32_t boot) {
     emulator.module.configuration_generation=emulator.runtime.generation;
     osg_module_config_can_init(&emulator.module_config,&emulator.module,&emulator.runtime);
     osg_module_config_can_actions(&emulator.module_config,&emulator.actions.registry);
+    osg_module_config_can_events(&emulator.module_config,&emulator.events);
     osg_can_client_usb(&emulator.module,emulator.direct); rearm();
 }
 
@@ -120,7 +123,9 @@ static void boot_module(void) {
     osg_cyphal_destroy(&emulator.module.cyphal);
     uint32_t boot; osg_journal_io_t settings=io(&emulator.settings_flash),counter=io(&emulator.boot_flash);
     assert(osg_runtime_init_definition(&emulator.runtime,&emulator.defaults,&settings));
-    assert(osg_device_actions_init(&emulator.actions,true));emulator.action_result[0]=0;
+    assert(osg_device_actions_init(&emulator.actions,!emulator.board_actions));emulator.action_result[0]=0;
+    assert(osg_events_init(&emulator.events,&emulator.runtime.profile,&emulator.sample,emulator.now,emulator.runtime.generation));
+    emulator.event_result[0]=0;
     assert(osg_boot_session_begin(&counter,&boot)); init_module_client(boot);
 }
 
@@ -140,6 +145,7 @@ static void tick(void) {
     osg_runtime_tick(&emulator.runtime,emulator.now);
     emulator.sample.axes_fresh=emulator.runtime.layout.adc_mask;
     emulator.sample.expansion_available=emulator.expansion_available;
+    osg_events_observe(&emulator.events,&emulator.sample,emulator.now);
     osg_profile_update(&emulator.acquisition,&emulator.sample,emulator.now,
         osg_can_client_active(&emulator.module) || emulator.direct,emulator.report);
     osg_runtime_transform_report(&emulator.runtime,&emulator.acquisition,emulator.report);
@@ -149,6 +155,7 @@ static void tick(void) {
     osg_module_config_can_tick(&emulator.module_config,emulator.now);
     if(emulator.runtime.pending_apply && !osg_module_config_can_busy(&emulator.module_config)) {
         assert(osg_runtime_finish_apply(&emulator.runtime));emulator.module_reconnects++;
+        assert(osg_events_init(&emulator.events,&emulator.runtime.profile,&emulator.sample,emulator.now,emulator.runtime.generation));
         assert(osg_can_profile(&emulator.runtime.profile,&emulator.runtime.layout,&emulator.module.profile));
         emulator.module.configuration_generation=emulator.runtime.generation;
         osg_can_client_reset(&emulator.module);rearm();
@@ -171,9 +178,12 @@ static void inspect(uint32_t id,bool ok,const char *error) {
     fprintf(response_output,"\",\"moduleReportHex\":\"");hex(emulator.report,emulator.runtime.layout.length);
     char action_state[OSG_ACTION_REPLY_CAPACITY];
     assert(osg_actions_command(&emulator.actions.registry,"action state",action_state,sizeof action_state));
-    fprintf(response_output,"\",\"sourceNode\":%u,\"nodeCollisions\":%u,\"module\":%s,\"actions\":%s,\"actionResult\":%s}}\n",
+    char event_state[OSG_EVENTS_REPLY_CAPACITY];
+    assert(osg_events_command(&emulator.events,"events state",event_state,sizeof event_state));
+    fprintf(response_output,"\",\"sourceNode\":%u,\"nodeCollisions\":%u,\"module\":%s,\"actions\":%s,\"actionResult\":%s,\"events\":%s,\"eventResult\":%s}}\n",
         osg_cyphal_node_id(&emulator.module.cyphal),emulator.node_collisions,emulator.active_config,
-        action_state,emulator.action_result[0] ? emulator.action_result : "null");fflush(response_output);
+        action_state,emulator.action_result[0] ? emulator.action_result : "null",event_state,
+        emulator.event_result[0] ? emulator.event_result : "null");fflush(response_output);
 }
 static void admin(const char *line) {
     unsigned id=0,n=0,a=0,b=0;bool ok=true;const char *error=NULL;
@@ -190,6 +200,13 @@ static void admin(const char *line) {
         int length=snprintf(action_command,sizeof action_command,"action %s",command+14);
         if(length<0 || (size_t)length>=sizeof action_command ||
            !osg_actions_command(&emulator.actions.registry,action_command,emulator.action_result,sizeof emulator.action_result)) {
+            ok=false;error="invalid_request";
+        }
+    } else if(!strncmp(command,"direct_events ",14)) {
+        char event_command[OSG_EVENTS_COMMAND_CAPACITY];
+        int length=snprintf(event_command,sizeof event_command,"events %s",command+14);
+        if(length<0 || (size_t)length>=sizeof event_command ||
+           !osg_events_command(&emulator.events,event_command,emulator.event_result,sizeof emulator.event_result)) {
             ok=false;error="invalid_request";
         }
     } else if(!strcmp(command,"reboot")) {boot_module();advance(600);}
@@ -421,12 +438,12 @@ static void usage(const char *program) {
     fprintf(stderr,"Usage: %s --definition-fd FD --gateway UID24 --state-dir PATH [--validate]\nStart JSON devices with simulation/run.py --config FILE.\n",program);exit(2);
 }
 static void load_definition(int fd) {
-    uint8_t payload[8+16+OSG_RUNTIME_RECORD_SIZE+37];size_t used=0;
+    uint8_t payload[8+16+OSG_RUNTIME_RECORD_SIZE+38];size_t used=0;
     while(used<sizeof payload) {
         ssize_t n=read(fd,payload+used,sizeof payload-used);
         if(n<=0) {fprintf(stderr,"Incomplete device startup definition\n");exit(2);}used+=(size_t)n;
     }
-    uint8_t extra;if(read(fd,&extra,1)!=0 || memcmp(payload,"OSGSIM01",8)) {fprintf(stderr,"Invalid device startup definition\n");exit(2);}close(fd);
+    uint8_t extra;if(read(fd,&extra,1)!=0 || memcmp(payload,"OSGSIM02",8)) {fprintf(stderr,"Invalid device startup definition\n");exit(2);}close(fd);
     memcpy(emulator.module_identity.bytes,payload+8,16);uint32_t generation;
     if(!osg_gateway_identity_valid(&emulator.module_identity) ||
        !osg_runtime_decode(&emulator.defaults,&generation,payload+24,OSG_RUNTIME_RECORD_SIZE) || generation!=1) {
@@ -437,6 +454,8 @@ static void load_definition(int fd) {
     for(unsigned i=0;i<8;i++,p+=2)emulator.sample.axes[i]=(uint16_t)(p[0]|(uint16_t)p[1]<<8);
     emulator.expansion_available=*p++;emulator.sample.expansion_available=emulator.expansion_available;
     for(unsigned i=0;i<8;i++,p+=2)emulator.sample.expansion_closed[i]=(uint16_t)(p[0]|(uint16_t)p[1]<<8);
+    if(*p>1) {fprintf(stderr,"Invalid device output catalogue\n");exit(2);}
+    emulator.board_actions=*p!=0;
 }
 int main(int argc,char **argv) {
     int definition_fd=-1;bool validate=false;response_output=stdout;

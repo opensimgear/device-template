@@ -40,7 +40,7 @@ def _build(output_dir, common_source, sanitize):
                *[firmware / 'src' / name for name in ('can_client.c', 'can_delivery.c', 'runtime_config.c', 'config_can.c', 'boot_session.c', 'device_actions.c')],
                firmware / 'shared-gateway/src/gateway_journal.c',
                *[common / 'src/inputs' / name for name in ('profile.c', 'inputs.c', 'button.c')], common / 'src/config/line.c',
-               common / 'src/actions/actions.c',
+               common / 'src/actions/actions.c', common / 'src/events/events.c',
                cyphal / 'src/cyphal.c', cyphal / 'src/gateway_protocol.c', cyphal / 'vendor/libcanard/canard.c']
     includes = [firmware / 'include', firmware / 'shared-gateway/include', common / 'include',
                 cyphal / 'include', cyphal / 'generated', cyphal / 'vendor/libcanard']

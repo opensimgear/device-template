@@ -76,7 +76,7 @@ def read_configuration(path):
 
 
 def encode_configuration(value):
-    obj(value, 'device', {'identity', 'name', 'inputs', 'expansion_banks', 'initial_samples'},
+    obj(value, 'device', {'identity', 'name', 'inputs', 'expansion_banks', 'initial_samples', 'outputs'},
         {'identity', 'name', 'inputs'})
     identity = value['identity']
     if not isinstance(identity, str) or not re.fullmatch('[0-9a-f]{32}', identity) or identity in ('0' * 32, 'f' * 32):
@@ -171,6 +171,10 @@ def encode_configuration(value):
     available = indexes(samples.get('expansion_available', banks), 'initial_samples.expansion_available', 8, 7)
     if not set(available).issubset(banks):
         fail('initial_samples.expansion_available', 'available banks must be configured in expansion_banks')
-    payload = b'OSGSIM01' + bytes.fromhex(identity) + record
+    outputs = value.get('outputs', 'simulated-leds')
+    if outputs not in ('simulated-leds', 'board-status'):
+        fail('outputs', 'expected simulated-leds or board-status')
+    payload = b'OSGSIM02' + bytes.fromhex(identity) + record
     payload += struct.pack('<I8HB8H', digital, *axes, sum(1 << i for i in available), *expanded)
+    payload += bytes([outputs == 'board-status'])
     return identity, payload
