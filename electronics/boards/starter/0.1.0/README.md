@@ -1,6 +1,6 @@
 # Generic STM32G0B1 starter — v0.1.0
 
-Open `starter.kicad_pro` in **KiCad 10**. The current design provides **eight analogue inputs, 24 digital lines and I²C for optional 16-input expansion boards**. Firmware profiles assign those resources to the controls each device needs; unused controls are omitted from its USB HID descriptor. The matching board target is `starter_g0b1cb_v0_1_0`. Current firmware supports direct USB and Cyphal/CAN discovery/input delivery through [device-gateway](https://github.com/opensimgear/device-gateway); [CAN integration](../../../../firmware/CAN_BRINGUP.md) records software validation and remaining bench tests.
+Open `starter.kicad_pro` in **KiCad 10**. The current design provides **eight analogue inputs, 24 digital lines and I²C for optional 16-input expansion boards**. Firmware profiles assign those resources to the controls each device needs; unused controls are omitted from its USB HID descriptor. The matching board target is `starter_g0b1cb_v0_1_0`. Current firmware supports direct USB and Cyphal/CAN discovery/input delivery through [device-gateway](https://github.com/opensimgear/device-gateway); [CAN integration](../../../../firmware/CAN_BRINGUP.md) records software validation.
 
 The four-layer production and separate two-layer Makera Z1 layouts retain USB and both CAN sockets on the same edge. Both use the four-contact powered-CAN connector standard. See [fabrication](FABRICATION.md), [electrical review](ELECTRICAL.md), [footprints](FOOTPRINTS.md), [validation](VALIDATION.md), [schematic PDF](review/schematic.pdf), [front copper](review/pcb.svg), [back copper](review/pcb-back.svg), [routing PDF](review/routing.pdf) and [BOM](bom.csv). No physical board has been fabricated or tested.
 
@@ -64,7 +64,7 @@ Each line has a 10 kΩ pull-up to 3.3 V. Close a contact between its signal and 
 | D10 | PB13 / 25 | D22 | PF0 / 8 |
 | D11 | PB14 / 26 | D23 | PF1 / 9 |
 
-A button or maintained contact consumes one line; an encoder consumes two, plus one for its pushbutton; a hat uses four; a center-open three-position selector uses two. These counts share the same 24-line budget. Matrix scanning and serial shift-register boards are not implemented in this revision. Keep encoder A/B on direct MCU inputs; polled I²C contacts can miss rapid quadrature transitions.
+A button or maintained contact consumes one line; an encoder consumes two, plus one for its pushbutton; a hat uses four; a center-open three-position selector uses two. These counts share the same 24-line budget. Keep encoder A/B on direct MCU inputs; polled I²C contacts can miss rapid quadrature transitions.
 
 ### Optional 16-input boards
 
@@ -119,4 +119,4 @@ See [ROUTING.md](ROUTING.md) and [VALIDATION.md](VALIDATION.md) for the final di
 
 ## Libraries and licensing
 
-`KiCad.kicad_sym` and `KiCad.pretty/` contain selected KiCad 10.0.6 library entries under [KiCad's library license](LICENSE-KICAD.md); MCU and inherited symbols are flattened for local editing. `OpenSimGear.kicad_sym` contains authored/application-specific symbols, including the reviewed LM66100 dual-OR model. `OpenSimGear.pretty/` contains manufacturer-derived 4P4C, fuse, LED, TI DCK and Samtec header footprints. Project license selection remains pending, separate from the upstream library license. Both library tables use project-relative paths; authored geometry and model conventions are recorded in [FOOTPRINTS.md](FOOTPRINTS.md).
+`KiCad.kicad_sym` and `KiCad.pretty/` contain selected KiCad 10.0.6 library entries under [KiCad's library license](LICENSE-KICAD.md); MCU and inherited symbols are flattened for local editing. `OpenSimGear.kicad_sym` contains authored/application-specific symbols, including the reviewed LM66100 dual-OR model. `OpenSimGear.pretty/` contains manufacturer-derived 4P4C, fuse, LED, TI DCK and Samtec header footprints. The upstream library license does not grant a license for separately authored project material. Both library tables use project-relative paths; authored geometry and model conventions are recorded in [FOOTPRINTS.md](FOOTPRINTS.md).

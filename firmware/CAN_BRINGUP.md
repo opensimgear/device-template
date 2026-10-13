@@ -47,7 +47,7 @@ cmake --build .build/tests --parallel
 ctest --test-dir .build/tests --output-on-failure
 ```
 
-No assembled module/gateway CAN chain, USB suspend/fallback timing, ADC/I²C/encoder timing, signal margins or power behavior was tested. Bench qualification must verify discovery, all enabled controls including hats, gateway registry/apply/reconnect, cable removal, bus-off recovery, direct USB takeover/fallback, lost/delayed acknowledgements and no replay after reset. Runtime settings and saved calibration now run through the same core in the native emulator and STM32 target. Output routing and firmware updates remain future work.
+No assembled module/gateway CAN chain, USB suspend/fallback timing, ADC/I²C/encoder timing, signal margins or power behavior was tested. Bench qualification must verify discovery, all enabled controls including hats, gateway registry/apply/reconnect, cable removal, bus-off recovery, direct USB takeover/fallback, lost/delayed acknowledgements and no replay after reset. Runtime settings and saved calibration now run through the same core in the native emulator and STM32 target.
 
 ## Runtime configuration delivery
 

@@ -4,4 +4,4 @@ The boot-journal sources are an exact snapshot of the corresponding `device-gate
 
 The application wire types and real libcanard transport now live in `../shared-cyphal`, synchronized from the canonical `protocol/cyphal` implementation. The old private CAN frame codec is removed from this directory and the build. Both firmware projects use the same generated DSDL types and bounded transport implementation.
 
-This is authored OpenSimGear code; project license selection remains pending. Upstream fetched dependencies retain the notices in `../THIRD_PARTY.md` and `../shared-cyphal`.
+This is authored OpenSimGear code; no project license grant is declared. Upstream fetched dependencies retain the notices in `../THIRD_PARTY.md` and `../shared-cyphal`.

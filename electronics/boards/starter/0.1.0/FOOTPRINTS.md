@@ -5,7 +5,7 @@ The starter uses exact component identities in `bom.csv` and hidden `MPN` / `Dat
 ## Library conventions
 
 - `KiCad.pretty/` contains selected upstream KiCad footprints. See `LICENSE-KICAD.md` for upstream attribution and licensing.
-- `OpenSimGear.pretty/` contains footprints authored from manufacturer dimensions for this starter. The `OpenSimGear` library nickname is defined in `fp-lib-table`. Project license selection remains pending; any geometry derived from KiCad library entries retains its upstream library license.
+- `OpenSimGear.pretty/` contains footprints authored from manufacturer dimensions for this starter. The `OpenSimGear` library nickname is defined in `fp-lib-table`. Geometry derived from KiCad library entries retains its upstream library license; separately authored geometry has no declared license grant.
 - Each authored footprint records the exact part or package, source URL, drawing revision where available, pad dimensions and orientation in its description. A source drawing is authoritative over distributor preview images or generic catalog metadata.
 - Pin numbering must match the symbol-to-net mapping. Connector geometry is defined looking down at the PCB; manufacturer bottom-view drawings must be converted before assigning coordinates. Locating pegs are not electrical pins.
 - Use F.Fab for nominal body/assembly information, F.CrtYd for assembly allowance, F.SilkS for markings that remain clear of solderable openings, F.Paste for SMD apertures and F.Mask for solder openings. Do not add solder paste to through-hole contacts.
@@ -69,7 +69,7 @@ KiCad hole dimensions specify the required finished geometry; the fabricator sel
 
 The authored 4P4C, fuse, TI, LED and Samtec footprints currently have no verified 3D model. Fabrication geometry is in their copper, drill and mechanical layers. Do not attach the historical six-contact connector model or another manufacturer's connector model merely to make a preview complete. Upstream models are visual aids and do not override the exact MPN drawing; in particular, check C2's larger package/height and the chosen button height when designing an enclosure.
 
-For future models, use millimetres, verify origin/rotation against pin 1 and the cable mouth, and identify the exact MPN/source/revision. Prefer a project-local model with a relative `${KIPRJMOD}` path for portability, recording its redistribution license. If a model is unverified, omit it and document the limitation.
+For included models, use millimetres, verify origin/rotation against pin 1 and the cable mouth, and identify the exact MPN/source/revision. Prefer a project-local model with a relative `${KIPRJMOD}` path for portability, recording its redistribution license. If a model is unverified, omit it and document the limitation.
 
 Before populating the first board, compare an actual-size footprint print with the purchased external jacks and check the jack contact order, locating pegs, latch access, connector nose/edge alignment and screw-head clearances. These checks address physical samples; dimensional review and clean DRC alone cannot certify assembly fit, connector durability, USB compliance or hot plugging.
 

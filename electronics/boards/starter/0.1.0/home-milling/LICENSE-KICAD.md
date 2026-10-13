@@ -1,6 +1,6 @@
 # Included KiCad library data
 
-Selected symbols and footprints from the KiCad 10.0.6 libraries, compiled by the KiCad community, are redistributed in the parent `KiCad.kicad_sym` and `KiCad.pretty/` and as modified footprint variants in `HomeMilling.pretty/`. These copies retain their descriptions and datasheet/3D-model references; inherited symbols are flattened and library names made project-relative. The parent `OpenSimGear.kicad_sym` is authored separately and its project license remains pending. Manufacturer-authored geometry and KiCad-derived variants are distinguished in the [parent footprint review](../FOOTPRINTS.md).
+Selected symbols and footprints from the KiCad 10.0.6 libraries, compiled by the KiCad community, are redistributed in the parent `KiCad.kicad_sym` and `KiCad.pretty/` and as modified footprint variants in `HomeMilling.pretty/`. These copies retain their descriptions and datasheet/3D-model references; inherited symbols are flattened and library names made project-relative. The parent `OpenSimGear.kicad_sym` is authored separately and no project license grant is declared. Manufacturer-authored geometry and KiCad-derived variants are distinguished in the [parent footprint review](../FOOTPRINTS.md).
 
 ### KiCad Libraries License
 
