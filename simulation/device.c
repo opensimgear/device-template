@@ -334,7 +334,8 @@ static void receive_bus(void) {
 }
 
 static void cleanup(void) {
-    if(local.bus>=0)close(local.bus);if(local.state_lock>=0)close(local.state_lock);
+    if(local.bus>=0)close(local.bus);
+    if(local.state_lock>=0)close(local.state_lock);
 }
 
 static void standalone_cycle(bool wait) {
