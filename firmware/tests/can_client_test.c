@@ -12,8 +12,8 @@ typedef struct {
 static wire_t device_wire={.permit=true},gateway_wire[2]={{.permit=true},{.permit=true}};
 static osg_cyphal_t gateways[2];
 static osg_can_client_t client;
-static osg_gateway_message_t outgoing[6];
-static unsigned sent[6],completions;
+static osg_gateway_message_t outgoing[8];
+static unsigned sent[8],completions;
 static bool send(void *context,const osg_gateway_frame_t *frame) {
     wire_t *wire=context;
     if(!wire->permit) return false;
@@ -77,9 +77,11 @@ static void client_test(void) {
     tick(0,r); assert(sent[OSG_GW_ANNOUNCE]==1 && outgoing[OSG_GW_ANNOUNCE].profile.hat_count==4);
     emit(0,assignment(100),1); assert(osg_can_client_active(&client));
     assert(client.gateway_source==osg_cyphal_node_id(&gateways[0]));
-    tick(1,r); assert(sent[OSG_GW_INPUT]==1 && outgoing[OSG_GW_INPUT].sequence==1);
+    tick(1,r); assert(sent[OSG_GW_INPUT]==1 && outgoing[OSG_GW_INPUT].sequence==2);
+    assert(sent[OSG_GW_HEARTBEAT]==1 && outgoing[OSG_GW_HEARTBEAT].lease==100 &&
+        outgoing[OSG_GW_HEARTBEAT].boot_session==7 && !outgoing[OSG_GW_HEARTBEAT].direct_usb);
     osg_gateway_message_t ack=acknowledgement(); emit(0,ack,2);
-    assert(completions==1 && client.ack_sequence==1);
+    assert(completions==1 && client.ack_sequence==2);
     emit(0,ack,3); assert(completions==1); /* Duplicate application sequence. */
     tick(11,r); ack=acknowledgement();
     ack.report[0]^=1; emit(0,ack,12); assert(completions==1); /* Exact report. */
@@ -89,6 +91,9 @@ static void client_test(void) {
     emit(1,assignment(999),12); assert(client.lease==100); /* Competing live gateway. */
     assert(osg_can_client_usb(&client,true));
     assert(!osg_can_client_active(&client)); emit(0,ack,13); assert(completions==1);
+    unsigned inputs=sent[OSG_GW_INPUT],status=sent[OSG_GW_HEARTBEAT];
+    tick(13,NULL); assert(sent[OSG_GW_INPUT]==inputs && sent[OSG_GW_HEARTBEAT]==status+1 &&
+        outgoing[OSG_GW_HEARTBEAT].direct_usb && outgoing[OSG_GW_HEARTBEAT].lease==100);
     assert(osg_can_client_usb(&client,false)); emit(0,ack,14); assert(completions==1); /* Cleared history. */
     tick(14,r); ack=acknowledgement(); emit(0,ack,15); assert(completions==2);
     uint32_t generation=client.generation; emit(0,assignment(101),16);
@@ -114,7 +119,10 @@ static void client_test(void) {
     emit(0,ack,4020); assert(completions==2 && !osg_can_client_active(&client)); /* Timeout before tick. */
     emit(1,assignment(1),4021); assert(client.gateway_source==osg_cyphal_node_id(&gateways[1]));
     /* Timeout cleared epoch/lease ordering, so the new gateway can start at lease 1. */
-    client.next_sequence=UINT32_MAX; tick(4021,r); assert(client.exhausted && !osg_can_client_active(&client));
+    tick(4021,NULL);
+    status=sent[OSG_GW_HEARTBEAT]; inputs=sent[OSG_GW_INPUT];
+    tick(4521,NULL); assert(sent[OSG_GW_HEARTBEAT]==status+1 && sent[OSG_GW_INPUT]==inputs);
+    client.next_sequence=UINT32_MAX; tick(4522,r); assert(client.exhausted && !osg_can_client_active(&client));
     for(unsigned i=0;i<2;i++) osg_cyphal_destroy(&gateways[i]);
     osg_cyphal_destroy(&client.cyphal);
 }

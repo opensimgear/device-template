@@ -5,6 +5,7 @@
 #include "can_client.h"
 #include "can_delivery.h"
 #include "config_can.h"
+#include "device_actions.h"
 #include "stm32g0xx_hal.h"
 #include "opensimgear/line.h"
 #include <stdio.h>
@@ -14,7 +15,7 @@ static osg_profile_state_t inputs;
 static uint8_t current_report[OSG_REPORT_CAPACITY];
 static uint8_t report_length;
 static hid_delivery_t delivery;
-static bool led_override, led_state;
+static osg_device_actions_t device_actions;
 static osg_can_client_t can_client;
 static osg_can_delivery_t can_delivery;
 static bool can_initialized,can_reset_requested;
@@ -40,7 +41,12 @@ static void rearm(void) {
 }
 static void reply(const char *text) { tud_cdc_write_str(text); tud_cdc_write_flush(); }
 static void command(const char *line) {
-    if(!strncmp(line,"config ",7)) {
+    if(osg_actions_command(&device_actions.registry,line,config_response,sizeof config_response)) {
+        config_response_size=strlen(config_response);
+        memcpy(config_response+config_response_size,"\r\n",2);
+        config_response_size+=2;config_response_offset=0;
+    }
+    else if(!strncmp(line,"config ",7)) {
         bool apply=false;osg_runtime_config_t *runtime=device_runtime_config();
         const char *error=osg_runtime_command(runtime,line+7,HAL_GetTick(),&apply);
         int n=error?snprintf(config_response,sizeof config_response,"ERR %s\n",error):snprintf(config_response,sizeof config_response,"OK\n");
@@ -52,7 +58,7 @@ static void command(const char *line) {
         if(apply) { config_apply_armed=true;config_apply_at=HAL_GetTick()+100U; }
     }
     else if (!strcmp(line, "hello")) reply("Hello from OpenSimGear!\r\n");
-    else if (!strcmp(line, "help")) reply("hello | info | inputs | led on | led off | led auto | can status | config <child-command>\r\n");
+    else if (!strcmp(line, "help")) reply("hello | info | inputs | led on | led off | led auto | can status | config <child-command> | action <command>\r\n");
     else if (!strcmp(line, "info")) {
         char module[33], out[160]; osg_gateway_identity_format(&can_client.identity,module);
         snprintf(out, sizeof out, "model=device-template board=0.1.0 profile=%s module=%s protocol=3 buttons=%u axes=%u hats=%u\r\n",
@@ -69,9 +75,9 @@ static void command(const char *line) {
             inputs.axis_available,inputs.hat_conflict,inputs.selector_conflict,inputs.expansion_faults,
             blocked,(unsigned long)dropped,(unsigned long)invalid);
         reply(out);
-    } else if (!strcmp(line, "led on")) { led_override = true; led_state = true; reply("OK\r\n"); }
-    else if (!strcmp(line, "led off")) { led_override = true; led_state = false; reply("OK\r\n"); }
-    else if (!strcmp(line, "led auto")) { led_override = false; reply("OK\r\n"); }
+    } else if (!strcmp(line, "led on")) { device_actions.status_mode=OSG_LED_ON; reply("OK\r\n"); }
+    else if (!strcmp(line, "led off")) { device_actions.status_mode=OSG_LED_OFF; reply("OK\r\n"); }
+    else if (!strcmp(line, "led auto")) { device_actions.status_mode=OSG_LED_AUTO; reply("OK\r\n"); }
     else if (!strcmp(line, "can status")) {
         board_can_diagnostics_t d=board_can_diagnostics(); char out[160];
         snprintf(out,sizeof out,"can=cyphal node=%u route=%u lease=%lu boot=%lu usb=%u rx=%lu tx=%lu rejected=%lu recoveries=%lu\r\n",
@@ -82,6 +88,7 @@ static void command(const char *line) {
 }
 int main(void) {
     if(!device_profile_prepare()) board_fault();
+    if(!osg_device_actions_init(&device_actions,false)) board_fault();
     board_init();
     if(!device_profile_load(board_settings_io())) board_fault();
     osg_profile_sample_t initial=board_read_inputs();
@@ -94,6 +101,7 @@ int main(void) {
     can_client.configuration_generation=device_runtime_config()->generation;
     can_initialized=true; osg_can_delivery_rearm(&can_delivery);
     osg_module_config_can_init(&config_can,&can_client,device_runtime_config());
+    osg_module_config_can_actions(&config_can,&device_actions.registry);
     const tusb_rhport_init_t usb = {.role = TUSB_ROLE_DEVICE, .speed = TUSB_SPEED_FULL};
     if (!tusb_init(0, &usb)) board_fault();
     tud_disconnect();
@@ -160,7 +168,6 @@ int main(void) {
         bool connected = attached && tud_cdc_connected();
         if (connected != serial_open) {
             serial_open = connected; osg_line_init(&line, line_buffer, sizeof line_buffer);
-            led_override = false;
             if(!connected) {
                 /* DTR and the first command may arrive in one USB task. */
                 tud_cdc_read_flush();
@@ -207,12 +214,12 @@ int main(void) {
             }
         }
         bool blink=((now/((attached && tud_mounted()) ? 500U : 1000U))&1U)!=0;
-        board_led(tud_suspended() ? false : (led_override ? led_state : blink));
+        board_led(osg_device_actions_status(&device_actions,blink,tud_suspended()));
     }
 }
 void tud_mount_cb(void) { delivery.inflight=false; rearm(); }
 void tud_umount_cb(void) { delivery.inflight=false; rearm();if(!layout_detached) osg_runtime_invalidate_claim(device_runtime_config()); }
-void tud_suspend_cb(bool remote_wakeup_en) { (void)remote_wakeup_en; led_override=false; rearm(); }
+void tud_suspend_cb(bool remote_wakeup_en) { (void)remote_wakeup_en; rearm(); }
 void tud_resume_cb(void) { rearm(); }
 void tud_hid_report_complete_cb(uint8_t instance,const uint8_t *report,uint16_t length) {
     if(instance!=0) return;

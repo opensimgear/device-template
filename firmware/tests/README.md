@@ -11,3 +11,13 @@ snapshot, including generated DSDL, FD/Classic transfers, node services,
 collision recovery, queue deadlines and bounded allocation.
 
 The runtime configuration suite runs the production core with simulated flash. It covers every control kind, complete-profile validation, writer conflict/expiry/wraparound, draft discard/reset, pending versus active descriptors, calibration/inversion/deadzone, maximum snapshots, canonical storage and corrupt settings. Initialization commits factory defaults as saved generation 1; tests interrupt each of its 80 erase/program operations, including a second interruption while recovering, then reboot and retry. Both first-user `apply_save` and `save` are interrupted at each of their 80 operations and preserve the baseline on reboot. Invalid committed records are preserved and rejected. Each profile HID suite also switches to a runtime axis-only descriptor through the actual USB callbacks and checks Unicode UTF-16 interface strings. Hardware flash/USB timing remains outside these tests.
+
+The advertised-action suite uses the production registry for the current board's `auto/on/off` status LED and the simulation's RGB LED 1/boolean LED 2. It covers descriptors, readback, argument and stale-catalogue rejection, reboot defaults, suspend behavior, CAN chunk assembly, immutable retry replies and current lease invalidation. Actions leave configuration generation, descriptor replacement and pending activation untouched. The CAN client also proves its assigned lease without an input report and under direct USB ownership. Native simulation tests verify action persistence across ownership changes, volatile reboot reset and unchanged flash-write/descriptor/reconnect counters.
+
+Clang/LLVM line coverage for each of `device_actions.c`, `config_can.c` and `can_client.c` must remain greater than 70%. CI enforces this with:
+
+```sh
+python3 firmware/tests/coverage.py
+```
+
+The runner rebuilds the native suites with coverage instrumentation, executes all tests and stores raw profiles, `coverage.profdata` and `coverage.json` under `../.research/device-template-coverage/`. Use `--build-dir` for a different scratch directory. Shared-code development accepts `--common-source /path/to/firmware-common` and `--tinyusb-source /path/to/tinyusb`. Clang and LLVM must use compatible versions; `--clang`, `--llvm-cov` and `--llvm-profdata` select explicit binaries. macOS also discovers the tools through `xcrun`.

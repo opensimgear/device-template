@@ -1,6 +1,6 @@
 # Native device simulation
 
-Run the device firmware as an independent macOS/Linux process. The simulator supplies a monotonic clock, ADC/contact samples, flash pages and CAN transport. Configuration commands, input acquisition, boot sessions, CAN delivery and HID descriptor generation use the production sources in this repository and its pinned `firmware-common` dependency.
+Run the device firmware as an independent macOS/Linux process. The simulator supplies a monotonic clock, ADC/contact samples, flash pages, RGB LED 1, boolean LED 2 and CAN transport. Configuration commands, advertised actions, input acquisition, boot sessions, CAN delivery and HID descriptor generation use the production sources in this repository and its pinned `firmware-common` dependency.
 
 Python 3, Git and a C11 compiler are required. From this repository:
 
@@ -29,6 +29,12 @@ python3 simulation/run.py --config my-device.json \
 ```
 
 Each instance needs a unique 32-character lowercase hexadecimal `identity`. The gateway rejects simultaneously active duplicate identities. State directories are locked before flash access. By default, a device's state is `.simulation/state/<identity>/`. Factory values from JSON initialize fresh state; settings saved through Cockpit take precedence on restart. Editing JSON changes the factory reset target, not already committed settings. Select a fresh state directory to start again from JSON, or use Cockpit's reset and save flow. Never share one device's state directory with a different identity.
+
+For isolated tests, set the same `OSG_SIMULATION_NAMESPACE` on the gateway, device processes and the Cockpit service. It selects `/tmp/opensimgear-<uid>/gateways-<namespace>/` instead of the ordinary `gateways/` directory, so a separately running Cockpit cannot attach to the test gateway. Names contain 1–31 ASCII letters, digits, `.`, `_` or `-`; invalid names are rejected before state access. Omit the variable for ordinary automatic discovery. For example:
+
+```sh
+OSG_SIMULATION_NAMESPACE=actions-ui python3 simulation/run.py --config simulation/configs/pedals.json
+```
 
 ## JSON configuration
 
@@ -83,9 +89,15 @@ sim 4 contact 0 0
 sim 5 expansion_available 0
 sim 6 expansion_available 1
 sim 7 reboot
+sim 8 direct_action describe 0
+sim 9 direct_action invoke 1 led.rgb.set_color 12ABEF
+sim 10 direct_action invoke 1 led.boolean.set_enabled 1
+sim 11 direct_action state
 ```
 
 `expansion_available` accepts a bit mask for responding banks. `inspect` reports the active configuration, descriptor, HID report bytes, boot counter and CAN diagnostics. Tests can also use `fault <flash-operation-count>` to interrupt a settings write, `can_node <1..127>` to force a node collision, `advance <milliseconds>` to wait while servicing CAN, `direct <0|1>` to simulate direct USB ownership and `direct_config <firmware-command>` to exercise device commands without a gateway. Direct mode changes production CAN ownership; ordinary gateway integration should leave it disabled.
+
+Cockpit discovers the simulator's two actions and renders their typed manual controls. RGB is six hexadecimal digits; the boolean parameter is `0` or `1`. `simulation.actions` contains readback, and `simulation.actionResult` contains the latest direct action result. These setters remain usable with a disabled HID controller or direct USB ownership. They update volatile output state without a configuration writer claim, flash writes, HID changes or reconnects. Ownership changes retain the current values; device reboot resets RGB to `000000` and the boolean LED to off. Invalid IDs, arguments and catalogue revisions return an error and retain previous values. The simulation uses the shared production action registry, while the real board advertises its actual monochrome status LED.
 
 ## Build and tests
 
@@ -94,7 +106,7 @@ python3 simulation/build.py --sanitize
 python3 simulation/test.py --sanitize
 ```
 
-The tests cover example JSON through native firmware validation, invalid/overlapping mappings, complete factory axis options, live sample processing, save, process kill/restart, changed JSON defaults and state locking. Full gateway/Cockpit scenarios are bootstrapped by the initiating repository's own E2E runner.
+The tests cover example JSON through native firmware validation, invalid/overlapping mappings, complete factory axis options, live sample processing, save, process kill/restart, changed JSON defaults and state locking. Action tests cover descriptors, RGB/boolean readback, validation, volatile restart defaults, ownership changes and unchanged settings-write/descriptor/reconnect counters. Full gateway/Cockpit scenarios are bootstrapped by the initiating repository's own E2E runner.
 
 Integration runners may supply an already initialized dependency checkout and private output directory:
 

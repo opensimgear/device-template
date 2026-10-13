@@ -37,9 +37,10 @@ def _build(output_dir, common_source, sanitize):
             raise ValueError(f'{common}: expected firmware-common revision {revision}, found {actual}')
     cyphal = firmware / 'shared-cyphal'
     sources = [Path(__file__).with_name('device.c'),
-               *[firmware / 'src' / name for name in ('can_client.c', 'can_delivery.c', 'runtime_config.c', 'config_can.c', 'boot_session.c')],
+               *[firmware / 'src' / name for name in ('can_client.c', 'can_delivery.c', 'runtime_config.c', 'config_can.c', 'boot_session.c', 'device_actions.c')],
                firmware / 'shared-gateway/src/gateway_journal.c',
                *[common / 'src/inputs' / name for name in ('profile.c', 'inputs.c', 'button.c')], common / 'src/config/line.c',
+               common / 'src/actions/actions.c',
                cyphal / 'src/cyphal.c', cyphal / 'src/gateway_protocol.c', cyphal / 'vendor/libcanard/canard.c']
     includes = [firmware / 'include', firmware / 'shared-gateway/include', common / 'include',
                 cyphal / 'include', cyphal / 'generated', cyphal / 'vendor/libcanard']

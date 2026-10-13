@@ -17,7 +17,8 @@ jobs:
           persist-credentials: false
       - name: Initialize gateway integration runner
         run: |
-          git clone --branch main --recurse-submodules https://github.com/opensimgear/device-gateway.git .e2e/deps/device-gateway
+          git clone --no-checkout https://github.com/opensimgear/device-gateway.git .e2e/deps/device-gateway
+          git -C .e2e/deps/device-gateway checkout --detach 7d24ed19d7af2869f361b83864baf688d26ca725
           git -C .e2e/deps/device-gateway submodule update --init --recursive
       - name: Test independent gateway and JSON devices with sanitizers
         run: |
