@@ -1,4 +1,0 @@
-(fp_lib_table
- (version 7)
- (lib (name "HomeMilling")(type "KiCad")(uri "${KIPRJMOD}/HomeMilling.pretty")(options "")(descr "Home variant: bottom-soldered long leads; front-soldered short USB shell"))
-)

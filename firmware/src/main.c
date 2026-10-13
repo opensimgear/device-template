@@ -55,7 +55,7 @@ static void command(const char *line) {
     else if (!strcmp(line, "help")) reply("hello | info | inputs | led on | led off | led auto | can status | config <child-command>\r\n");
     else if (!strcmp(line, "info")) {
         char module[33], out[160]; osg_gateway_identity_format(&can_client.identity,module);
-        snprintf(out, sizeof out, "model=device-template board=rev-b profile=%s module=%s protocol=3 buttons=%u axes=%u hats=%u\r\n",
+        snprintf(out, sizeof out, "model=device-template board=0.1.0 profile=%s module=%s protocol=3 buttons=%u axes=%u hats=%u\r\n",
             device_profile()->name,module,inputs.layout.buttons,inputs.layout.axes,inputs.layout.hats);
         reply(out);
     } else if (!strcmp(line,"inputs")) {

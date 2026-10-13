@@ -1,0 +1,1084 @@
+{
+  "date": "2026-10-13",
+  "kind": "prototype source and review package",
+  "hardware_tested": false,
+  "common_revision": "35e06787fb9696977fe92d20c5ff5afc1e3e1ebf",
+  "parent_device_revision": "5a78e460645b46b0f28a00964a51d4030956c131",
+  "notes": "SHA-256 snapshots of current editable sources and review exports. This manifest excludes itself and is not a release or fabrication approval. Firmware build results and physical test gates are documented separately.",
+  "files": {
+    ".github/workflows/build.yml": {
+      "sha256": "a7175f9041b97541cd6d66b6e571e7f357f839f330590e34e0502db3ab6f6138",
+      "bytes": 1806
+    },
+    "electronics/VERSIONING.md": {
+      "sha256": "fc095e0d73f478de3da5580c612021dac6a283c200669f15dff27696901a3b26",
+      "bytes": 2087
+    },
+    "electronics/boards/starter/0.1.0/ELECTRICAL.md": {
+      "sha256": "a75aa121725150baf89348cdb48ce5b732979a57e658f06d97163cfe62d771c6",
+      "bytes": 8622
+    },
+    "electronics/boards/starter/0.1.0/FABRICATION.md": {
+      "sha256": "f7a5446c36c88d8c39162c8727d436f1270bf8bd00561fcaf02425c7b9f25eb8",
+      "bytes": 9104
+    },
+    "electronics/boards/starter/0.1.0/FOOTPRINTS.md": {
+      "sha256": "389974f5f494050d42e235e166423b40ce9abfc5f56b5ef10fe5ab504d94e5db",
+      "bytes": 13474
+    },
+    "electronics/boards/starter/0.1.0/KiCad.kicad_sym": {
+      "sha256": "e5b1d81171b89cb54fda63ae54dc20b4c7dcdd97d7ff244d84c7f58eea16c094",
+      "bytes": 104617
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/C_0805_2012Metric.kicad_mod": {
+      "sha256": "62775a51fe74ba7f1b572de327bdbd3fc92582721b2abcaa47787865590d89cb",
+      "bytes": 2030
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/C_1210_3225Metric.kicad_mod": {
+      "sha256": "e1dae516e079b70c4736d001fb81bfb4ef5f9c2a37c8175223a44f83a04ff75f",
+      "bytes": 1936
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/Converter_DCDC_RECOM_R-78E-0.5_THT.kicad_mod": {
+      "sha256": "0e6c9b19afa9ba02adc71908baf63f903fe001296932c57fccfdadfaa1d17f05",
+      "bytes": 2538
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/D_SMA.kicad_mod": {
+      "sha256": "f7cba3b52ed8b34dce89170722de58324eac04e9e61a095e0eab37b9ca93cb7f",
+      "bytes": 4551
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/D_SMF.kicad_mod": {
+      "sha256": "14c453d229a5901e171e84fb504b943a8b562f459c8b9ef6ee5c79826aa5c51e",
+      "bytes": 4513
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/LQFP-48_7x7mm_P0.5mm.kicad_mod": {
+      "sha256": "1ccc5ad4d95398a4c6eb4b4cd1c429865368d06b8373613c6fcb332b53106ee0",
+      "bytes": 11179
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/MountingHole_3.2mm_M3.kicad_mod": {
+      "sha256": "b83ec84428449465df3b459f1bc24b285045c812102a2052b1b7ce0f67e018f2",
+      "bytes": 1287
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/R_0805_2012Metric.kicad_mod": {
+      "sha256": "f050b6a50cc7e6f86291fb7aa8f87b0d02255e21cfbddf291cdccc87e5889794",
+      "bytes": 1945
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/SOIC-8_3.9x4.9mm_P1.27mm.kicad_mod": {
+      "sha256": "074ecb2092b24fa4b4b9cdd7c926fc587b0d7d6d21e7341e57935fd42d36894f",
+      "bytes": 4582
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/SOT-23-5.kicad_mod": {
+      "sha256": "455a3f7c3e5eb5b8847eaa5df23e18651e78ab9f75afd09a0883758a0d901761",
+      "bytes": 4745
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/SOT-23-6.kicad_mod": {
+      "sha256": "f341c73aac9dcb553456f68bf3fee3d26eb14acf6d8a1cae82b50418fe1d71ca",
+      "bytes": 4280
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/SW_PUSH_6mm_H4.3mm.kicad_mod": {
+      "sha256": "f2ef22c21df764f158885bcbd03e468db0e0a3cdbab59f00f02820fc804e98d2",
+      "bytes": 5730
+    },
+    "electronics/boards/starter/0.1.0/KiCad.pretty/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod": {
+      "sha256": "3b8d7da3cae5114ec83022a759a78925113bc2eeec100ea447594f6d8687e4b8",
+      "bytes": 6860
+    },
+    "electronics/boards/starter/0.1.0/LICENSE-KICAD.md": {
+      "sha256": "7a418f4ae937eef27e28130dbd64e9e7dcce0c4bd637099a0f7b7e05e4de6082",
+      "bytes": 2537
+    },
+    "electronics/boards/starter/0.1.0/OpenSimGear.kicad_sym": {
+      "sha256": "468bc1653ef35415789af031af98335d2ac7448d181410e07da70ab3be2c2bf2",
+      "bytes": 6374
+    },
+    "electronics/boards/starter/0.1.0/OpenSimGear.pretty/Fuse_Littelfuse_1206L025-24YR.kicad_mod": {
+      "sha256": "99acf35c05f1fe29db755afe94b439fbde2f780279830341fde44b57fc66d57d",
+      "bytes": 1355
+    },
+    "electronics/boards/starter/0.1.0/OpenSimGear.pretty/LED_Kingbright_AP2012SGC_0805.kicad_mod": {
+      "sha256": "660b8cfa1c049fbdb2c3c3a483179f5d205567a5c2f7ab3c7fb95f3ee6bbf830",
+      "bytes": 1180
+    },
+    "electronics/boards/starter/0.1.0/OpenSimGear.pretty/PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical.kicad_mod": {
+      "sha256": "0226aca50a02a1318ac4ae249db221a609a8fdd900914d5f0af5c31419ca95ef",
+      "bytes": 1289
+    },
+    "electronics/boards/starter/0.1.0/OpenSimGear.pretty/PinHeader_Samtec_TSW-104-07-L-S_P2.54mm_Vertical.kicad_mod": {
+      "sha256": "88a7ef21853db2cb0590a068fcb01e028ebfb7d9bf884dc970e4761949fad416",
+      "bytes": 1382
+    },
+    "electronics/boards/starter/0.1.0/OpenSimGear.pretty/PinHeader_Samtec_TSW-105-07-L-S_P2.54mm_Vertical.kicad_mod": {
+      "sha256": "4493d9f91cda92ba2d541e822ec5556da0968fe601c5754da902088b0f429f58",
+      "bytes": 1480
+    },
+    "electronics/boards/starter/0.1.0/OpenSimGear.pretty/PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical.kicad_mod": {
+      "sha256": "9fffa42b30717d1235310092556a1849f523169325704bb769edc94eedb37b8e",
+      "bytes": 1781
+    },
+    "electronics/boards/starter/0.1.0/OpenSimGear.pretty/RJ4P4C_Evercom_5301-4P4C_Horizontal.kicad_mod": {
+      "sha256": "512696046cf274a6711e32f747aa8a949ae46c43432e40ebb6f3bf2cdec61706",
+      "bytes": 5397
+    },
+    "electronics/boards/starter/0.1.0/OpenSimGear.pretty/TI_DCK0006A_SC70-6_LM66100.kicad_mod": {
+      "sha256": "0976e900e933ba644b94d2c5959225a8344e104d0b75d77886cab19d48424afc",
+      "bytes": 1655
+    },
+    "electronics/boards/starter/0.1.0/README.md": {
+      "sha256": "d2d011a6787343645ca04735aea80b2026a52a10a2c40f630ef3ceeacd0f11fe",
+      "bytes": 12921
+    },
+    "electronics/boards/starter/0.1.0/ROUTING.md": {
+      "sha256": "58085c4ed398f0b7621a4d9ce5aaf18794aba67c61991cd9baa81ffdf9ac171d",
+      "bytes": 7263
+    },
+    "electronics/boards/starter/0.1.0/VALIDATION.md": {
+      "sha256": "8b82f1d665b3563c5ccf4ce1fcb45faebfda0ca4bc52a3ff047ba5d15367b8a6",
+      "bytes": 10689
+    },
+    "electronics/boards/starter/0.1.0/bom.csv": {
+      "sha256": "08ac334251fd0bd90d5dd50d66c907676d4b6f4cbed7bf152e9b9a57ceb4862f",
+      "bytes": 14432
+    },
+    "electronics/boards/starter/0.1.0/fp-lib-table": {
+      "sha256": "ef3b4d92137e9f0b7a2fe7178b0ecbea6d23544920edbfdc36eefa5a0952394c",
+      "bytes": 323
+    },
+    "electronics/boards/starter/0.1.0/home-milling/FOOTPRINTS.md": {
+      "sha256": "bd2988d57b1b031615656d30af1937e18532c4cd84db66cedfcdccea8da386dc",
+      "bytes": 2310
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C10_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "ad5405fb76635acdc398372aca80d9e46e20b7050d978ec246c8cff7c0a6b8f3",
+      "bytes": 3149
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C11_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "1943adefd180117daeab1c6cbe0ec4acd072c1c0badae428ca938b143a008603",
+      "bytes": 3183
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C12_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "81201a2a2d33ea07661e407473864e3a8089f38743e0a8ecd465fdd5dfca4fc1",
+      "bytes": 3129
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C13_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "efba1d38232372d1b9157e421fa233b6c48ce4edcea97f6aa5946e6c855ed7a6",
+      "bytes": 3189
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C14_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "abe326396874e3f854b26d06d8453fa30659744029579e14c594b5d6472444d8",
+      "bytes": 3129
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C15_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "669d7baf7328e9aad4ccf858cd2e12e7519a0204057b5241e7315a8035000e97",
+      "bytes": 3129
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C16_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "083697003d75d2075e776ef3f315e3609428156bddec2377d749679a8db5adb4",
+      "bytes": 3129
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C17_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "8114cf530c5b98965088ca9d66854c498a02d60d5f9c023ec3814100eee33e82",
+      "bytes": 3129
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C18_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "c684193b35d035493c8a025e793e006994ecf1f49981a86a95dd3cf5582fe595",
+      "bytes": 3129
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C19_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "c2bb24bbe2456e9af3e63f2425d16bf196ea3089bc9d584a6021abc3acb622bb",
+      "bytes": 3129
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C1_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "26a4df07692176638dcd22de44b06c378252567abd7454a9fdfce44509051cae",
+      "bytes": 3185
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C20_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "237238fa9cb9a1b127d5bc145ae4fbc1bed4d610986f256918821dbd82ce4714",
+      "bytes": 3129
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C2_C_1210_3225Metric_HomeMilling.kicad_mod": {
+      "sha256": "b45fe65ad31ebb22bd28ddd13e54c70d2df2b42c7bbb3423390743ff23a4b675",
+      "bytes": 3082
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C3_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "e39c8d94704da61639e5e95a81cd8a73c9270222fdc0d3c86bc569d774dcc5a0",
+      "bytes": 3179
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C4_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "f1f01f5385c258350c6d6c77f8eb7be7e113adb970cfa0fe34ab1145209c6969",
+      "bytes": 3179
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C5_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "4e5220c0933315cb47a8bbfb6cf72ae3240b01313cd2fcd9216f9f2ab2209409",
+      "bytes": 3183
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C6_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "d094ab3e090e892a1f676053cc91abfbe2f5aaffc6fcd44810871736c6a09d2f",
+      "bytes": 3147
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C7_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "82c2082ad9f94c909050db9a4fb28f305a708e8c5dbaacb35e979bb39d2c65f6",
+      "bytes": 3179
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C8_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "66d8daa01d60b2407c5c39f2c11291dc06cf4edb86ae927094f1097a62877967",
+      "bytes": 3147
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/C9_C_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "4963e41e44fd237c8b33af27530791e12c7af50ea0af8b14941e815666ef284f",
+      "bytes": 3147
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/D1_D_SMA_HomeMilling.kicad_mod": {
+      "sha256": "71d1ef35aa856b1c6be599160412ddd573a2b985ba94fab10c1fa99a98a26c7b",
+      "bytes": 4817
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/D4_LED_Kingbright_AP2012SGC_0805_HomeMilling.kicad_mod": {
+      "sha256": "24965821e66820a37ccbe5ed6df0c22b28b8f2169d410e83baecedce1ff03751",
+      "bytes": 2337
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/D5_D_SMF_HomeMilling.kicad_mod": {
+      "sha256": "dd37e3498e0ba47b2734b633183c8e13a52a7cce7a6bdc459a6e18481e91bfcf",
+      "bytes": 4799
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/F1_Fuse_Littelfuse_1206L025-24YR_HomeMilling.kicad_mod": {
+      "sha256": "f6c87048a68ef5d98c16c07af6a356186b96baa2c4deb1e95313b4c91f97ec72",
+      "bytes": 2714
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/H1_MountingHole_3.2mm_M3_HomeMilling.kicad_mod": {
+      "sha256": "61da5de21f64a86ac51440cf5d6aa1b627b3cf414579cfc2c9c24c56e4a8271b",
+      "bytes": 1972
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/H2_MountingHole_3.2mm_M3_HomeMilling.kicad_mod": {
+      "sha256": "f320f0744f8a71caee380b152ac0dae8ac797a24cc7927101e9d02c8a4c93585",
+      "bytes": 1972
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/H3_MountingHole_3.2mm_M3_HomeMilling.kicad_mod": {
+      "sha256": "8c1a5b6154762d6fc86465775acf9481b77c68d937187501b6a41e5e6e20c5db",
+      "bytes": 1972
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/H4_MountingHole_3.2mm_M3_HomeMilling.kicad_mod": {
+      "sha256": "3f398331b4fa3c41945f25add5efad0888d2a16da60a8bf2e0acbdd70f39ed18",
+      "bytes": 1972
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J10_PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "dbb92d0cdf0635f61c577677ee929f575936aff147b777ee5418a5c59d1bef97",
+      "bytes": 2592
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J11_PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "140ad45c058f452a39b941d4f7939b7d1c6be10384a762079ca2553d48d2bfff",
+      "bytes": 2592
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J12_PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "34a5892a131e2640873a7f4307ac38d6d6addaf3d656290e70cd4c6607ca413c",
+      "bytes": 2592
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J13_PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "f719567a700b985104f4ef1e6eb83b564b5a6ba7b2903660f1a36b9c6978d77e",
+      "bytes": 2592
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J14_PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "6d529f93f5c4be07573c513dbf73e59baae5a9cf289f0c81156f0d3ad7562eef",
+      "bytes": 3316
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J15_PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "be3a127078dfa4e5a93d57706bdee5f0f57e8bfcf1b7e21130fefdf373f01052",
+      "bytes": 3317
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J16_PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "b8a8c9ae82b94e6491647cb7d2918e484ea57b13b194bc32d2f447aafe3515ab",
+      "bytes": 3318
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J17_PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "5ac036baa80fd32fac62abbcab3b09670c1bb76e86c807d77552a892192d7388",
+      "bytes": 3318
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J18_PinHeader_Samtec_TSW-104-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "3c4fa17e33eabc0a9ea62b4fdc880925c79d2abf991f5d2053a8904783c6ee31",
+      "bytes": 2779
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J1_USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal_HomeMilling.kicad_mod": {
+      "sha256": "d87874f5823e4c4ad967a67a4c8caa2de9592b64ef840704a9d7ca9dd08789ca",
+      "bytes": 7086
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J2_RJ4P4C_Evercom_5301-4P4C_Horizontal_HomeMilling.kicad_mod": {
+      "sha256": "89af494f0ac892cecdf99bb93f5bd0e1fe4959ccc417d8b5075cdd01ed799cb7",
+      "bytes": 5320
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J3_RJ4P4C_Evercom_5301-4P4C_Horizontal_HomeMilling.kicad_mod": {
+      "sha256": "8a2847fab5a1aba0ebb13f52c409fc4239cf23b707b1105863ccc7c5c417b01c",
+      "bytes": 5320
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J4_PinHeader_Samtec_TSW-105-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "41a5170b3c7a01e85b9eb610090e3b6dd4779418665fdf72fd3c30d0aa5c1ec2",
+      "bytes": 2983
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J5_PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "1e2145368ce04e816e69c9e24f65f7cff363fe75651a30c03dbc350040ba0077",
+      "bytes": 2590
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J6_PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "1144b1108f4a26cdce43cfcbbffa32294cf2a86eb4bb020e24b0a6d7e0274566",
+      "bytes": 2624
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J7_PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "a011bf3e320fb07e0a026bd33b22bffa1414a447fe1b6ea130a875ef2aafc5d8",
+      "bytes": 2590
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J8_PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "dff9ad8cb67365d199e88ef3c9c0b41e4dc8128e12b31fd16e99b0b59d92cc11",
+      "bytes": 2590
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/J9_PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical_HomeMilling.kicad_mod": {
+      "sha256": "0496dda763da50fdde026b52f22d75af19a5652166e4d264ec1eead201a9d679",
+      "bytes": 2590
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R19_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "2710b8a1caec6355a173e301aaf602dad76ab512141625485a5271eb6537b937",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R1_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "d0131436121bddc5833f34242293ed606afae6b0f06daa37cc760c452039d98f",
+      "bytes": 3082
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R20_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "7c10099369df2e19cdc63457b30b82dc40357e996e0563470afdcc9763b47da1",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R21_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "6f395454153b358d5750c4a094734f7dce2a1e17a0fabdfab70ceef4cac1eabd",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R22_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "a183cda986d64f90c7f81468ec3f32d2575b6c614dff70bdce342d6af79419ca",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R23_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "bea4019eedf392a2765567a34f69c149f9b3faf2a1f31f4d57c7229d61289e4b",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R24_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "fc2b1fe51024cceae16575f26823c70472148dc601c48403a9027dd6290cd460",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R25_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "6541b4b7e8950643e40b40327cf3952d8d61d704ba8678614d3cffcf7bd28ef5",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R26_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "8433d21fc5ffccdc1c9e20bffe921a467fddac7fb9cecd8f0005c8ca55da59b2",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R27_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "1d26cd09ca28e0f4a8228c029f13fc3c99a23a01215ec640780eab5c9fb51c2b",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R28_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "988f21abcaf38380e79a5b7034238ae7acffa41e635966dd4a0df4e1d16f3ab4",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R29_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "0e52ab65bf660515c4c05ac20bcc568d208daba824ab88512e877711918de936",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R2_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "f2a1bfbba07fbae12735070a4fdbe8523c6d9d21f0aa42f2ac5cc800b9e81713",
+      "bytes": 3082
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R30_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "5a4c4888ca2e7f538e69ab0b05352d16b3d0b680b1c6ecfd6cd2011693a13d06",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R31_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "93679ae568e517fe02beb64f6b8bf5da6725d813b77aa32e1d82120e68dd0b3f",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R32_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "97f6f2b8a286166381463af12eeef513e76ebc8e0499b9f45ed5f97b2a70c1fb",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R33_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "d92e883d7b80a7fb275a079fcd1a81dca2412babcc7a64106337a6c6b4983fbc",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R34_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "1b3baeb1ed5567bfa0a01d32d7f37690855c3df6e979a102c548ddf1b7d9170b",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R35_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "aa93b8d0606ac2cffb627a9e239ac53da9d6999f4def81f128adf744637290e2",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R36_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "fc797a3aef3758015cea41120ef958cee1d264326001bbdf2f79abacde66157d",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R37_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "e3d7d66797cc91e34d0a95c92a6182272e95056930159a01d64d42f9940eea76",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R38_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "2aa8ef7c078856c4072e41e234677f61a4faac655073eae3cb02b31b8ef9593c",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R39_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "205c2e3c60f461663ba252f86578c0f38d837d8b54a16f9bf1a7519afe16286f",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R3_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "6d3aecbacf304acd595438e894ead7601662f8a9d0142bd47fd0754862533121",
+      "bytes": 3081
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R40_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "18b477afe76879c22129decb627b709bc99a37c3398f6324153a70b18baa7ed9",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R41_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "96f09cec00fbd237398ac7eaede4704e925042504c0093ddebafadc5ed15477f",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R42_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "523e2a17ddaaf0e1aad37e92716a89f0662fb421f345347684f79e844af11c40",
+      "bytes": 3057
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R43_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "bc374c53987d08fed39255d1fd1c1ee0e90b9d2c0607b8d5277af82faf6bd25b",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R44_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "780b8b85665248dd9bcdb565983184c63532570c64e045b830d100e1938e97fe",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R45_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "56e71ceb38fc68c7668159c095b80f9b1db2b49116acd9bc07f7fd6b68bfca67",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R46_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "4e7a09c8ee4e2cf6a11b4700ced4af1c76274a0f5124d9d71e36584d6ffb6e27",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R47_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "50df62b6f2851bcc94f469a9f735e6cf1a92249c5efd3c75d7746af70f88a262",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R48_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "44d9ca15ad739f2b464cef258bdea07bc284b04c00d96b53c1882cd3b2ad26fd",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R49_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "161d05c1a2b5b5d4a3f8ae4663de28d19fc2bd104af1f2bb21d743499519e3a3",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R4_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "985908f668e8d7e8f34b5e44bff697d81c5aebcff56f7b9064c5bb075def7054",
+      "bytes": 3081
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R50_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "32f0ebab85b2a68eca656edb9d6ff4a640290e51cfc8f3699164b7b88c9ad5ed",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R51_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "455ba755df4da92fb8aa11293c2e2da533e8908764a232987121a10f2d4783a6",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R52_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "940ca59bfe572395e98d76a1fe61978f00236d2d56fee4fb53f5bc17b174bfd2",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R53_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "cd8079647f9bd0a3433366b9545695094a744ac2b926be82143cd156fccfbfaa",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R54_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "5f4ec9d7b3acf65030695c4b91ba0d58c8d5bffbeb5da05e18d4eccd1f05e27f",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R55_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "a650bfb53d19deedfc2f755f7b6669e4ae4f1e49649c4c2858bb305091b84073",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R56_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "34578798a77f507b8472a726efbe248ae6db89d0c75643c3d98e122b269079d9",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R57_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "7bfe29179a26fb609feba387388e848e47ccd32f9e3ce6783d272e9e0ec6874a",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R58_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "981480456a4a6f425cb3e498babc3928e3fbc310623dd8a4de7e454472db61ee",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R59_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "b47486dd9fe82d3c93e119def2504874fedb686868c4f83a350f670075c00e45",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R5_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "5c56fb3a4efd9ddcc5f46bd4a2160730b057a5c7ef4ed17c91dc2f9c0f576d26",
+      "bytes": 3091
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R60_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "ae274fea3b539cf815eec18bdb03bdef0524ac9743360896b107aa62baf763bf",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R61_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "0c3efeb5bc306c9ab2e6331c047b8574f4878e26f2f4c2c52482edb1041c0080",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R62_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "0d923502e83aef34d111dbae8b2ec87bab3d5c454fe3324f900714c1c3bf6120",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R63_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "52e2c1bb37a947f95becc37c4e3cf1c32e507333a17bee2c696c2dc3654318f9",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R64_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "57eaa0bf83d4c6de2c7a08af922a29a9ee1f06cebcfdbb7517ea9e87ab91498e",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R65_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "20133aec29fe910bf159ecef2df020aa78c0e8edfa3bfd477f781d9e03a880cc",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R66_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "b47535810b77f489b7dfbb1f3fa695d914d2b4681a9b5ebb73049d23f1c1bbb3",
+      "bytes": 3060
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R67_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "d98e8367f9d6df457f0a057a2ec7c37b180d23ba8a4fed2278f4b0c4cd45d4c5",
+      "bytes": 3061
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R68_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "9cbf35dd3eca33150a0ffaffd5c043239d7e9a87e77e80accf3a33d6014affdd",
+      "bytes": 3061
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R7_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "d6ec4560c100dc4f7ea183ac83bafcb07ed2f1a53edd3db3bcc54e21846def94",
+      "bytes": 3078
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/R8_R_0805_2012Metric_HomeMilling.kicad_mod": {
+      "sha256": "b77e2513819e2e0c05873e0b951dd456b16be952743fbe9729f02804c80c0514",
+      "bytes": 3075
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/SW2_SW_PUSH_6mm_H4.3mm_HomeMilling.kicad_mod": {
+      "sha256": "5e1ef55a30a85b477112ec4f23516343bb67091eb56fa25acf97ff11e41bf7a3",
+      "bytes": 6002
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/U1_LQFP-48_7x7mm_P0.5mm_HomeMilling.kicad_mod": {
+      "sha256": "48524dc601fa8e59ea9d77b5a3f7f741bd35d68e69de2b5b24a4b0fe32d8883e",
+      "bytes": 15726
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/U2_SOT-23-6_HomeMilling.kicad_mod": {
+      "sha256": "9c6bfe845b3b6c07dc2f28786cc0dcc1191fbebf381967f63bcdcc60ab8058d6",
+      "bytes": 6338
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/U3_SOIC-8_3.9x4.9mm_P1.27mm_HomeMilling.kicad_mod": {
+      "sha256": "43afa6ee497101f253ddd8e1bd196b179bbdd9c3d48bf2983e95373b281b8c58",
+      "bytes": 6707
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/U4_Converter_DCDC_RECOM_R-78E-0.5_THT_HomeMilling.kicad_mod": {
+      "sha256": "5ad5a0a819dc30cefc520610512fb8099b4dadc5752f4582e67d5f03fcd3441f",
+      "bytes": 4485
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/U5_SOT-23-5_HomeMilling.kicad_mod": {
+      "sha256": "987e57500387420bf06fd85f875edcd1c18c7b937a822166e49046f2163a17ee",
+      "bytes": 6989
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/U6_TI_DCK0006A_SC70-6_LM66100_HomeMilling.kicad_mod": {
+      "sha256": "656899d7ea4ccf75f0448a5b38abb23c9a67fb339f572a917f9bca7a11576efc",
+      "bytes": 3005
+    },
+    "electronics/boards/starter/0.1.0/home-milling/HomeMilling.pretty/U7_TI_DCK0006A_SC70-6_LM66100_HomeMilling.kicad_mod": {
+      "sha256": "db4a95cafee0e49b4ed55e9978f40be1ee2e1e5f4e4c715b68d6ffd8a6be77ef",
+      "bytes": 3005
+    },
+    "electronics/boards/starter/0.1.0/home-milling/LICENSE-KICAD.md": {
+      "sha256": "5db90ec603bb04400fdd31a7b5e5f8f4cf6cce0cf205877ce45cb7ddeb3c2d95",
+      "bytes": 2736
+    },
+    "electronics/boards/starter/0.1.0/home-milling/README.md": {
+      "sha256": "9758a9a9feb26d6257646f469664bdc9501f6fbce595e12b51c17d514da63b3b",
+      "bytes": 9842
+    },
+    "electronics/boards/starter/0.1.0/home-milling/audit_unplated.py": {
+      "sha256": "905306dc07ddbcc053fed9021fa7dad967392d36e869abc58b1f33b992125053",
+      "bytes": 4277
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/LICENSE-KICAD.md": {
+      "sha256": "7a418f4ae937eef27e28130dbd64e9e7dcce0c4bd637099a0f7b7e05e4de6082",
+      "bytes": 2537
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/OpenSimGear.pretty/TI_DCK0006A_SC70-6_LM66100.kicad_mod": {
+      "sha256": "0976e900e933ba644b94d2c5959225a8344e104d0b75d77886cab19d48424afc",
+      "bytes": 1655
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/README.md": {
+      "sha256": "977fd2e53b9919f8e2ada8cd2635a0ca362010acc79ebdce90135fa2cf8cb614",
+      "bytes": 8351
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/fp-lib-table": {
+      "sha256": "c70b2f582a03f8b133eb6b4b5d9b134d2d14cfb1fadb77c063232bccfc84637d",
+      "bytes": 196
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/geometry.json": {
+      "sha256": "718973a5ddb07bca69ec2c581c6f0911afd91e98bdc12f7be4d80848c895a76d",
+      "bytes": 4187
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/make_coupon.py": {
+      "sha256": "aed03d62fea4d108b2e53b33c276fbbf7663177a96c1ff57afa60f374407a992",
+      "bytes": 9159
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/milling-coupon.kicad_pcb": {
+      "sha256": "ef662e4d6480da620faa53086bc0118245a56af31758fbf05dd32cf13c33eb10",
+      "bytes": 86084
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/milling-coupon.kicad_pro": {
+      "sha256": "80d6fa3ab5b6ec68660cbd172fd8f9843f67e890f4d799b55a6a2f94ba0878c4",
+      "bytes": 9544
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/qualification-record.md": {
+      "sha256": "c162bbd1124a1c4e54433ae995fcc821e287a8c5c08535e0753cedb305cc3f02",
+      "bytes": 2187
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/review/back.png": {
+      "sha256": "a1ce60c77441eabba365b63b1fc8431d5896677647fdd156f9fbc3b210fff835",
+      "bytes": 56033
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/review/back.svg": {
+      "sha256": "9769ad62ca8674bde6fe984c8c3cb49bc824c480febec14ac77b2c75f46bc3fe",
+      "bytes": 99779
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/review/coupon.pdf": {
+      "sha256": "a96ebcae2a68cf11263fac360a304fb249cf4efc0cd383660d771b01e10bf8c6",
+      "bytes": 58805
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/review/drc.rpt": {
+      "sha256": "b74fecbe91185a5746566986fbc97275f4ba261db0473373277ad31e97539734",
+      "bytes": 497
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/review/front.png": {
+      "sha256": "71a55770713e1ede393a2deac5100968b9f23fe81276b3effc984b6ccbd54cea",
+      "bytes": 67415
+    },
+    "electronics/boards/starter/0.1.0/home-milling/coupon/review/front.svg": {
+      "sha256": "83867a8f4139fd74cf7ce2b6b129e37b2eaa9505ffea03c05d78a1e28a3d1e2a",
+      "bytes": 141346
+    },
+    "electronics/boards/starter/0.1.0/home-milling/fp-lib-table": {
+      "sha256": "5a3ff7454f1a9dd15a32679e3b71a9cb01186d6700f923ba867643aad82b15a2",
+      "bytes": 165
+    },
+    "electronics/boards/starter/0.1.0/home-milling/inputs.kicad_sch": {
+      "sha256": "46ff3c2b49585d1201fe05400a642222de51fada7524ef2cbd3aec8aaddd6014",
+      "bytes": 243351
+    },
+    "electronics/boards/starter/0.1.0/home-milling/regenerate_schematics.py": {
+      "sha256": "76b1cd7b268cd0cdef7883a62891ddcdb0c5d2176151ed1ed42408868e142dfc",
+      "bytes": 2509
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/CONSTRUCTION-AUDIT.md": {
+      "sha256": "d02402dd0cc2d6e71c1463a3d93e5ffc0caff56ce8ed993af1271b2c6d8f34dc",
+      "bytes": 3848
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/UNPLATED-CONNECTIVITY.md": {
+      "sha256": "da65b892bdf445d398818528eb21db626f049dec96539fc2b5b49da71ea4dab3",
+      "bytes": 2028
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/back.png": {
+      "sha256": "099d66366b645bebfa56c58538f19a209b985a5098ea02f1ccd28ac84b5749a4",
+      "bytes": 601453
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/back.svg": {
+      "sha256": "080ade0b131d89c10b948685d04eac9f97dbc5543fec6dd91206dfebff70718c",
+      "bytes": 308105
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/construction.json": {
+      "sha256": "473a69278ed3db01891ff7fda3e88a35ccdfaade8d045104a66cc794b72cd42d",
+      "bytes": 1056
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/drc.rpt": {
+      "sha256": "cc1429e1a16921ea42f7f69d1614cad25ba89fc64666f50fb43ca629162a9235",
+      "bytes": 490
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/erc.rpt": {
+      "sha256": "76485c9138169fae8373d663e9bec55e533e748f440a3e6c87b23083bfd2f47c",
+      "bytes": 375
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/front.png": {
+      "sha256": "634057be56089642816e6ec64e024aac6dbecf7ad0b55fc6cd96c57ed84a8eb7",
+      "bytes": 877478
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/front.svg": {
+      "sha256": "b1cac28abde4cd5eae1c3b0fb1577eb261b1f410206fb178a65f05b0bf170511",
+      "bytes": 1002954
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/home-construction-review.json": {
+      "sha256": "dcaf5071607927523a8e6c509a4ec44fe30018b74278dd61e02c3faa9fd16fc4",
+      "bytes": 3610
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/home-construction-review.py": {
+      "sha256": "6140248e2579c0d4d20283fee1d096e3cb87f2e9ca6ee4fb1cf9148576f3abc9",
+      "bytes": 12502
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/routing.pdf": {
+      "sha256": "957ffa1bdc39b3cbc251062ea2c79e28beaa92ab05c8bc46cb3bd0a3eafeff00",
+      "bytes": 455403
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/schematic.pdf": {
+      "sha256": "764e78f00a32420cafd623b08a564fb2cd8f808ffabbdfaeac93636cf83f2243",
+      "bytes": 375003
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/unplated-connectivity.rpt": {
+      "sha256": "7a3967d09ee1a3b25348ce778c21f75aed626e0ce6ba091f94c811652058c573",
+      "bytes": 5505
+    },
+    "electronics/boards/starter/0.1.0/home-milling/review/wire-joins.csv": {
+      "sha256": "f9ecff1ed195816a8e566b51c40cc04d7489e6b74e1585c799b0a5feda567741",
+      "bytes": 17956
+    },
+    "electronics/boards/starter/0.1.0/home-milling/source-footprints.json": {
+      "sha256": "2b3940546d9a8ea0d555eb0ee7f9e2f5392424161fb74234cc5ebe13e2ced1ac",
+      "bytes": 6944
+    },
+    "electronics/boards/starter/0.1.0/home-milling/starter.kicad_dru": {
+      "sha256": "b6a7a1072bab0d38087ae161d06f0174690a3cbbfc0544dac6108d1f57f46ed5",
+      "bytes": 94
+    },
+    "electronics/boards/starter/0.1.0/home-milling/starter.kicad_pcb": {
+      "sha256": "a0a836e1450940b0f959613f720a366c03b0b1e09d8e324264d02250133fcb6c",
+      "bytes": 1614197
+    },
+    "electronics/boards/starter/0.1.0/home-milling/starter.kicad_prl": {
+      "sha256": "47207f21f0ab835a6b6b4e3c56216b29024dc1c2cd543abb1df946f7b06ceb12",
+      "bytes": 2294
+    },
+    "electronics/boards/starter/0.1.0/home-milling/starter.kicad_pro": {
+      "sha256": "55502d581e1f6bad9d29a4cd171b758d26c7a7c914e5008e96d01b75bfe977a3",
+      "bytes": 21671
+    },
+    "electronics/boards/starter/0.1.0/home-milling/starter.kicad_sch": {
+      "sha256": "78b7ea945e1dd75ea2aa407136c340f274c8fe4717f45140983bef46e3980cfc",
+      "bytes": 208167
+    },
+    "electronics/boards/starter/0.1.0/home-milling/sym-lib-table": {
+      "sha256": "4899c9c9e523ce83d0187846233c3c130e95dd581aa17fee39227760b63f8d27",
+      "bytes": 306
+    },
+    "electronics/boards/starter/0.1.0/inputs.kicad_sch": {
+      "sha256": "13e2f59f5d9f4b9d041a8ae9aec3b663ae6c2db98983e51630abb6945399066c",
+      "bytes": 247881
+    },
+    "electronics/boards/starter/0.1.0/netlist.xml": {
+      "sha256": "6c4e92055a8ed13d2e2fe365884ed13cf41f75088c8a3e740fe2bd882fa37b51",
+      "bytes": 180093
+    },
+    "electronics/boards/starter/0.1.0/pin-allocation.json": {
+      "sha256": "e7af2f3145e6a0b9db83c9b68503d654b96ed6215594c991e9466f19f5a98117",
+      "bytes": 898
+    },
+    "electronics/boards/starter/0.1.0/review/USB-REFERENCE-AUDIT.md": {
+      "sha256": "8ff2f9b537b5ed37fec6ff0cf487dcadc55d765fa717ccc042c6f223eebc9468",
+      "bytes": 2807
+    },
+    "electronics/boards/starter/0.1.0/review/circuit-review-4p4c.json": {
+      "sha256": "286cb93c15edb708df7eae4327bf0922fdc8c72b5278780a861321c36caca0f8",
+      "bytes": 5984
+    },
+    "electronics/boards/starter/0.1.0/review/connector-library-review.json": {
+      "sha256": "49d9a280f867a203812b76a8cb051f1b7ba38462945bbd449127ace237adc224",
+      "bytes": 1247
+    },
+    "electronics/boards/starter/0.1.0/review/docs-review.json": {
+      "sha256": "aa93a32f810540f5aeb51df308d376b41e0ef892c01a7c8bafc42d16664934e5",
+      "bytes": 170
+    },
+    "electronics/boards/starter/0.1.0/review/drc.rpt": {
+      "sha256": "cc1429e1a16921ea42f7f69d1614cad25ba89fc64666f50fb43ca629162a9235",
+      "bytes": 490
+    },
+    "electronics/boards/starter/0.1.0/review/erc.rpt": {
+      "sha256": "76485c9138169fae8373d663e9bec55e533e748f440a3e6c87b23083bfd2f47c",
+      "bytes": 375
+    },
+    "electronics/boards/starter/0.1.0/review/evercom-4p4c-geometry.json": {
+      "sha256": "c81c42bb4ccc440de5910f19debf64bc917f3916327c0f89557529aaee29be52",
+      "bytes": 2651
+    },
+    "electronics/boards/starter/0.1.0/review/evercom-4p4c-review.md": {
+      "sha256": "21ea290268ab9595f7b86faad736e28c79b5213c040de2c1843bb5b9e4bc4116",
+      "bytes": 1291
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/drill-report.rpt": {
+      "sha256": "a39e24fc1df4d1099ddfcf2b610214662bdeb917e4d4034afb13eb89ceac4ca3",
+      "bytes": 1007
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-B_Cu.gbl": {
+      "sha256": "9372c2da8041bee811cc0f8cf43fe9a6b3a9889d3a38c107fcac07d2e161ef30",
+      "bytes": 418656
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-B_Mask.gbs": {
+      "sha256": "9762332695c85c6a5f1b10c7921b595bff4ea19d7c99bbd87df1c04985a7d3f5",
+      "bytes": 4376
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-B_Paste.gbp": {
+      "sha256": "a53907debf6c58ee58dd44413acbddc230b8b5f974327446934e1fd0a6a03b6b",
+      "bytes": 453
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-B_Silkscreen.gbo": {
+      "sha256": "fded004f06121751e4567d9f456b62604dda2dd5cf0a202e998b5d7cb7e5a34e",
+      "bytes": 7342
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-Edge_Cuts.gm1": {
+      "sha256": "5705e5242d6fc8edd0f84c7370f03a33694d5e7078ef1c77bc817aa321c5c637",
+      "bytes": 683
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-F_Cu.gtl": {
+      "sha256": "518ccfff3b6e1c5caf5531b478b5777fc2d5767e8250e4f520fa6bc2996cea1a",
+      "bytes": 541264
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-F_Mask.gts": {
+      "sha256": "3aa9f0485fa1df2ec3224e751373c72a27979bf3c6a39b0c27128f1b19a5e0bb",
+      "bytes": 14829
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-F_Paste.gtp": {
+      "sha256": "738293c1c87252de8c49832149455b440f1b5292031dad0a16b72fd40bb8ebdb",
+      "bytes": 11633
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-F_Silkscreen.gto": {
+      "sha256": "4321011e0228a3e2940d42bb37e373a5de5f19f25e3a1c5da82a4624ab7c50dd",
+      "bytes": 119304
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-In1_Cu.g1": {
+      "sha256": "bb01daaf0db5ccd1c85acb011ad1817e66fc7429f094bb7794f4b2c08980ecd4",
+      "bytes": 367386
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-In2_Cu.g2": {
+      "sha256": "117d9cc39bd450ed6f75bea0c764bfeacad83d5bb2367888a678ef7a91aa193a",
+      "bytes": 384709
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-NPTH-drl_map.pdf": {
+      "sha256": "aadb87603d0e9fc9e50cab9601904f373a180d26a8c7d04f91ba6347ad6e3b42",
+      "bytes": 13265
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-NPTH.drl": {
+      "sha256": "c5a6dd7135c9ce513b24de3342d8c901b1595bea984040c1cc193809dcb21000",
+      "bytes": 536
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-PTH-drl_map.pdf": {
+      "sha256": "80d4f01ed088d9404e256a339f3394b848b1361a236f49c49ad41fa55ef91daa",
+      "bytes": 32924
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-PTH.drl": {
+      "sha256": "4cd8fb3d78656eac1e839ebea7a730be954c0160f24dfb040a69526e107ffd80",
+      "bytes": 5788
+    },
+    "electronics/boards/starter/0.1.0/review/fabrication/starter-job.gbrjob": {
+      "sha256": "3eb77fa5cc9cb6819faf351a60b2d99e8f9b85f304fa5fbc6a3402a1fde278fc",
+      "bytes": 3703
+    },
+    "electronics/boards/starter/0.1.0/review/firmware-validation.json": {
+      "sha256": "6814b771e4ceea330e287e834693ea1366a7c5f1ed8834ff6ce1daeb0a5d0634",
+      "bytes": 1041
+    },
+    "electronics/boards/starter/0.1.0/review/header-footprint-audit.md": {
+      "sha256": "301f64b1f361dd2e71eabc00914ef3531232b9b6f2195bb11c7cc5414f78fc2f",
+      "bytes": 1235
+    },
+    "electronics/boards/starter/0.1.0/review/home-construction-review.json": {
+      "sha256": "dcaf5071607927523a8e6c509a4ec44fe30018b74278dd61e02c3faa9fd16fc4",
+      "bytes": 3610
+    },
+    "electronics/boards/starter/0.1.0/review/home-construction-review.py": {
+      "sha256": "6140248e2579c0d4d20283fee1d096e3cb87f2e9ca6ee4fb1cf9148576f3abc9",
+      "bytes": 12502
+    },
+    "electronics/boards/starter/0.1.0/review/l2-bridges.json": {
+      "sha256": "10f3a5859e1f5b22df73d781753e7e0c624a222a81fdec181faf82111b051015",
+      "bytes": 6258
+    },
+    "electronics/boards/starter/0.1.0/review/metrics.json": {
+      "sha256": "7de2551ffc05b74734afe1717ea05ff6108e6d874205ad7f9a59035310456535",
+      "bytes": 19954
+    },
+    "electronics/boards/starter/0.1.0/review/pcb-back.svg": {
+      "sha256": "be622c797c02e65cf00dc408368360cd288b2301f0913f0700b6efa5d1b7bff6",
+      "bytes": 326795
+    },
+    "electronics/boards/starter/0.1.0/review/pcb.svg": {
+      "sha256": "8dbb1cc704dabfabfce3a437ec3ac0baf171881a249e7e5d42f43f2a4983042c",
+      "bytes": 1023149
+    },
+    "electronics/boards/starter/0.1.0/review/production-usb-reference-review.json": {
+      "sha256": "fa24769ddabe49a353876b0eadbb18c321b9a420347577f1537ca5d272148800",
+      "bytes": 30295
+    },
+    "electronics/boards/starter/0.1.0/review/production-usb-reference-review.py": {
+      "sha256": "e174e3169ddc666d233f5dffe6921181d60450798420aeea1e19d1a1253961c5",
+      "bytes": 8758
+    },
+    "electronics/boards/starter/0.1.0/review/reference-audit.json": {
+      "sha256": "fa24769ddabe49a353876b0eadbb18c321b9a420347577f1537ca5d272148800",
+      "bytes": 30295
+    },
+    "electronics/boards/starter/0.1.0/review/routing.pdf": {
+      "sha256": "25e30b96cb4690cf1932bdf502c51e1c1edddc1faa724df197c2854d3a1f4d8e",
+      "bytes": 859548
+    },
+    "electronics/boards/starter/0.1.0/review/schematic.pdf": {
+      "sha256": "7a1667a44d3e0d9c4d3de7c9989990515ca9d345db1900e9a42d54f5d06cc87f",
+      "bytes": 373639
+    },
+    "electronics/boards/starter/0.1.0/review/upstream-pin-audit.json": {
+      "sha256": "a0740c9908734b74ca6e0052517aa8e66e86004541c6b2c3fdd7a0934f5378a6",
+      "bytes": 369
+    },
+    "electronics/boards/starter/0.1.0/starter.kicad_dru": {
+      "sha256": "dfe0773b7bf7b3668613755d0c3a2efa1f3243d4cec8e3dd73a75cd77dbf6b9f",
+      "bytes": 641
+    },
+    "electronics/boards/starter/0.1.0/starter.kicad_pcb": {
+      "sha256": "18e282a8b8ec6f93b0c90060567d3154a063c17dd9f4dd0a74b6b2d0646c0f45",
+      "bytes": 2557303
+    },
+    "electronics/boards/starter/0.1.0/starter.kicad_prl": {
+      "sha256": "da29801f7e6a6aa4272482241bb42b7198c21218d6c035fd033d3017e5f340ee",
+      "bytes": 2701
+    },
+    "electronics/boards/starter/0.1.0/starter.kicad_pro": {
+      "sha256": "24172194327328c92589c3f699533b447487b61c79bcfad8542bd40b21525dbf",
+      "bytes": 15825
+    },
+    "electronics/boards/starter/0.1.0/starter.kicad_sch": {
+      "sha256": "4a0c95be46c558450cc8ede7f74ca27f88db314adcafbcad6461517b4bbc0e09",
+      "bytes": 210741
+    },
+    "electronics/boards/starter/0.1.0/sym-lib-table": {
+      "sha256": "b746d9980330a69c94ebb2863c745884f26ea6a5bd0c49ef0a2c8d7aa6315797",
+      "bytes": 300
+    },
+    "firmware/CMakeLists.txt": {
+      "sha256": "5d50603bb8ebf4c2577711385473b936706400e2c5c504098600cb637b2911ba",
+      "bytes": 3741
+    },
+    "firmware/CMakePresets.json": {
+      "sha256": "51163f09cb7f194b6645297e46969a8eb9eee9ca6abb253e1cb3166e0fee4bc4",
+      "bytes": 462
+    },
+    "firmware/README.md": {
+      "sha256": "b3ffa1aad5e8c85c8e3a6d193449f49c243b9ea3ed9b2c107b74a87e57cd8ac1",
+      "bytes": 11124
+    },
+    "firmware/THIRD_PARTY.md": {
+      "sha256": "a088aab3acd9f540117d0a06b7bc672c030f7d21b0c36e7adb04c16a0c9515c8",
+      "bytes": 27982
+    },
+    "firmware/boards/README.md": {
+      "sha256": "65eb42eef1d2df846f8767a8bfeba1b0a5ee5e9caf72eb28631ec7893dee1583",
+      "bytes": 1062
+    },
+    "firmware/boards/starter_g0b1cb_v0_1_0/board.c": {
+      "sha256": "5a02b82c3e30cedae06f16f4643d01b9d1166b0eeb497b85bea49d4e9fb3879e",
+      "bytes": 13697
+    },
+    "firmware/boards/starter_g0b1cb_v0_1_0/board.h": {
+      "sha256": "e9ae645742b4e6349f4eaf7cd0d43396101addfac2f14ad5ec62d7c726c7406e",
+      "bytes": 1084
+    },
+    "firmware/boards/starter_g0b1cb_v0_1_0/flash.ld": {
+      "sha256": "8f8df64a7ed927dcad54d2db7138e9abd6345006fe44200f3039f0f996415558",
+      "bytes": 1785
+    },
+    "firmware/cmake/README.md": {
+      "sha256": "38680bf6bdf389c30be7fb6053c1be3472a80c5e43491348a90e6d31d6bb43f9",
+      "bytes": 943
+    },
+    "firmware/cmake/arm-gcc.cmake": {
+      "sha256": "66feb02979be2f0f172d87543079c521435a844b6fb98be852b7d7bf922624f7",
+      "bytes": 487
+    },
+    "firmware/cmake/common-revision.cmake": {
+      "sha256": "f373ae00aa034d5d3eaa49a02b735b54b90b94c2b4b280748ffbd7d82b6d6118",
+      "bytes": 66
+    },
+    "firmware/cmake/dependencies.cmake": {
+      "sha256": "84bc19c17ce2ddd5877a1714c5848c985757df444c30f3afa0798b6bb2072196",
+      "bytes": 379
+    },
+    "firmware/include/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "firmware/include/hid_delivery.h": {
+      "sha256": "7e55bc38b8d83f000ca545c56b6eaa8c70ee850bd0fd61e95f44fcf445d82535",
+      "bytes": 887
+    },
+    "firmware/include/profile.h": {
+      "sha256": "9632ac8fbe9df396b57a5cd2e75329b8d521ac715f52e86ef70300f19821d0f4",
+      "bytes": 413
+    },
+    "firmware/include/stm32g0xx_hal_conf.h": {
+      "sha256": "7ebb122a69ea67e7a8c240e988fd12fd96f207eb3e300fec9ae98f9324b0766e",
+      "bytes": 1064
+    },
+    "firmware/include/tusb_config.h": {
+      "sha256": "81d6e4301eaa2501bf022ddede11ae220ea95201e9f4aafd2d0ea39548459508",
+      "bytes": 553
+    },
+    "firmware/profiles/README.md": {
+      "sha256": "29643096c5abef6023e23ad9c2271af46224288d0dcf7426d654a867b3dacc4c",
+      "bytes": 7221
+    },
+    "firmware/profiles/example.h": {
+      "sha256": "26a495d4fd67416b2ce449325c61a63d9c9e258a516e2762e3450a702da77055",
+      "bytes": 707
+    },
+    "firmware/profiles/expanded.h": {
+      "sha256": "40dbd9b1cc3979611a6f906bb7e1d3440652b966ae0dcbfeda0c4ffdd3d892c1",
+      "bytes": 1160
+    },
+    "firmware/profiles/shifter.h": {
+      "sha256": "b751c87caede6b80b7c6218d54dbff8fd22d92f6b4ffb821a25a32de3b3e90e0",
+      "bytes": 279
+    },
+    "firmware/src/.gitkeep": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "firmware/src/main.c": {
+      "sha256": "cb608f93f2cbdc8ecdcc82880439fea8a752396eab1e9738ff26d510aa84f369",
+      "bytes": 14586
+    },
+    "firmware/src/profile.c": {
+      "sha256": "4bcbe8aa1e3c6a634b79e85d1545c438c3bbc1350c812cddfb478f2a38768dcf",
+      "bytes": 740
+    },
+    "firmware/src/usb_descriptors.c": {
+      "sha256": "e8d42ce04a67001b4f5f5aa7a0eb5b37711ce01c88cbaf4a03fdb5a41b292e3b",
+      "bytes": 1651
+    },
+    "firmware/tests/CMakeLists.txt": {
+      "sha256": "1b7d42b85166dabd85d25553580d20118fbe02d96ceb6bc90a969c5a3246f559",
+      "bytes": 3373
+    },
+    "firmware/tests/README.md": {
+      "sha256": "4ae299e3d98104ebb1186903d850f39866948e87566c4a2f8ce93f1ff40edf66",
+      "bytes": 2481
+    },
+    "firmware/tests/hid_delivery_test.c": {
+      "sha256": "493e5e2392814bda731210e86c6d2648c00eb34ca7c515cc994daa7c7d21a990",
+      "bytes": 1013
+    },
+    "firmware/tests/hid_test.c": {
+      "sha256": "ae1378443a3e17439aac458735cc765068d48efa9f6bd8d8a0f7fb1c3369c0b9",
+      "bytes": 4638
+    },
+    "firmware/tests/profile_test.c": {
+      "sha256": "f3d85fd50de0e30806bdf6111620bd1ea2173a0f0423062dfdf19e5691004b9a",
+      "bytes": 2104
+    },
+    "firmware/tests/usb/tusb_config.h": {
+      "sha256": "9a575d8b24c8da0fdb42acb00d3035c48035e522de014ac83fdbd850bbc03a3f",
+      "bytes": 227
+    }
+  },
+  "pcb_version": "0.1.0",
+  "status": "pre-live work in progress"
+}

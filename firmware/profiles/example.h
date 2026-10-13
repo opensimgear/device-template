@@ -1,4 +1,4 @@
-/* Rev B wiring demonstration: one of each supported input type. */
+/* v0.1.0 wiring demonstration: one of each supported input type. */
 static const osg_profile_button_t profile_buttons[]={ {0,false,0},{1,true,0},{4,false,0} };
 static const osg_profile_axis_t profile_axes[]={ {0,0x30,0,4095,32768} };
 static const osg_profile_encoder_t profile_encoders[]={ {2,3} };

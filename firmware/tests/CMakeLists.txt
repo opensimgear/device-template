@@ -27,7 +27,7 @@ foreach(profile example shifter expanded)
   target_link_libraries(profile_${profile} PRIVATE osg_core osg_cyphal)
   add_test(NAME profile_${profile}_behavior COMMAND profile_${profile})
   add_executable(hid_${profile} hid_test.c ../src/profile.c ../src/usb_descriptors.c ../src/runtime_config.c ../shared-gateway/src/gateway_journal.c ${firmware_common_SOURCE_DIR}/src/usb/descriptor.c)
-  target_include_directories(hid_${profile} PRIVATE usb ../include ../profiles ../boards/starter_g0b1cb_rev_b
+  target_include_directories(hid_${profile} PRIVATE usb ../include ../profiles ../boards/starter_g0b1cb_v0_1_0
     ${firmware_common_SOURCE_DIR}/include ${tinyusb_SOURCE_DIR}/src)
   target_include_directories(hid_${profile} PRIVATE ../shared-gateway/include)
   target_link_libraries(hid_${profile} PRIVATE osg_core osg_cyphal)

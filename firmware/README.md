@@ -1,6 +1,6 @@
-# Generic Rev B module firmware
+# Generic v0.1.0 module firmware
 
-C firmware for `starter_g0b1cb_rev_b`: STM32G0B1CBT6 with eight analogue channels, 24 direct digital lines and optional 16-input TCA9555 expansion banks. [Rev B electronics](../electronics/boards/starter/rev-b/README.md) define the matching pin map. Rev A uses different wiring; its firmware remains at commit `5a78e46` and the old target name is deliberately rejected.
+C firmware for `starter_g0b1cb_v0_1_0`: STM32G0B1CBT6 with eight analogue channels, 24 direct digital lines and optional 16-input TCA9555 expansion banks. [v0.1.0 electronics](../electronics/boards/starter/0.1.0/README.md) define the matching pin map. Earlier example circuits remain in Git history and use incompatible wiring; use the current PCB with this target.
 
 ## Build factory defaults
 
@@ -47,7 +47,7 @@ The active configuration enumerates as one joystick and a diagnostic USB serial 
 | --- | --- |
 | `hello` | `Hello from OpenSimGear!` |
 | `help` | Command list |
-| `info` | Rev B target, active profile, MCU UID and HID counts |
+| `info` | v0.1.0 target, active profile, MCU UID and HID counts |
 | `inputs` | Axis-availability mask, hat/selector conflicts, missing/stale expansion-bank mask, blocked command groups and encoder counters |
 | `led on`, `led off`, `led auto` | LED override or heartbeat |
 | `can status` | Cyphal node ID, logical route, lease, boot session, ownership, RX/TX and recovery counters |

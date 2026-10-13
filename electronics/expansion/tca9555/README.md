@@ -1,10 +1,10 @@
 # Optional 16-input I²C boards
 
-The Rev B starter supports optional **3.3 V TCA9555 input boards** inside the peripheral enclosure. Each adds 16 passive contact inputs. Firmware profiles select the fitted addresses and contacts; unselected boards are not polled. This is an electrical interface and wiring reference for compatible expansion boards, not a routed expansion PCB or a claim that a third-party breakout has been qualified. The generic starter PCB and firmware provide the host interface and driver.
+The v0.1.0 starter supports optional **3.3 V TCA9555 input boards** inside the peripheral enclosure. Each adds 16 passive contact inputs. Firmware profiles select the fitted addresses and contacts; unselected boards are not polled. This is an electrical interface and wiring reference for compatible expansion boards, not a routed expansion PCB or a claim that a third-party breakout has been qualified. The generic starter PCB and firmware provide the host interface and driver.
 
 ## Connection to the starter
 
-Use the Rev B J18 pin order, checked against connector pin numbers rather than cable colors:
+Use the v0.1.0 J18 pin order, checked against connector pin numbers rather than cable colors:
 
 | J18 pin | Connection |
 | --- | --- |

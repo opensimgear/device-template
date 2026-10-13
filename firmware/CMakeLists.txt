@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.24)
 project(osg_hello LANGUAGES C ASM)
-set(OSG_BOARD "starter_g0b1cb_rev_b" CACHE STRING "Board target")
-if(NOT OSG_BOARD STREQUAL "starter_g0b1cb_rev_b")
-  message(FATAL_ERROR "Unknown board: ${OSG_BOARD}; generic firmware requires starter_g0b1cb_rev_b. Rev A firmware is preserved at commit 5a78e46.")
+set(OSG_BOARD "starter_g0b1cb_v0_1_0" CACHE STRING "Board target")
+if(NOT OSG_BOARD STREQUAL "starter_g0b1cb_v0_1_0")
+  message(FATAL_ERROR "Unknown board: ${OSG_BOARD}; generic firmware requires starter_g0b1cb_v0_1_0.")
 endif()
 set(OSG_DEVICE_PROFILE "example" CACHE STRING "Factory input defaults: example, shifter or expanded")
 set_property(CACHE OSG_DEVICE_PROFILE PROPERTY STRINGS example shifter expanded)
@@ -38,9 +38,9 @@ target_include_directories(osg_hal PUBLIC include ${HAL}/Inc ${CMSIS}/Include ${
 target_compile_definitions(osg_hal PUBLIC STM32G0B1xx USE_HAL_DRIVER)
 add_executable(osg_hello src/main.c src/profile.c src/usb_descriptors.c src/can_client.c src/can_delivery.c src/boot_session.c src/runtime_config.c src/config_can.c
   shared-gateway/src/gateway_journal.c
-  boards/starter_g0b1cb_rev_b/board.c boards/starter_g0b1cb_rev_b/can_transport.c boards/starter_g0b1cb_rev_b/storage.c
+  boards/starter_g0b1cb_v0_1_0/board.c boards/starter_g0b1cb_v0_1_0/can_transport.c boards/starter_g0b1cb_v0_1_0/storage.c
   ${CMSIS}/Source/Templates/gcc/startup_stm32g0b1xx.s)
-target_include_directories(osg_hello PRIVATE include profiles boards/starter_g0b1cb_rev_b shared-gateway/include)
+target_include_directories(osg_hello PRIVATE include profiles boards/starter_g0b1cb_v0_1_0 shared-gateway/include)
 target_compile_definitions(osg_hello PRIVATE OSG_USB_VID=${OSG_USB_VID} OSG_USB_PID=${OSG_USB_PID}
   OSG_DEVICE_PROFILE_HEADER="${OSG_DEVICE_PROFILE}.h")
 target_link_libraries(osg_hello PRIVATE osg_core osg_usb osg_hal osg_cyphal)
@@ -48,7 +48,7 @@ target_compile_options(osg_hello PRIVATE -Wall -Wextra -Werror -fstack-usage)
 foreach(target osg_hello osg_hal osg_core osg_usb osg_tinyusb osg_cyphal)
   target_compile_options(${target} PRIVATE -Os -ffunction-sections -fdata-sections)
 endforeach()
-target_link_options(osg_hello PRIVATE -T${CMAKE_CURRENT_SOURCE_DIR}/boards/starter_g0b1cb_rev_b/flash.ld
+target_link_options(osg_hello PRIVATE -T${CMAKE_CURRENT_SOURCE_DIR}/boards/starter_g0b1cb_v0_1_0/flash.ld
   -nostartfiles --specs=nano.specs --specs=nosys.specs
   -Wl,--gc-sections,-Map=${CMAKE_CURRENT_BINARY_DIR}/osg_hello.map -Wl,--print-memory-usage)
 set_target_properties(osg_hello PROPERTIES SUFFIX .elf)

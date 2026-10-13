@@ -1,2 +1,0 @@
-(version 1)
-(rule "Home USB connector hole spacing" (constraint hole_clearance (min 0.15mm)))

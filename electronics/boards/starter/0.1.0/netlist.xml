@@ -1,0 +1,4057 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/Users/ntrp/_pws/opensimgear/device-template/electronics/boards/starter/0.1.0/starter.kicad_sch</source>
+    <date>2026-10-13T10:34:19</date>
+    <tool>Eeschema 10.0.6</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>OpenSimGear generic STM32G0B1 module</title>
+        <company>OpenSimGear</company>
+        <rev>0.1.0</rev>
+        <date>2026-10-12</date>
+        <source>starter.kicad_sch</source>
+        <comment number="1" value="FABRICATION REVIEW - FOUR-LAYER + MILLING PROTOTYPE"/>
+        <comment number="2" value="4P4C powered CAN: qualified straight-through cable, never phone equipment"/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="2" name="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/">
+      <title_block>
+        <title>OpenSimGear generic input banks</title>
+        <company/>
+        <rev>0.1.0</rev>
+        <date>2026-10-12</date>
+        <source>inputs.kicad_sch</source>
+        <comment number="1" value="8 analogue axes + 24 active-low digital lines + local 3.3V I2C"/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <description>Local TCAN3413 VCC bypass</description>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description">Local TCAN3413 VCC bypass</field>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>96135101-3f2c-4a6d-ab25-409b50b93469</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C2">
+      <value>10uF 50V X7R</value>
+      <footprint>KiCad:C_1210_3225Metric</footprint>
+      <datasheet>https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM32ER71H106KA12-04A.pdf</datasheet>
+      <fields>
+        <field name="MPN">GRM32ER71H106KA12L</field>
+        <field name="Footprint">KiCad:C_1210_3225Metric</field>
+        <field name="Datasheet">https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM32ER71H106KA12-04A.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM32ER71H106KA12L"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fc2c6c50-eb24-4881-808e-1a132fb43836</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C3">
+      <value>1uF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E105K125AB</datasheet>
+      <fields>
+        <field name="MPN">C2012X7R1E105K125AB</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E105K125AB</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C2012X7R1E105K125AB"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4137c8e7-696b-4da6-9e70-9986c8cf3283</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C4">
+      <value>1uF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E105K125AB</datasheet>
+      <fields>
+        <field name="MPN">C2012X7R1E105K125AB</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E105K125AB</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C2012X7R1E105K125AB"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>31180533-ccd8-407b-ae31-ddc46f151db6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C5">
+      <value>2.2uF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E225K125AB</datasheet>
+      <fields>
+        <field name="MPN">C2012X7R1E225K125AB</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E225K125AB</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C2012X7R1E225K125AB"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>52b8a30b-545c-441c-996f-742c1112efe3</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C6">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6a2c2cc1-5a80-4dbc-85d0-27d35372fa2e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C7">
+      <value>1uF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E105K125AB</datasheet>
+      <fields>
+        <field name="MPN">C2012X7R1E105K125AB</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://product.tdk.com/en/search/capacitor/ceramic/mlcc/info?part_no=C2012X7R1E105K125AB</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C2012X7R1E105K125AB"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7d2c588f-9068-4341-8e1e-c09e74337ca3</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C8">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fcecf41b-6276-4f0c-bc6f-3ba2d4697c93</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C9">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bb4388da-7c06-45a4-817e-b2af131b959d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C10">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>597e370c-0198-44d3-ba8d-0b35d1a86e9c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C11">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3818ce5f-2357-4ce8-a2d5-97d419167be0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C13">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <description>Local TCAN3413 VIO bypass</description>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description">Local TCAN3413 VIO bypass</field>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b669fcd0-c224-4309-8a29-421bba0f956e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D1">
+      <value>SS14</value>
+      <footprint>KiCad:D_SMA</footprint>
+      <datasheet>https://www.vishay.com/docs/88746/ss12.pdf</datasheet>
+      <fields>
+        <field name="MPN">SS14-E3/61T</field>
+        <field name="Footprint">KiCad:D_SMA</field>
+        <field name="Datasheet">https://www.vishay.com/docs/88746/ss12.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="D_Schottky" description="Schottky diode"/>
+      <property name="MPN" value="SS14-E3/61T"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bb4f9760-1897-4bb5-a72c-759375297c82</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D4">
+      <value>GREEN</value>
+      <footprint>OpenSimGear:LED_Kingbright_AP2012SGC_0805</footprint>
+      <datasheet>https://www.kingbrightusa.com/images/catalog/SPEC/AP2012SGC.pdf</datasheet>
+      <fields>
+        <field name="MPN">AP2012SGC</field>
+        <field name="Footprint">OpenSimGear:LED_Kingbright_AP2012SGC_0805</field>
+        <field name="Datasheet">https://www.kingbrightusa.com/images/catalog/SPEC/AP2012SGC.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="LED" description="Light emitting diode"/>
+      <property name="MPN" value="AP2012SGC"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="LED diode"/>
+      <property name="ki_fp_filters" value="LED* LED_SMD:* LED_THT:*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8155b6ee-1f8b-4191-a4e0-4c9d85e804d4</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D5">
+      <value>SMF15A-E3-08</value>
+      <footprint>KiCad:D_SMF</footprint>
+      <datasheet>https://www.vishay.com/docs/85881/smf5v0atosmf58a.pdf</datasheet>
+      <fields>
+        <field name="MPN">SMF15A-E3-08</field>
+        <field name="Footprint">KiCad:D_SMF</field>
+        <field name="Datasheet">https://www.vishay.com/docs/85881/smf5v0atosmf58a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="SMF15A" description="200W unidirectional Transil Transient Voltage Suppressor, 15Vrwm, SMF"/>
+      <property name="MPN" value="SMF15A-E3-08"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="diode TVS voltage suppressor"/>
+      <property name="ki_fp_filters" value="D*SMF*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>507fce2a-f294-4ce9-8976-5de9c5aabc0e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="F1">
+      <value>0.25A hold / 24V</value>
+      <footprint>OpenSimGear:Fuse_Littelfuse_1206L025-24YR</footprint>
+      <datasheet>https://www.littelfuse.com/assetdocs/resettable-ptcs-1206l-datasheet?assetguid=2b6a1515-d4ee-4c83-8bd4-152b4901b8f5</datasheet>
+      <fields>
+        <field name="MPN">1206L025/24YR</field>
+        <field name="Footprint">OpenSimGear:Fuse_Littelfuse_1206L025-24YR</field>
+        <field name="Datasheet">https://www.littelfuse.com/assetdocs/resettable-ptcs-1206l-datasheet?assetguid=2b6a1515-d4ee-4c83-8bd4-152b4901b8f5</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Polyfuse" description="Resettable fuse, polymeric positive temperature coefficient"/>
+      <property name="MPN" value="1206L025/24YR"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="resettable fuse PTC PPTC polyfuse polyswitch"/>
+      <property name="ki_fp_filters" value="*polyfuse* *PTC*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>83cdf438-0197-48c9-b1e3-5639629af964</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="H1">
+      <value>M3 3.2mm</value>
+      <footprint>KiCad:MountingHole_3.2mm_M3</footprint>
+      <fields>
+        <field name="Footprint">KiCad:MountingHole_3.2mm_M3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="MountingHole" description="Mounting Hole without connection"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="mounting hole"/>
+      <property name="ki_fp_filters" value="MountingHole*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6bb4838f-1cd9-49ca-bb10-91c6d1c383f0</tstamps>
+      <units>
+        <unit name="A">
+          <pins/>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="H2">
+      <value>M3 3.2mm</value>
+      <footprint>KiCad:MountingHole_3.2mm_M3</footprint>
+      <fields>
+        <field name="Footprint">KiCad:MountingHole_3.2mm_M3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="MountingHole" description="Mounting Hole without connection"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="mounting hole"/>
+      <property name="ki_fp_filters" value="MountingHole*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>af42eb2d-cd2b-462f-ab20-d3bf215cac2e</tstamps>
+      <units>
+        <unit name="A">
+          <pins/>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="H3">
+      <value>M3 3.2mm</value>
+      <footprint>KiCad:MountingHole_3.2mm_M3</footprint>
+      <fields>
+        <field name="Footprint">KiCad:MountingHole_3.2mm_M3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="MountingHole" description="Mounting Hole without connection"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="mounting hole"/>
+      <property name="ki_fp_filters" value="MountingHole*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6d4b0319-e74b-47e0-845b-f864e61555cd</tstamps>
+      <units>
+        <unit name="A">
+          <pins/>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="H4">
+      <value>M3 3.2mm</value>
+      <footprint>KiCad:MountingHole_3.2mm_M3</footprint>
+      <fields>
+        <field name="Footprint">KiCad:MountingHole_3.2mm_M3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="MountingHole" description="Mounting Hole without connection"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="mounting hole"/>
+      <property name="ki_fp_filters" value="MountingHole*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>92407b90-cb9a-41a7-9ba1-0047c3c6d7a0</tstamps>
+      <units>
+        <unit name="A">
+          <pins/>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J1">
+      <value>USB-C DEVICE</value>
+      <footprint>KiCad:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal</footprint>
+      <datasheet>https://gct.co/files/drawings/usb4105.pdf</datasheet>
+      <fields>
+        <field name="MPN">USB4105-GF-A</field>
+        <field name="Footprint">KiCad:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal</field>
+        <field name="Datasheet">https://gct.co/files/drawings/usb4105.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="USB_C_Receptacle_USB2.0_16P" description="USB 2.0-only 16P Type-C Receptacle connector"/>
+      <property name="MPN" value="USB4105-GF-A"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="usb universal serial bus type-C USB2.0"/>
+      <property name="ki_fp_filters" value="USB*C*Receptacle*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fbc3768b-8a69-4f69-ba51-ebf854a8c7c9</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="SH"/>
+            <pin num="A1"/>
+            <pin num="A12"/>
+            <pin num="B1"/>
+            <pin num="B12"/>
+            <pin num="A4"/>
+            <pin num="A9"/>
+            <pin num="B4"/>
+            <pin num="B9"/>
+            <pin num="A5"/>
+            <pin num="B5"/>
+            <pin num="A7"/>
+            <pin num="B7"/>
+            <pin num="A6"/>
+            <pin num="B6"/>
+            <pin num="A8"/>
+            <pin num="B8"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J2">
+      <value>4P4C POWERED CAN</value>
+      <footprint>OpenSimGear:RJ4P4C_Evercom_5301-4P4C_Horizontal</footprint>
+      <datasheet>https://jlcpcb.com/partdetail/EVERCOM-53014P4C/C3097715</datasheet>
+      <fields>
+        <field name="MPN">5301-4P4C</field>
+        <field name="Footprint">OpenSimGear:RJ4P4C_Evercom_5301-4P4C_Horizontal</field>
+        <field name="Datasheet">https://jlcpcb.com/partdetail/EVERCOM-53014P4C/C3097715</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="4P4C" description="RJ connector, 4P4C (4 positions 4 connected), RJ9/RJ10/RJ22"/>
+      <property name="MPN" value="5301-4P4C"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="4P4C RJ socket connector"/>
+      <property name="ki_fp_filters" value="4P4C* RJ9* RJ10* RJ22*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>78c71d79-c468-4ae5-b485-ffad81b852cd</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="4"/>
+            <pin num="3"/>
+            <pin num="2"/>
+            <pin num="1"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J3">
+      <value>4P4C POWERED CAN</value>
+      <footprint>OpenSimGear:RJ4P4C_Evercom_5301-4P4C_Horizontal</footprint>
+      <datasheet>https://jlcpcb.com/partdetail/EVERCOM-53014P4C/C3097715</datasheet>
+      <fields>
+        <field name="MPN">5301-4P4C</field>
+        <field name="Footprint">OpenSimGear:RJ4P4C_Evercom_5301-4P4C_Horizontal</field>
+        <field name="Datasheet">https://jlcpcb.com/partdetail/EVERCOM-53014P4C/C3097715</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="4P4C" description="RJ connector, 4P4C (4 positions 4 connected), RJ9/RJ10/RJ22"/>
+      <property name="MPN" value="5301-4P4C"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="4P4C RJ socket connector"/>
+      <property name="ki_fp_filters" value="4P4C* RJ9* RJ10* RJ22*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c440adce-ca91-4af5-aa68-3cd96e585c2d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="4"/>
+            <pin num="3"/>
+            <pin num="2"/>
+            <pin num="1"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J4">
+      <value>SWD / 3V3 REFERENCE ONLY</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-105-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-105-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-105-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x05" description="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-105-07-L-S"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1b125e62-2d02-40dd-a5c8-cbdb80c453cb</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J6">
+      <value>CAN TEST / END TERMINATION</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-103-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-103-07-L-S"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>77624515-9460-43ac-af4d-a88d9442117a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R1">
+      <value>5.1k 1%</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-075K1L</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-075K1L</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-075K1L</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-075K1L"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>43f00eb2-25cf-4d58-8347-4fe548f38298</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R2">
+      <value>5.1k 1%</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-075K1L</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-075K1L</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-075K1L</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-075K1L"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>316641fb-37a8-4266-b230-e532779fa7e5</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R3">
+      <value>10k 1%</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7bbc6457-a10c-4a40-98c2-b1d8af627b14</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R4">
+      <value>15k 1%</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0715KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0715KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0715KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0715KL"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1e3727a3-66d1-473c-a487-8ca37e49a480</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R5">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>643a15d4-7365-4f98-ab37-ca708296ef70</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R7">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>dd19c299-874e-4a8c-a37f-aeec9afc8c7d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R8">
+      <value>1k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071KL"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>978e13ec-94a4-4458-a46c-91d3a14c94bb</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="SW2">
+      <value>RESET</value>
+      <footprint>KiCad:SW_PUSH_6mm_H4.3mm</footprint>
+      <datasheet>https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf</datasheet>
+      <fields>
+        <field name="MPN">B3F-1002-G</field>
+        <field name="Footprint">KiCad:SW_PUSH_6mm_H4.3mm</field>
+        <field name="Datasheet">https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="SW_Push" description="Push button switch, generic, two pins"/>
+      <property name="MPN" value="B3F-1002-G"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>900615f0-afa9-4a52-9676-f4208a8b2eb0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U1">
+      <value>STM32G0B1CBT6</value>
+      <footprint>KiCad:LQFP-48_7x7mm_P0.5mm</footprint>
+      <datasheet>https://www.st.com/resource/en/datasheet/stm32g0b1cb.pdf</datasheet>
+      <fields>
+        <field name="MPN">STM32G0B1CBT6</field>
+        <field name="Footprint">KiCad:LQFP-48_7x7mm_P0.5mm</field>
+        <field name="Datasheet">https://www.st.com/resource/en/datasheet/stm32g0b1cb.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="STM32G0B1CBTx" description="STMicroelectronics Arm Cortex-M0+ MCU, 128KB flash, 144KB RAM, 64 MHz, 1.7-3.6V, 44 GPIO, LQFP48"/>
+      <property name="MPN" value="STM32G0B1CBT6"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="Arm Cortex-M0+ STM32G0 STM32G0x1"/>
+      <property name="ki_fp_filters" value="LQFP*7x7mm*P0.5mm*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>dde0f7b2-fcb0-40fc-97a0-2877f46d4371</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="5"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="38"/>
+            <pin num="39"/>
+            <pin num="40"/>
+            <pin num="41"/>
+            <pin num="30"/>
+            <pin num="31"/>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="7"/>
+            <pin num="6"/>
+            <pin num="11"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="14"/>
+            <pin num="15"/>
+            <pin num="16"/>
+            <pin num="17"/>
+            <pin num="18"/>
+            <pin num="28"/>
+            <pin num="33"/>
+            <pin num="29"/>
+            <pin num="34"/>
+            <pin num="32"/>
+            <pin num="35"/>
+            <pin num="36"/>
+            <pin num="37"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="21"/>
+            <pin num="42"/>
+            <pin num="43"/>
+            <pin num="44"/>
+            <pin num="45"/>
+            <pin num="46"/>
+            <pin num="47"/>
+            <pin num="48"/>
+            <pin num="22"/>
+            <pin num="23"/>
+            <pin num="24"/>
+            <pin num="25"/>
+            <pin num="26"/>
+            <pin num="27"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U2">
+      <value>USBLC6-2SC6</value>
+      <footprint>KiCad:SOT-23-6</footprint>
+      <datasheet>https://www.st.com/resource/en/datasheet/usblc6-2.pdf</datasheet>
+      <fields>
+        <field name="MPN">USBLC6-2SC6</field>
+        <field name="Footprint">KiCad:SOT-23-6</field>
+        <field name="Datasheet">https://www.st.com/resource/en/datasheet/usblc6-2.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="USBLC6-2SC6" description="Very low capacitance ESD protection diode, 2 data-line, SOT-23-6"/>
+      <property name="MPN" value="USBLC6-2SC6"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="usb ethernet video"/>
+      <property name="ki_fp_filters" value="SOT?23*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4b0b92aa-5629-4764-8977-c3c6e412edc6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="3"/>
+            <pin num="5"/>
+            <pin num="2"/>
+            <pin num="6"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U3">
+      <value>TCAN3413D</value>
+      <footprint>KiCad:SOIC-8_3.9x4.9mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/tcan3413.pdf</datasheet>
+      <fields>
+        <field name="MPN">TCAN3413D</field>
+        <field name="Footprint">KiCad:SOIC-8_3.9x4.9mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/tcan3413.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="OpenSimGear" part="TCAN3413D" description=""/>
+      <property name="MPN" value="TCAN3413D"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>86961b9b-45d1-413d-ab5f-c25292eb87d7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="4"/>
+            <pin num="8"/>
+            <pin num="3"/>
+            <pin num="2"/>
+            <pin num="5"/>
+            <pin num="7"/>
+            <pin num="6"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U4">
+      <value>R-78E5.0-0.5</value>
+      <footprint>KiCad:Converter_DCDC_RECOM_R-78E-0.5_THT</footprint>
+      <datasheet>https://recom-power.com/pdf/Innoline/R-78E-0.5.pdf</datasheet>
+      <fields>
+        <field name="MPN">R-78E5.0-0.5</field>
+        <field name="Footprint">KiCad:Converter_DCDC_RECOM_R-78E-0.5_THT</field>
+        <field name="Datasheet">https://recom-power.com/pdf/Innoline/R-78E-0.5.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="OpenSimGear" part="R-78E5.0-0.5" description=""/>
+      <property name="MPN" value="R-78E5.0-0.5"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0f74c9e4-4f85-4d72-999d-abd857d82b5b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U5">
+      <value>TLV75533PDBVR</value>
+      <footprint>KiCad:SOT-23-5</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/tlv755p.pdf</datasheet>
+      <fields>
+        <field name="MPN">TLV75533PDBVR</field>
+        <field name="Footprint">KiCad:SOT-23-5</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/tlv755p.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="TLV75533PDBV" description="500mA Low Dropout Voltage Regulator, Fixed Output 3.3V, SOT-23-5"/>
+      <property name="MPN" value="TLV75533PDBVR"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="LDO Regulator Fixed Positive"/>
+      <property name="ki_fp_filters" value="SOT?23*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e4aacca0-ff36-4864-bc62-c68312759d38</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="3"/>
+            <pin num="2"/>
+            <pin num="4"/>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U6">
+      <value>LM66100DCKR</value>
+      <footprint>OpenSimGear:TI_DCK0006A_SC70-6_LM66100</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/lm66100.pdf</datasheet>
+      <fields>
+        <field name="MPN">LM66100DCKR</field>
+        <field name="Footprint">OpenSimGear:TI_DCK0006A_SC70-6_LM66100</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/lm66100.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="OpenSimGear" part="LM66100DCK_OR" description="LM66100 dual-OR-only model: switched VOUT passive; ST physical open-drain intentionally GND per TI; not a general purpose status-output symbol."/>
+      <property name="MPN" value="LM66100DCKR"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="Texas Instruments"/>
+      <property name="ki_fp_filters" value="*SC?70*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f96e1d8c-d72d-440b-8e79-d409d64517b1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="2"/>
+            <pin num="6"/>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U7">
+      <value>LM66100DCKR</value>
+      <footprint>OpenSimGear:TI_DCK0006A_SC70-6_LM66100</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/lm66100.pdf</datasheet>
+      <fields>
+        <field name="MPN">LM66100DCKR</field>
+        <field name="Footprint">OpenSimGear:TI_DCK0006A_SC70-6_LM66100</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/lm66100.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="OpenSimGear" part="LM66100DCK_OR" description="LM66100 dual-OR-only model: switched VOUT passive; ST physical open-drain intentionally GND per TI; not a general purpose status-output symbol."/>
+      <property name="MPN" value="LM66100DCKR"/>
+      <property name="Sheetname" value="starter"/>
+      <property name="Sheetfile" value="starter.kicad_sch"/>
+      <property name="ki_keywords" value="Texas Instruments"/>
+      <property name="ki_fp_filters" value="*SC?70*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3900b461-2967-43d0-9742-382a66e5db18</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="2"/>
+            <pin num="6"/>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C12">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>012c3da9-5b30-4177-946e-5503e2088198</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C14">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>53dee52d-5ca6-416d-afb3-dccbb231ae64</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C15">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>652659aa-99f8-4aec-b3f7-efd75ec46b0e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C16">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>65945e70-6185-43a4-992a-745d9b2bb146</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C17">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>d3c7de9d-e521-4b4d-8511-d8fb66d517d2</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C18">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>c5d75d4f-055a-482b-8ab7-4fd781792f6f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C19">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>b39a6be1-3bb4-42ff-9e74-1052d855eb43</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C20">
+      <value>100nF 25V X7R</value>
+      <footprint>KiCad:C_0805_2012Metric</footprint>
+      <datasheet>https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</datasheet>
+      <fields>
+        <field name="MPN">C0805C104K3RACTU</field>
+        <field name="Footprint">KiCad:C_0805_2012Metric</field>
+        <field name="Datasheet">https://content.kemet.com/datasheets/KEM_C1002_X7R_SMD.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C104K3RACTU"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>d5461a1a-43a8-4e27-bb3c-07569339e3fe</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J5">
+      <value>AXIS A0 / 3.3V</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-103-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-103-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>938c0db0-c38e-4f55-8c48-8cd05664937f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J7">
+      <value>AXIS A1 / 3.3V</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-103-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-103-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>719d0b2a-5242-4d5a-8976-326349d01fe3</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J8">
+      <value>AXIS A2 / 3.3V</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-103-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-103-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>93f439ed-7f8c-44b7-8946-78d3f5fe3546</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J9">
+      <value>AXIS A3 / 3.3V</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-103-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-103-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>058e598b-81d8-4a29-8fe7-21355f8f9562</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J10">
+      <value>AXIS A4 / 3.3V</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-103-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-103-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>7cc6841b-de4d-478e-9ccb-7e6c69f07476</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J11">
+      <value>AXIS A5 / 3.3V</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-103-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-103-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>83b12bb6-d1cc-424f-8f50-a7288d2ef978</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J12">
+      <value>AXIS A6 / 3.3V</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-103-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-103-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>d7fca1fb-055c-4e7e-819a-83df256bcf99</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J13">
+      <value>AXIS A7 / 3.3V</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-103-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-103-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-103-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>8c1189da-d6e1-4c1a-9c21-127b55ff1523</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J14">
+      <value>DIGITAL D0–D5</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-107-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x07" description="Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-107-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>ac4b0255-9adf-45c1-adeb-e66987ca69ae</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J15">
+      <value>DIGITAL D6–D11</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-107-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x07" description="Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-107-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>c4e014b2-62b9-4553-be90-0c730f481d93</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J16">
+      <value>DIGITAL D12–D17</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-107-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x07" description="Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-107-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>5e3458b9-bab7-4cdf-8ba4-ed46be404f77</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J17">
+      <value>DIGITAL D18–D23</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-107-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-107-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x07" description="Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-107-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>e525f95e-a6c3-4a67-a9e5-7b1f3ae74625</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J18">
+      <value>LOCAL 3.3V I2C EXPANSION</value>
+      <footprint>OpenSimGear:PinHeader_Samtec_TSW-104-07-L-S_P2.54mm_Vertical</footprint>
+      <datasheet>https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</datasheet>
+      <fields>
+        <field name="MPN">TSW-104-07-L-S</field>
+        <field name="Footprint">OpenSimGear:PinHeader_Samtec_TSW-104-07-L-S_P2.54mm_Vertical</field>
+        <field name="Datasheet">https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="MPN" value="TSW-104-07-L-S"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="connector"/>
+      <property name="ki_fp_filters" value="Connector*:*_1x??_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>3f5404fa-2a76-4b71-bc63-91e7789e2576</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R19">
+      <value>1k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>3c2826de-7532-4698-9c9b-b4568e96b84e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R20">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>c93bfbd7-2eca-433c-8356-97d6c182df5f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R21">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>ddfcb013-7161-4b3a-89a6-46f6e5ab7dce</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R22">
+      <value>1k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>1ef055a8-99bb-492e-b4f5-abdb178201ed</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R23">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>c0c4af25-ef74-4457-a5b1-ea8bc2e69dc7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R24">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>ac214773-38da-4151-b5fa-6eec91b197ec</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R25">
+      <value>1k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>e7d107d7-0269-4349-8d87-543e453099a7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R26">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>6ac0aab8-90d5-48dd-b37a-f5b0e81b9ff5</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R27">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>84b5487b-2d68-4c91-998c-35edaa01120a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R28">
+      <value>1k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>04053103-fad3-498e-9691-767233b30337</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R29">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>be31236f-f0cd-4ac3-b5af-2362a92768bc</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R30">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>5c4b7505-c81e-4f25-a080-92e0a34be652</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R31">
+      <value>1k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>9294e3e9-43f3-4119-b3a6-19bf1170bfdf</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R32">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>feaf8f1a-ba68-4d70-a2c0-e38ef23bfb29</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R33">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>74a3733d-9945-47fb-a130-b923959ffd18</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R34">
+      <value>1k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>3a742cf3-2902-4e92-b783-4047356bcd1e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R35">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>b30c1643-4d00-4b95-851b-fa2133140ea1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R36">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>fc611bf8-c1c3-405f-95e2-5331b7ce7ac4</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R37">
+      <value>1k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>a120a2a0-1ed2-4cbc-be0d-ca9651faf8b0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R38">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>e0fc268f-439f-44dd-8548-96287b019ccb</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R39">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>ea8d7667-3818-47ba-909d-ffc1909fc3c1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R40">
+      <value>1k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>0f963652-39e6-4fe3-98bb-d9faedc58e7c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R41">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>dac7d910-9e0d-4ea5-bac1-6239ac5d382b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R42">
+      <value>1M</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-071ML</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-071ML</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-071ML"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>2d50ab35-ccc4-44d9-b82b-3b6f7b49a7db</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R43">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>dfdd7695-ee80-4f80-91de-4e46e77a8ec6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R44">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>338f21e6-1a4c-44b7-ad0a-64c95d470aa2</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R45">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>1d1316d7-179f-488f-bde9-d899d477dbc1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R46">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>c916f843-d99a-48ea-8a2f-8264d7bb8a0a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R47">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>6974d936-f4d2-4dae-bc05-e911383aeac7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R48">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>38372e20-c2c0-4e4e-8231-632ea825dbb0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R49">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>0e9f5d2d-a918-4806-aa57-7d7e3cd759b6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R50">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>8d3eef81-c733-4c19-bb5a-36a115ddf1a3</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R51">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>f736ead7-6e36-49e9-bc13-506987a14761</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R52">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>a8f65950-9a13-468a-81bf-a778510c8bef</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R53">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>2fbbe4c1-99d4-4366-a2e9-84c2223965f8</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R54">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>ff9c0835-b364-4767-8180-0fa34285de34</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R55">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>0b7be88d-1d3c-40dc-9490-26a681576053</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R56">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>3c3d01d8-8d25-4d51-b2f5-b17062fe16a8</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R57">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>85f11f49-3816-4509-8653-0d5c7d505c7e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R58">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>61c3cf04-80e3-4d0e-9a2b-8cb3b0762f4b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R59">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>bd502345-149f-494a-b73f-48e1d72bc274</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R60">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>c46e52a4-7d91-4690-8c85-28d52a66dddf</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R61">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>653d3fb4-1cd6-4a1e-a63e-49beb36f19e1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R62">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>2a86b90a-99db-42b4-b548-d2c6990e8202</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R63">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>979939b8-0348-4ae3-9221-78d17c1c9b05</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R64">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>c69d473f-58eb-416f-9cda-986aa275338e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R65">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>dd9b7b6f-5b7d-4aa5-b5ae-b5c335042e41</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R66">
+      <value>10k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-0710KL</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-0710KL</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-0710KL"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>d2f10957-af74-484b-b3d9-092999cb4442</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R67">
+      <value>4.7k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-074K7L</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-074K7L</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-074K7L</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-074K7L"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>b10adf2a-3780-405e-b1dd-0e378e6dda01</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R68">
+      <value>4.7k</value>
+      <footprint>KiCad:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-074K7L</datasheet>
+      <fields>
+        <field name="MPN">RC0805FR-074K7L</field>
+        <field name="Footprint">KiCad:R_0805_2012Metric</field>
+        <field name="Datasheet">https://www.yageogroup.com/component-documentation/download/specsheet/RC0805FR-074K7L</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="KiCad" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0805FR-074K7L"/>
+      <property name="Sheetname" value="Input examples"/>
+      <property name="Sheetfile" value="inputs.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/Input examples/" tstamps="/80b80f79-ec10-459d-b2ce-1fdab9e30d4a/"/>
+      <tstamps>59e83554-f2ba-4fb1-ba01-6fca812a964a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="KiCad" part="4P4C">
+      <description>RJ connector, 4P4C (4 positions 4 connected), RJ9/RJ10/RJ22</description>
+      <footprints>
+        <fp>4P4C*</fp>
+        <fp>RJ9*</fp>
+        <fp>RJ10*</fp>
+        <fp>RJ22*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">4P4C</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">RJ connector, 4P4C (4 positions 4 connected), RJ9/RJ10/RJ22</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+        <pin num="3" name="" type="passive"/>
+        <pin num="4" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="C">
+      <description>Unpolarized capacitor</description>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Unpolarized capacitor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="Conn_01x03">
+      <description>Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x03</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="Conn_01x04">
+      <description>Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x04</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="Conn_01x05">
+      <description>Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x05</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="Conn_01x07">
+      <description>Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x07</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Generic connector, single row, 01x07, script generated (kicad-library-utils/schlib/autogen/connector/)</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="D_Schottky">
+      <description>Schottky diode</description>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D_Schottky</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Schottky diode</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="LED">
+      <description>Light emitting diode</description>
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Light emitting diode</field>
+        <field name="Sim.Pins">1=K 2=A</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="MountingHole">
+      <description>Mounting Hole without connection</description>
+      <footprints>
+        <fp>MountingHole*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">H</field>
+        <field name="Value">MountingHole</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Mounting Hole without connection</field>
+      </fields>
+    </libpart>
+    <libpart lib="KiCad" part="Polyfuse">
+      <description>Resettable fuse, polymeric positive temperature coefficient</description>
+      <footprints>
+        <fp>*polyfuse*</fp>
+        <fp>*PTC*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">F</field>
+        <field name="Value">Polyfuse</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Resettable fuse, polymeric positive temperature coefficient</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="R">
+      <description>Resistor</description>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Resistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="SMF15A">
+      <description>200W unidirectional Transil Transient Voltage Suppressor, 15Vrwm, SMF</description>
+      <docs>https://www.vishay.com/doc?85881</docs>
+      <footprints>
+        <fp>D*SMF*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">SMF15A</field>
+        <field name="Footprint">Diode_SMD:D_SMF</field>
+        <field name="Datasheet">https://www.vishay.com/doc?85881</field>
+        <field name="Description">200W unidirectional Transil Transient Voltage Suppressor, 15Vrwm, SMF</field>
+      </fields>
+      <pins>
+        <pin num="1" name="A1" type="passive"/>
+        <pin num="2" name="A2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="STM32G0B1CBTx">
+      <description>STMicroelectronics Arm Cortex-M0+ MCU, 128KB flash, 144KB RAM, 64 MHz, 1.7-3.6V, 44 GPIO, LQFP48</description>
+      <docs>https://www.st.com/resource/en/datasheet/stm32g0b1cb.pdf</docs>
+      <footprints>
+        <fp>LQFP*7x7mm*P0.5mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">STM32G0B1CBTx</field>
+        <field name="Footprint">Package_QFP:LQFP-48_7x7mm_P0.5mm</field>
+        <field name="Datasheet">https://www.st.com/resource/en/datasheet/stm32g0b1cb.pdf</field>
+        <field name="Description">STMicroelectronics Arm Cortex-M0+ MCU, 128KB flash, 144KB RAM, 64 MHz, 1.7-3.6V, 44 GPIO, LQFP48</field>
+      </fields>
+      <pins>
+        <pin num="1" name="PC13" type="bidirectional"/>
+        <pin num="2" name="PC14" type="bidirectional"/>
+        <pin num="3" name="PC15" type="bidirectional"/>
+        <pin num="4" name="VBAT" type="power_in"/>
+        <pin num="5" name="VREF+" type="input"/>
+        <pin num="6" name="VDD" type="power_in"/>
+        <pin num="7" name="VSS" type="power_in"/>
+        <pin num="8" name="PF0" type="bidirectional"/>
+        <pin num="9" name="PF1" type="bidirectional"/>
+        <pin num="10" name="PF2" type="bidirectional"/>
+        <pin num="11" name="PA0" type="bidirectional"/>
+        <pin num="12" name="PA1" type="bidirectional"/>
+        <pin num="13" name="PA2" type="bidirectional"/>
+        <pin num="14" name="PA3" type="bidirectional"/>
+        <pin num="15" name="PA4" type="bidirectional"/>
+        <pin num="16" name="PA5" type="bidirectional"/>
+        <pin num="17" name="PA6" type="bidirectional"/>
+        <pin num="18" name="PA7" type="bidirectional"/>
+        <pin num="19" name="PB0" type="bidirectional"/>
+        <pin num="20" name="PB1" type="bidirectional"/>
+        <pin num="21" name="PB2" type="bidirectional"/>
+        <pin num="22" name="PB10" type="bidirectional"/>
+        <pin num="23" name="PB11" type="bidirectional"/>
+        <pin num="24" name="PB12" type="bidirectional"/>
+        <pin num="25" name="PB13" type="bidirectional"/>
+        <pin num="26" name="PB14" type="bidirectional"/>
+        <pin num="27" name="PB15" type="bidirectional"/>
+        <pin num="28" name="PA8" type="bidirectional"/>
+        <pin num="29" name="PA9/UCPD1_DBCC1" type="bidirectional"/>
+        <pin num="30" name="PC6" type="bidirectional"/>
+        <pin num="31" name="PC7" type="bidirectional"/>
+        <pin num="32" name="PA10/UCPD1_DBCC2" type="bidirectional"/>
+        <pin num="33" name="PA9/PA11" type="bidirectional"/>
+        <pin num="34" name="PA10/PA12" type="bidirectional"/>
+        <pin num="35" name="PA13" type="bidirectional"/>
+        <pin num="36" name="PA14" type="bidirectional"/>
+        <pin num="37" name="PA15" type="bidirectional"/>
+        <pin num="38" name="PD0" type="bidirectional"/>
+        <pin num="39" name="PD1" type="bidirectional"/>
+        <pin num="40" name="PD2" type="bidirectional"/>
+        <pin num="41" name="PD3" type="bidirectional"/>
+        <pin num="42" name="PB3" type="bidirectional"/>
+        <pin num="43" name="PB4" type="bidirectional"/>
+        <pin num="44" name="PB5" type="bidirectional"/>
+        <pin num="45" name="PB6" type="bidirectional"/>
+        <pin num="46" name="PB7" type="bidirectional"/>
+        <pin num="47" name="PB8" type="bidirectional"/>
+        <pin num="48" name="PB9" type="bidirectional"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="SW_Push">
+      <description>Push button switch, generic, two pins</description>
+      <fields>
+        <field name="Reference">SW</field>
+        <field name="Value">SW_Push</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description">Push button switch, generic, two pins</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="TLV75533PDBV">
+      <description>500mA Low Dropout Voltage Regulator, Fixed Output 3.3V, SOT-23-5</description>
+      <docs>http://www.ti.com/lit/ds/symlink/tlv755p.pdf</docs>
+      <footprints>
+        <fp>SOT?23*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">TLV75533PDBV</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23-5</field>
+        <field name="Datasheet">http://www.ti.com/lit/ds/symlink/tlv755p.pdf</field>
+        <field name="Description">500mA Low Dropout Voltage Regulator, Fixed Output 3.3V, SOT-23-5</field>
+      </fields>
+      <pins>
+        <pin num="1" name="IN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="EN" type="input"/>
+        <pin num="4" name="NC" type="no_connect"/>
+        <pin num="5" name="OUT" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="USBLC6-2SC6">
+      <description>Very low capacitance ESD protection diode, 2 data-line, SOT-23-6</description>
+      <docs>https://www.st.com/resource/en/datasheet/usblc6-2.pdf</docs>
+      <footprints>
+        <fp>SOT?23*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">USBLC6-2SC6</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23-6</field>
+        <field name="Datasheet">https://www.st.com/resource/en/datasheet/usblc6-2.pdf</field>
+        <field name="Description">Very low capacitance ESD protection diode, 2 data-line, SOT-23-6</field>
+      </fields>
+      <pins>
+        <pin num="1" name="I/O1" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
+        <pin num="3" name="I/O2" type="passive"/>
+        <pin num="4" name="I/O2" type="passive"/>
+        <pin num="5" name="VBUS" type="passive"/>
+        <pin num="6" name="I/O1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="KiCad" part="USB_C_Receptacle_USB2.0_16P">
+      <description>USB 2.0-only 16P Type-C Receptacle connector</description>
+      <docs>https://www.usb.org/sites/default/files/documents/usb_type-c.zip</docs>
+      <footprints>
+        <fp>USB*C*Receptacle*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">USB_C_Receptacle_USB2.0_16P</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">https://www.usb.org/sites/default/files/documents/usb_type-c.zip</field>
+        <field name="Description">USB 2.0-only 16P Type-C Receptacle connector</field>
+      </fields>
+      <pins>
+        <pin num="A1" name="GND" type="passive"/>
+        <pin num="A4" name="VBUS" type="passive"/>
+        <pin num="A5" name="CC1" type="bidirectional"/>
+        <pin num="A6" name="D+" type="bidirectional"/>
+        <pin num="A7" name="D-" type="bidirectional"/>
+        <pin num="A8" name="SBU1" type="bidirectional"/>
+        <pin num="A9" name="VBUS" type="passive"/>
+        <pin num="A12" name="GND" type="passive"/>
+        <pin num="B1" name="GND" type="passive"/>
+        <pin num="B4" name="VBUS" type="passive"/>
+        <pin num="B5" name="CC2" type="bidirectional"/>
+        <pin num="B6" name="D+" type="bidirectional"/>
+        <pin num="B7" name="D-" type="bidirectional"/>
+        <pin num="B8" name="SBU2" type="bidirectional"/>
+        <pin num="B9" name="VBUS" type="passive"/>
+        <pin num="B12" name="GND" type="passive"/>
+        <pin num="SH" name="SHIELD" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="OpenSimGear" part="LM66100DCK_OR">
+      <description>LM66100 dual-OR-only model: switched VOUT passive; ST physical open-drain intentionally GND per TI; not a general purpose status-output symbol.</description>
+      <docs>https://www.ti.com/lit/ds/symlink/lm66100.pdf</docs>
+      <footprints>
+        <fp>*SC?70*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">LM66100DCK</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-363_SC-70-6</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/lm66100.pdf</field>
+        <field name="Description">LM66100 dual-OR-only model: switched VOUT passive; ST physical open-drain intentionally GND per TI; not a general purpose status-output symbol.</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VIN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="~{CE}" type="input"/>
+        <pin num="4" name="NC" type="no_connect"/>
+        <pin num="5" name="ST" type="passive"/>
+        <pin num="6" name="VOUT" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="OpenSimGear" part="R-78E5.0-0.5">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">R-78E5.0-0.5</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="VIN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="VOUT" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="OpenSimGear" part="TCAN3413D">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">TCAN3413D</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="TXD" type="input"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="VCC" type="power_in"/>
+        <pin num="4" name="RXD" type="output"/>
+        <pin num="5" name="VIO" type="power_in"/>
+        <pin num="6" name="CANL" type="bidirectional"/>
+        <pin num="7" name="CANH" type="bidirectional"/>
+        <pin num="8" name="STB" type="input"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="KiCad">
+      <uri>${KIPRJMOD}/KiCad.kicad_sym</uri>
+    </library>
+    <library logical="OpenSimGear">
+      <uri>${KIPRJMOD}/OpenSimGear.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="+3V3" class="LogicSupply">
+      <node ref="C1" pin="1" pintype="passive"/>
+      <node ref="C13" pin="1" pintype="passive"/>
+      <node ref="C5" pin="1" pintype="passive"/>
+      <node ref="C6" pin="1" pintype="passive"/>
+      <node ref="C7" pin="1" pintype="passive"/>
+      <node ref="C8" pin="1" pintype="passive"/>
+      <node ref="C9" pin="1" pintype="passive"/>
+      <node ref="J10" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J11" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J12" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J13" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J18" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J4" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J5" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J7" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J8" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="J9" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="R20" pin="1" pintype="passive"/>
+      <node ref="R23" pin="1" pintype="passive"/>
+      <node ref="R26" pin="1" pintype="passive"/>
+      <node ref="R29" pin="1" pintype="passive"/>
+      <node ref="R32" pin="1" pintype="passive"/>
+      <node ref="R35" pin="1" pintype="passive"/>
+      <node ref="R38" pin="1" pintype="passive"/>
+      <node ref="R41" pin="1" pintype="passive"/>
+      <node ref="R43" pin="1" pintype="passive"/>
+      <node ref="R44" pin="1" pintype="passive"/>
+      <node ref="R45" pin="1" pintype="passive"/>
+      <node ref="R46" pin="1" pintype="passive"/>
+      <node ref="R47" pin="1" pintype="passive"/>
+      <node ref="R48" pin="1" pintype="passive"/>
+      <node ref="R49" pin="1" pintype="passive"/>
+      <node ref="R5" pin="1" pintype="passive"/>
+      <node ref="R50" pin="1" pintype="passive"/>
+      <node ref="R51" pin="1" pintype="passive"/>
+      <node ref="R52" pin="1" pintype="passive"/>
+      <node ref="R53" pin="1" pintype="passive"/>
+      <node ref="R54" pin="1" pintype="passive"/>
+      <node ref="R55" pin="1" pintype="passive"/>
+      <node ref="R56" pin="1" pintype="passive"/>
+      <node ref="R57" pin="1" pintype="passive"/>
+      <node ref="R58" pin="1" pintype="passive"/>
+      <node ref="R59" pin="1" pintype="passive"/>
+      <node ref="R60" pin="1" pintype="passive"/>
+      <node ref="R61" pin="1" pintype="passive"/>
+      <node ref="R62" pin="1" pintype="passive"/>
+      <node ref="R63" pin="1" pintype="passive"/>
+      <node ref="R64" pin="1" pintype="passive"/>
+      <node ref="R65" pin="1" pintype="passive"/>
+      <node ref="R66" pin="1" pintype="passive"/>
+      <node ref="R67" pin="1" pintype="passive"/>
+      <node ref="R68" pin="1" pintype="passive"/>
+      <node ref="R7" pin="1" pintype="passive"/>
+      <node ref="U1" pin="4" pinfunction="VBAT_4" pintype="power_in"/>
+      <node ref="U1" pin="5" pinfunction="VREF+_5" pintype="input"/>
+      <node ref="U1" pin="6" pinfunction="VDD_6" pintype="power_in"/>
+      <node ref="U3" pin="3" pinfunction="VCC_3" pintype="power_in"/>
+      <node ref="U3" pin="5" pinfunction="VIO_5" pintype="power_in"/>
+      <node ref="U5" pin="5" pinfunction="OUT_5" pintype="power_out"/>
+    </net>
+    <net code="2" name="/BUCK_5V" class="Power">
+      <node ref="C3" pin="1" pintype="passive"/>
+      <node ref="U4" pin="3" pinfunction="VOUT_3" pintype="power_out"/>
+      <node ref="U6" pin="1" pinfunction="VIN_1" pintype="power_in"/>
+      <node ref="U7" pin="3" pinfunction="~{CE}_3" pintype="input"/>
+    </net>
+    <net code="3" name="/BUCK_IN" class="Power">
+      <node ref="C2" pin="1" pintype="passive"/>
+      <node ref="D1" pin="1" pinfunction="K_1" pintype="passive"/>
+      <node ref="D5" pin="1" pinfunction="A1_1" pintype="passive"/>
+      <node ref="U4" pin="1" pinfunction="VIN_1" pintype="power_in"/>
+    </net>
+    <net code="4" name="/BUS_12V" class="Chain12V">
+      <node ref="F1" pin="1" pintype="passive"/>
+      <node ref="J2" pin="1" pintype="passive"/>
+      <node ref="J3" pin="1" pintype="passive"/>
+    </net>
+    <net code="5" name="/BUS_FUSED" class="Power">
+      <node ref="D1" pin="2" pinfunction="A_2" pintype="passive"/>
+      <node ref="F1" pin="2" pintype="passive"/>
+    </net>
+    <net code="6" name="/CAN_H" class="CAN">
+      <node ref="J2" pin="2" pintype="passive"/>
+      <node ref="J3" pin="2" pintype="passive"/>
+      <node ref="J6" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="U3" pin="7" pinfunction="CANH_7" pintype="bidirectional"/>
+    </net>
+    <net code="7" name="/CAN_L" class="CAN">
+      <node ref="J2" pin="3" pintype="passive"/>
+      <node ref="J3" pin="3" pintype="passive"/>
+      <node ref="J6" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="U3" pin="6" pinfunction="CANL_6" pintype="bidirectional"/>
+    </net>
+    <net code="8" name="/CAN_RX" class="GPIOFanout">
+      <node ref="U1" pin="47" pinfunction="PB8_47" pintype="bidirectional"/>
+      <node ref="U3" pin="4" pinfunction="RXD_4" pintype="output"/>
+    </net>
+    <net code="9" name="/CAN_STB" class="GPIOFanout">
+      <node ref="R5" pin="2" pintype="passive"/>
+      <node ref="U1" pin="44" pinfunction="PB5_44" pintype="bidirectional"/>
+      <node ref="U3" pin="8" pinfunction="STB_8" pintype="input"/>
+    </net>
+    <net code="10" name="/CAN_TX" class="GPIOFanout">
+      <node ref="U1" pin="48" pinfunction="PB9_48" pintype="bidirectional"/>
+      <node ref="U3" pin="1" pinfunction="TXD_1" pintype="input"/>
+    </net>
+    <net code="11" name="/CC1" class="Default">
+      <node ref="J1" pin="A5" pinfunction="CC1_A5" pintype="bidirectional"/>
+      <node ref="R1" pin="1" pintype="passive"/>
+    </net>
+    <net code="12" name="/CC2" class="Default">
+      <node ref="J1" pin="B5" pinfunction="CC2_B5" pintype="bidirectional"/>
+      <node ref="R2" pin="1" pintype="passive"/>
+    </net>
+    <net code="13" name="/LED_A" class="GPIOFanout">
+      <node ref="R8" pin="1" pintype="passive"/>
+      <node ref="U1" pin="16" pinfunction="PA5_16" pintype="bidirectional"/>
+    </net>
+    <net code="14" name="/LED_K" class="Default">
+      <node ref="D4" pin="2" pinfunction="A_2" pintype="passive"/>
+      <node ref="R8" pin="2" pintype="passive"/>
+    </net>
+    <net code="15" name="/NRST" class="GPIOFanout">
+      <node ref="C10" pin="1" pintype="passive"/>
+      <node ref="J4" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
+      <node ref="R7" pin="2" pintype="passive"/>
+      <node ref="SW2" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U1" pin="10" pinfunction="PF2_10" pintype="bidirectional"/>
+    </net>
+    <net code="16" name="/SWCLK" class="GPIOFanout">
+      <node ref="J4" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
+      <node ref="U1" pin="36" pinfunction="PA14_36" pintype="bidirectional"/>
+    </net>
+    <net code="17" name="/SWDIO" class="GPIOFanout">
+      <node ref="J4" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="U1" pin="35" pinfunction="PA13_35" pintype="bidirectional"/>
+    </net>
+    <net code="18" name="/SYS_5V" class="Power">
+      <node ref="C4" pin="1" pintype="passive"/>
+      <node ref="U5" pin="1" pinfunction="IN_1" pintype="power_in"/>
+      <node ref="U5" pin="3" pinfunction="EN_3" pintype="input"/>
+      <node ref="U6" pin="6" pinfunction="VOUT_6" pintype="passive"/>
+      <node ref="U7" pin="6" pinfunction="VOUT_6" pintype="passive"/>
+    </net>
+    <net code="19" name="/USB_DM" class="USB">
+      <node ref="J1" pin="A7" pinfunction="D-_A7" pintype="bidirectional"/>
+      <node ref="J1" pin="B7" pinfunction="D-_B7" pintype="bidirectional"/>
+      <node ref="U1" pin="33" pinfunction="PA9/PA11_33" pintype="bidirectional"/>
+      <node ref="U2" pin="1" pinfunction="I/O1_1" pintype="passive"/>
+      <node ref="U2" pin="6" pinfunction="I/O1_6" pintype="passive"/>
+    </net>
+    <net code="20" name="/USB_DP" class="USB">
+      <node ref="J1" pin="A6" pinfunction="D+_A6" pintype="bidirectional"/>
+      <node ref="J1" pin="B6" pinfunction="D+_B6" pintype="bidirectional"/>
+      <node ref="U1" pin="34" pinfunction="PA10/PA12_34" pintype="bidirectional"/>
+      <node ref="U2" pin="3" pinfunction="I/O2_3" pintype="passive"/>
+      <node ref="U2" pin="4" pinfunction="I/O2_4" pintype="passive"/>
+    </net>
+    <net code="21" name="/USB_VBUS" class="USBPower">
+      <node ref="C11" pin="1" pintype="passive"/>
+      <node ref="J1" pin="A4" pinfunction="VBUS_A4" pintype="passive"/>
+      <node ref="J1" pin="A9" pinfunction="VBUS_A9" pintype="passive"/>
+      <node ref="J1" pin="B4" pinfunction="VBUS_B4" pintype="passive"/>
+      <node ref="J1" pin="B9" pinfunction="VBUS_B9" pintype="passive"/>
+      <node ref="R3" pin="1" pintype="passive"/>
+      <node ref="U2" pin="5" pinfunction="VBUS_5" pintype="passive"/>
+      <node ref="U6" pin="3" pinfunction="~{CE}_3" pintype="input"/>
+      <node ref="U7" pin="1" pinfunction="VIN_1" pintype="power_in"/>
+    </net>
+    <net code="22" name="/VBUS_SENSE" class="Default">
+      <node ref="R3" pin="2" pintype="passive"/>
+      <node ref="R4" pin="1" pintype="passive"/>
+      <node ref="U1" pin="19" pinfunction="PB0_19" pintype="bidirectional"/>
+    </net>
+    <net code="23" name="A0_ADC" class="GPIOFanout">
+      <node ref="C12" pin="1" pintype="passive"/>
+      <node ref="R19" pin="2" pintype="passive"/>
+      <node ref="R20" pin="2" pintype="passive"/>
+      <node ref="R21" pin="1" pintype="passive"/>
+      <node ref="U1" pin="11" pinfunction="PA0_11" pintype="bidirectional"/>
+    </net>
+    <net code="24" name="A0_RAW" class="GPIOFanout">
+      <node ref="J5" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R19" pin="1" pintype="passive"/>
+    </net>
+    <net code="25" name="A1_ADC" class="GPIOFanout">
+      <node ref="C14" pin="1" pintype="passive"/>
+      <node ref="R22" pin="2" pintype="passive"/>
+      <node ref="R23" pin="2" pintype="passive"/>
+      <node ref="R24" pin="1" pintype="passive"/>
+      <node ref="U1" pin="12" pinfunction="PA1_12" pintype="bidirectional"/>
+    </net>
+    <net code="26" name="A1_RAW" class="GPIOFanout">
+      <node ref="J7" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R22" pin="1" pintype="passive"/>
+    </net>
+    <net code="27" name="A2_ADC" class="GPIOFanout">
+      <node ref="C15" pin="1" pintype="passive"/>
+      <node ref="R25" pin="2" pintype="passive"/>
+      <node ref="R26" pin="2" pintype="passive"/>
+      <node ref="R27" pin="1" pintype="passive"/>
+      <node ref="U1" pin="13" pinfunction="PA2_13" pintype="bidirectional"/>
+    </net>
+    <net code="28" name="A2_RAW" class="GPIOFanout">
+      <node ref="J8" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R25" pin="1" pintype="passive"/>
+    </net>
+    <net code="29" name="A3_ADC" class="GPIOFanout">
+      <node ref="C16" pin="1" pintype="passive"/>
+      <node ref="R28" pin="2" pintype="passive"/>
+      <node ref="R29" pin="2" pintype="passive"/>
+      <node ref="R30" pin="1" pintype="passive"/>
+      <node ref="U1" pin="14" pinfunction="PA3_14" pintype="bidirectional"/>
+    </net>
+    <net code="30" name="A3_RAW" class="GPIOFanout">
+      <node ref="J9" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R28" pin="1" pintype="passive"/>
+    </net>
+    <net code="31" name="A4_ADC" class="GPIOFanout">
+      <node ref="C17" pin="1" pintype="passive"/>
+      <node ref="R31" pin="2" pintype="passive"/>
+      <node ref="R32" pin="2" pintype="passive"/>
+      <node ref="R33" pin="1" pintype="passive"/>
+      <node ref="U1" pin="15" pinfunction="PA4_15" pintype="bidirectional"/>
+    </net>
+    <net code="32" name="A4_RAW" class="GPIOFanout">
+      <node ref="J10" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R31" pin="1" pintype="passive"/>
+    </net>
+    <net code="33" name="A5_ADC" class="GPIOFanout">
+      <node ref="C18" pin="1" pintype="passive"/>
+      <node ref="R34" pin="2" pintype="passive"/>
+      <node ref="R35" pin="2" pintype="passive"/>
+      <node ref="R36" pin="1" pintype="passive"/>
+      <node ref="U1" pin="17" pinfunction="PA6_17" pintype="bidirectional"/>
+    </net>
+    <net code="34" name="A5_RAW" class="GPIOFanout">
+      <node ref="J11" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R34" pin="1" pintype="passive"/>
+    </net>
+    <net code="35" name="A6_ADC" class="GPIOFanout">
+      <node ref="C19" pin="1" pintype="passive"/>
+      <node ref="R37" pin="2" pintype="passive"/>
+      <node ref="R38" pin="2" pintype="passive"/>
+      <node ref="R39" pin="1" pintype="passive"/>
+      <node ref="U1" pin="18" pinfunction="PA7_18" pintype="bidirectional"/>
+    </net>
+    <net code="36" name="A6_RAW" class="GPIOFanout">
+      <node ref="J12" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R37" pin="1" pintype="passive"/>
+    </net>
+    <net code="37" name="A7_ADC" class="GPIOFanout">
+      <node ref="C20" pin="1" pintype="passive"/>
+      <node ref="R40" pin="2" pintype="passive"/>
+      <node ref="R41" pin="2" pintype="passive"/>
+      <node ref="R42" pin="1" pintype="passive"/>
+      <node ref="U1" pin="20" pinfunction="PB1_20" pintype="bidirectional"/>
+    </net>
+    <net code="38" name="A7_RAW" class="GPIOFanout">
+      <node ref="J13" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R40" pin="1" pintype="passive"/>
+    </net>
+    <net code="39" name="D0" class="GPIOFanout">
+      <node ref="J14" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="R43" pin="2" pintype="passive"/>
+      <node ref="U1" pin="28" pinfunction="PA8_28" pintype="bidirectional"/>
+    </net>
+    <net code="40" name="D1" class="GPIOFanout">
+      <node ref="J14" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R44" pin="2" pintype="passive"/>
+      <node ref="U1" pin="29" pinfunction="PA9/UCPD1_DBCC1_29" pintype="bidirectional"/>
+    </net>
+    <net code="41" name="D2" class="GPIOFanout">
+      <node ref="J14" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="R45" pin="2" pintype="passive"/>
+      <node ref="U1" pin="32" pinfunction="PA10/UCPD1_DBCC2_32" pintype="bidirectional"/>
+    </net>
+    <net code="42" name="D3" class="GPIOFanout">
+      <node ref="J14" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
+      <node ref="R46" pin="2" pintype="passive"/>
+      <node ref="U1" pin="37" pinfunction="PA15_37" pintype="bidirectional"/>
+    </net>
+    <net code="43" name="D4" class="GPIOFanout">
+      <node ref="J14" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
+      <node ref="R47" pin="2" pintype="passive"/>
+      <node ref="U1" pin="21" pinfunction="PB2_21" pintype="bidirectional"/>
+    </net>
+    <net code="44" name="D5" class="GPIOFanout">
+      <node ref="J14" pin="6" pinfunction="Pin_6_6" pintype="passive"/>
+      <node ref="R48" pin="2" pintype="passive"/>
+      <node ref="U1" pin="42" pinfunction="PB3_42" pintype="bidirectional"/>
+    </net>
+    <net code="45" name="D6" class="GPIOFanout">
+      <node ref="J15" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="R49" pin="2" pintype="passive"/>
+      <node ref="U1" pin="43" pinfunction="PB4_43" pintype="bidirectional"/>
+    </net>
+    <net code="46" name="D7" class="GPIOFanout">
+      <node ref="J15" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R50" pin="2" pintype="passive"/>
+      <node ref="U1" pin="22" pinfunction="PB10_22" pintype="bidirectional"/>
+    </net>
+    <net code="47" name="D8" class="GPIOFanout">
+      <node ref="J15" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="R51" pin="2" pintype="passive"/>
+      <node ref="U1" pin="23" pinfunction="PB11_23" pintype="bidirectional"/>
+    </net>
+    <net code="48" name="D9" class="GPIOFanout">
+      <node ref="J15" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
+      <node ref="R52" pin="2" pintype="passive"/>
+      <node ref="U1" pin="24" pinfunction="PB12_24" pintype="bidirectional"/>
+    </net>
+    <net code="49" name="D10" class="GPIOFanout">
+      <node ref="J15" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
+      <node ref="R53" pin="2" pintype="passive"/>
+      <node ref="U1" pin="25" pinfunction="PB13_25" pintype="bidirectional"/>
+    </net>
+    <net code="50" name="D11" class="GPIOFanout">
+      <node ref="J15" pin="6" pinfunction="Pin_6_6" pintype="passive"/>
+      <node ref="R54" pin="2" pintype="passive"/>
+      <node ref="U1" pin="26" pinfunction="PB14_26" pintype="bidirectional"/>
+    </net>
+    <net code="51" name="D12" class="GPIOFanout">
+      <node ref="J16" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="R55" pin="2" pintype="passive"/>
+      <node ref="U1" pin="27" pinfunction="PB15_27" pintype="bidirectional"/>
+    </net>
+    <net code="52" name="D13" class="GPIOFanout">
+      <node ref="J16" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R56" pin="2" pintype="passive"/>
+      <node ref="U1" pin="30" pinfunction="PC6_30" pintype="bidirectional"/>
+    </net>
+    <net code="53" name="D14" class="GPIOFanout">
+      <node ref="J16" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="R57" pin="2" pintype="passive"/>
+      <node ref="U1" pin="31" pinfunction="PC7_31" pintype="bidirectional"/>
+    </net>
+    <net code="54" name="D15" class="GPIOFanout">
+      <node ref="J16" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
+      <node ref="R58" pin="2" pintype="passive"/>
+      <node ref="U1" pin="1" pinfunction="PC13_1" pintype="bidirectional"/>
+    </net>
+    <net code="55" name="D16" class="GPIOFanout">
+      <node ref="J16" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
+      <node ref="R59" pin="2" pintype="passive"/>
+      <node ref="U1" pin="2" pinfunction="PC14_2" pintype="bidirectional"/>
+    </net>
+    <net code="56" name="D17" class="GPIOFanout">
+      <node ref="J16" pin="6" pinfunction="Pin_6_6" pintype="passive"/>
+      <node ref="R60" pin="2" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="PC15_3" pintype="bidirectional"/>
+    </net>
+    <net code="57" name="D18" class="GPIOFanout">
+      <node ref="J17" pin="1" pinfunction="Pin_1_1" pintype="passive"/>
+      <node ref="R61" pin="2" pintype="passive"/>
+      <node ref="U1" pin="38" pinfunction="PD0_38" pintype="bidirectional"/>
+    </net>
+    <net code="58" name="D19" class="GPIOFanout">
+      <node ref="J17" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R62" pin="2" pintype="passive"/>
+      <node ref="U1" pin="39" pinfunction="PD1_39" pintype="bidirectional"/>
+    </net>
+    <net code="59" name="D20" class="GPIOFanout">
+      <node ref="J17" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="R63" pin="2" pintype="passive"/>
+      <node ref="U1" pin="40" pinfunction="PD2_40" pintype="bidirectional"/>
+    </net>
+    <net code="60" name="D21" class="GPIOFanout">
+      <node ref="J17" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
+      <node ref="R64" pin="2" pintype="passive"/>
+      <node ref="U1" pin="41" pinfunction="PD3_41" pintype="bidirectional"/>
+    </net>
+    <net code="61" name="D22" class="GPIOFanout">
+      <node ref="J17" pin="5" pinfunction="Pin_5_5" pintype="passive"/>
+      <node ref="R65" pin="2" pintype="passive"/>
+      <node ref="U1" pin="8" pinfunction="PF0_8" pintype="bidirectional"/>
+    </net>
+    <net code="62" name="D23" class="GPIOFanout">
+      <node ref="J17" pin="6" pinfunction="Pin_6_6" pintype="passive"/>
+      <node ref="R66" pin="2" pintype="passive"/>
+      <node ref="U1" pin="9" pinfunction="PF1_9" pintype="bidirectional"/>
+    </net>
+    <net code="63" name="GND" class="Ground">
+      <node ref="C1" pin="2" pintype="passive"/>
+      <node ref="C10" pin="2" pintype="passive"/>
+      <node ref="C11" pin="2" pintype="passive"/>
+      <node ref="C12" pin="2" pintype="passive"/>
+      <node ref="C13" pin="2" pintype="passive"/>
+      <node ref="C14" pin="2" pintype="passive"/>
+      <node ref="C15" pin="2" pintype="passive"/>
+      <node ref="C16" pin="2" pintype="passive"/>
+      <node ref="C17" pin="2" pintype="passive"/>
+      <node ref="C18" pin="2" pintype="passive"/>
+      <node ref="C19" pin="2" pintype="passive"/>
+      <node ref="C2" pin="2" pintype="passive"/>
+      <node ref="C20" pin="2" pintype="passive"/>
+      <node ref="C3" pin="2" pintype="passive"/>
+      <node ref="C4" pin="2" pintype="passive"/>
+      <node ref="C5" pin="2" pintype="passive"/>
+      <node ref="C6" pin="2" pintype="passive"/>
+      <node ref="C7" pin="2" pintype="passive"/>
+      <node ref="C8" pin="2" pintype="passive"/>
+      <node ref="C9" pin="2" pintype="passive"/>
+      <node ref="D4" pin="1" pinfunction="K_1" pintype="passive"/>
+      <node ref="D5" pin="2" pinfunction="A2_2" pintype="passive"/>
+      <node ref="J1" pin="A1" pinfunction="GND_A1" pintype="passive"/>
+      <node ref="J1" pin="A12" pinfunction="GND_A12" pintype="passive"/>
+      <node ref="J1" pin="B1" pinfunction="GND_B1" pintype="passive"/>
+      <node ref="J1" pin="B12" pinfunction="GND_B12" pintype="passive"/>
+      <node ref="J1" pin="SH" pinfunction="SHIELD_SH" pintype="passive"/>
+      <node ref="J10" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J11" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J12" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J13" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J14" pin="7" pinfunction="Pin_7_7" pintype="passive"/>
+      <node ref="J15" pin="7" pinfunction="Pin_7_7" pintype="passive"/>
+      <node ref="J16" pin="7" pinfunction="Pin_7_7" pintype="passive"/>
+      <node ref="J17" pin="7" pinfunction="Pin_7_7" pintype="passive"/>
+      <node ref="J18" pin="4" pinfunction="Pin_4_4" pintype="passive"/>
+      <node ref="J2" pin="4" pintype="passive"/>
+      <node ref="J3" pin="4" pintype="passive"/>
+      <node ref="J4" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="J5" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J6" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J7" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J8" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="J9" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="R1" pin="2" pintype="passive"/>
+      <node ref="R2" pin="2" pintype="passive"/>
+      <node ref="R21" pin="2" pintype="passive"/>
+      <node ref="R24" pin="2" pintype="passive"/>
+      <node ref="R27" pin="2" pintype="passive"/>
+      <node ref="R30" pin="2" pintype="passive"/>
+      <node ref="R33" pin="2" pintype="passive"/>
+      <node ref="R36" pin="2" pintype="passive"/>
+      <node ref="R39" pin="2" pintype="passive"/>
+      <node ref="R4" pin="2" pintype="passive"/>
+      <node ref="R42" pin="2" pintype="passive"/>
+      <node ref="SW2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U1" pin="7" pinfunction="VSS_7" pintype="power_in"/>
+      <node ref="U2" pin="2" pinfunction="GND_2" pintype="passive"/>
+      <node ref="U3" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="U4" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="U5" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="U6" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="U6" pin="5" pinfunction="ST_5" pintype="passive"/>
+      <node ref="U7" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="U7" pin="5" pinfunction="ST_5" pintype="passive"/>
+    </net>
+    <net code="64" name="I2C_SCL" class="GPIOFanout">
+      <node ref="J18" pin="3" pinfunction="Pin_3_3" pintype="passive"/>
+      <node ref="R68" pin="2" pintype="passive"/>
+      <node ref="U1" pin="45" pinfunction="PB6_45" pintype="bidirectional"/>
+    </net>
+    <net code="65" name="I2C_SDA" class="GPIOFanout">
+      <node ref="J18" pin="2" pinfunction="Pin_2_2" pintype="passive"/>
+      <node ref="R67" pin="2" pintype="passive"/>
+      <node ref="U1" pin="46" pinfunction="PB7_46" pintype="bidirectional"/>
+    </net>
+    <net code="66" name="unconnected-(J1-SBU1-PadA8)" class="Default">
+      <node ref="J1" pin="A8" pinfunction="SBU1_A8" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="67" name="unconnected-(J1-SBU2-PadB8)" class="Default">
+      <node ref="J1" pin="B8" pinfunction="SBU2_B8" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="68" name="unconnected-(U5-NC-Pad4)" class="Default">
+      <node ref="U5" pin="4" pinfunction="NC_4" pintype="no_connect"/>
+    </net>
+    <net code="69" name="unconnected-(U6-NC-Pad4)" class="Default">
+      <node ref="U6" pin="4" pinfunction="NC_4" pintype="no_connect"/>
+    </net>
+    <net code="70" name="unconnected-(U7-NC-Pad4)" class="Default">
+      <node ref="U7" pin="4" pinfunction="NC_4" pintype="no_connect"/>
+    </net>
+  </nets>
+</export>

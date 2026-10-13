@@ -1,6 +1,6 @@
 # Generic device CAN integration
 
-The generic Rev B firmware is a **Cyphal/CAN device** running the shared libcanard stack at 500 kbit/s arbitration / 2 Mbit/s data. Generated OpenSimGear DSDL transfers replace the old private CAN frame codec. Both sockets use the existing 4P4C wiring: 1=BUS_12V, 2=CAN_H, 3=CAN_L, 4=GND. Endpoint termination and cable/current qualification remain hardware requirements.
+The generic v0.1.0 firmware is a **Cyphal/CAN device** running the shared libcanard stack at 500 kbit/s arbitration / 2 Mbit/s data. Generated OpenSimGear DSDL transfers replace the old private CAN frame codec. Both sockets use the existing 4P4C wiring: 1=BUS_12V, 2=CAN_H, 3=CAN_L, 4=GND. Endpoint termination and cable/current qualification remain hardware requirements.
 
 ## Discovery and reports
 

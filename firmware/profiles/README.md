@@ -2,7 +2,7 @@
 
 A device enables only fitted controls by declaring arrays in a profile header. Disabled controls are omitted entirely, including from the USB descriptor. Choose `-DOSG_DEVICE_PROFILE=example`, `shifter` or `expanded`; the filename under this directory selects the profile. Add a header with a `static const osg_profile_t selected_profile` to add a device. These declarations supply factory defaults. The runtime configuration core can stage every supported control kind, validate the complete draft, save it and publish changed USB descriptors after explicit detachment/reconnection. Changes to control counts, axis usages or neutral values require the gateway's own explicit Apply. Name changes, endpoint calibration, inversion and deadzone changes renew its input lease while retaining the gateway layout.
 
-Reusable validation, descriptor construction, debounce, report packing and input decoding are in firmware-common. This repository owns the selected declarations and Rev B physical mapping. Invalid profiles stop before USB attachment; validation rejects overlapping contacts/channels/usages, missing arrays, unsupported counts, invalid ranges, unmapped expansion banks and I²C encoders.
+Reusable validation, descriptor construction, debounce, report packing and input decoding are in firmware-common. This repository owns the selected declarations and v0.1.0 physical mapping. Invalid profiles stop before USB attachment; validation rejects overlapping contacts/channels/usages, missing arrays, unsupported counts, invalid ranges, unmapped expansion banks and I²C encoders.
 
 ## Profile examples
 
