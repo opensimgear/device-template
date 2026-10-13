@@ -3,6 +3,7 @@
 import argparse
 import copy
 import json
+import os
 from pathlib import Path
 import selectors
 import subprocess
@@ -19,12 +20,14 @@ BINARY_DIR = REPO / '.simulation'
 class ConfigurationTests(unittest.TestCase):
     def setUp(self):
         self.pedals = json.loads((REPO / 'simulation/configs/pedals.json').read_text())
+        self.environment = {**os.environ, 'OSG_SIMULATION_NAMESPACE': f'device-tests-{os.getpid()}'}
 
     def test_examples_pass_native_validation(self):
         for name in ('pedals', 'button-panel', 'shifter'):
             result = subprocess.run([sys.executable, str(REPO / 'simulation/run.py'), '--config',
                                      str(REPO / f'simulation/configs/{name}.json'), '--output-dir', str(BINARY_DIR),
-                                     '--no-build', '--validate'], capture_output=True, text=True)
+                                     '--no-build', '--validate'], capture_output=True, text=True,
+                                    env=self.environment)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn('production profile are valid', result.stdout)
 
@@ -55,6 +58,24 @@ class ConfigurationTests(unittest.TestCase):
             with self.assertRaisesRegex(ConfigurationError, 'exceeds'):
                 read_configuration(path)
 
+    def test_simulation_namespace_is_bounded_and_validated_before_state_access(self):
+        with tempfile.TemporaryDirectory(dir=BINARY_DIR) as temporary:
+            state = Path(temporary) / 'untouched-state'
+            command = [sys.executable, str(REPO / 'simulation/run.py'), '--config',
+                       str(REPO / 'simulation/configs/pedals.json'), '--output-dir', str(BINARY_DIR),
+                       '--no-build', '--state-dir', str(state), '--validate']
+            for namespace in ('', 'bad/../path', 'a' * 32, 'white space', 'é'):
+                result = subprocess.run(command, capture_output=True, text=True,
+                                        env={**self.environment, 'OSG_SIMULATION_NAMESPACE': namespace})
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn('OSG_SIMULATION_NAMESPACE must contain 1..31 ASCII', result.stderr)
+                self.assertFalse(state.exists())
+            for namespace in ('Z09._-', 'a' * 31):
+                result = subprocess.run(command, capture_output=True, text=True,
+                                        env={**self.environment, 'OSG_SIMULATION_NAMESPACE': namespace})
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertFalse(state.exists())
+
     def test_factory_save_restart_reset_and_samples(self):
         with tempfile.TemporaryDirectory(dir=BINARY_DIR) as temporary:
             directory = Path(temporary)
@@ -70,7 +91,7 @@ class ConfigurationTests(unittest.TestCase):
 
             def start():
                 return subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                        stderr=subprocess.PIPE, text=True, bufsize=1)
+                                        stderr=subprocess.PIPE, text=True, bufsize=1, env=self.environment)
 
             def admin(operation):
                 nonlocal request
@@ -115,7 +136,8 @@ class ConfigurationTests(unittest.TestCase):
                 restored = admin('inspect')
                 self.assertGreater(restored['moduleBoot'], first['moduleBoot'])
                 self.assertIn('Saved pedals', json.dumps(restored['module']))
-                duplicate = subprocess.run(command, input='', capture_output=True, text=True, timeout=4)
+                duplicate = subprocess.run(command, input='', capture_output=True, text=True, timeout=4,
+                                           env=self.environment)
                 self.assertNotEqual(duplicate.returncode, 0)
                 self.assertIn('already in use', duplicate.stderr)
                 admin('direct 1')
@@ -135,7 +157,7 @@ class ConfigurationTests(unittest.TestCase):
                        '--no-build', '--state-dir', str(directory / 'state'),
                        '--gateway', '8ea15ffe17734f2b81a12a12']
             process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                       stderr=subprocess.PIPE, text=True, bufsize=1)
+                                       stderr=subprocess.PIPE, text=True, bufsize=1, env=self.environment)
             request = 0
 
             def admin(operation):

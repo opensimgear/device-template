@@ -34,7 +34,7 @@ Erased settings receive a committed factory baseline at generation 1 before conf
 - Cyphal client tests use actual transport peers and cover gateway source binding, boot/lease/sequence/report validation, direct USB ownership, bounded queue rejection, assignment timeout, sequence exhaustion, late same-direction phase ACKs and interrupted boot-counter writes.
 - All three profiles cross-build with Arm GNU 15.3.1 for STM32G0B1CBT6. Compilation uses `0xFFFF/0xFFFF` placeholders only; no firmware was flashed.
 - GCC stack usage is emitted as `.su` files. The shared journal commit frame is 2,160 bytes plus its 2,016-byte CRC scratch frame; runtime definition initialization uses 1,912 bytes and main uses 1,008 bytes, below the 16 KiB reserved stack with the port frames. This is static evidence, not measured peak stack.
-- Four native JSON simulation suites pass with sanitizers, including volatile RGB/boolean LED state, ownership changes and unchanged flash/descriptor/reconnect counters. The maintained Clang/LLVM gate measures 94.87% line coverage for `device_actions.c`, 90.11% for `config_can.c` and 90.82% for `can_client.c`; each must stay above 70%.
+- Five native JSON simulation suites pass with sanitizers, including volatile RGB/boolean LED state, ownership changes, unchanged flash/descriptor/reconnect counters and bounded discovery namespaces rejected before state access. The maintained Clang/LLVM gate measures 94.87% line coverage for `device_actions.c`, 90.11% for `config_can.c` and 90.82% for `can_client.c`; each must stay above 70%.
 
 | Profile | Flash | SRAM including reserved heap/stack |
 | --- | ---: | ---: |

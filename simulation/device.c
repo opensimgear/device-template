@@ -46,6 +46,7 @@ static struct {
     char action_result[OSG_ACTION_REPLY_CAPACITY];
 } emulator;
 static const char *state_directory;
+static const char *simulation_namespace;
 static char gateway_uid[25]="00112233445566778899aabb";
 static FILE *response_output;
 static volatile sig_atomic_t stopped;
@@ -383,7 +384,9 @@ static void serve_stdin(void) {
 
 static void init_local(void) {
     char parent[80];snprintf(parent,sizeof parent,"/tmp/opensimgear-%lu",(unsigned long)geteuid());owned_directory(parent);
-    snprintf(local.root,sizeof local.root,"%s/gateways",parent);owned_directory(local.root);
+    if(simulation_namespace) snprintf(local.root,sizeof local.root,"%s/gateways-%s",parent,simulation_namespace);
+    else snprintf(local.root,sizeof local.root,"%s/gateways",parent);
+    owned_directory(local.root);
     snprintf(local.bus_manifest,sizeof local.bus_manifest,"%s/%s.can.json",local.root,gateway_uid);
     local.bus=socket(AF_INET,SOCK_DGRAM,0);if(local.bus<0)die("Could not create local CAN endpoint");
     local.broker=(struct sockaddr_in){.sin_family=AF_INET,.sin_addr={.s_addr=htonl(INADDR_LOOPBACK)}};
@@ -401,6 +404,17 @@ static bool uid_valid(const char *uid) {
     bool nonzero=false,nonff=false;
     for(unsigned i=0;i<24;i++) {char c=uid[i];if(!((c>='0'&&c<='9')||(c>='a'&&c<='f')))return false;nonzero|=c!='0';nonff|=c!='f';}
     return nonzero&&nonff;
+}
+
+static bool namespace_valid(const char *name) {
+    if(!name || !*name) return false;
+    size_t n=0;
+    for(;name[n];n++) {
+        char c=name[n];
+        if(n>=31 || !((c>='a'&&c<='z') || (c>='A'&&c<='Z') || (c>='0'&&c<='9') ||
+                       c=='.' || c=='_' || c=='-')) return false;
+    }
+    return true;
 }
 
 static void usage(const char *program) {
@@ -426,6 +440,10 @@ static void load_definition(int fd) {
 }
 int main(int argc,char **argv) {
     int definition_fd=-1;bool validate=false;response_output=stdout;
+    simulation_namespace=getenv("OSG_SIMULATION_NAMESPACE");
+    if(simulation_namespace && !namespace_valid(simulation_namespace)) {
+        fprintf(stderr,"OSG_SIMULATION_NAMESPACE must contain 1..31 ASCII letters, digits, '.', '_' or '-'\n");return 2;
+    }
     for(int i=1;i<argc;i++) {
         if(!strcmp(argv[i],"--validate")) {validate=true;continue;}
         if(i+1>=argc)usage(argv[0]);

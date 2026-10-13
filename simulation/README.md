@@ -30,6 +30,12 @@ python3 simulation/run.py --config my-device.json \
 
 Each instance needs a unique 32-character lowercase hexadecimal `identity`. The gateway rejects simultaneously active duplicate identities. State directories are locked before flash access. By default, a device's state is `.simulation/state/<identity>/`. Factory values from JSON initialize fresh state; settings saved through Cockpit take precedence on restart. Editing JSON changes the factory reset target, not already committed settings. Select a fresh state directory to start again from JSON, or use Cockpit's reset and save flow. Never share one device's state directory with a different identity.
 
+For isolated tests, set the same `OSG_SIMULATION_NAMESPACE` on the gateway, device processes and the Cockpit service. It selects `/tmp/opensimgear-<uid>/gateways-<namespace>/` instead of the ordinary `gateways/` directory, so a separately running Cockpit cannot attach to the test gateway. Names contain 1–31 ASCII letters, digits, `.`, `_` or `-`; invalid names are rejected before state access. Omit the variable for ordinary automatic discovery. For example:
+
+```sh
+OSG_SIMULATION_NAMESPACE=actions-ui python3 simulation/run.py --config simulation/configs/pedals.json
+```
+
 ## JSON configuration
 
 `identity`, `name` and `inputs` are required. Counts derive from the input arrays. Omitted arrays are empty. Unknown fields, duplicate JSON keys, overlapping mappings, invalid types and out-of-range values are rejected before the process joins CAN. Files must be UTF-8 and at most 64 KiB. The native firmware repeats profile validation and builds its production descriptor before accepting the definition.
