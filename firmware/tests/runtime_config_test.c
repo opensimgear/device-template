@@ -173,4 +173,20 @@ static void persistence_test(void) {
     s.active.buttons[2].input=42;
     assert(!osg_runtime_encode(&s.active,1,record,sizeof record));
 }
-int main(void) { transaction_test();axis_test();maximum_test();initial_baseline_test();persistence_test();puts("runtime configuration tests passed");return 0; }
+static void definition_defaults_test(void) {
+    osg_runtime_config_t s;assert(osg_runtime_init(&s,&defaults,NULL));
+    osg_runtime_definition_t definition=s.defaults;
+    definition.axis_options[0]=(osg_runtime_axis_t){.inverted=true,.deadzone=1234};
+    flash_t flash={0};memset(flash.pages,255,sizeof flash.pages);osg_journal_io_t backend=io(&flash);
+    assert(osg_runtime_init_definition(&s,&definition,&backend));
+    assert(s.active.axis_options[0].inverted && s.active.axis_options[0].deadzone==1234);
+    ok(&s,"claim 1",0);ok(&s,"axis 1 0 0 48 100 4000 32768 0 400",1);
+    ok(&s,"apply_save 1",2);assert(osg_runtime_finish_apply(&s));
+    assert(osg_runtime_init_definition(&s,&definition,&backend));
+    assert(!s.active.axis_options[0].inverted && s.active.axis_options[0].deadzone==400);
+    ok(&s,"claim 2",3);ok(&s,"reset 2",4);ok(&s,"apply 2",5);assert(osg_runtime_finish_apply(&s));
+    assert(s.active.axis_options[0].inverted && s.active.axis_options[0].deadzone==1234);
+    definition.axis_options[0].deadzone=32768;
+    assert(!osg_runtime_init_definition(&s,&definition,NULL));
+}
+int main(void) { definition_defaults_test();transaction_test();axis_test();maximum_test();initial_baseline_test();persistence_test();puts("runtime configuration tests passed");return 0; }

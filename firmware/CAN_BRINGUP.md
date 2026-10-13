@@ -42,9 +42,9 @@ Erased settings receive a committed factory baseline at generation 1 before conf
 Native reproduction from the repository root:
 
 ```sh
-cmake -S firmware/tests -B ../.research/device-template/tests -DCMAKE_BUILD_TYPE=Release
-cmake --build ../.research/device-template/tests --parallel
-ctest --test-dir ../.research/device-template/tests --output-on-failure
+cmake -S firmware/tests -B .build/tests -DCMAKE_BUILD_TYPE=Release
+cmake --build .build/tests --parallel
+ctest --test-dir .build/tests --output-on-failure
 ```
 
 No assembled module/gateway CAN chain, USB suspend/fallback timing, ADC/I²C/encoder timing, signal margins or power behavior was tested. Bench qualification must verify discovery, all enabled controls including hats, gateway registry/apply/reconnect, cable removal, bus-off recovery, direct USB takeover/fallback, lost/delayed acknowledgements and no replay after reset. Runtime settings and saved calibration now run through the same core in the native emulator and STM32 target. Output routing and firmware updates remain future work.

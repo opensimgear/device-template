@@ -127,14 +127,22 @@ static bool interrupted_baseline(const osg_journal_io_t *io,const uint8_t record
 }
 bool osg_runtime_init(osg_runtime_config_t *s,const osg_profile_t *defaults,const osg_journal_io_t *io) {
     osg_profile_layout_t layout;if(!s || osg_profile_validate(defaults,&layout)!=OSG_PROFILE_OK) return false;
-    memset(s,0,sizeof *s);size_t length=strlen(defaults->name);if(!length || length>=64) return false;
-    osg_runtime_definition_t *d=&s->defaults;memcpy(d->name,defaults->name,length+1);
+    size_t length=strlen(defaults->name);if(!length || length>=64) return false;
+    osg_runtime_definition_t definition={0};osg_runtime_definition_t *d=&definition;memcpy(d->name,defaults->name,length+1);
     d->button_count=defaults->button_count;d->axis_count=defaults->axis_count;d->hat_count=defaults->hat_count;
     d->encoder_count=defaults->encoder_count;d->selector_count=defaults->selector_count;d->expander_mask=defaults->expander_mask;
 #define COPY(field,count) do { if(d->count) memcpy(d->field,defaults->field,d->count*sizeof d->field[0]); } while(0)
     COPY(buttons,button_count);COPY(axes,axis_count);COPY(hats,hat_count);COPY(encoders,encoder_count);COPY(selectors,selector_count);
 #undef COPY
-    if(!valid(d,&layout)) return false;
+    return osg_runtime_init_definition(s,d,io);
+}
+
+bool osg_runtime_init_definition(osg_runtime_config_t *s,const osg_runtime_definition_t *defaults,const osg_journal_io_t *io) {
+    osg_profile_layout_t layout;if(!s || !defaults || !valid(defaults,&layout)) return false;
+    /* Copy first so callers may reuse a definition owned by this runtime. */
+    osg_runtime_definition_t definition=*defaults;
+    memset(s,0,sizeof *s);s->defaults=definition;
+    const osg_runtime_definition_t *d=&s->defaults;
     s->active=*d;s->generation=1;
     if(io) {
         if(!io->read || !io->erase || !io->program) return false;

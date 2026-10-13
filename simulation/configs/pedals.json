@@ -1,0 +1,12 @@
+{
+  "identity": "11111111111111111111111111111111",
+  "name": "Simulated pedals",
+  "inputs": {
+    "axes": [
+      { "channel": 0, "usage": "X", "min": 100, "max": 3900, "neutral": 0, "inverted": false, "deadzone": 0 },
+      { "channel": 1, "usage": "Y", "min": 0, "max": 4095, "neutral": 0, "inverted": true, "deadzone": 0 },
+      { "channel": 2, "usage": "Z", "min": 0, "max": 4095, "neutral": 0, "inverted": false, "deadzone": 0 }
+    ]
+  },
+  "initial_samples": { "axes": [100, 4095, 0] }
+}

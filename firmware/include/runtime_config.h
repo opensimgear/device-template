@@ -32,6 +32,9 @@ typedef struct {
  * a recognizable interrupted baseline is retried. Other invalid settings fail
  * closed, preserving evidence instead of silently replacing user settings. */
 bool osg_runtime_init(osg_runtime_config_t *,const osg_profile_t *,const osg_journal_io_t *);
+/* Complete factory definition, including axis inversion/deadzone. Stored user
+ * settings take precedence; defaults remain the target of the reset command. */
+bool osg_runtime_init_definition(osg_runtime_config_t *,const osg_runtime_definition_t *,const osg_journal_io_t *);
 void osg_runtime_tick(osg_runtime_config_t *,uint32_t now);
 void osg_runtime_invalidate_claim(osg_runtime_config_t *);
 /* Returns NULL on success or a stable error token. Apply is completed only by

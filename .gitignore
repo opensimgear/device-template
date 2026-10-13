@@ -1,4 +1,7 @@
 .DS_Store
+.e2e/
+.simulation/
+.build/
 build/
 cmake-build-*/
 .cache/
@@ -20,3 +23,6 @@ target/
 *-backups/
 *.kicad_pro.lck
 .history/
+
+__pycache__/
+*.py[cod]

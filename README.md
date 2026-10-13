@@ -6,7 +6,7 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 
 - Configurable buttons, maintained contacts, analogue axes, eight-way hats, rotary encoders and three-position selectors. Unused controls are omitted from the HID descriptor and report.
 - `example`, three-command `shifter` and `expanded` factory profiles; runtime drafts cover every control kind, channel mapping, axis calibration/inversion/deadzone, expansion masks and Unicode controller names. Validation rejects overlapping pins and oversized HID reports.
-- One bounded configuration writer, explicit Apply/Save/discard/reset, a separate interrupted-write-safe settings journal, and direct USB descriptor replacement while detached. Cockpit accesses the same runtime core through the matching gateway; the native emulator runs this C implementation.
+- One bounded configuration writer, explicit Apply/Save/discard/reset, a separate interrupted-write-safe settings journal, and direct USB descriptor replacement while detached. Cockpit accesses the same runtime core through the matching gateway; the independent JSON device simulation runs this C implementation.
 - Optional 3.3 V TCA9555 input boards on I²C, with missing-board diagnostics and recovery that prevents held momentary contacts from generating a new press.
 - Composite USB HID + CDC serial, unique serial number from the MCU's 96-bit UID.
 - Serial `hello`, `info`, `inputs`, LED control and CAN status diagnostics.
@@ -18,6 +18,7 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 
 ## Start here
 
+- [Run native devices from JSON](simulation/README.md)
 - [Firmware build, flash and console instructions](firmware/README.md)
 - [CAN integration, ownership and firmware validation](firmware/CAN_BRINGUP.md)
 - [Input examples, HID mapping and control wiring](firmware/profiles/README.md)
@@ -27,6 +28,20 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 - [Validation record and remaining gates](electronics/boards/starter/rev-b/VALIDATION.md)
 - [Schematic PDF](electronics/boards/starter/rev-b/review/schematic.pdf)
 - [Front copper preview](electronics/boards/starter/rev-b/review/pcb.svg)
+
+## Run simulated devices
+
+Start Cockpit normally and run the gateway from the [device-gateway simulation](https://github.com/opensimgear/device-gateway/tree/main/simulation). From this repository, start a separate terminal for each device:
+
+```sh
+python3 simulation/run.py --config simulation/configs/pedals.json
+python3 simulation/run.py --config simulation/configs/button-panel.json
+python3 simulation/run.py --config simulation/configs/shifter.json
+```
+
+Each JSON declares a unique identity, controller name and input arrays. The gateway exposes the devices to Cockpit through its ordinary protocol. The first launch initializes pinned dependencies and builds into this repository’s `.simulation/`; saved configuration survives independent device, gateway and Cockpit restarts. See the [simulation guide](simulation/README.md) for JSON fields, input controls, state isolation and native tests.
+
+Gateway and Cockpit E2E runners clone the components they require under their own `.e2e/` directories and initialize dependencies before building. This repository’s integration workflow clones the gateway runner there and supplies the current device source explicitly. Build commands do not invoke another repository’s E2E runner.
 
 ## Create a device
 
@@ -41,6 +56,7 @@ Start a new device with C firmware, electronics and mechanical designs in one re
 
 | Directory | Ownership |
 | --- | --- |
+| `simulation/` | Independent native device runtime, JSON examples, build/launch commands and tests |
 | `firmware/` | Application, physical control profile, board target and build entry point |
 | `electronics/boards/starter/rev-b/` | Generic PCB/schematic, BOM, pinout and validation |
 | `electronics/boards/starter/rev-a/` | Preserved earlier example circuit; use its matching firmware revision |

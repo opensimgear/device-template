@@ -11,17 +11,31 @@ cmake --preset starter -DOSG_DEVICE_PROFILE=example -DOSG_USB_VID=<your-VID> -DO
 cmake --build --preset starter
 ```
 
-`example`, `shifter` and `expanded` are provided. The [profile guide](profiles/README.md) documents wiring, report layouts and adding a profile. Outputs are `osg_hello.elf`, `.bin`, `.hex` and `.map` in the workspace `../../.research/device-template/starter` directory. Missing, zero or out-of-range USB IDs are rejected. CI uses `0xFFFF/0xFFFF` only for compilation, never for distribution or flashing.
+`example`, `shifter` and `expanded` are provided. The [profile guide](profiles/README.md) documents wiring, report layouts and adding a profile. Outputs are `osg_hello.elf`, `.bin`, `.hex` and `.map` in this repository’s `.build/starter` directory. Missing, zero or out-of-range USB IDs are rejected. CI uses `0xFFFF/0xFFFF` only for compilation, never for distribution or flashing.
 
 For Ninja instead of Make:
 
 ```sh
-cmake -S . -B ../../.research/device-template/starter-ninja -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/arm-gcc.cmake \
+cmake -S . -B ../.build/starter-ninja -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/arm-gcc.cmake \
   -DOSG_DEVICE_PROFILE=shifter -DOSG_USB_VID=<your-VID> -DOSG_USB_PID=<your-PID>
-cmake --build ../../.research/device-template/starter-ninja
+cmake --build ../.build/starter-ninja
 ```
 
 Both firmware and native tests use the full common-code pin in `cmake/common-revision.cmake`. Common code owns upstream dependency pins. For shared-code development add `-DFETCHCONTENT_SOURCE_DIR_FIRMWARE_COMMON=/absolute/path/to/firmware-common`, then update the commit pin after review. The first normal build needs network access.
+
+## Run a native device from JSON
+
+From the repository root, start one device per terminal:
+
+```sh
+python3 simulation/run.py --config simulation/configs/pedals.json
+python3 simulation/run.py --config simulation/configs/button-panel.json
+python3 simulation/run.py --config simulation/configs/shifter.json
+```
+
+The [simulation guide](../simulation/README.md) covers device identity, every supported control, input samples and persistent state. The first launch builds this repository’s production runtime and initializes its pinned `firmware-common` dependency under `.simulation/`. Ordinary Cockpit connects to the separately running gateway, which discovers these devices over local CAN transport. No sibling source checkout or workspace setup is required.
+
+JSON is the complete factory definition, including axis inversion and deadzone. The production initializer validates it and restores committed settings when available. Explicit factory reset stages the JSON defaults. Firmware boards retain their existing profile initializer and default axis options.
 
 ## Flash and observe
 
@@ -52,9 +66,9 @@ I²C uses PB6/PB7 AF6 with an initial 400 kHz timing target at 64 MHz PCLK. One 
 ## Validation and remaining integration
 
 ```sh
-cmake -S firmware/tests -B ../.research/device-template/tests -DCMAKE_BUILD_TYPE=Release
-cmake --build ../.research/device-template/tests
-ctest --test-dir ../.research/device-template/tests --output-on-failure
+cmake -S firmware/tests -B .build/tests -DCMAKE_BUILD_TYPE=Release
+cmake --build .build/tests
+ctest --test-dir .build/tests --output-on-failure
 ```
 
 Run those commands from the repository root. Ten native tests exercise the runtime core, all supplied factory profiles and their real USB descriptor callbacks, including dynamic field omission and UTF-16 controller names. Shared tests cover limits, invalid assignments, conflicts, stale axes, cross-bank recovery, encoder acknowledgements and expansion scanning. CI also cross-builds each profile. These checks do not establish physical timing or host compatibility.

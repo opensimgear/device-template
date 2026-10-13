@@ -8,16 +8,18 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Configure native behavior tests
-        run: cmake -S firmware/tests -B ../.research/device-template/tests -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S firmware/tests -B .build/tests -DCMAKE_BUILD_TYPE=Release
       - name: Build and test
         run: |
-          cmake --build ../.research/device-template/tests --parallel
-          ctest --test-dir ../.research/device-template/tests --output-on-failure
+          cmake --build .build/tests --parallel
+          ctest --test-dir .build/tests --output-on-failure
       - name: Address and undefined behavior sanitizer checks
         run: |
-          cmake -S firmware/tests -B ../.research/device-template/sanitized -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer" -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address,undefined"
-          cmake --build ../.research/device-template/sanitized --parallel
-          ctest --test-dir ../.research/device-template/sanitized --output-on-failure
+          cmake -S firmware/tests -B .build/sanitized -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer" -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address,undefined"
+          cmake --build .build/sanitized --parallel
+          ctest --test-dir .build/sanitized --output-on-failure
+      - name: Native JSON device simulation tests
+        run: python3 simulation/test.py --sanitize
   firmware:
     runs-on: ubuntu-24.04
     strategy:
