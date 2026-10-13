@@ -68,3 +68,7 @@ Lite/Pro editions may share firmware and electronics. A material change alone do
 ## Licensing
 
 No OpenSimGear license grant is implied for the new authored firmware, electronics or mechanical designs. Included KiCad library data retains its own [license](electronics/boards/starter/0.1.0/LICENSE-KICAD.md). Fetched firmware dependencies retain their upstream licenses; see [third-party notices](firmware/THIRD_PARTY.md).
+
+## JLCPCB exports
+
+From this repository root, run `sh tools/bundle-jlcpcb.sh` for the latest numeric board version, or `sh tools/bundle-jlcpcb.sh 0.1.0` for a specific version. Requires KiCad 10 (`kicad-cli`) and Python 3. The script generates a Gerber ZIP plus separate JLCPCB BOM/CPL CSVs in the workspace `.research/jlcpcb/` directory. Use `--output-dir path` to change the destination or `--smd-only` to omit through-hole assembly. See [tool usage](tools/README.md) and the board’s fabrication notes before ordering.
