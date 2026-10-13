@@ -20,6 +20,11 @@ jobs:
           ctest --test-dir .build/sanitized --output-on-failure
       - name: Native JSON device simulation tests
         run: python3 simulation/test.py --sanitize
+      - name: Action routing coverage above 70 percent
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends clang-18 llvm-18
+          python3 firmware/tests/coverage.py --clang clang-18 --llvm-cov llvm-cov-18 --llvm-profdata llvm-profdata-18
   firmware:
     runs-on: ubuntu-24.04
     strategy:

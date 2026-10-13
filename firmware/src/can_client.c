@@ -3,7 +3,7 @@
 
 static void invalidate(osg_can_client_t *c) {
     memset(c->history,0,sizeof c->history); c->ack_sequence=0;
-    c->generation++; c->input_due=true;
+    c->generation++; c->input_due=true; c->status_due=true;
 }
 bool osg_can_client_init(osg_can_client_t *c,const osg_gateway_identity_t *id,
     const osg_gateway_profile_t *profile,uint32_t boot,osg_can_send_t send,void *context) {
@@ -41,6 +41,14 @@ void osg_can_client_tick(osg_can_client_t *c,uint32_t now,const uint8_t report[O
             c->announce_due=now+450U+c->random%101U;
         } else c->announce_due=now+20U;
         c->announce_waiting=true;
+    }
+    /* Route liveness is independent of HID streaming. Disabled controllers
+     * and direct-USB devices still acknowledge their assigned CAN lease. */
+    if(c->node && c->lease && !c->exhausted && (c->status_due || (uint32_t)(now-c->status_at)>=OSG_CAN_STATUS_MS)) {
+        if(c->next_sequence==UINT32_MAX) { c->exhausted=true; invalidate(c); return; }
+        osg_gateway_message_t m={.type=OSG_GW_HEARTBEAT,.node=c->node,.identity=c->identity,
+            .boot_session=c->boot,.lease=c->lease,.sequence=c->next_sequence,.direct_usb=c->direct};
+        if(send(c,&m,now)) { c->next_sequence++; c->status_at=now; c->status_due=false; }
     }
     if(!osg_can_client_active(c) || !c->announced || !report ||
        !osg_gateway_profile_report_valid(&c->profile,report) ||

@@ -7,6 +7,7 @@
 #include "config_can.h"
 #include "can_delivery.h"
 #include "boot_session.h"
+#include "device_actions.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,6 +33,7 @@ static struct {
     osg_module_config_can_t module_config;
     osg_runtime_config_t runtime;
     osg_runtime_definition_t defaults;
+    osg_device_actions_t actions;
     osg_profile_state_t acquisition;
     osg_profile_sample_t sample;
     osg_can_delivery_t delivery;
@@ -41,6 +43,7 @@ static struct {
     uint32_t now,module_reconnects,can_frames,acks,node_collisions;
     bool direct;
     char active_config[4096];
+    char action_result[OSG_ACTION_REPLY_CAPACITY];
 } emulator;
 static const char *state_directory;
 static char gateway_uid[25]="00112233445566778899aabb";
@@ -108,6 +111,7 @@ static void init_module_client(uint32_t boot) {
     assert(osg_can_client_init(&emulator.module,&emulator.module_identity,&p,boot,module_send,NULL));
     emulator.module.configuration_generation=emulator.runtime.generation;
     osg_module_config_can_init(&emulator.module_config,&emulator.module,&emulator.runtime);
+    osg_module_config_can_actions(&emulator.module_config,&emulator.actions.registry);
     osg_can_client_usb(&emulator.module,emulator.direct); rearm();
 }
 
@@ -115,6 +119,7 @@ static void boot_module(void) {
     osg_cyphal_destroy(&emulator.module.cyphal);
     uint32_t boot; osg_journal_io_t settings=io(&emulator.settings_flash),counter=io(&emulator.boot_flash);
     assert(osg_runtime_init_definition(&emulator.runtime,&emulator.defaults,&settings));
+    assert(osg_device_actions_init(&emulator.actions,true));emulator.action_result[0]=0;
     assert(osg_boot_session_begin(&counter,&boot)); init_module_client(boot);
 }
 
@@ -163,8 +168,11 @@ static void inspect(uint32_t id,bool ok,const char *error) {
         emulator.now,emulator.module.boot,emulator.module_reconnects,emulator.can_frames,emulator.acks,emulator.settings_flash.erases,emulator.settings_flash.programs);
     hex(emulator.runtime.descriptor,emulator.runtime.descriptor_length);
     fprintf(response_output,"\",\"moduleReportHex\":\"");hex(emulator.report,emulator.runtime.layout.length);
-    fprintf(response_output,"\",\"sourceNode\":%u,\"nodeCollisions\":%u,\"module\":%s}}\n",
-        osg_cyphal_node_id(&emulator.module.cyphal),emulator.node_collisions,emulator.active_config);fflush(response_output);
+    char action_state[OSG_ACTION_REPLY_CAPACITY];
+    assert(osg_actions_command(&emulator.actions.registry,"action state",action_state,sizeof action_state));
+    fprintf(response_output,"\",\"sourceNode\":%u,\"nodeCollisions\":%u,\"module\":%s,\"actions\":%s,\"actionResult\":%s}}\n",
+        osg_cyphal_node_id(&emulator.module.cyphal),emulator.node_collisions,emulator.active_config,
+        action_state,emulator.action_result[0] ? emulator.action_result : "null");fflush(response_output);
 }
 static void admin(const char *line) {
     unsigned id=0,n=0,a=0,b=0;bool ok=true;const char *error=NULL;
@@ -176,6 +184,13 @@ static void admin(const char *line) {
     } else if(!strncmp(command,"direct_config ",14)) {
         bool apply=false;error=osg_runtime_command(&emulator.runtime,command+14,emulator.now,&apply);
         ok=error==NULL;if(apply)advance(400);
+    } else if(!strncmp(command,"direct_action ",14)) {
+        char action_command[OSG_ACTION_COMMAND_CAPACITY];
+        int length=snprintf(action_command,sizeof action_command,"action %s",command+14);
+        if(length<0 || (size_t)length>=sizeof action_command ||
+           !osg_actions_command(&emulator.actions.registry,action_command,emulator.action_result,sizeof emulator.action_result)) {
+            ok=false;error="invalid_request";
+        }
     } else if(!strcmp(command,"reboot")) {boot_module();advance(600);}
     else if(sscanf(command,"fault %u",&a)==1 && a<=1000)emulator.settings_flash.fault=(int)a;
     else if(sscanf(command,"advance %u",&a)==1 && a<=60000)advance(a);
