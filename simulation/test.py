@@ -9,6 +9,7 @@ import selectors
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 sys.dont_write_bytecode = True
 from build import build, REPO
@@ -93,19 +94,30 @@ class ConfigurationTests(unittest.TestCase):
                 return subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                         stderr=subprocess.PIPE, text=True, bufsize=1, env=self.environment)
 
-            def admin(operation):
+            def admin(operation, timeout=4):
                 nonlocal request
                 request += 1
                 process.stdin.write(f'sim {request} {operation}\n'); process.stdin.flush()
                 with selectors.DefaultSelector() as selector:
                     selector.register(process.stdout, selectors.EVENT_READ)
-                    self.assertTrue(selector.select(4), f'timed out: {operation}')
+                    self.assertTrue(selector.select(timeout), f'timed out: {operation}')
                 line = process.stdout.readline()
                 if not line:
                     self.fail(f'process exited {process.poll()}: {process.stderr.read()}')
                 result = json.loads(line)
                 self.assertTrue(result['ok'], result)
                 return result['simulation']
+
+            def wait_for_applied(result, name, generation):
+                deadline = time.monotonic() + 4
+                while (result['module']['pendingApply'] or
+                       result['module']['generation'] != generation or
+                       result['module']['savedGeneration'] != generation or
+                       result['module']['config']['name'] != name):
+                    remaining = deadline - time.monotonic()
+                    self.assertGreater(remaining, 0, f'apply did not settle: {result["module"]}')
+                    result = admin('inspect', timeout=remaining)
+                return result
 
             def stop(kill=False):
                 if process.poll() is None:
@@ -126,8 +138,9 @@ class ConfigurationTests(unittest.TestCase):
                 self.assertEqual(report[:4], 'ffff')
                 admin('direct_config claim 1')
                 admin('direct_config name 1 536176656420706564616c73')
-                saved = admin('direct_config apply_save 1')
-                self.assertIn('Saved pedals', json.dumps(saved['module']))
+                saved = wait_for_applied(admin('direct_config apply_save 1'),
+                                         'Saved pedals', first['module']['generation'] + 1)
+                self.assertEqual(saved['module']['config']['name'], 'Saved pedals')
                 stop(kill=True)
                 # Altered JSON remains a reset target; committed settings win.
                 self.pedals['name'] = 'Changed JSON defaults'
@@ -143,8 +156,9 @@ class ConfigurationTests(unittest.TestCase):
                 admin('direct 1')
                 admin('direct_config claim 2')
                 admin('direct_config reset 2')
-                reset = admin('direct_config apply_save 2')
-                self.assertIn('Changed JSON defaults', json.dumps(reset['module']))
+                reset = wait_for_applied(admin('direct_config apply_save 2'),
+                                         'Changed JSON defaults', restored['module']['generation'] + 1)
+                self.assertEqual(reset['module']['config']['name'], 'Changed JSON defaults')
             finally:
                 if process is not None and not process.stdout.closed:
                     stop()
