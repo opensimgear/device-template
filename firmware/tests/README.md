@@ -1,8 +1,8 @@
 # Firmware validation
 
-Run the native test commands in [firmware README](../README.md). A delivery-state test covers retained and canceled USB transfers, generation acknowledgement and resume readiness. All five supplied profiles have behavior and descriptor tests, including exact field omission and report length. Shared tests cover profile bounds, collisions, axis-only/button-only/hat-only descriptors, conflict groups, cross-bank faults, stale input and expansion freshness, time wraparound and acknowledged encoder pulses.
+Run the native test commands in [firmware README](../README.md). A delivery-state test covers retained and canceled USB transfers, generation acknowledgement and resume readiness. All six supplied profiles have behavior and descriptor tests, including exact field omission and report length. Shared tests cover profile bounds, collisions, axis-only/button-only/hat-only descriptors, conflict groups, cross-bank faults, stale input and expansion freshness, time wraparound and acknowledged encoder pulses.
 
-The board targets support cross-building `example`, `shifter`, `expanded`, `master_caution` and `radio_panel` for `starter_g0b1cb_v0_1_0`. [v0.1.0 validation](../../electronics/boards/starter/0.1.0/VALIDATION.md) records CAD and physical gates. Native and compile checks do not replace physical USB, ADC, encoder timing or I²C fault tests.
+The board targets support cross-building `example`, `shifter`, `expanded`, `master_caution`, `radio_panel` and `output_only` for `starter_g0b1cb_v0_1_0`. [v0.1.0 validation](../../electronics/boards/starter/0.1.0/VALIDATION.md) records CAD and physical gates. Native and compile checks do not replace physical USB, ADC, encoder timing or I²C fault tests.
 
 The CAN client suite connects the device to real Cyphal peers and exercises assignment/timeout, lossless maximum profiles, exact gateway USB completion ACKs, gateway source binding, transport node-ID collision recovery, stale boot/lease/sequence/duplicate/wrong-report rejection, direct USB priority, per-encoder phase sequence guards and interrupted boot-counter journal writes. Profile behavior tests also compare each supplied profile with the generated Cyphal report length and exact neutral bytes. See [CAN validation](../CAN_BRINGUP.md).
 
@@ -41,3 +41,20 @@ python3 firmware/tests/coverage.py
 ```
 
 The runner rebuilds the native suites with coverage instrumentation, executes all tests and stores raw profiles, `coverage.profdata` and `coverage.json` under `../.research/device-template-coverage/`. Use `--build-dir` for a different scratch directory. Shared-code development accepts `--common-source /path/to/firmware-common` and `--tinyusb-source /path/to/tinyusb`. Clang and LLVM must use compatible versions; `--clang`, `--llvm-cov` and `--llvm-profdata` select explicit binaries. macOS also discovers the tools through `xcrun`.
+
+Endpoint lease regressions use the actual shared action handler and product LED
+callbacks. They reject diagnostic bypass and competing USB/CAN claims, prove
+immutable CAN claim retry does not renew, expire fallback without requests, and
+invalidate only the lost transport scope. Zero-input profiles retain valid CAN
+metadata and select the real CDC-only configuration; each descriptor suite also
+activates from axis-only HID back to no inputs. Two native process presets prove
+idle expiry, stale IDs, USB close/reboot and unchanged settings/flash/descriptor/
+reconnect counters. The 17 native suites and eight process suites pass; measured
+lines are device_actions.c97.06%, config_can.c91.51% and can_client.c91.59%.
+
+Recovery regressions also evict the action reply cache with an incomplete request,
+let assembly time out, then lose the CAN route before TTL. A persistent action
+route releases fallback immediately. Actual Cyphal assignment frames prove that
+timeout/reset followed by the same wire tuple invalidates old ownership and
+request caches through a separate local route generation. Pure USB input handoff
+does not change it. Generation exhaustion fails closed until reboot.

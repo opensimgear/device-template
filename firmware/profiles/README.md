@@ -12,6 +12,7 @@ Reusable validation, descriptor construction, debounce, report packing and input
 | `shifter` | D0 up, D1 down, D2 explicit neutral | 3 buttons; 1 byte; no hat or axes |
 | `expanded` | 24 direct momentary contacts, 16 contacts at TCA9555 address 0x20, all eight axes | 40 buttons, 8 axes; 21 bytes; no hat |
 | `master_caution` | Momentary contact D0 and the existing board status LED | 1 button; 1 byte; no hat or axes |
+| `output_only` | No declared inputs; fitted board status LED action | No HID report; CDC-only USB |
 | `radio_panel` | Maintained D0/D1, momentary D2, encoders D3/D4 and D5/D6, calibrated axis A0 | 7 buttons, 1 X axis; 3 bytes; no hat |
 
 In `example`, HID buttons are 1 momentary, 2 toggle, 3 encoder push, 4 positive encoder direction, 5 negative direction, 6 selector low, 7 selector centre and 8 selector high. Encoder direction can be reversed by swapping its A/B assignments. A centre-open ON–OFF–ON selector consumes two contacts; low/high together suppress all three selector outputs and set a diagnostic.
@@ -68,3 +69,8 @@ consume the HID encoder queue. HID recovery does not reset this log; a successfu
 configuration activation starts a fresh stream. See the [event contract](https://github.com/opensimgear/protocol/blob/main/serial/panel-input-events.md).
 
 Reports are neutral while neither direct USB nor a current CAN assignment is active. Axes require fresh conversion frames and revert to their profile neutral after 100 ms without one. Expansion scanning also has a 100 ms watchdog, with per-bank immediate transaction-failure suppression. Diagnostics are available through `inputs`; CAN handoff uses the same packed report through the matching gateway Cyphal DSDL types, including hats and all 128 logical button bits. Encoder events advance only after the current direct USB transfer or the gateway acknowledges its completed USB transfer.
+
+Zero-input profiles keep a valid nonzero CAN profile revision and publish Status
+for routed configuration/actions. They emit no Input report or delivery ACK,
+allocate no gateway HID report ID and cannot be enabled as a controller until
+inputs are configured. The starter still advertises only its fitted status LED.

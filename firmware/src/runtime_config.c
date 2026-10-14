@@ -99,7 +99,7 @@ static bool prepare(osg_runtime_config_t *s) {
     s->profile=view(&s->active);
     if(!valid(&s->active,&s->layout)) return false;
     s->descriptor_length=osg_profile_descriptor(&s->profile,s->descriptor,sizeof s->descriptor);
-    return s->descriptor_length!=0;
+    return s->descriptor_length!=0 || s->layout.length==0;
 }
 /* The pinned journal's first write has sequence/epoch 1, this exact factory
  * payload, and a commit marker programmed last. A torn first initialization can

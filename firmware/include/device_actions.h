@@ -31,3 +31,4 @@ bool osg_device_actions_init(osg_device_actions_t *,bool simulated);
 bool osg_device_actions_init_outputs(osg_device_actions_t *,bool simulated_leds,
                                     const osg_device_display_port_t *,size_t count);
 bool osg_device_actions_status(const osg_device_actions_t *,bool automatic,bool suspended);
+bool osg_device_actions_legacy_led(osg_device_actions_t *,const char *mode,uint32_t now);

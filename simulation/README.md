@@ -185,3 +185,33 @@ python3 simulation/run.py --config simulation/configs/pedals.json \
 ```
 
 `--common-source` is an explicit development override. Ordinary builds use the revision pinned in `firmware/cmake/common-revision.cmake`. `run.py` replaces itself with the native executable, so signals and process IDs target the device directly. The internal executable receives a bounded binary startup definition through an inherited pipe; the public configuration format is JSON.
+
+## Output-only devices and endpoint leases
+
+Run `configs/output-only.json` for the production RGB LED 1/boolean LED 2 callbacks
+or `configs/output-only-board-led.json` for the board's actual status-mode action.
+An empty `inputs: {}` is valid: direct USB has no HID descriptor and the gateway
+enrolls the device with guarded routes, no report ID and no controller collection.
+The same device can later activate configured inputs through normal Apply.
+
+All simulated output registries advertise the production endpoint ownership
+capability. Claims store typed fallback without writing it; USB/CAN scopes and
+secret UUIDs prevent competing writers. Lease TTL is 250–5000 ms. For example:
+
+```text
+sim 1 direct_action claim 1 led.rgb.set_color 00112233-4455-6677-8899-aabbccddeeff 5000 000000
+sim 2 direct_action invoke_owned 00112233-4455-6677-8899-aabbccddeeff 1 1 led.rgb.set_color 12abef
+sim 3 direct_action renew 00112233-4455-6677-8899-aabbccddeeff 1 5000
+sim 4 direct_action ownership 0
+sim 5 direct_action release 00112233-4455-6677-8899-aabbccddeeff 1
+```
+
+Use a fresh secret per host session; the example token is illustrative. Public
+ownership never returns tokens. `advance` runs the independent clock/expiry loop,
+`usb_close` invalidates direct USB claims, and reboot restores product defaults.
+CAN route changes invalidate only CAN claims. Legacy actions and `led on/off/auto`
+are blocked on claimed endpoints. Different endpoints remain independent.
+Claims, writes and expiry leave flash, settings, HID descriptors and reconnect
+counters unchanged. See the [full contract](https://github.com/opensimgear/protocol/blob/main/serial/output-ownership.md).
+The eight native process suites include both output-only presets, competing
+owners, stale leases, idle expiry, disconnect, reboot and unchanged persistence.

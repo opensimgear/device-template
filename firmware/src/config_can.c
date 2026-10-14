@@ -7,11 +7,19 @@ static bool route_equal(const osg_gateway_message_t *a,const osg_gateway_message
         a->lease==b->lease && a->gateway_epoch==b->gateway_epoch && a->sequence==b->sequence &&
         osg_gateway_identity_equal(&a->identity,&b->identity);
 }
-static bool live(const osg_module_config_can_t *s) {
+static bool route_live(const osg_module_config_can_t *s,const osg_gateway_message_t *route) {
     const osg_can_client_t *c=s->client;
-    return c && c->node && c->lease && s->route.node==c->node && s->route.source_node==c->gateway_source &&
-        s->route.boot_session==c->boot && s->route.lease==c->lease && s->route.gateway_epoch==c->epoch &&
-        osg_gateway_identity_equal(&s->route.identity,&c->identity);
+    return c && c->node && c->lease && route->node==c->node && route->source_node==c->gateway_source &&
+        route->boot_session==c->boot && route->lease==c->lease && route->gateway_epoch==c->epoch &&
+        osg_gateway_identity_equal(&route->identity,&c->identity);
+}
+static bool live(const osg_module_config_can_t *s) { return s->client && s->route_generation==s->client->route_generation && route_live(s,&s->route); }
+static void action_tick(osg_module_config_can_t *s,uint32_t now) {
+    osg_actions_tick(s->actions,now);
+    if(s->action_route_valid && (s->action_route_generation!=s->client->route_generation || !route_live(s,&s->action_route))) {
+        osg_actions_invalidate_scope(s->actions,OSG_ACTION_SCOPE_CAN,now);
+        s->action_route_valid=false;
+    }
 }
 static bool callback(void *context,const osg_gateway_message_t *m,uint32_t now) {
     return osg_module_config_can_receive(context,m,now);
@@ -30,6 +38,7 @@ bool osg_module_config_can_receive(osg_module_config_can_t *s,const osg_gateway_
     if(!s || !m || !s->runtime || m->type!=OSG_GW_CONFIG_REQUEST || !m->sequence || !m->config_total ||
        m->config_total>=sizeof s->command || m->config_length>OSG_GW_CONFIG_CHUNK_SIZE || !m->config_length ||
        (unsigned)m->config_offset+m->config_length>m->config_total) return false;
+    action_tick(s,now);
     if((s->assembling || s->responding || s->cached) && !live(s)) {
         if(!s->expected_apply) osg_runtime_invalidate_claim(s->runtime);
         s->expected_apply=false;s->assembling=s->responding=s->cached=false;
@@ -44,7 +53,7 @@ bool osg_module_config_can_receive(osg_module_config_can_t *s,const osg_gateway_
     if(s->responding && live(s)) return false;
     if(!s->assembling || !route_equal(&s->route,m)) {
         if(m->config_offset) return false;
-        s->route=*m; s->received=0; s->total=m->config_total; s->started=now;
+        s->route=*m;s->route_generation=s->client->route_generation; s->received=0; s->total=m->config_total; s->started=now;
         s->assembling=true; s->cached=false;
     }
     if(!live(s) || m->config_total!=s->total) return false;
@@ -54,8 +63,9 @@ bool osg_module_config_can_receive(osg_module_config_can_t *s,const osg_gateway_
     memcpy(s->command+s->received,m->config_data,m->config_length); s->received+=m->config_length;
     if(s->received!=s->total) return true;
     s->command[s->received]=0; s->assembling=false;
-    if((s->actions && osg_actions_command(s->actions,s->command,s->response,OSG_GW_CONFIG_RESPONSE_CAPACITY)) ||
-       (s->events && osg_events_command(s->events,s->command,s->response,OSG_GW_CONFIG_RESPONSE_CAPACITY))) {
+    bool action=s->actions && osg_actions_command_at(s->actions,s->command,now,OSG_ACTION_SCOPE_CAN,s->response,OSG_GW_CONFIG_RESPONSE_CAPACITY);
+    if(action) {s->action_route=s->route;s->action_route_generation=s->client->route_generation;s->action_route_valid=true;}
+    if(action || (s->events && osg_events_command(s->events,s->command,s->response,OSG_GW_CONFIG_RESPONSE_CAPACITY))) {
         s->expected_apply=false;
         size_t length=strlen(s->response);
         if(length+3>=OSG_GW_CONFIG_RESPONSE_CAPACITY) {
@@ -79,6 +89,7 @@ bool osg_module_config_can_receive(osg_module_config_can_t *s,const osg_gateway_
 }
 void osg_module_config_can_tick(osg_module_config_can_t *s,uint32_t now) {
     if(!s || !s->client) return;
+    action_tick(s,now);
     /* Direct CDC uses the same runtime handler and may trigger the expected
      * settings activation without a preceding CAN configuration request. */
     if(s->runtime->pending_apply) s->expected_apply=true;

@@ -45,7 +45,7 @@ static void rearm(void) {
 }
 static void reply(const char *text) { tud_cdc_write_str(text); tud_cdc_write_flush(); }
 static void command(const char *line) {
-    if(osg_actions_command(&device_actions.registry,line,config_response,sizeof config_response) ||
+    if(osg_actions_command_at(&device_actions.registry,line,HAL_GetTick(),OSG_ACTION_SCOPE_USB,config_response,sizeof config_response) ||
        osg_events_command(&input_events,line,config_response,sizeof config_response)) {
         config_response_size=strlen(config_response);
         memcpy(config_response+config_response_size,"\r\n",2);
@@ -80,9 +80,9 @@ static void command(const char *line) {
             inputs.axis_available,inputs.hat_conflict,inputs.selector_conflict,inputs.expansion_faults,
             blocked,(unsigned long)dropped,(unsigned long)invalid);
         reply(out);
-    } else if (!strcmp(line, "led on")) { device_actions.status_mode=OSG_LED_ON; reply("OK\r\n"); }
-    else if (!strcmp(line, "led off")) { device_actions.status_mode=OSG_LED_OFF; reply("OK\r\n"); }
-    else if (!strcmp(line, "led auto")) { device_actions.status_mode=OSG_LED_AUTO; reply("OK\r\n"); }
+    } else if (!strcmp(line,"led on") || !strcmp(line,"led off") || !strcmp(line,"led auto")) {
+        reply(osg_device_actions_legacy_led(&device_actions,line+4,HAL_GetTick()) ? "OK\r\n" : "ERR output_busy\r\n");
+    }
     else if (!strcmp(line, "can status")) {
         board_can_diagnostics_t d=board_can_diagnostics(); char out[160];
         snprintf(out,sizeof out,"can=cyphal node=%u route=%u lease=%lu boot=%lu usb=%u rx=%lu tx=%lu rejected=%lu recoveries=%lu\r\n",
@@ -126,11 +126,15 @@ int main(void) {
         bool vbus = board_usb_present() && !layout_detached;
         if (vbus != attached) {
             attached=vbus;rearm();
-            if(!vbus && !layout_detached) osg_runtime_invalidate_claim(device_runtime_config());
+            if(!vbus && !layout_detached) {
+                osg_runtime_invalidate_claim(device_runtime_config());
+                osg_actions_invalidate_scope(&device_actions.registry,OSG_ACTION_SCOPE_USB,HAL_GetTick());
+            }
             if(vbus) tud_connect(); else tud_disconnect();
         }
         tud_task();
         uint32_t now=HAL_GetTick();
+        osg_actions_tick(&device_actions.registry,now);
         osg_runtime_tick(device_runtime_config(),now);
         bool direct=attached && tud_mounted() && !tud_suspended();
         if(direct!=direct_live) {
@@ -180,6 +184,7 @@ int main(void) {
         if (connected != serial_open) {
             serial_open = connected; osg_line_init(&line, line_buffer, sizeof line_buffer);
             if(!connected) {
+                osg_actions_invalidate_scope(&device_actions.registry,OSG_ACTION_SCOPE_USB,now);
                 /* DTR and the first command may arrive in one USB task. */
                 tud_cdc_read_flush();
                 config_response_offset=config_response_size=0;
@@ -231,7 +236,7 @@ int main(void) {
     }
 }
 void tud_mount_cb(void) { delivery.inflight=false; rearm(); }
-void tud_umount_cb(void) { delivery.inflight=false; rearm();if(!layout_detached) osg_runtime_invalidate_claim(device_runtime_config()); }
+void tud_umount_cb(void) { delivery.inflight=false; rearm();osg_actions_invalidate_scope(&device_actions.registry,OSG_ACTION_SCOPE_USB,HAL_GetTick());if(!layout_detached) osg_runtime_invalidate_claim(device_runtime_config()); }
 void tud_suspend_cb(bool remote_wakeup_en) { (void)remote_wakeup_en; rearm(); }
 void tud_resume_cb(void) { rearm(); }
 void tud_hid_report_complete_cb(uint8_t instance,const uint8_t *report,uint16_t length) {

@@ -24,7 +24,7 @@ class ConfigurationTests(unittest.TestCase):
         self.environment = {**os.environ, 'OSG_SIMULATION_NAMESPACE': f'device-tests-{os.getpid()}'}
 
     def test_examples_pass_native_validation(self):
-        for name in ('pedals', 'button-panel', 'shifter', 'master-caution', 'radio-panel'):
+        for name in ('pedals', 'button-panel', 'shifter', 'master-caution', 'radio-panel', 'output-only', 'output-only-board-led'):
             result = subprocess.run([sys.executable, str(REPO / 'simulation/run.py'), '--config',
                                      str(REPO / f'simulation/configs/{name}.json'), '--output-dir', str(BINARY_DIR),
                                      '--no-build', '--validate'], capture_output=True, text=True,
@@ -449,6 +449,92 @@ class ConfigurationTests(unittest.TestCase):
                 self.assertNotIn('runtime error:', errors)
                 for stream in (process.stdin, process.stdout, process.stderr):
                     stream.close()
+
+
+    def test_output_only_endpoint_leases_expire_without_hid_or_flash(self):
+        owner = '00112233-4455-6677-8899-aabbccddeeff'
+        competitor = '11223344-5566-7788-99aa-bbccddeeff00'
+        for preset, action, active, fallback in (
+            ('output-only', 'led.rgb.set_color', '12abef', '000000'),
+            ('output-only-board-led', 'led.status.set_mode', 'on', 'off'),
+        ):
+            with self.subTest(preset=preset), tempfile.TemporaryDirectory(dir=BINARY_DIR) as temporary:
+                command = [sys.executable, str(REPO / 'simulation/run.py'), '--config',
+                           str(REPO / f'simulation/configs/{preset}.json'), '--output-dir', str(BINARY_DIR),
+                           '--no-build', '--state-dir', str(Path(temporary) / 'state'),
+                           '--gateway', '8ea15ffe17734f2b81a12a12']
+                process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                           stderr=subprocess.PIPE, text=True, bufsize=1, env=self.environment)
+                request = 0
+
+                def admin(operation, ok=True):
+                    nonlocal request
+                    request += 1
+                    process.stdin.write(f'sim {request} {operation}\n'); process.stdin.flush()
+                    with selectors.DefaultSelector() as selector:
+                        selector.register(process.stdout, selectors.EVENT_READ)
+                        self.assertTrue(selector.select(4), f'timed out: {operation}')
+                    line = process.stdout.readline()
+                    self.assertTrue(line, f'process exited {process.poll()}')
+                    result = json.loads(line)
+                    self.assertEqual(result['ok'], ok, result)
+                    return result['simulation'] if ok else result
+
+                def action_command(operation):
+                    return admin(f'direct_action {operation}')['actionResult']
+
+                def state(result):
+                    return {item['id']: item['values'] for item in result['actions']['states']}
+
+                try:
+                    initial = admin('inspect')
+                    self.assertEqual(initial['module']['config']['buttons'], [])
+                    self.assertEqual(initial['module']['config']['axes'], [])
+                    self.assertEqual(initial['moduleReportHex'], '')
+                    descriptor = action_command('describe 0')
+                    self.assertEqual(descriptor['ownership'], {'schemaVersion': 1, 'scope': 'endpoint', 'maxLeaseMs': 5000})
+                    self.assertNotIn('token', json.dumps(descriptor))
+                    claimed = action_command(f'claim 1 {action} {owner} 5000 {fallback}')
+                    self.assertTrue(claimed['ok']); lease = claimed['leaseId']
+                    self.assertEqual(state(admin('inspect')), state(initial))  # Claim stores fallback without applying it.
+                    self.assertEqual(action_command(f'claim 1 {action} {competitor} 5000 {fallback}')['error'], 'outputBusy')
+                    self.assertEqual(action_command(f'invoke 1 {action} {active}')['error'], 'outputBusy')
+                    if preset.endswith('board-led'):
+                        self.assertEqual(admin('led on', ok=False)['error'], 'output_busy')
+                    applied = action_command(f'invoke_owned {owner} {lease} 1 {action} {active}')
+                    self.assertTrue(applied['ok']); self.assertEqual(applied['values'], ['12ABEF' if preset == 'output-only' else 'on'])
+                    if preset == 'output-only':
+                        self.assertTrue(action_command('invoke 1 led.boolean.set_enabled 1')['ok'])
+                    self.assertTrue(action_command(f'renew {owner} {lease} 250')['ok'])
+                    expired = admin('advance 251')
+                    self.assertEqual(state(expired)[action], ['000000' if preset == 'output-only' else 'off'])
+                    ownership = action_command('ownership 0')
+                    self.assertNotIn(owner, json.dumps(ownership)); self.assertNotIn(competitor, json.dumps(ownership))
+                    self.assertFalse(ownership['ownership'][0]['owned'])
+                    self.assertEqual(ownership['ownership'][0]['fallbackStatus'], 'applied')
+                    newer = action_command(f'claim 1 {action} {owner} 5000 {fallback}')
+                    self.assertGreater(newer['leaseId'], lease)
+                    self.assertEqual(action_command(f'invoke_owned {owner} {lease} 1 {action} {active}')['error'], 'staleOutputLease')
+                    self.assertTrue(action_command(f'invoke_owned {owner} {newer["leaseId"]} 1 {action} {active}')['ok'])
+                    disconnected = admin('usb_close')
+                    self.assertEqual(state(disconnected)[action], ['000000' if preset == 'output-only' else 'off'])
+                    for result in (expired, disconnected):
+                        for field in ('settingsErases', 'settingsPrograms', 'moduleReconnects', 'descriptorHex'):
+                            self.assertEqual(result[field], initial[field], field)
+                        self.assertEqual(result['module']['config'], initial['module']['config'])
+                    rebooted = admin('reboot')
+                    self.assertGreater(rebooted['moduleBoot'], initial['moduleBoot'])
+                    self.assertEqual(state(rebooted), state(initial))
+                    self.assertEqual(action_command('ownership 0')['ownership'][0]['leaseId'], 0)
+                finally:
+                    if process.poll() is None:
+                        process.terminate()
+                    process.wait(4)
+                    errors = process.stderr.read()
+                    self.assertNotIn('AddressSanitizer', errors)
+                    self.assertNotIn('runtime error:', errors)
+                    for stream in (process.stdin, process.stdout, process.stderr):
+                        stream.close()
 
 
 if __name__ == '__main__':
