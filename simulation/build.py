@@ -30,11 +30,18 @@ def _build(output_dir, common_source, sanitize):
         common.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(['git', 'clone', '--no-checkout', 'https://github.com/opensimgear/firmware-common.git', str(common)], check=True)
         subprocess.run(['git', '-C', str(common), 'checkout', '--detach', revision], check=True)
-        subprocess.run(['git', '-C', str(common), 'submodule', 'update', '--init', '--recursive'], check=True)
     if not common_source:
-        actual = subprocess.check_output(['git', '-C', str(common), 'rev-parse', 'HEAD'], text=True).strip()
+        git = ['git', '-C', str(common)]
+        actual = subprocess.check_output([*git, 'rev-parse', 'HEAD'], text=True).strip()
         if actual != revision:
-            raise ValueError(f'{common}: expected firmware-common revision {revision}, found {actual}')
+            if subprocess.check_output([*git, 'status', '--porcelain', '--untracked-files=all'], text=True).strip():
+                raise ValueError(f'{common}: cannot update firmware-common to {revision}: cached checkout has local changes; '
+                                 'preserve them or use --common-source')
+            if subprocess.run([*git, 'cat-file', '-e', f'{revision}^{{commit}}'],
+                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode:
+                subprocess.run([*git, 'fetch', 'origin', revision], check=True)
+            subprocess.run([*git, 'checkout', '--detach', revision], check=True)
+        subprocess.run([*git, 'submodule', 'update', '--init', '--recursive'], check=True)
     cyphal = firmware / 'shared-cyphal'
     sources = [Path(__file__).with_name('device.c'),
                *[firmware / 'src' / name for name in ('can_client.c', 'can_delivery.c', 'runtime_config.c', 'config_can.c', 'boot_session.c', 'device_actions.c')],

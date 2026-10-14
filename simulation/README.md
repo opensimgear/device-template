@@ -8,7 +8,7 @@ Python 3, Git and a C11 compiler are required. From this repository:
 python3 simulation/run.py --config simulation/configs/pedals.json
 ```
 
-The first launch clones the pinned `firmware-common` revision into `.simulation/deps/`, initializes its submodules and builds `.simulation/osg-device-sim`. Subsequent launches reuse an unchanged build. No adjacent checkout or workspace setup is required. Build and state files stay in this repository's ignored `.simulation/` directory.
+The first launch clones the pinned `firmware-common` revision into `.simulation/deps/`, initializes its submodules and builds `.simulation/osg-device-sim`. Subsequent launches reuse an unchanged build. When the dependency pin changes, the builder updates a clean cached checkout automatically, fetching the revision if needed. Local changes in a stale cache are preserved and reported; use `--common-source` for an intentionally edited dependency. No adjacent checkout or workspace setup is required. Build and state files stay in this repository's ignored `.simulation/` directory.
 
 Start ordinary Cockpit, then run the gateway from the `device-gateway` repository's `simulation/` folder. Launch several independent device processes:
 
