@@ -33,6 +33,10 @@ static bool invoke(void *context,const char *id,const osg_action_value_t *values
     } else if(!strcmp(id,"led.boolean.set_enabled") && values[0].type==OSG_ACTION_BOOLEAN) {
         s->enabled=values[0].value.boolean; return true;
     }
+    for(unsigned i=0;i<s->display_count;i++) if(!strcmp(id,s->displays[i].id)) {
+        return values[0].type==OSG_ACTION_STRING &&
+            s->displays[i].write(s->displays[i].context,values[0].value.text);
+    }
     return false;
 }
 static bool read(void *context,const char *id,osg_action_value_t *values,size_t count) {
@@ -48,14 +52,35 @@ static bool read(void *context,const char *id,osg_action_value_t *values,size_t 
     if(!strcmp(id,"led.boolean.set_enabled")) {
         values[0].type=OSG_ACTION_BOOLEAN; values[0].value.boolean=s->enabled; return true;
     }
+    for(unsigned i=0;i<s->display_count;i++) if(!strcmp(id,s->displays[i].id)) {
+        values[0].type=OSG_ACTION_STRING;
+        return s->displays[i].read(s->displays[i].context,values[0].value.text,sizeof values[0].value.text);
+    }
     return false;
 }
 bool osg_device_actions_init(osg_device_actions_t *s,bool simulated) {
+    return osg_device_actions_init_outputs(s,simulated,NULL,0);
+}
+bool osg_device_actions_init_outputs(osg_device_actions_t *s,bool simulated,
+                                    const osg_device_display_port_t *ports,size_t count) {
     if(!s) return false;
     memset(s,0,sizeof *s);
-    return osg_actions_init(&s->registry,simulated ? simulated_actions : hardware_actions,
-        simulated ? sizeof simulated_actions/sizeof simulated_actions[0] : sizeof hardware_actions/sizeof hardware_actions[0],
-        1,invoke,read,s);
+    if(count>OSG_DEVICE_DISPLAY_MAX || (count && !ports)) return false;
+    unsigned base=simulated ? sizeof simulated_actions/sizeof simulated_actions[0] :
+                              sizeof hardware_actions/sizeof hardware_actions[0];
+    memcpy(s->descriptors,simulated ? simulated_actions : hardware_actions,base*sizeof s->descriptors[0]);
+    for(unsigned i=0;i<count;i++) {
+        if(!ports[i].write || !ports[i].read) return false;
+        /* All builtin names are reserved, including LEDs absent from this
+         * board variant: callback dispatch uses those names in every mode. */
+        if(ports[i].id && (!strcmp(ports[i].id,"led.status.set_mode") ||
+            !strcmp(ports[i].id,"led.rgb.set_color") || !strcmp(ports[i].id,"led.boolean.set_enabled"))) return false;
+        s->display_parameters[i]=(osg_action_parameter_t){.id="text",.label="Text",.type=OSG_ACTION_STRING,.max_bytes=ports[i].max_bytes};
+        s->descriptors[base+i]=(osg_action_descriptor_t){.id=ports[i].id,.label=ports[i].label,.endpoint=ports[i].endpoint,
+            .semantics=OSG_ACTION_SETTER,.readable=true,.parameters=&s->display_parameters[i],.parameter_count=1,.display=&ports[i].display};
+    }
+    s->displays=ports;s->display_count=(uint8_t)count;
+    return osg_actions_init(&s->registry,s->descriptors,base+count,1,invoke,read,s);
 }
 bool osg_device_actions_status(const osg_device_actions_t *s,bool automatic,bool suspended) {
     return s && !suspended && (s->status_mode==OSG_LED_ON || (s->status_mode==OSG_LED_AUTO && automatic));

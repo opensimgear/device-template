@@ -24,7 +24,7 @@ class ConfigurationTests(unittest.TestCase):
         self.environment = {**os.environ, 'OSG_SIMULATION_NAMESPACE': f'device-tests-{os.getpid()}'}
 
     def test_examples_pass_native_validation(self):
-        for name in ('pedals', 'button-panel', 'shifter', 'master-caution'):
+        for name in ('pedals', 'button-panel', 'shifter', 'master-caution', 'radio-panel'):
             result = subprocess.run([sys.executable, str(REPO / 'simulation/run.py'), '--config',
                                      str(REPO / f'simulation/configs/{name}.json'), '--output-dir', str(BINARY_DIR),
                                      '--no-build', '--validate'], capture_output=True, text=True,
@@ -49,6 +49,24 @@ class ConfigurationTests(unittest.TestCase):
         ]
         for mutation in mutations:
             value = copy.deepcopy(self.pedals); mutation(value)
+            with self.assertRaises(ConfigurationError):
+                encode_configuration(value)
+        radio = json.loads((REPO / 'simulation/configs/radio-panel.json').read_text())
+        for mutation in (
+            lambda p: p['outputs'].update(extra=True),
+            lambda p: p['outputs'].update(displays=p['outputs']['displays'] * 2),
+            lambda p: p['outputs']['displays'][0].update(columns=0),
+            lambda p: p['outputs']['displays'][0].update(columns=32, rows=2),
+            lambda p: p['outputs']['displays'][0].update(encoding='latin1'),
+            lambda p: p['outputs']['displays'][0].update(max_bytes=6),
+            lambda p: p['outputs']['displays'][0].update(max_bytes=64),
+            lambda p: p['outputs']['displays'][0].update(label='bad\x85label'),
+            lambda p: p['outputs']['displays'][0].update(id='led.status.set_mode'),
+            lambda p: p['outputs']['displays'][0].update(id='led.rgb.set_color'),
+            lambda p: p['outputs']['displays'][0].update(id='led.boolean.set_enabled'),
+            lambda p: p['outputs']['displays'][1].update(endpoint=p['outputs']['displays'][0]['endpoint']),
+        ):
+            value = copy.deepcopy(radio); mutation(value)
             with self.assertRaises(ConfigurationError):
                 encode_configuration(value)
         with tempfile.TemporaryDirectory(dir=BINARY_DIR) as temporary:
@@ -198,7 +216,9 @@ class ConfigurationTests(unittest.TestCase):
                 result = admin('direct_events read 1 0')['eventResult']
                 self.assertEqual(result['events'], [{'sequence': 1, 'control': 0, 'pressed': True},
                                                   {'sequence': 2, 'control': 0, 'pressed': False}])
-                self.assertEqual(admin('direct_events read 1 0')['eventResult'], result)
+                repeated = admin('direct_events read 1 0')['eventResult']
+                for field in ('stream', 'after', 'next', 'events'):
+                    self.assertEqual(repeated[field], result[field])
                 admin('direct 1'); admin('contact 0 1'); admin('contact 0 0'); admin('direct 0')
                 latest = admin('inspect')
                 self.assertEqual((latest['events']['stream'], latest['events']['head']), (1, 4))
@@ -241,6 +261,118 @@ class ConfigurationTests(unittest.TestCase):
                 errors = process.stderr.read()
                 self.assertNotIn('AddressSanitizer', errors)
                 self.assertNotIn('runtime error:', errors)
+                for stream in (process.stdin, process.stdout, process.stderr):
+                    stream.close()
+
+    def test_radio_ports_encoder_switches_and_calibrated_axis_without_hid(self):
+        with tempfile.TemporaryDirectory(dir=BINARY_DIR) as temporary:
+            command = [sys.executable, str(REPO / 'simulation/run.py'), '--config',
+                       str(REPO / 'simulation/configs/radio-panel.json'), '--output-dir', str(BINARY_DIR),
+                       '--no-build', '--state-dir', str(Path(temporary) / 'state'),
+                       '--gateway', '8ea15ffe17734f2b81a12a12']
+            process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                       stderr=subprocess.PIPE, text=True, bufsize=1, env=self.environment)
+            request = 0
+
+            def admin(operation):
+                nonlocal request
+                request += 1
+                process.stdin.write(f'sim {request} {operation}\n'); process.stdin.flush()
+                with selectors.DefaultSelector() as selector:
+                    selector.register(process.stdout, selectors.EVENT_READ)
+                    self.assertTrue(selector.select(4), f'timed out: {operation}')
+                result = json.loads(process.stdout.readline())
+                self.assertTrue(result['ok'], result)
+                return result['simulation']
+
+            def write_display(index, text):
+                ids = ('display.uhf.frequency.set_text', 'display.uhf.preset.set_text', 'display.text.set_text')
+                return admin(f'direct_action invoke 1 {ids[index]} {text.encode().hex() or "-"}')
+
+            try:
+                initial = admin('advance 20')
+                baseline = admin('direct_events state')['eventResult']
+                self.assertEqual((baseline['buttonCount'], baseline['contactButtonCount'], baseline['maintainedButtons'], baseline['encoderButtons']),
+                                 (7, 3, [0, 1], [3, 4, 5, 6]))
+                self.assertEqual((baseline['axisCount'], baseline['axisUsage'], baseline['axisNeutral'], baseline['axes'], baseline['axisAvailable']),
+                                 (1, [48], [0], [0], [True]))
+                catalogue = admin('direct_action describe 0')['actionResult']['actions']
+                self.assertEqual([a['display'] for a in catalogue if 'display' in a],
+                                 [{'columns': 7, 'rows': 1, 'encoding': 'ascii'},
+                                  {'columns': 2, 'rows': 1, 'encoding': 'ascii'},
+                                  {'columns': 16, 'rows': 1, 'encoding': 'utf8'}])
+                written = write_display(0, '251.000')
+                self.assertEqual(written['displays'][0]['text'], '251.000')
+                self.assertEqual(written['displays'][0]['writes'], 1)
+                self.assertFalse(write_display(0, '251.0000')['actionResult']['ok'])
+                self.assertFalse(write_display(0, 'é')['actionResult']['ok'])
+                self.assertEqual(admin('inspect')['displays'][0]['writes'], 1)
+                self.assertEqual(write_display(1, '20')['actionResult']['values'], ['20'])
+                quoted = 'é "波" \\😀'
+                self.assertEqual(write_display(2, quoted)['displays'][2]['text'], quoted)
+                boundary = '😀' * 15 + '波'  # exactly 63 UTF-8 bytes / 16 cells
+                self.assertEqual(write_display(2, boundary)['actionResult']['values'], [boundary])
+                self.assertFalse(write_display(2, '😀' * 16)['actionResult']['ok'])
+                self.assertFalse(write_display(2, 'x' * 17)['actionResult']['ok'])
+                admin('display_fail 0 1'); failed = write_display(0, '123.450')
+                self.assertEqual(failed['actionResult']['error'], 'failed')
+                self.assertEqual(failed['displays'][0]['text'], '251.000')
+                admin('display_fail 0 0'); admin('display_read_fail 1 1')
+                uncertain = write_display(1, '01')
+                self.assertEqual(uncertain['actionResult']['error'], 'failed')
+                self.assertEqual(uncertain['displays'][1]['text'], '01')
+                admin('display_read_fail 1 0')
+                self.assertEqual(admin('direct_action state')['actions']['states'][2]['values'], ['01'])
+                # Maintained contacts and both detent directions use the same
+                # mapped log while the product HID report remains inactive.
+                admin('contact 0 1'); admin('contact 1 1'); admin('contact 2 1'); admin('contact 2 0')
+                for pin, pressed in ((3, 1), (4, 1), (3, 0), (4, 0), (6, 1), (5, 1), (6, 0), (5, 0)):
+                    admin(f'contact {pin} {pressed}')
+                events = admin('direct_events read 1 0')['eventResult']
+                self.assertEqual([(e['control'], e['pressed']) for e in events['events']],
+                                 [(0, True), (1, True), (2, True), (2, False), (3, True), (3, False), (6, True), (6, False)])
+                self.assertEqual(events['held'][:3], [True, True, False])
+                # Rapid turns traverse sampled quadrature at 2 ms per edge,
+                # independently of HID's 25 ms pulse/ack pacing.
+                admin('turn 0 3'); admin('turn 1 -2')
+                rapid = admin('direct_events read 1 8')['eventResult']
+                self.assertEqual([(e['control'], e['pressed']) for e in rapid['events']],
+                                 [(3, True), (3, False)] * 3 + [(6, True), (6, False)] * 2)
+                admin('display_delay 0 15')
+                started = time.monotonic()
+                delayed = write_display(0, '123.450')
+                self.assertGreaterEqual(time.monotonic() - started, .015)
+                self.assertEqual(delayed['displays'][0]['text'], '123.450')
+                self.assertEqual(delayed['displays'][0]['delayMs'], 15)
+                admin('display_delay 0 0')
+                self.assertEqual(admin('axis 0 3900')['events']['axes'], [65535])
+                untouched = admin('inspect')
+                for field in ('settingsErases', 'settingsPrograms', 'moduleReconnects', 'descriptorHex'):
+                    self.assertEqual(untouched[field], initial[field], field)
+                admin('contact 0 0'); admin('contact 1 0')
+                admin('direct_config claim 7')
+                admin('direct_config axis 7 0 0 48 100 3900 32768 1 1000')
+                applied = admin('direct_config apply 7'); deadline = time.monotonic() + 4
+                while applied['module']['pendingApply'] or applied['module']['generation'] != 2:
+                    self.assertLess(time.monotonic(), deadline, applied)
+                    applied = admin('inspect')
+                self.assertEqual(admin('direct_events read 1 8')['eventResult']['error'], 'staleStream')
+                self.assertEqual(admin('axis 0 2000')['events']['axes'], [32768])
+                extreme = admin('axis 0 100')
+                self.assertEqual(extreme['events']['axes'], [65535])
+                self.assertEqual(extreme['events']['axisNeutral'], [32768])
+                admin('direct 1'); self.assertEqual(admin('inspect')['moduleReportHex'], '00ffff')
+                admin('direct 0')
+                stale = admin('axes_available 0')['events']
+                self.assertEqual((stale['axisAvailable'], stale['axes']), ([False], [32768]))
+                self.assertEqual(admin('axes_available 1')['events']['axisAvailable'], [True])
+                rebooted = admin('reboot')
+                self.assertEqual([d['text'] for d in rebooted['displays']], ['', '', ''])
+                self.assertEqual(rebooted['events']['axisNeutral'], [0])
+            finally:
+                process.terminate(); process.wait(4)
+                errors = process.stderr.read()
+                self.assertNotIn('AddressSanitizer', errors); self.assertNotIn('runtime error:', errors)
                 for stream in (process.stdin, process.stdout, process.stderr):
                     stream.close()
 

@@ -17,6 +17,9 @@ static uint8_t report_length;
 static hid_delivery_t delivery;
 static osg_device_actions_t device_actions;
 static osg_events_t input_events;
+static void transform_event_axes(void *context,const osg_profile_state_t *state,uint8_t report[OSG_REPORT_CAPACITY]) {
+    osg_runtime_transform_report(context,state,report);
+}
 static osg_can_client_t can_client;
 static osg_can_delivery_t can_delivery;
 static bool can_initialized,can_reset_requested;
@@ -90,12 +93,15 @@ static void command(const char *line) {
 }
 int main(void) {
     if(!device_profile_prepare()) board_fault();
-    if(!osg_device_actions_init(&device_actions,false)) board_fault();
+    const osg_device_display_port_t *display_ports=NULL;
+    size_t display_count=board_display_ports(&display_ports);
+    if(!osg_device_actions_init_outputs(&device_actions,false,display_ports,display_count)) board_fault();
     board_init();
     if(!device_profile_load(board_settings_io())) board_fault();
     osg_profile_sample_t initial=board_read_inputs();
     if(!osg_profile_init(&inputs,device_profile(),&initial,HAL_GetTick())) board_fault();
     if(!osg_events_init(&input_events,device_profile(),&initial,HAL_GetTick(),device_runtime_config()->generation)) board_fault();
+    osg_events_set_transform(&input_events,transform_event_axes,device_runtime_config());
     report_length=inputs.layout.length; osg_profile_neutral(&inputs,current_report);
     osg_gateway_identity_t identity; board_module_identity(identity.bytes);
     osg_gateway_profile_t routed_profile;
@@ -206,6 +212,7 @@ int main(void) {
             board_inputs_reconfigured();osg_profile_sample_t sample=board_read_inputs();
             if(!osg_profile_init(&inputs,device_profile(),&sample,now)) board_fault();
             if(!osg_events_init(&input_events,device_profile(),&sample,now,device_runtime_config()->generation)) board_fault();
+            osg_events_set_transform(&input_events,transform_event_axes,device_runtime_config());
             report_length=inputs.layout.length;osg_profile_neutral(&inputs,current_report);osg_profile_neutral(&inputs,sent);
             if(!osg_can_profile(device_profile(),&inputs.layout,&can_client.profile)) board_fault();
             can_client.configuration_generation=device_runtime_config()->generation;

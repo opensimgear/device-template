@@ -12,6 +12,7 @@ Reusable validation, descriptor construction, debounce, report packing and input
 | `shifter` | D0 up, D1 down, D2 explicit neutral | 3 buttons; 1 byte; no hat or axes |
 | `expanded` | 24 direct momentary contacts, 16 contacts at TCA9555 address 0x20, all eight axes | 40 buttons, 8 axes; 21 bytes; no hat |
 | `master_caution` | Momentary contact D0 and the existing board status LED | 1 button; 1 byte; no hat or axes |
+| `radio_panel` | Maintained D0/D1, momentary D2, encoders D3/D4 and D5/D6, calibrated axis A0 | 7 buttons, 1 X axis; 3 bytes; no hat |
 
 In `example`, HID buttons are 1 momentary, 2 toggle, 3 encoder push, 4 positive encoder direction, 5 negative direction, 6 selector low, 7 selector centre and 8 selector high. Encoder direction can be reversed by swapping its A/B assignments. A centre-open ON–OFF–ON selector consumes two contacts; low/high together suppress all three selector outputs and set a diagnostic.
 
@@ -20,6 +21,15 @@ advertises the physical board's `led.status.set_mode` action (`auto`, `on`, `off
 instead of RGB/boolean endpoints. Its event control is zero-based index 0. This
 allows the same simulator binding to target native firmware and the board without
 changing an input mapping or output action ID. Electrical validation is deferred.
+
+For `radio_panel`, zero-based logical event controls 0/1 are maintained switches,
+2 is momentary, 3/4 are encoder 1 positive/negative and 5/6 encoder 2
+positive/negative. Axis 0 uses A0 with factory endpoints 100–3900 and neutral 0.
+The matching JSON supplies 7-cell ASCII UHF frequency, 2-cell ASCII preset and
+16-cell UTF-8 text output ports; `max_bytes: 63` bounds the UTF-8 port. The actual
+starter has no display and advertises no display capabilities. Adding a physical
+display port requires its driver and electrical validation, without changing
+these portable callback or observation contracts.
 
 ## Physical indexes
 

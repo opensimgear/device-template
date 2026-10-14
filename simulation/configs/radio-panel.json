@@ -1,0 +1,18 @@
+{
+  "identity": "524144494f50414e454c000000000001",
+  "name": "Radio panel",
+  "inputs": {
+    "buttons": [{"input": 0, "mode": "maintained"}, {"input": 1, "mode": "maintained"}, {"input": 2, "mode": "momentary"}],
+    "encoders": [{"a": 3, "b": 4}, {"a": 5, "b": 6}],
+    "axes": [{"channel": 0, "usage": "X", "min": 100, "max": 3900, "neutral": 0}]
+  },
+  "initial_samples": {"axes": [100]},
+  "outputs": {
+    "leds": "board-status",
+    "displays": [
+      {"id": "display.uhf.frequency.set_text", "endpoint": "display.uhf.frequency", "label": "UHF frequency", "columns": 7, "encoding": "ascii"},
+      {"id": "display.uhf.preset.set_text", "endpoint": "display.uhf.preset", "label": "UHF preset", "columns": 2, "encoding": "ascii"},
+      {"id": "display.text.set_text", "endpoint": "display.text", "label": "Text display", "columns": 16, "encoding": "utf8", "max_bytes": 63}
+    ]
+  }
+}

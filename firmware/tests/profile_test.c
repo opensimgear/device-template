@@ -15,6 +15,9 @@ int main(void) {
     } else if(!strcmp(profile->name,"Master Caution")) {
         assert(layout->buttons==1 && !layout->axes && !layout->hats && layout->length==1);
         assert(layout->digital_mask==1 && !layout->adc_mask);
+    } else if(!strcmp(profile->name,"Radio panel")) {
+        assert(layout->buttons==7 && layout->axes==1 && !layout->hats && layout->length==3);
+        assert(layout->digital_mask==0x7f && layout->adc_mask==1 && profile->button_count==3 && profile->encoder_count==2);
     } else {
         assert(!strcmp(profile->name,"expanded"));
         assert(layout->buttons==40 && layout->axes==8 && layout->hats==0 && layout->length==21);
@@ -29,7 +32,8 @@ int main(void) {
     osg_profile_update(&state,&sample,21,true,report);
     assert(report[0]&1);
     osg_profile_rearm(&state,&sample,22);
-    osg_profile_update(&state,&sample,50,true,report); assert(!(report[0]&1));
+    osg_profile_update(&state,&sample,50,true,report);
+    assert(((report[0]&1)!=0)==profile->buttons[0].maintained);
     assert(state.expansion_faults==profile->expander_mask);
     osg_gateway_profile_t routed; assert(osg_can_profile(profile,layout,&routed));
     assert(routed.button_count==layout->buttons && routed.hat_count==layout->hats && routed.axis_count==layout->axes);

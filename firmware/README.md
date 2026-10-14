@@ -11,7 +11,7 @@ cmake --preset starter -DOSG_DEVICE_PROFILE=example -DOSG_USB_VID=<your-VID> -DO
 cmake --build --preset starter
 ```
 
-`example`, `shifter`, `expanded` and `master_caution` are provided. The [profile guide](profiles/README.md) documents wiring, report layouts and adding a profile. Outputs are `osg_hello.elf`, `.bin`, `.hex` and `.map` in this repository’s `.build/starter` directory. Missing, zero or out-of-range USB IDs are rejected. CI uses `0xFFFF/0xFFFF` only for compilation, never for distribution or flashing.
+`example`, `shifter`, `expanded`, `master_caution` and `radio_panel` are provided. The [profile guide](profiles/README.md) documents wiring, report layouts and adding a profile. Outputs are `osg_hello.elf`, `.bin`, `.hex` and `.map` in this repository’s `.build/starter` directory. Missing, zero or out-of-range USB IDs are rejected. CI uses `0xFFFF/0xFFFF` only for compilation, never for distribution or flashing.
 
 For Ninja instead of Make:
 
@@ -71,6 +71,23 @@ configuration generation as `stream`; USB/CAN ownership changes retain it. Consu
 establish a baseline before forwarding fresh presses and rebaseline on gaps,
 reconnect or reboot. See the [event contract](https://github.com/opensimgear/protocol/blob/main/serial/panel-input-events.md).
 
+A product display port supplies immutable capability metadata and bounded write/read
+callbacks through `osg_device_display_port_t`. `osg_device_actions_init_outputs()`
+registers at most four fitted ports with the shared string action validator. The
+port owns its driver and software readback; no MCU or frontend code invents a
+display. The current starter's `board_display_ports()` returns zero, so even the
+radio input profile advertises only its fitted status LED. Native radio ports use
+these same callbacks for frequency/preset/text buffers. New physical display
+boards need a fitted driver and their own hardware qualification.
+
+`events state/read` also reports `contactButtonCount`, maintained/selector indexes,
+`axisCount`, `axisUsage`, `axisNeutral`, `axes`, `axisAvailable` and module-local
+`sampledAtMs`. The independent collector uses the same runtime calibration,
+inversion and deadzone as HID; a 100 ms ADC freshness expiry reports configured
+neutral with availability false. Register its transform callback after every
+stream initialization. Observations do not queue axis history or consume the
+button log, and remain available with HID disabled/direct USB active.
+
 ## Acquisition and limits
 
 All 24 digital lines receive input pull-ups, all eight ADC channels run in the fixed sequencer, and I²C initializes at startup so a runtime profile can enable any supported input without restarting MCU peripherals. Only declared controls enter reports. A circular double-frame DMA buffer maps each completed half to A0–A7 without waiting for conversions. Only complete fresh frames update enabled axes. USB recovery requires a new frame; a 100 ms conversion watchdog reports each axis's configured neutral. This does not detect an unplugged sensor reliably.
@@ -87,7 +104,7 @@ cmake --build .build/tests
 ctest --test-dir .build/tests --output-on-failure
 ```
 
-Run those commands from the repository root. Thirteen native tests exercise the runtime core, advertised actions, routed panel events, all supplied factory profiles and their real USB descriptor callbacks, including dynamic field omission and UTF-16 controller names. Shared tests cover limits, invalid assignments, conflicts, stale axes, cross-bank recovery, encoder acknowledgements and expansion scanning. CI also cross-builds each profile. These checks do not establish physical timing or host compatibility.
+Run those commands from the repository root. Fifteen native tests exercise the runtime core, advertised actions, routed panel events, display port capabilities/callbacks, independent axis calibration, all supplied factory profiles and their real USB descriptor callbacks, including dynamic field omission and UTF-16 controller names. Shared tests cover limits, invalid assignments, conflicts, stale axes, cross-bank recovery, encoder acknowledgements and expansion scanning. CI also cross-builds each profile. These checks do not establish physical timing or host compatibility.
 
 Build-time profiles supply factory defaults. Runtime configuration owns bounded arrays for buttons, axes, hats, encoders and selectors; axis calibration endpoints, inversion and a rescaled center deadzone; expansion masks; and a UTF-8 controller name. Contact debounce remains fixed at 10 ms. One nonzero writer token claims a draft for 30 seconds, refreshed by successful writer commands. Apply validates the whole draft and requests activation; Save persists the active configuration; Apply & save commits the draft before activation. Discard returns to active settings; reset stages factory defaults. Invalid drafts and failed saves leave active settings unchanged.
 

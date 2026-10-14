@@ -108,6 +108,10 @@ static void capture_axes(unsigned offset) {
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *handle) { if(handle==&adc) capture_axes(0); }
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *handle) { if(handle==&adc) capture_axes(adc_count); }
 void HAL_ADC_ErrorCallback(ADC_HandleTypeDef *handle) { if(handle==&adc) axis_fresh=false; }
+size_t board_display_ports(const osg_device_display_port_t **ports) {
+    if(ports) *ports=NULL;
+    return 0;
+}
 bool board_usb_present(void) { return HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0) == GPIO_PIN_SET; }
 void board_module_identity(uint8_t out[16]) {
     memcpy(out,"OSGD",4); memcpy(out+4,(const void *)UID_BASE,12);
