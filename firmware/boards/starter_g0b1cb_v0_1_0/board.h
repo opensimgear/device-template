@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "profile.h"
+#include "device_actions.h"
 
 typedef struct {
     uint32_t id,deadline_ms;
@@ -26,6 +27,8 @@ uint32_t board_boot_session(void);
 const osg_journal_io_t *board_settings_io(void);
 void board_inputs_reconfigured(void);
 void board_led(bool on);
+/* This starter has no fitted character display; future ports supply drivers. */
+size_t board_display_ports(const osg_device_display_port_t **ports);
 bool board_usb_present(void);
 void board_uid_hex(char out[25]);
 void board_fault(void);

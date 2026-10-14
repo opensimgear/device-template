@@ -17,6 +17,7 @@ python3 simulation/run.py --config simulation/configs/pedals.json
 python3 simulation/run.py --config simulation/configs/button-panel.json
 python3 simulation/run.py --config simulation/configs/shifter.json
 python3 simulation/run.py --config simulation/configs/master-caution.json
+python3 simulation/run.py --config simulation/configs/radio-panel.json
 ```
 
 Run each command in its own terminal. Their example identities differ. Devices may start before the gateway; they wait for it and reconnect automatically. Cockpit discovers them through the gateway's ordinary protocol. Closing Cockpit leaves these processes running. This provides application and firmware integration on local loopback sockets; it does not enumerate a USB/HID peripheral in the OS.
@@ -66,7 +67,7 @@ OSG_SIMULATION_NAMESPACE=actions-ui python3 simulation/run.py --config simulatio
 | `inputs.encoders` | Up to 8 `{a, b}` mappings using direct contacts 0–23; each contributes two HID buttons |
 | `inputs.selectors` | Up to 8 `{low, high}` contact mappings; each contributes three HID buttons |
 | `expansion_banks` | Enabled TCA9555 bank indexes 0–7; defaults to `[]` |
-| `outputs` | `"simulated-leds"` (default RGB/boolean actions) or `"board-status"` (the physical board's status LED mode action) |
+| `outputs` | `"simulated-leds"` (default RGB/boolean), `"board-status"`, or an object with `leds` and `displays` as described below |
 | `initial_samples.axes` | Raw ADC values 0–4095 in physical channel order; omitted trailing channels start at 0 |
 | `initial_samples.closed_contacts` | Contact indexes held closed at startup; defaults to `[]` |
 | `initial_samples.expansion_available` | Initially responding bank indexes; defaults to every configured bank |
@@ -77,6 +78,34 @@ Validate without starting sockets or touching persistent state:
 
 ```sh
 python3 simulation/run.py --config my-device.json --validate
+```
+
+## Fitted display ports
+
+The radio example supplies `outputs: {"leds": "board-status", "displays": [...]}`.
+There are at most four display definitions. Each declares unique ASCII `id` and
+`endpoint` (1–31 bytes), a UTF-8 `label` (1–63 bytes, no controls), `columns`
+(1–63), optional `rows` (1–4, default 1), `encoding` (`ascii` default or `utf8`)
+and `max_bytes` (surface size through 63). Columns × rows is at most 63 cells.
+ASCII defaults to one byte per cell; UTF-8 defaults to 63 bytes, with at most one
+Unicode scalar per cell. The flattened surface is row-major; UTF-8 cells are not
+a promise about grapheme width or fitted fonts. Control characters and invalid
+UTF-8 are rejected by the production action validator.
+
+The port definitions generate ordinary readable one-string setters carrying
+`display` geometry/encoding metadata and `parameters[0].maxBytes`. Native write/read
+callbacks own the actual buffers; `simulation.displays` reports text and successful
+write counts from those buffers. Width/encoding errors never invoke the driver.
+Values are volatile and reset empty on reboot. Output capabilities are product
+definitions, separate from saved input settings. A physical port supplies the
+same firmware interface; the starter board reports zero fitted displays and does
+not advertise an LCD. The native radio provides 7-cell ASCII frequency, 2-cell
+ASCII preset and 16-cell UTF-8 text ports. For example:
+
+```text
+sim 1 direct_action invoke 1 display.uhf.frequency.set_text 3235312e303030
+sim 2 direct_action invoke 1 display.uhf.preset.set_text 3230
+sim 3 direct_action invoke 1 display.text.set_text c3a9e6b3a2
 ```
 
 ## Interactive inputs and diagnostics
@@ -114,8 +143,27 @@ runs without HID ownership and captures debounced button transitions and encoder
 detent press/release pairs in a 64-record ring, with nonconsuming 16-record pages.
 Take a state baseline and use its `stream`/`head` as the next read scope/cursor;
 rebaseline on a gap, mapping activation or reboot. The JSON reply is the same
-production contract routed as `targetEvents` through the gateway. Reads leave
+production contract routed as `targetEvents` through the gateway. Fresh reads can change observation metadata while retained event records stay
+immutable; transport retries retain the whole original response. Reads leave
 configuration, flash and HID unchanged. See the [event contract](https://github.com/opensimgear/protocol/blob/main/serial/panel-input-events.md).
+
+Radio observations additionally expose plain-contact count, maintained/selector
+indexes, declared axis usages/neutrals, calibrated 16-bit values, availability and
+module-local `sampledAtMs`. The collector runs its own acquisition and the same
+production inversion/deadzone transform as HID. `axes_available <mask>` simulates
+ADC freshness; after 100 ms without a sample an axis is unavailable and neutral.
+`display_fail <index> <0|1>` and `display_read_fail <index> <0|1>` inject port
+callback failures. Readback failure after a successful write is an uncertain
+result; inspect/refresh instead of replaying an output. These diagnostics are
+simulator-only, while Cockpit uses ordinary routed commands.
+
+`turn <encoder ordinal> <signed detents>` traverses real sampled quadrature
+edges at 2 ms intervals, returning both contacts to their open idle position.
+It accepts 1–128 detents in either direction; it does not inject logical events.
+`display_delay <port index> <0..250 ms>` models a bounded synchronous driver
+delay inside the native write callback. Acquisition is never called recursively
+from that callback. Inspect reports each native port's successful write count
+and selected delay. Reboot clears these transient delay/failure settings.
 
 ## Build and tests
 
@@ -124,7 +172,7 @@ python3 simulation/build.py --sanitize
 python3 simulation/test.py --sanitize
 ```
 
-The tests cover example JSON through native firmware validation, invalid/overlapping mappings, complete factory axis options, live sample processing, save, process kill/restart, changed JSON defaults and state locking. Action tests cover descriptors, RGB/boolean readback, validation, volatile restart defaults, ownership changes and unchanged settings-write/descriptor/reconnect counters. Event tests cover Master Caution board-compatible output metadata, short presses between reads, immutable repeated pages, ring overflow/gaps, direct USB handoff, offline configuration activation and boot/stream reset. Full gateway/Cockpit scenarios are bootstrapped by the initiating repository's own E2E runner.
+The tests cover example JSON through native firmware validation, invalid/overlapping mappings, complete factory axis options, live sample processing, save, process kill/restart, changed JSON defaults and state locking. Action tests cover descriptors, RGB/boolean readback, validation, volatile restart defaults, ownership changes and unchanged settings-write/descriptor/reconnect counters. Event tests cover Master Caution board-compatible output metadata, short presses between reads, immutable retained records, ring overflow/gaps, direct USB handoff, offline configuration activation and boot/stream reset. Radio tests additionally cover native display callbacks/geometry, ASCII and UTF-8 cell/byte bounds, callback failures, maintained/encoder input, independent calibrated axes, stale ADC recovery and reboot defaults. Full gateway/Cockpit scenarios are bootstrapped by the initiating repository's own E2E runner.
 
 Integration runners may supply an already initialized dependency checkout and private output directory:
 

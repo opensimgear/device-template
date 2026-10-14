@@ -1,8 +1,8 @@
 # Firmware validation
 
-Run the native test commands in [firmware README](../README.md). A delivery-state test covers retained and canceled USB transfers, generation acknowledgement and resume readiness. All four supplied profiles have behavior and descriptor tests, including exact field omission and report length. Shared tests cover profile bounds, collisions, axis-only/button-only/hat-only descriptors, conflict groups, cross-bank faults, stale input and expansion freshness, time wraparound and acknowledged encoder pulses.
+Run the native test commands in [firmware README](../README.md). A delivery-state test covers retained and canceled USB transfers, generation acknowledgement and resume readiness. All five supplied profiles have behavior and descriptor tests, including exact field omission and report length. Shared tests cover profile bounds, collisions, axis-only/button-only/hat-only descriptors, conflict groups, cross-bank faults, stale input and expansion freshness, time wraparound and acknowledged encoder pulses.
 
-The board targets support cross-building `example`, `shifter`, `expanded` and `master_caution` for `starter_g0b1cb_v0_1_0`. [v0.1.0 validation](../../electronics/boards/starter/0.1.0/VALIDATION.md) records CAD and physical gates. Native and compile checks do not replace physical USB, ADC, encoder timing or I²C fault tests.
+The board targets support cross-building `example`, `shifter`, `expanded`, `master_caution` and `radio_panel` for `starter_g0b1cb_v0_1_0`. [v0.1.0 validation](../../electronics/boards/starter/0.1.0/VALIDATION.md) records CAD and physical gates. Native and compile checks do not replace physical USB, ADC, encoder timing or I²C fault tests.
 
 The CAN client suite connects the device to real Cyphal peers and exercises assignment/timeout, lossless maximum profiles, exact gateway USB completion ACKs, gateway source binding, transport node-ID collision recovery, stale boot/lease/sequence/duplicate/wrong-report rejection, direct USB priority, per-encoder phase sequence guards and interrupted boot-counter journal writes. Profile behavior tests also compare each supplied profile with the generated Cyphal report length and exact neutral bytes. See [CAN validation](../CAN_BRINGUP.md).
 
@@ -24,6 +24,15 @@ reboot. It uses the board LED action and checks unchanged settings-write,
 descriptor and reconnect counters for reads/actions. An offline Apply regression
 waits for actual activation rather than a fixed sleep. Shared event/encoder tests
 and their coverage gate are maintained in firmware-common.
+
+Display tests use the production port callbacks to prove advertised ASCII/UTF-8
+geometry, encoded byte/cell bounds, software readback, rejection before writes,
+write failure and apply-before-readback failure. The independent event transform
+tests use actual runtime calibration/inversion/deadzone, then expire the ADC
+sample to neutral/unavailable. The radio process suite tests both encoder
+directions, maintained switches and the momentary input with HID inactive,
+63-byte/16-scalar output, JSON escaping, per-port failures, direct HID comparison,
+configuration stream reset and volatile display reboot defaults.
 
 Clang/LLVM line coverage for each of `device_actions.c`, `config_can.c` and `can_client.c` must remain greater than 70%. CI enforces this with:
 

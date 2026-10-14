@@ -28,12 +28,20 @@
 
 
 typedef struct { uint8_t pages[2][OSG_JOURNAL_PAGE_SIZE]; int fault; const char *name; uint32_t erases,programs; } flash_t;
+typedef struct {
+    char id[32],label[64],endpoint[32],text[OSG_ACTION_STRING_CAPACITY];
+    uint32_t writes,delay_ms;
+    bool write_fail,read_fail;
+} native_display_t;
 static struct {
     osg_can_client_t module;
     osg_module_config_can_t module_config;
     osg_runtime_config_t runtime;
     osg_runtime_definition_t defaults;
     osg_device_actions_t actions;
+    osg_device_display_port_t display_ports[OSG_DEVICE_DISPLAY_MAX];
+    native_display_t displays[OSG_DEVICE_DISPLAY_MAX];
+    uint8_t display_count,axes_available;
     osg_events_t events;
     osg_profile_state_t acquisition;
     osg_profile_sample_t sample;
@@ -55,6 +63,26 @@ static volatile sig_atomic_t stopped;
 static void standalone_cycle(bool wait);
 static bool bus_send(const osg_gateway_frame_t *frame);
 static bool module_send(void *context,const osg_gateway_frame_t *frame) {(void)context;return bus_send(frame);}
+static void transform_event_axes(void *context,const osg_profile_state_t *state,uint8_t report[OSG_REPORT_CAPACITY]) {
+    osg_runtime_transform_report(context,state,report);
+}
+static bool display_write(void *context,const char *text) {
+    native_display_t *display=context;
+    if(display->write_fail || strlen(text)>=sizeof display->text) return false;
+    /* Model a peripheral's bounded synchronous latency in the real output
+     * callback. Never recursively advance acquisition from a driver callback. */
+    struct timespec delay={.tv_sec=0,.tv_nsec=(long)display->delay_ms*1000000L};
+    while(nanosleep(&delay,&delay)<0 && errno==EINTR && !stopped) {}
+    strcpy(display->text,text);
+    if(display->writes<UINT32_MAX) display->writes++;
+    return true;
+}
+static bool display_read(void *context,char *text,size_t capacity) {
+    native_display_t *display=context;
+    size_t length=strlen(display->text);
+    if(display->read_fail || length>=capacity) return false;
+    memcpy(text,display->text,length+1);return true;
+}
 
 static void disk_save(flash_t *flash) {
     if(!state_directory) return;
@@ -123,8 +151,13 @@ static void boot_module(void) {
     osg_cyphal_destroy(&emulator.module.cyphal);
     uint32_t boot; osg_journal_io_t settings=io(&emulator.settings_flash),counter=io(&emulator.boot_flash);
     assert(osg_runtime_init_definition(&emulator.runtime,&emulator.defaults,&settings));
-    assert(osg_device_actions_init(&emulator.actions,!emulator.board_actions));emulator.action_result[0]=0;
+    for(unsigned i=0;i<emulator.display_count;i++) {
+        emulator.displays[i].text[0]=0;emulator.displays[i].writes=emulator.displays[i].delay_ms=0;
+        emulator.displays[i].write_fail=emulator.displays[i].read_fail=false;
+    }
+    assert(osg_device_actions_init_outputs(&emulator.actions,!emulator.board_actions,emulator.display_ports,emulator.display_count));emulator.action_result[0]=0;
     assert(osg_events_init(&emulator.events,&emulator.runtime.profile,&emulator.sample,emulator.now,emulator.runtime.generation));
+    osg_events_set_transform(&emulator.events,transform_event_axes,&emulator.runtime);
     emulator.event_result[0]=0;
     assert(osg_boot_session_begin(&counter,&boot)); init_module_client(boot);
 }
@@ -143,7 +176,7 @@ static void receive_module(const osg_gateway_frame_t *frame) {
 
 static void tick(void) {
     osg_runtime_tick(&emulator.runtime,emulator.now);
-    emulator.sample.axes_fresh=emulator.runtime.layout.adc_mask;
+    emulator.sample.axes_fresh=(uint8_t)(emulator.runtime.layout.adc_mask&emulator.axes_available);
     emulator.sample.expansion_available=emulator.expansion_available;
     osg_events_observe(&emulator.events,&emulator.sample,emulator.now);
     osg_profile_update(&emulator.acquisition,&emulator.sample,emulator.now,
@@ -156,6 +189,7 @@ static void tick(void) {
     if(emulator.runtime.pending_apply && !osg_module_config_can_busy(&emulator.module_config)) {
         assert(osg_runtime_finish_apply(&emulator.runtime));emulator.module_reconnects++;
         assert(osg_events_init(&emulator.events,&emulator.runtime.profile,&emulator.sample,emulator.now,emulator.runtime.generation));
+        osg_events_set_transform(&emulator.events,transform_event_axes,&emulator.runtime);
         assert(osg_can_profile(&emulator.runtime.profile,&emulator.runtime.layout,&emulator.module.profile));
         emulator.module.configuration_generation=emulator.runtime.generation;
         osg_can_client_reset(&emulator.module);rearm();
@@ -167,6 +201,35 @@ static void advance(unsigned milliseconds) {
 }
 
 static void hex(const uint8_t *bytes,size_t n) { for(size_t i=0;i<n;i++) fprintf(response_output,"%02x",bytes[i]); }
+static void json_text(const char *text) {
+    fputc('"',response_output);
+    for(const unsigned char *p=(const unsigned char *)text;*p;p++) {
+        if(*p=='"' || *p=='\\') fputc('\\',response_output);
+        if(*p<32) fprintf(response_output,"\\u%04x",*p);else fputc(*p,response_output);
+    }
+    fputc('"',response_output);
+}
+static void contact(uint8_t input,bool closed) {
+    if(input<24) {
+        uint32_t bit=UINT32_C(1)<<input;
+        if(closed) emulator.sample.digital_closed|=bit;else emulator.sample.digital_closed&=~bit;
+    } else {
+        unsigned bank=(input-24)/16,pin=(input-24)%16;
+        if(closed) emulator.sample.expansion_closed[bank]|=(uint16_t)(1U<<pin);
+        else emulator.sample.expansion_closed[bank]&=(uint16_t)~(1U<<pin);
+    }
+}
+static void turn(unsigned ordinal,int detents) {
+    const osg_profile_encoder_t encoder=emulator.runtime.profile.encoders[ordinal];
+    static const uint8_t positive[]={2,0,1,3},negative[]={1,0,2,3};
+    const uint8_t *sequence=detents>0 ? positive : negative;
+    contact(encoder.a,false);contact(encoder.b,false);advance(2);
+    unsigned count=(unsigned)(detents>0 ? detents : -detents);
+    for(unsigned i=0;i<count && !stopped;i++) for(unsigned j=0;j<4;j++) {
+        contact(encoder.a,(sequence[j]&1)==0);contact(encoder.b,(sequence[j]&2)==0);
+        advance(2);
+    }
+}
 
 static void inspect(uint32_t id,bool ok,const char *error) {
     size_t n=osg_runtime_snapshot(&emulator.runtime,true,emulator.active_config,sizeof emulator.active_config);assert(n);
@@ -180,13 +243,22 @@ static void inspect(uint32_t id,bool ok,const char *error) {
     assert(osg_actions_command(&emulator.actions.registry,"action state",action_state,sizeof action_state));
     char event_state[OSG_EVENTS_REPLY_CAPACITY];
     assert(osg_events_command(&emulator.events,"events state",event_state,sizeof event_state));
-    fprintf(response_output,"\",\"sourceNode\":%u,\"nodeCollisions\":%u,\"module\":%s,\"actions\":%s,\"actionResult\":%s,\"events\":%s,\"eventResult\":%s}}\n",
+    fprintf(response_output,"\",\"sourceNode\":%u,\"nodeCollisions\":%u,\"module\":%s,\"actions\":%s,\"actionResult\":%s,\"events\":%s,\"eventResult\":%s,\"displays\":[",
         osg_cyphal_node_id(&emulator.module.cyphal),emulator.node_collisions,emulator.active_config,
         action_state,emulator.action_result[0] ? emulator.action_result : "null",event_state,
-        emulator.event_result[0] ? emulator.event_result : "null");fflush(response_output);
+        emulator.event_result[0] ? emulator.event_result : "null");
+    for(unsigned i=0;i<emulator.display_count;i++) {
+        native_display_t *d=&emulator.displays[i];const osg_device_display_port_t *port=&emulator.display_ports[i];
+        fprintf(response_output,"%s{\"id\":",i ? "," : "");json_text(d->id);
+        fprintf(response_output,",\"endpoint\":");json_text(d->endpoint);
+        fprintf(response_output,",\"columns\":%u,\"rows\":%u,\"encoding\":\"%s\",\"text\":",
+            port->display.columns,port->display.rows,port->display.encoding==OSG_ACTION_DISPLAY_ASCII ? "ascii" : "utf8");
+        json_text(d->text);fprintf(response_output,",\"writes\":%u,\"delayMs\":%u}",d->writes,d->delay_ms);
+    }
+    fprintf(response_output,"]}}\n");fflush(response_output);
 }
 static void admin(const char *line) {
-    unsigned id=0,n=0,a=0,b=0;bool ok=true;const char *error=NULL;
+    unsigned id=0,n=0,a=0,b=0;int detents=0;bool ok=true;const char *error=NULL;
     if(sscanf(line,"sim %u %n",&id,&n)!=1 || !n) {inspect(id,false,"invalid_request");return;}
     const char *command=line+n;
     if(!strcmp(command,"inspect")) {}
@@ -213,10 +285,14 @@ static void admin(const char *line) {
     else if(sscanf(command,"fault %u",&a)==1 && a<=1000)emulator.settings_flash.fault=(int)a;
     else if(sscanf(command,"advance %u",&a)==1 && a<=60000)advance(a);
     else if(sscanf(command,"axis %u %u",&a,&b)==2 && a<8 && b<=4095) {emulator.sample.axes[a]=(uint16_t)b;advance(30);}
+    else if(sscanf(command,"axes_available %u",&a)==1 && a<=255) {emulator.axes_available=(uint8_t)a;advance(110);}
+    else if(sscanf(command,"display_fail %u %u",&a,&b)==2 && a<emulator.display_count && b<=1) emulator.displays[a].write_fail=b!=0;
+    else if(sscanf(command,"display_read_fail %u %u",&a,&b)==2 && a<emulator.display_count && b<=1) emulator.displays[a].read_fail=b!=0;
+    else if(sscanf(command,"display_delay %u %u",&a,&b)==2 && a<emulator.display_count && b<=250) emulator.displays[a].delay_ms=b;
+    else if(sscanf(command,"turn %u %d",&a,&detents)==2 && a<emulator.runtime.profile.encoder_count && detents && detents>=-128 && detents<=128) turn(a,detents);
     else if(sscanf(command,"expansion_available %u",&a)==1 && a<=255) {emulator.expansion_available=(uint8_t)a;advance(30);}
     else if(sscanf(command,"contact %u %u",&a,&b)==2 && a<OSG_INPUTS && b<=1) {
-        if(a<24) {uint32_t bit=UINT32_C(1)<<a;if(b)emulator.sample.digital_closed|=bit;else emulator.sample.digital_closed&=~bit;}
-        else {unsigned bank=(a-24)/16,pin=(a-24)%16;if(b)emulator.sample.expansion_closed[bank]|=(uint16_t)(1U<<pin);else emulator.sample.expansion_closed[bank]&=(uint16_t)~(1U<<pin);}
+        contact((uint8_t)a,b!=0);
         advance(30);
     } else if(sscanf(command,"direct %u",&a)==1 && a<=1) {
         emulator.direct=a!=0;osg_can_client_usb(&emulator.module,emulator.direct);rearm();advance(600);
@@ -438,12 +514,12 @@ static void usage(const char *program) {
     fprintf(stderr,"Usage: %s --definition-fd FD --gateway UID24 --state-dir PATH [--validate]\nStart JSON devices with simulation/run.py --config FILE.\n",program);exit(2);
 }
 static void load_definition(int fd) {
-    uint8_t payload[8+16+OSG_RUNTIME_RECORD_SIZE+38];size_t used=0;
+    uint8_t payload[8+16+OSG_RUNTIME_RECORD_SIZE+39+OSG_DEVICE_DISPLAY_MAX*132];size_t used=0;
     while(used<sizeof payload) {
         ssize_t n=read(fd,payload+used,sizeof payload-used);
         if(n<=0) {fprintf(stderr,"Incomplete device startup definition\n");exit(2);}used+=(size_t)n;
     }
-    uint8_t extra;if(read(fd,&extra,1)!=0 || memcmp(payload,"OSGSIM02",8)) {fprintf(stderr,"Invalid device startup definition\n");exit(2);}close(fd);
+    uint8_t extra;if(read(fd,&extra,1)!=0 || memcmp(payload,"OSGSIM03",8)) {fprintf(stderr,"Invalid device startup definition\n");exit(2);}close(fd);
     memcpy(emulator.module_identity.bytes,payload+8,16);uint32_t generation;
     if(!osg_gateway_identity_valid(&emulator.module_identity) ||
        !osg_runtime_decode(&emulator.defaults,&generation,payload+24,OSG_RUNTIME_RECORD_SIZE) || generation!=1) {
@@ -455,7 +531,24 @@ static void load_definition(int fd) {
     emulator.expansion_available=*p++;emulator.sample.expansion_available=emulator.expansion_available;
     for(unsigned i=0;i<8;i++,p+=2)emulator.sample.expansion_closed[i]=(uint16_t)(p[0]|(uint16_t)p[1]<<8);
     if(*p>1) {fprintf(stderr,"Invalid device output catalogue\n");exit(2);}
-    emulator.board_actions=*p!=0;
+    emulator.board_actions=*p++!=0;
+    if(*p>OSG_DEVICE_DISPLAY_MAX) {fprintf(stderr,"Too many device display ports\n");exit(2);}
+    emulator.display_count=*p++;emulator.axes_available=255;
+    for(unsigned i=0;i<OSG_DEVICE_DISPLAY_MAX;i++,p+=132) {
+        if(i>=emulator.display_count) continue;
+        native_display_t *d=&emulator.displays[i];
+        memcpy(d->id,p,32);memcpy(d->label,p+32,64);memcpy(d->endpoint,p+96,32);
+        if(!memchr(d->id,0,sizeof d->id) || !memchr(d->label,0,sizeof d->label) || !memchr(d->endpoint,0,sizeof d->endpoint) || p[130]>1) {
+            fprintf(stderr,"Invalid device display port\n");exit(2);
+        }
+        emulator.display_ports[i]=(osg_device_display_port_t){.id=d->id,.label=d->label,.endpoint=d->endpoint,
+            .display={.columns=p[128],.rows=p[129],.encoding=(osg_action_display_encoding_t)p[130]},
+            .max_bytes=p[131],.write=display_write,.read=display_read,.context=d};
+    }
+    osg_device_actions_t validation;
+    if(!osg_device_actions_init_outputs(&validation,!emulator.board_actions,emulator.display_ports,emulator.display_count)) {
+        fprintf(stderr,"Invalid device output catalogue\n");exit(2);
+    }
 }
 int main(int argc,char **argv) {
     int definition_fd=-1;bool validate=false;response_output=stdout;

@@ -28,20 +28,21 @@ Firmware code is restricted to 120 KiB flash and uses guaranteed 128 KiB SRAM, r
 
 Erased settings receive a committed factory baseline at generation 1 before configuration commands are served. The first user save therefore preserves that baseline when an erase/program operation is interrupted. Initialization can retry a torn baseline only if the first page contains cleared bits belonging to the exact factory image, its commit marker is incomplete and the second page is erased. A complete marker with invalid data and other corrupt nonblank settings fail closed. Saved settings restore on reboot; writer claims and drafts do not. A different firmware factory image during an interrupted baseline may require explicit storage recovery rather than automatic replacement.
 
-## Validation on 2026-10-13
+## Validation on 2026-10-14
 
-- Native Debug and AddressSanitizer/UndefinedBehaviorSanitizer: **13/13 tests pass**, including all four real profile descriptors, report compatibility, USB delivery recovery, advertised actions/readback/validation/retry handling, the Cyphal client/encoder/journal suite, shared transport conformance, runtime writer/draft/apply/save recovery and actual dynamic USB descriptor callbacks with Unicode names. Runtime storage tests interrupt all 80 erase/program operations during factory initialization and all 80 for both first-user `apply_save` and `save`, recover/retry successfully, and reject committed corruption and invalid schemas without rewriting them.
+- Native Debug and AddressSanitizer/UndefinedBehaviorSanitizer: **15/15 tests pass**, including all five real profile descriptors, report compatibility, USB delivery recovery, advertised actions/readback/validation/retry handling, the Cyphal client/encoder/journal suite, shared transport conformance, runtime writer/draft/apply/save recovery and actual dynamic USB descriptor callbacks with Unicode names. Runtime storage tests interrupt all 80 erase/program operations during factory initialization and all 80 for both first-user `apply_save` and `save`, recover/retry successfully, and reject committed corruption and invalid schemas without rewriting them.
 - Cyphal client tests use actual transport peers and cover gateway source binding, boot/lease/sequence/report validation, direct USB ownership, bounded queue rejection, assignment timeout, sequence exhaustion, late same-direction phase ACKs and interrupted boot-counter writes.
-- All four profiles cross-build with Arm GNU 15.3.1 for STM32G0B1CBT6. Compilation uses `0xFFFF/0xFFFF` placeholders only; no firmware was flashed.
+- All five profiles cross-build with Arm GNU 15.3.1 for STM32G0B1CBT6. Compilation uses `0xFFFF/0xFFFF` placeholders only; no firmware was flashed.
 - GCC stack usage is emitted as `.su` files. The shared journal commit frame is 2,160 bytes plus its 2,016-byte CRC scratch frame; runtime definition initialization uses 1,912 bytes and main uses 1,008 bytes, below the 16 KiB reserved stack with the port frames. This is static evidence, not measured peak stack.
-- Six native JSON simulation suites pass with sanitizers, including volatile RGB/boolean and board-status LED state, independent events/paging/gaps/stream resets, ownership changes, unchanged flash/descriptor/reconnect counters and bounded discovery namespaces rejected before state access. The maintained Clang/LLVM gate measures 94.87% line coverage for `device_actions.c`, 90.62% for `config_can.c` and 90.82% for `can_client.c`; each must stay above 70%.
+- Seven native JSON simulation suites pass with sanitizers, including volatile RGB/boolean and board-status LED state, independent events/paging/gaps/stream resets, ownership changes, unchanged flash/descriptor/reconnect counters and bounded discovery namespaces rejected before state access. The maintained Clang/LLVM gate measures 96.55% line coverage for `device_actions.c`, 90.62% for `config_can.c` and 90.82% for `can_client.c`; each must stay above 70%.
 
 | Profile | Flash | SRAM including reserved heap/stack |
 | --- | ---: | ---: |
-| example | 72,936 B | 75,472 B |
-| shifter | 72,920 B | 75,472 B |
-| expanded | 73,092 B | 75,472 B |
-| master_caution | 72,920 B | 75,472 B |
+| example | 74,396 B | 75,792 B |
+| shifter | 74,380 B | 75,792 B |
+| expanded | 74,552 B | 75,792 B |
+| master_caution | 74,380 B | 75,792 B |
+| radio_panel | 74,396 B | 75,792 B |
 
 Native reproduction from the repository root:
 
@@ -68,3 +69,14 @@ ring and changes its stream. Consumers baseline after reconnect/reboot and
 recover explicitly from gaps. Native and sealed-CAN integration tests exercise
 short presses, direct/disabled access, cached replies, overflow and stream
 activation. See the [panel event contract](https://github.com/opensimgear/protocol/blob/main/serial/panel-input-events.md).
+
+The additive radio contracts retain these sealed subjects. Display descriptors
+carry fitted geometry and encoding; string arguments are hex on the wire, bounded
+in bytes/cells and dispatched to production product-port callbacks. The starter
+has no display port. Independent event acquisition applies the existing runtime
+axis transform, reports declared axis usages/neutrals and availability, and
+expires stale ADC samples after 100 ms. Maintained contacts and selector triples
+are identified separately from encoder pairs for simulator bindings. Routed
+process acceptance proves native display readback, encoding/width rejection,
+callback failure, switch/encoder records and axis freshness with HID disabled or
+direct USB active, while flash/descriptors/reconnect counters remain unchanged.

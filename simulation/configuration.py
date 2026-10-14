@@ -172,9 +172,55 @@ def encode_configuration(value):
     if not set(available).issubset(banks):
         fail('initial_samples.expansion_available', 'available banks must be configured in expansion_banks')
     outputs = value.get('outputs', 'simulated-leds')
-    if outputs not in ('simulated-leds', 'board-status'):
-        fail('outputs', 'expected simulated-leds or board-status')
-    payload = b'OSGSIM02' + bytes.fromhex(identity) + record
+    displays = []
+    if isinstance(outputs, dict):
+        obj(outputs, 'outputs', {'leds', 'displays'})
+        displays = array(outputs.get('displays', []), 'outputs.displays', 4)
+        leds = outputs.get('leds', 'board-status')
+    else:
+        leds = outputs
+    if leds not in ('simulated-leds', 'board-status'):
+        fail('outputs.leds', 'expected simulated-leds or board-status')
+    ports = bytearray()
+    # Firmware reserves every builtin LED name across board variants.
+    action_ids = {'led.rgb.set_color', 'led.boolean.set_enabled', 'led.status.set_mode'}
+    endpoints = set()
+    for i, display in enumerate(displays):
+        path = f'outputs.displays[{i}]'
+        obj(display, path, {'id', 'label', 'endpoint', 'columns', 'rows', 'encoding', 'max_bytes'},
+            {'id', 'label', 'endpoint', 'columns'})
+        identifiers = []
+        for key in ('id', 'endpoint'):
+            text = display[key]
+            if not isinstance(text, str) or not re.fullmatch(r'[A-Za-z0-9._-]{1,31}', text):
+                fail(path + '.' + key, 'expected a 1..31 byte ASCII identifier')
+            identifiers.append(text)
+        if identifiers[0] in action_ids or identifiers[1] in endpoints:
+            fail(path, 'duplicate action ID or display endpoint')
+        action_ids.add(identifiers[0]); endpoints.add(identifiers[1])
+        label = display['label']
+        if not isinstance(label, str) or not label or any(ord(c) < 32 or 127 <= ord(c) <= 159 for c in label):
+            fail(path + '.label', 'expected a nonempty UTF-8 label without controls')
+        try:
+            encoded = label.encode('utf-8')
+        except UnicodeError:
+            fail(path + '.label', 'invalid Unicode')
+        if len(encoded) > 63:
+            fail(path + '.label', 'must occupy at most 63 UTF-8 bytes')
+        columns = integer(display['columns'], path + '.columns', 1, 63)
+        rows = integer(display.get('rows', 1), path + '.rows', 1, 4)
+        cells = columns * rows
+        if cells > 63:
+            fail(path, 'display surface must contain at most 63 cells')
+        encoding = display.get('encoding', 'ascii')
+        if encoding not in ('ascii', 'utf8'):
+            fail(path + '.encoding', 'expected ascii or utf8')
+        max_bytes = integer(display.get('max_bytes', cells if encoding == 'ascii' else 63),
+                            path + '.max_bytes', cells, 63)
+        ports += identifiers[0].encode().ljust(32, b'\0') + encoded.ljust(64, b'\0')
+        ports += identifiers[1].encode().ljust(32, b'\0') + bytes([columns, rows, encoding == 'ascii', max_bytes])
+    ports += bytes((4 - len(displays)) * 132)
+    payload = b'OSGSIM03' + bytes.fromhex(identity) + record
     payload += struct.pack('<I8HB8H', digital, *axes, sum(1 << i for i in available), *expanded)
-    payload += bytes([outputs == 'board-status'])
+    payload += bytes([leds == 'board-status', len(displays)]) + ports
     return identity, payload
