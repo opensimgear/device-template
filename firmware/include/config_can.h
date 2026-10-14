@@ -9,6 +9,11 @@ typedef struct {
     osg_actions_t *actions;
     osg_events_t *events;
     osg_gateway_message_t route;
+    uint32_t route_generation;
+    /* Output lease route outlives reply-cache eviction and assembly timeout. */
+    osg_gateway_message_t action_route;
+    bool action_route_valid;
+    uint32_t action_route_generation;
     char command[OSG_GW_CONFIG_COMMAND_CAPACITY];
     char response[OSG_GW_CONFIG_RESPONSE_CAPACITY+4];
     uint16_t received,total,sent,response_size;

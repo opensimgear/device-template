@@ -1,6 +1,7 @@
 #include "device_actions.h"
 #include "config_can.h"
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
 
 static char reply[OSG_ACTION_REPLY_CAPACITY];
@@ -113,6 +114,7 @@ static void calibrated_event_test(void) {
     assert(osg_events_command(&events,"events state",reply,sizeof reply));
     assert(strstr(reply,"\"axisAvailable\":[false]") && strstr(reply,"\"axisNeutral\":[32768]"));
 }
+static uint32_t request_now=1;
 static bool can_command(osg_module_config_can_t *s,uint32_t sequence,const char *command) {
     size_t length=strlen(command);
     for(size_t offset=0;offset<length;offset+=OSG_GW_CONFIG_CHUNK_SIZE) {
@@ -123,17 +125,21 @@ static bool can_command(osg_module_config_can_t *s,uint32_t sequence,const char 
         size_t remaining=length-offset;
         m.config_length=(uint8_t)(remaining>OSG_GW_CONFIG_CHUNK_SIZE ? OSG_GW_CONFIG_CHUNK_SIZE : remaining);
         memcpy(m.config_data,command+offset,m.config_length);
-        if(!osg_module_config_can_receive(s,&m,1)) return false;
+        if(!osg_module_config_can_receive(s,&m,request_now)) return false;
     }
     return true;
 }
 static unsigned transmitted;
+typedef struct {osg_can_client_t *client;uint32_t now;} route_peer_t;
+static bool route_peer_send(void *context,const osg_gateway_frame_t *frame) {
+    route_peer_t *peer=context;(void)osg_can_client_receive(peer->client,frame,peer->now);return true;
+}
 static bool send_frame(void *context,const osg_gateway_frame_t *frame) {
     (void)context; assert(frame->extended && frame->length); transmitted++; return true;
 }
 static void flush_response(osg_module_config_can_t *s) {
     assert(osg_module_config_can_busy(s));
-    for(unsigned i=0;s->responding && i<256;i++) osg_module_config_can_tick(s,2+i);
+    for(unsigned i=0;s->responding && i<256;i++) osg_module_config_can_tick(s,request_now+1+i);
     assert(!s->responding && !osg_module_config_can_busy(s) && transmitted);
 }
 static void can_action_test(void) {
@@ -187,6 +193,87 @@ static void can_action_test(void) {
     osg_module_config_can_tick(NULL,4400); assert(!osg_module_config_can_busy(NULL));
     osg_cyphal_destroy(&client.cyphal);
 }
+
+static void lease_test(void) {
+    osg_device_actions_t s;assert(osg_device_actions_init(&s,false));
+    const char *secret="00112233-4455-6677-8899-aabbccddeeff";
+    char line[256];snprintf(line,sizeof line,"action claim 1 led.status.set_mode %s 500 off",secret);
+    assert(osg_actions_command_at(&s.registry,line,10,OSG_ACTION_SCOPE_CAN,reply,sizeof reply));
+    assert(strstr(reply,"\"leaseId\":1") && s.status_mode==OSG_LED_AUTO);
+    assert(!osg_device_actions_legacy_led(&s,"on",11));
+    snprintf(line,sizeof line,"action invoke_owned %s 1 1 led.status.set_mode on",secret);
+    assert(osg_actions_command_at(&s.registry,line,12,OSG_ACTION_SCOPE_CAN,reply,sizeof reply));
+    assert(strstr(reply,"\"ok\":true") && s.status_mode==OSG_LED_ON);
+    osg_actions_invalidate_scope(&s.registry,OSG_ACTION_SCOPE_USB,13);assert(s.status_mode==OSG_LED_ON);
+    osg_actions_tick(&s.registry,510);assert(s.status_mode==OSG_LED_OFF);
+    assert(osg_device_actions_legacy_led(&s,"auto",511));assert(s.status_mode==OSG_LED_AUTO);
+    assert(!osg_device_actions_legacy_led(NULL,"on",511) && !osg_device_actions_legacy_led(&s,NULL,511));
+}
+static void can_lease_test(void) {
+    osg_gateway_identity_t identity={{'O','S','G','L',1}};
+    osg_gateway_profile_t profile={.revision=1};osg_can_client_t client;
+    assert(osg_can_client_init(&client,&identity,&profile,9,send_frame,NULL));
+    assert(canard_set_node_id(&client.cyphal.canard,23));
+    client.node=5;client.gateway_source=100;client.lease=30;client.epoch=2;
+    osg_runtime_config_t runtime={0};osg_device_actions_t actions;assert(osg_device_actions_init(&actions,true));
+    osg_module_config_can_t can;osg_module_config_can_init(&can,&client,&runtime);osg_module_config_can_actions(&can,&actions.registry);
+    request_now=10;
+    const char *claim="action claim 1 led.rgb.set_color 00112233-4455-6677-8899-aabbccddeeff 1000 000000";
+    assert(can_command(&can,1,claim));assert(actions.registry.leases[0].expires_at==1010);flush_response(&can);
+    request_now=500;assert(can_command(&can,1,claim)); /* Cached retry cannot renew. */
+    assert(actions.registry.leases[0].expires_at==1010);flush_response(&can);
+    assert(can_command(&can,2,"action invoke_owned 00112233-4455-6677-8899-aabbccddeeff 1 1 led.rgb.set_color 12abef"));
+    assert(actions.rgb==0x12abef);flush_response(&can);
+    osg_module_config_can_tick(&can,1010);assert(!actions.rgb && !actions.registry.leases[0].owned);
+    request_now=1100;assert(can_command(&can,3,claim));flush_response(&can);
+    assert(can_command(&can,4,"action invoke_owned 00112233-4455-6677-8899-aabbccddeeff 2 1 led.rgb.set_color ffffff"));
+    assert(actions.rgb==0xffffff);client.lease++;osg_module_config_can_tick(&can,1101);
+    assert(!actions.rgb && !actions.registry.leases[0].owned && !can.cached && !can.responding);
+    request_now=1200;
+    assert(can_command(&can,5,"action claim 1 led.rgb.set_color 00112233-4455-6677-8899-aabbccddeeff 5000 000000"));flush_response(&can);
+    assert(can_command(&can,6,"action invoke_owned 00112233-4455-6677-8899-aabbccddeeff 3 1 led.rgb.set_color ffffff"));flush_response(&can);
+    const char *incomplete="action state";
+    osg_gateway_message_t partial={.type=OSG_GW_CONFIG_REQUEST,.identity=identity,.node=client.node,.source_node=client.gateway_source,
+        .boot_session=client.boot,.lease=client.lease,.gateway_epoch=client.epoch,.sequence=7,.config_total=(uint16_t)strlen(incomplete),.config_length=6};
+    memcpy(partial.config_data,incomplete,partial.config_length);
+    assert(osg_module_config_can_receive(&can,&partial,1300));
+    osg_module_config_can_tick(&can,5300);assert(!can.assembling && !can.cached && !can.responding);
+    client.lease++;osg_module_config_can_tick(&can,5301);
+    assert(!actions.rgb && !actions.registry.leases[0].owned);
+    /* A fresh scope can acquire again; offline loss is also immediate. */
+    request_now=5400;
+    assert(can_command(&can,8,"action claim 1 led.rgb.set_color 00112233-4455-6677-8899-aabbccddeeff 5000 000000"));flush_response(&can);
+    assert(can_command(&can,9,"action invoke_owned 00112233-4455-6677-8899-aabbccddeeff 4 1 led.rgb.set_color ffffff"));flush_response(&can);
+    uint32_t route_generation=client.route_generation;
+    assert(osg_can_client_usb(&client,true));osg_module_config_can_tick(&can,5401);
+    assert(actions.rgb==0xffffff && actions.registry.leases[0].owned && client.route_generation==route_generation);
+    assert(osg_can_client_usb(&client,false));
+    client.assigned_at=3400;
+    route_peer_t peer={&client,5500};osg_cyphal_t gateway;
+    osg_gateway_identity_t gateway_id={{'G','W',1}};
+    assert(osg_cyphal_init(&gateway,&gateway_id,1,"org.opensimgear.gateway",route_peer_send,&peer));
+    assert(canard_set_node_id(&gateway.canard,client.gateway_source));
+    osg_gateway_message_t assignment={.type=OSG_GW_ASSIGN,.identity=identity,.node=client.node,.boot_session=client.boot,.lease=client.lease,.gateway_epoch=client.epoch};
+    assert(osg_cyphal_send(&gateway,&assignment,peer.now));
+    assert(client.route_generation>route_generation && client.node==assignment.node && client.lease==assignment.lease);
+    osg_module_config_can_tick(&can,peer.now);
+
+    assert(!actions.rgb && !actions.registry.leases[0].owned && !can.action_route_valid && !can.cached);
+    /* Old request IDs execute a fresh claim only after the old route cache is discarded. */
+    request_now=5501;
+    assert(can_command(&can,8,"action claim 1 led.rgb.set_color 00112233-4455-6677-8899-aabbccddeeff 5000 000000"));flush_response(&can);
+    assert(strstr(can.response,"\"leaseId\":5"));
+    assert(can_command(&can,10,"action invoke_owned 00112233-4455-6677-8899-aabbccddeeff 5 1 led.rgb.set_color ffffff"));flush_response(&can);
+    client.node=0;osg_module_config_can_tick(&can,5502);
+    assert(!actions.rgb && !actions.registry.leases[0].owned && !can.action_route_valid);
+    client.route_generation=UINT32_MAX;osg_can_client_reset(&client);
+    assert(client.route_exhausted && client.exhausted && !client.node && client.route_generation==UINT32_MAX);
+    peer.now=5600;assert(osg_cyphal_send(&gateway,&assignment,peer.now));assert(!client.node);
+    osg_can_client_tick(&client,peer.now,(uint8_t[OSG_GW_MAX_REPORT_SIZE]){0});assert(!client.node);
+    osg_cyphal_destroy(&gateway);
+    assert(!runtime.owner && !runtime.pending_apply && !runtime.generation);
+    osg_cyphal_destroy(&client.cyphal);request_now=1;
+}
 static void can_events_test(void) {
     osg_gateway_identity_t identity={{'O','S','G','E',1}};
     osg_gateway_profile_t profile={.button_count=1,.revision=1};
@@ -217,4 +304,4 @@ static void can_events_test(void) {
     assert(can_command(&can,4,"events state"));assert(strstr(can.response,"\"stream\":2"));flush_response(&can);
     osg_cyphal_destroy(&client.cyphal);
 }
-int main(void) { hardware_test(); simulation_test(); display_test(); calibrated_event_test(); can_action_test(); can_events_test(); return 0; }
+int main(void) { hardware_test(); lease_test(); simulation_test(); display_test(); calibrated_event_test(); can_action_test(); can_lease_test(); can_events_test(); return 0; }

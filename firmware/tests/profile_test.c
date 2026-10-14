@@ -6,6 +6,15 @@ int main(void) {
     assert(device_profile_prepare());
     const osg_profile_t *profile=device_profile();
     const osg_profile_layout_t *layout=device_report_layout();
+    if(!strcmp(profile->name,"Output only")) {
+        assert(!layout->length && !layout->buttons && !layout->axes && !layout->hats);
+        assert(!layout->digital_mask && !layout->adc_mask && !profile->expander_mask);
+        size_t length;device_report_descriptor(&length);assert(!length);
+        osg_gateway_profile_t routed;assert(osg_can_profile(profile,layout,&routed) && osg_gateway_profile_valid(&routed));
+        uint8_t report[64]={0};assert(!osg_gateway_profile_report_valid(&routed,report));
+        osg_profile_sample_t sample={0};osg_profile_state_t state;assert(osg_profile_init(&state,profile,&sample,0));
+        osg_profile_update(&state,&sample,100,true,report);return 0;
+    }
     if(!strcmp(profile->name,"example")) {
         assert(layout->buttons==8 && layout->axes==1 && layout->hats==1 && layout->length==4);
         assert(layout->digital_mask==0x7ff && layout->adc_mask==1 && !profile->expander_mask);

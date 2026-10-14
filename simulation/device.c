@@ -175,6 +175,7 @@ static void receive_module(const osg_gateway_frame_t *frame) {
 }
 
 static void tick(void) {
+    osg_actions_tick(&emulator.actions.registry,emulator.now);
     osg_runtime_tick(&emulator.runtime,emulator.now);
     emulator.sample.axes_fresh=(uint8_t)(emulator.runtime.layout.adc_mask&emulator.axes_available);
     emulator.sample.expansion_available=emulator.expansion_available;
@@ -271,7 +272,7 @@ static void admin(const char *line) {
         char action_command[OSG_ACTION_COMMAND_CAPACITY];
         int length=snprintf(action_command,sizeof action_command,"action %s",command+14);
         if(length<0 || (size_t)length>=sizeof action_command ||
-           !osg_actions_command(&emulator.actions.registry,action_command,emulator.action_result,sizeof emulator.action_result)) {
+           !osg_actions_command_at(&emulator.actions.registry,action_command,emulator.now,OSG_ACTION_SCOPE_USB,emulator.action_result,sizeof emulator.action_result)) {
             ok=false;error="invalid_request";
         }
     } else if(!strncmp(command,"direct_events ",14)) {
@@ -281,7 +282,10 @@ static void admin(const char *line) {
            !osg_events_command(&emulator.events,event_command,emulator.event_result,sizeof emulator.event_result)) {
             ok=false;error="invalid_request";
         }
-    } else if(!strcmp(command,"reboot")) {boot_module();advance(600);}
+    } else if(!strncmp(command,"led ",4)) {
+        if(!osg_device_actions_legacy_led(&emulator.actions,command+4,emulator.now)){ok=false;error="output_busy";}
+    } else if(!strcmp(command,"usb_close")) osg_actions_invalidate_scope(&emulator.actions.registry,OSG_ACTION_SCOPE_USB,emulator.now);
+    else if(!strcmp(command,"reboot")) {boot_module();advance(600);}
     else if(sscanf(command,"fault %u",&a)==1 && a<=1000)emulator.settings_flash.fault=(int)a;
     else if(sscanf(command,"advance %u",&a)==1 && a<=60000)advance(a);
     else if(sscanf(command,"axis %u %u",&a,&b)==2 && a<8 && b<=4095) {emulator.sample.axes[a]=(uint16_t)b;advance(30);}

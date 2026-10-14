@@ -13,12 +13,13 @@ const uint8_t *tud_descriptor_configuration_cb(uint8_t index) {
     if(index) return NULL;
     static uint8_t descriptor[TUD_CONFIG_DESC_LEN + TUD_CDC_DESC_LEN + TUD_HID_DESC_LEN];
     size_t report_length; device_report_descriptor(&report_length);
-    osg_usb_hid_cdc_configuration(descriptor, sizeof descriptor, (uint16_t)report_length);
+    if(report_length) osg_usb_hid_cdc_configuration(descriptor,sizeof descriptor,(uint16_t)report_length);
+    else osg_usb_cdc_configuration(descriptor,sizeof descriptor);
     return descriptor;
 }
 const uint8_t *tud_hid_descriptor_report_cb(uint8_t instance) {
     if(instance!=0) return NULL;
-    size_t length; return device_report_descriptor(&length);
+    size_t length;const uint8_t *descriptor=device_report_descriptor(&length);return length?descriptor:NULL;
 }
 const uint16_t *tud_descriptor_string_cb(uint8_t index, uint16_t langid) {
     (void)langid; static uint16_t descriptor[64]; static char uid[25];

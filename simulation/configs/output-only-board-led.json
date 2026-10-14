@@ -1,0 +1,6 @@
+{
+  "identity": "4f55545055544c454400000000000001",
+  "name": "Output only board LED",
+  "inputs": {},
+  "outputs": "board-status"
+}

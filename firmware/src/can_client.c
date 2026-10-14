@@ -1,6 +1,10 @@
 #include "can_client.h"
 #include <string.h>
 
+static bool route_changed(osg_can_client_t *c) {
+    if(c->route_generation==UINT32_MAX) {c->route_exhausted=true;c->exhausted=true;return false;}
+    c->route_generation++;return true;
+}
 static void invalidate(osg_can_client_t *c) {
     memset(c->history,0,sizeof c->history); c->ack_sequence=0;
     c->generation++; c->input_due=true; c->status_due=true;
@@ -9,7 +13,7 @@ bool osg_can_client_init(osg_can_client_t *c,const osg_gateway_identity_t *id,
     const osg_gateway_profile_t *profile,uint32_t boot,osg_can_send_t send,void *context) {
     if(!c || !osg_gateway_identity_valid(id) || !osg_gateway_profile_valid(profile) || !boot || !send) return false;
     memset(c,0,sizeof *c); c->identity=*id; c->profile=*profile; c->boot=boot;
-    c->send=send; c->context=context; c->next_sequence=1;c->configuration_generation=1;
+    c->send=send; c->context=context; c->next_sequence=1;c->configuration_generation=1;c->route_generation=1;
     if(!osg_cyphal_init(&c->cyphal,id,boot,"org.opensimgear.device",send,context)) return false;
     c->random=osg_gateway_crc32(id->bytes,sizeof id->bytes)^boot; if(!c->random) c->random=1; invalidate(c); return true;
 }
@@ -20,7 +24,7 @@ bool osg_can_client_usb(osg_can_client_t *c,bool direct) {
 }
 void osg_can_client_reset(osg_can_client_t *c) {
     c->node=0; c->gateway_source=0; c->lease=0; c->epoch=0;
-    c->announced=false; c->announce_waiting=false; invalidate(c);
+    c->announced=false; c->announce_waiting=false;(void)route_changed(c);invalidate(c);
     osg_cyphal_reset(&c->cyphal);
 }
 bool osg_can_client_active(const osg_can_client_t *c) { return c && c->node && c->lease && !c->direct && !c->exhausted; }
@@ -29,6 +33,7 @@ static bool send(osg_can_client_t *c,osg_gateway_message_t *m,uint32_t now) {
     return true;
 }
 void osg_can_client_tick(osg_can_client_t *c,uint32_t now,const uint8_t report[OSG_GW_MAX_REPORT_SIZE]) {
+    if(c->route_exhausted) return;
     if(c->node && (uint32_t)(now-c->assigned_at)>=OSG_CAN_ASSIGN_TIMEOUT_MS) osg_can_client_reset(c);
     osg_cyphal_tick(&c->cyphal,now);
     if(!c->announce_waiting || (int32_t)(now-c->announce_due)>=0) {
@@ -66,6 +71,7 @@ void osg_can_client_tick(osg_can_client_t *c,uint32_t now,const uint8_t report[O
     }
 }
 bool osg_can_client_receive(osg_can_client_t *c,const osg_gateway_frame_t *frame,uint32_t now) {
+    if(c->route_exhausted) return false;
     osg_gateway_message_t m;
     uint8_t source=osg_cyphal_node_id(&c->cyphal);
     bool received=osg_cyphal_receive(&c->cyphal,frame,now,&m);
@@ -88,7 +94,10 @@ bool osg_can_client_receive(osg_can_client_t *c,const osg_gateway_frame_t *frame
         /* Lease ordering is meaningful only within the current gateway epoch.
          * An explicit reset/timeout clears this scope for gateway migration. */
         if(c->epoch==m.gateway_epoch && c->lease && m.lease<c->lease) { c->rejected++; return false; }
-        if(c->node!=m.node || c->lease!=m.lease || c->epoch!=m.gateway_epoch) invalidate(c);
+        if(c->node!=m.node || c->lease!=m.lease || c->epoch!=m.gateway_epoch || c->gateway_source!=m.source_node) {
+            if(!route_changed(c)) {osg_can_client_reset(c);c->rejected++;return false;}
+            invalidate(c);
+        }
         c->node=m.node; c->lease=m.lease; c->epoch=m.gateway_epoch;
         c->gateway_source=m.source_node; c->assigned_at=now;
         return false;

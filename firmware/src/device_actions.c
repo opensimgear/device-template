@@ -1,4 +1,5 @@
 #include "device_actions.h"
+#include <stdio.h>
 #include <string.h>
 
 static const char *const modes[]={"auto","on","off"};
@@ -80,7 +81,15 @@ bool osg_device_actions_init_outputs(osg_device_actions_t *s,bool simulated,
             .semantics=OSG_ACTION_SETTER,.readable=true,.parameters=&s->display_parameters[i],.parameter_count=1,.display=&ports[i].display};
     }
     s->displays=ports;s->display_count=(uint8_t)count;
-    return osg_actions_init(&s->registry,s->descriptors,base+count,1,invoke,read,s);
+    return osg_actions_init(&s->registry,s->descriptors,base+count,1,invoke,read,s) &&
+        osg_actions_enable_ownership(&s->registry);
+}
+bool osg_device_actions_legacy_led(osg_device_actions_t *s,const char *mode,uint32_t now) {
+    if(!s || !mode) return false;
+    char line[96],reply[OSG_ACTION_REPLY_CAPACITY];
+    int length=snprintf(line,sizeof line,"action invoke %lu led.status.set_mode %s",(unsigned long)s->registry.catalogue_revision,mode);
+    return length>0 && (size_t)length<sizeof line &&
+        osg_actions_command_at(&s->registry,line,now,OSG_ACTION_SCOPE_USB,reply,sizeof reply) && strstr(reply,"\"ok\":true");
 }
 bool osg_device_actions_status(const osg_device_actions_t *s,bool automatic,bool suspended) {
     return s && !suspended && (s->status_mode==OSG_LED_ON || (s->status_mode==OSG_LED_AUTO && automatic));

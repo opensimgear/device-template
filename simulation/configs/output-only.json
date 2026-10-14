@@ -1,0 +1,6 @@
+{
+  "identity": "4f55545055544f4e4c59000000000001",
+  "name": "Output only rev lights",
+  "inputs": {},
+  "outputs": "simulated-leds"
+}

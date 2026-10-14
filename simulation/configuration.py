@@ -99,8 +99,6 @@ def encode_configuration(value):
     effective_buttons = count['buttons'] + 2 * count['encoders'] + 3 * count['selectors']
     if effective_buttons > 128:
         fail('inputs', 'buttons plus encoder/selector outputs exceed 128 HID buttons')
-    if not effective_buttons and not count['axes'] and not count['hats']:
-        fail('inputs', 'at least one input is required')
     claimed = {}
 
     def contact(number, path, upper=151):

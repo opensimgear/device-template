@@ -11,9 +11,11 @@ typedef struct {
     osg_gateway_profile_t profile;
     osg_can_send_t send; void *context;
     uint32_t boot,lease,epoch,next_sequence,ack_sequence,generation,configuration_generation;
+    /* Local route loss is observable even if reassignment repeats wire IDs. */
+    uint32_t route_generation;
     uint32_t announced_at,announce_due,random,input_at,assigned_at,ack_at,status_at;
     uint8_t node,gateway_source,history_head;
-    bool direct,announced,announce_waiting,input_due,exhausted,status_due;
+    bool direct,announced,announce_waiting,input_due,exhausted,status_due,route_exhausted;
     osg_can_sent_t history[OSG_CAN_HISTORY];
     uint8_t acknowledged[OSG_GW_MAX_REPORT_SIZE];
     uint32_t rejected,tx_dropped;
