@@ -1,0 +1,6 @@
+{
+  "identity": "4d415354455243415554494f4e000001",
+  "name": "Master Caution",
+  "inputs": {"buttons": [{"input": 0, "mode": "momentary"}]},
+  "outputs": "board-status"
+}

@@ -116,4 +116,34 @@ static void can_action_test(void) {
     osg_module_config_can_tick(NULL,4400); assert(!osg_module_config_can_busy(NULL));
     osg_cyphal_destroy(&client.cyphal);
 }
-int main(void) { hardware_test(); simulation_test(); can_action_test(); return 0; }
+static void can_events_test(void) {
+    osg_gateway_identity_t identity={{'O','S','G','E',1}};
+    osg_gateway_profile_t profile={.button_count=1,.revision=1};
+    osg_can_client_t client;assert(osg_can_client_init(&client,&identity,&profile,8,send_frame,NULL));
+    assert(canard_set_node_id(&client.cyphal.canard,22));
+    client.node=4;client.gateway_source=100;client.lease=20;client.epoch=2;
+    osg_profile_button_t button={.input=0};
+    osg_profile_t panel={.name="Master Caution",.buttons=&button,.button_count=1};
+    osg_profile_sample_t sample={0};osg_events_t events;
+    assert(osg_events_init(&events,&panel,&sample,0,1));osg_events_observe(&events,&sample,10);
+    osg_runtime_config_t runtime={0};osg_module_config_can_t can;
+    osg_module_config_can_init(&can,&client,&runtime);osg_module_config_can_events(&can,&events);
+    assert(can_command(&can,1,"events state"));
+    assert(!strncmp(can.response,"OK\n",3) && strstr(can.response,"\"head\":0"));
+    char retained[sizeof can.response];strcpy(retained,can.response);flush_response(&can);
+    sample.digital_closed=1;osg_events_observe(&events,&sample,20);osg_events_observe(&events,&sample,30);
+    sample.digital_closed=0;osg_events_observe(&events,&sample,31);osg_events_observe(&events,&sample,41);
+    assert(events.head==2);assert(can_command(&can,1,"events state"));
+    assert(!strcmp(retained,can.response));flush_response(&can); /* Immutable read retry. */
+    client.direct=true;
+    assert(can_command(&can,2,"events read 1 0"));
+    assert(strstr(can.response,"\"sequence\":1,\"control\":0,\"pressed\":true"));
+    assert(strstr(can.response,"\"sequence\":2,\"control\":0,\"pressed\":false"));
+    assert(!runtime.pending_apply && !runtime.owner && !runtime.generation);flush_response(&can);
+    assert(osg_events_init(&events,&panel,&sample,50,2));
+    assert(can_command(&can,3,"events read 1 2"));assert(strstr(can.response,"staleStream"));flush_response(&can);
+    client.lease++;osg_module_config_can_tick(&can,100);
+    assert(can_command(&can,4,"events state"));assert(strstr(can.response,"\"stream\":2"));flush_response(&can);
+    osg_cyphal_destroy(&client.cyphal);
+}
+int main(void) { hardware_test(); simulation_test(); can_action_test(); can_events_test(); return 0; }

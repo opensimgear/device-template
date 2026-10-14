@@ -11,7 +11,7 @@ cmake --preset starter -DOSG_DEVICE_PROFILE=example -DOSG_USB_VID=<your-VID> -DO
 cmake --build --preset starter
 ```
 
-`example`, `shifter` and `expanded` are provided. The [profile guide](profiles/README.md) documents wiring, report layouts and adding a profile. Outputs are `osg_hello.elf`, `.bin`, `.hex` and `.map` in this repository’s `.build/starter` directory. Missing, zero or out-of-range USB IDs are rejected. CI uses `0xFFFF/0xFFFF` only for compilation, never for distribution or flashing.
+`example`, `shifter`, `expanded` and `master_caution` are provided. The [profile guide](profiles/README.md) documents wiring, report layouts and adding a profile. Outputs are `osg_hello.elf`, `.bin`, `.hex` and `.map` in this repository’s `.build/starter` directory. Missing, zero or out-of-range USB IDs are rejected. CI uses `0xFFFF/0xFFFF` only for compilation, never for distribution or flashing.
 
 For Ninja instead of Make:
 
@@ -55,10 +55,21 @@ The active configuration enumerates as one joystick and a diagnostic USB serial 
 | `action describe 0` | Device-advertised action descriptors; paginate using the returned `next` offset |
 | `action state` | Current volatile action state as JSON |
 | `action invoke 1 led.status.set_mode auto` | Restore the monochrome status LED heartbeat; `on` and `off` are also supported |
+| `events state` | Current mapped-button held-state/head baseline and stream metadata |
+| `events read <stream> <after>` | Up to 16 retained ordered transitions after the cursor; explicit stale-stream/gap errors |
 
-The console line buffer holds 391 characters; a configuration child command and a full action command are each limited to 383 characters. Overflow and NUL input are discarded through newline with an error. The LED changes from 1 s to 500 ms half-period after mounting; suspend turns it off. Manual mode survives console disconnect and resumes after USB suspend; reboot restores `auto`. Action commands return one JSON object, validate the catalogue revision and parameters, and do not claim configuration, write flash, replace a HID descriptor or reconnect USB. The hardware advertises only its fitted monochrome LED, not RGB capabilities. Cockpit uses the same registry through the gateway's bounded request/reply transport; independent lease status keeps actions available when HID streaming is disabled or direct USB owns input. See the [action contract](https://github.com/opensimgear/protocol/blob/main/serial/device-actions.md).
+The console line buffer holds 391 characters; a configuration child command and a full action/event command are each limited to 383 characters. Overflow and NUL input are discarded through newline with an error. The LED changes from 1 s to 500 ms half-period after mounting; suspend turns it off. Manual mode survives console disconnect and resumes after USB suspend; reboot restores `auto`. Action commands return one JSON object, validate the catalogue revision and parameters, and do not claim configuration, write flash, replace a HID descriptor or reconnect USB. The hardware advertises only its fitted monochrome LED, not RGB capabilities. Cockpit uses the same registry through the gateway's bounded request/reply transport; independent lease status keeps actions available when HID streaming is disabled or direct USB owns input. See the [action contract](https://github.com/opensimgear/protocol/blob/main/serial/device-actions.md).
 
 Active USB reports refresh at least every 10 ms when the endpoint is ready. Changed reports can arrive sooner. Encoder pulses advance only after completed host transfers; stale-generation acknowledgements are rejected after USB recovery. TinyUSB retains a submitted interrupt packet across suspend. Its eventual completion cannot acknowledge a new encoder generation, and a canceled/free endpoint cannot leave the software submission flag stuck. A pre-suspend packet may still reach the host before the fresh neutral report on resume; exact host-visible behavior requires physical suspend/resume validation. The template does not claim transparent cancellation of already-submitted USB packets.
+
+Mapped-button event acquisition runs at the same sample boundary with independent
+debounce/decoder state, even without an active HID owner. It retains 64 transitions
+and emits immediate press/release pairs for completed encoder detents; the HID
+encoder queue still waits for host acknowledgements. Event reads require no
+writer claim or flash write. Mapping activation resets the log with the active
+configuration generation as `stream`; USB/CAN ownership changes retain it. Consumers
+establish a baseline before forwarding fresh presses and rebaseline on gaps,
+reconnect or reboot. See the [event contract](https://github.com/opensimgear/protocol/blob/main/serial/panel-input-events.md).
 
 ## Acquisition and limits
 
@@ -76,11 +87,15 @@ cmake --build .build/tests
 ctest --test-dir .build/tests --output-on-failure
 ```
 
-Run those commands from the repository root. Eleven native tests exercise the runtime core, advertised actions, all supplied factory profiles and their real USB descriptor callbacks, including dynamic field omission and UTF-16 controller names. Shared tests cover limits, invalid assignments, conflicts, stale axes, cross-bank recovery, encoder acknowledgements and expansion scanning. CI also cross-builds each profile. These checks do not establish physical timing or host compatibility.
+Run those commands from the repository root. Thirteen native tests exercise the runtime core, advertised actions, routed panel events, all supplied factory profiles and their real USB descriptor callbacks, including dynamic field omission and UTF-16 controller names. Shared tests cover limits, invalid assignments, conflicts, stale axes, cross-bank recovery, encoder acknowledgements and expansion scanning. CI also cross-builds each profile. These checks do not establish physical timing or host compatibility.
 
 Build-time profiles supply factory defaults. Runtime configuration owns bounded arrays for buttons, axes, hats, encoders and selectors; axis calibration endpoints, inversion and a rescaled center deadzone; expansion masks; and a UTF-8 controller name. Contact debounce remains fixed at 10 ms. One nonzero writer token claims a draft for 30 seconds, refreshed by successful writer commands. Apply validates the whole draft and requests activation; Save persists the active configuration; Apply & save commits the draft before activation. Discard returns to active settings; reset stages factory defaults. Invalid drafts and failed saves leave active settings unchanged.
 
-Settings use a canonical pointer-free 598-byte record in a dedicated two-page flash journal. On erased storage, initialization saves factory defaults as generation 1 before accepting commands, so even the first user save has a committed fallback. An interrupted initial baseline is retried only when the first page matches a partially written factory image, its commit marker is incomplete and the second page remains erased. Other corrupt nonblank storage fails closed. Saved settings restore after reboot; claims and drafts do not. Direct USB detaches before descriptor replacement, old USB/CAN delivery state is invalidated, acquisition requires fresh input, and USB reconnects after 250 ms. An unread direct-console Apply response is abandoned after four seconds so a stopped reader cannot hold an accepted activation indefinitely; reconnect and read the active generation when an acknowledgement is lost.
+Settings use a canonical pointer-free 598-byte record in a dedicated two-page flash journal. On erased storage, initialization saves factory defaults as generation 1 before accepting commands, so even the first user save has a committed fallback. An interrupted initial baseline is retried only when the first page matches a partially written factory image, its commit marker is incomplete and the second page remains erased. Other corrupt nonblank storage fails closed. Saved settings restore after reboot; claims and drafts do not. Direct USB detaches before descriptor replacement, old USB/CAN delivery state is invalidated, acquisition requires fresh input, and USB reconnects after 250 ms.
+
+Without an assigned CAN route, queued discovery/standard heartbeat traffic does
+not hold activation pending indefinitely. Assigned routed replies still drain
+before activation. An unread direct-console Apply response is abandoned after four seconds so a stopped reader cannot hold an accepted activation indefinitely; reconnect and read the active generation when an acknowledgement is lost.
 
 The runtime generation is announced separately from the HID schema revision. Every configuration activation renews the gateway lease so old inputs cannot survive same-shape calibration or name changes. Changes to control counts, axis usages or axis neutral values require the gateway's explicit profile-update action; its active descriptor remains in place and mismatched enabled controllers report neutral until then. Name changes, endpoint calibration, inversion and deadzone changes retain the gateway layout. The [shared command contract](https://github.com/opensimgear/protocol/blob/main/serial/runtime-configuration.md) describes arguments and compact snapshots.
 

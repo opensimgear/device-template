@@ -23,6 +23,9 @@ void osg_module_config_can_init(osg_module_config_can_t *s,osg_can_client_t *c,o
 void osg_module_config_can_actions(osg_module_config_can_t *s,osg_actions_t *actions) {
     s->actions=actions;
 }
+void osg_module_config_can_events(osg_module_config_can_t *s,osg_events_t *events) {
+    s->events=events;
+}
 bool osg_module_config_can_receive(osg_module_config_can_t *s,const osg_gateway_message_t *m,uint32_t now) {
     if(!s || !m || !s->runtime || m->type!=OSG_GW_CONFIG_REQUEST || !m->sequence || !m->config_total ||
        m->config_total>=sizeof s->command || m->config_length>OSG_GW_CONFIG_CHUNK_SIZE || !m->config_length ||
@@ -51,7 +54,8 @@ bool osg_module_config_can_receive(osg_module_config_can_t *s,const osg_gateway_
     memcpy(s->command+s->received,m->config_data,m->config_length); s->received+=m->config_length;
     if(s->received!=s->total) return true;
     s->command[s->received]=0; s->assembling=false;
-    if(s->actions && osg_actions_command(s->actions,s->command,s->response,OSG_GW_CONFIG_RESPONSE_CAPACITY)) {
+    if((s->actions && osg_actions_command(s->actions,s->command,s->response,OSG_GW_CONFIG_RESPONSE_CAPACITY)) ||
+       (s->events && osg_events_command(s->events,s->command,s->response,OSG_GW_CONFIG_RESPONSE_CAPACITY))) {
         s->expected_apply=false;
         size_t length=strlen(s->response);
         if(length+3>=OSG_GW_CONFIG_RESPONSE_CAPACITY) {
@@ -96,5 +100,9 @@ void osg_module_config_can_tick(osg_module_config_can_t *s,uint32_t now) {
     }
 }
 bool osg_module_config_can_busy(const osg_module_config_can_t *s) {
-    return s && (s->assembling || s->responding || s->client->cyphal.canard.tx.queue_size);
+    /* Discovery/standard Heartbeat can remain queued while disconnected. No
+     * routed response exists without an assigned node; activation purges those
+     * old discovery frames rather than waiting indefinitely for a gateway. */
+    return s && (s->assembling || s->responding ||
+                 (s->client->node && s->client->cyphal.canard.tx.queue_size));
 }

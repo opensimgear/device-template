@@ -1,6 +1,6 @@
 # Native device simulation
 
-Run the device firmware as an independent macOS/Linux process. The simulator supplies a monotonic clock, ADC/contact samples, flash pages, RGB LED 1, boolean LED 2 and CAN transport. Configuration commands, advertised actions, input acquisition, boot sessions, CAN delivery and HID descriptor generation use the production sources in this repository and its pinned `firmware-common` dependency.
+Run the device firmware as an independent macOS/Linux process. The simulator supplies a monotonic clock, ADC/contact samples, flash pages, RGB LED 1/boolean LED 2 or the board status LED action, a bounded panel event log and CAN transport. Configuration commands, advertised actions, input acquisition, boot sessions, CAN delivery and HID descriptor generation use the production sources in this repository and its pinned `firmware-common` dependency.
 
 Python 3, Git and a C11 compiler are required. From this repository:
 
@@ -16,6 +16,7 @@ Start ordinary Cockpit, then run the gateway from the `device-gateway` repositor
 python3 simulation/run.py --config simulation/configs/pedals.json
 python3 simulation/run.py --config simulation/configs/button-panel.json
 python3 simulation/run.py --config simulation/configs/shifter.json
+python3 simulation/run.py --config simulation/configs/master-caution.json
 ```
 
 Run each command in its own terminal. Their example identities differ. Devices may start before the gateway; they wait for it and reconnect automatically. Cockpit discovers them through the gateway's ordinary protocol. Closing Cockpit leaves these processes running. This provides application and firmware integration on local loopback sockets; it does not enumerate a USB/HID peripheral in the OS.
@@ -65,6 +66,7 @@ OSG_SIMULATION_NAMESPACE=actions-ui python3 simulation/run.py --config simulatio
 | `inputs.encoders` | Up to 8 `{a, b}` mappings using direct contacts 0–23; each contributes two HID buttons |
 | `inputs.selectors` | Up to 8 `{low, high}` contact mappings; each contributes three HID buttons |
 | `expansion_banks` | Enabled TCA9555 bank indexes 0–7; defaults to `[]` |
+| `outputs` | `"simulated-leds"` (default RGB/boolean actions) or `"board-status"` (the physical board's status LED mode action) |
 | `initial_samples.axes` | Raw ADC values 0–4095 in physical channel order; omitted trailing channels start at 0 |
 | `initial_samples.closed_contacts` | Contact indexes held closed at startup; defaults to `[]` |
 | `initial_samples.expansion_available` | Initially responding bank indexes; defaults to every configured bank |
@@ -93,11 +95,27 @@ sim 8 direct_action describe 0
 sim 9 direct_action invoke 1 led.rgb.set_color 12ABEF
 sim 10 direct_action invoke 1 led.boolean.set_enabled 1
 sim 11 direct_action state
+sim 12 direct_events state
+sim 13 direct_events read 1 0
 ```
 
 `expansion_available` accepts a bit mask for responding banks. `inspect` reports the active configuration, descriptor, HID report bytes, boot counter and CAN diagnostics. Tests can also use `fault <flash-operation-count>` to interrupt a settings write, `can_node <1..127>` to force a node collision, `advance <milliseconds>` to wait while servicing CAN, `direct <0|1>` to simulate direct USB ownership and `direct_config <firmware-command>` to exercise device commands without a gateway. Direct mode changes production CAN ownership; ordinary gateway integration should leave it disabled.
 
-Cockpit discovers the simulator's two actions and renders their typed manual controls. RGB is six hexadecimal digits; the boolean parameter is `0` or `1`. `simulation.actions` contains readback, and `simulation.actionResult` contains the latest direct action result. These setters remain usable with a disabled HID controller or direct USB ownership. They update volatile output state without a configuration writer claim, flash writes, HID changes or reconnects. Ownership changes retain the current values; device reboot resets RGB to `000000` and the boolean LED to off. Invalid IDs, arguments and catalogue revisions return an error and retain previous values. The simulation uses the shared production action registry, while the real board advertises its actual monochrome status LED.
+For the default output profile, Cockpit discovers the simulator's two actions and renders their typed manual controls. RGB is six hexadecimal digits; the boolean parameter is `0` or `1`. `simulation.actions` contains readback, and `simulation.actionResult` contains the latest direct action result. These setters remain usable with a disabled HID controller or direct USB ownership. They update volatile output state without a configuration writer claim, flash writes, HID changes or reconnects. Ownership changes retain the current values; device reboot resets RGB to `000000` and the boolean LED to off. Invalid IDs, arguments and catalogue revisions return an error and retain previous values. The simulation uses the shared production action registry, while the real board advertises its actual monochrome status LED.
+
+The `master-caution.json` example maps contact D0 to momentary logical control 0
+and selects the same `led.status.set_mode` catalogue as the board. Use
+`direct_action invoke 1 led.status.set_mode on` (or `off`/`auto`) with this
+profile. Reboot restores `auto`; these are readable software mode values.
+
+`simulation.events` exposes stream/head/oldest/overflow/held metadata;
+`simulation.eventResult` retains the latest `direct_events` result. Acquisition
+runs without HID ownership and captures debounced button transitions and encoder
+detent press/release pairs in a 64-record ring, with nonconsuming 16-record pages.
+Take a state baseline and use its `stream`/`head` as the next read scope/cursor;
+rebaseline on a gap, mapping activation or reboot. The JSON reply is the same
+production contract routed as `targetEvents` through the gateway. Reads leave
+configuration, flash and HID unchanged. See the [event contract](https://github.com/opensimgear/protocol/blob/main/serial/panel-input-events.md).
 
 ## Build and tests
 
@@ -106,7 +124,7 @@ python3 simulation/build.py --sanitize
 python3 simulation/test.py --sanitize
 ```
 
-The tests cover example JSON through native firmware validation, invalid/overlapping mappings, complete factory axis options, live sample processing, save, process kill/restart, changed JSON defaults and state locking. Action tests cover descriptors, RGB/boolean readback, validation, volatile restart defaults, ownership changes and unchanged settings-write/descriptor/reconnect counters. Full gateway/Cockpit scenarios are bootstrapped by the initiating repository's own E2E runner.
+The tests cover example JSON through native firmware validation, invalid/overlapping mappings, complete factory axis options, live sample processing, save, process kill/restart, changed JSON defaults and state locking. Action tests cover descriptors, RGB/boolean readback, validation, volatile restart defaults, ownership changes and unchanged settings-write/descriptor/reconnect counters. Event tests cover Master Caution board-compatible output metadata, short presses between reads, immutable repeated pages, ring overflow/gaps, direct USB handoff, offline configuration activation and boot/stream reset. Full gateway/Cockpit scenarios are bootstrapped by the initiating repository's own E2E runner.
 
 Integration runners may supply an already initialized dependency checkout and private output directory:
 

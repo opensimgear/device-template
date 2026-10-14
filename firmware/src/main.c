@@ -16,6 +16,7 @@ static uint8_t current_report[OSG_REPORT_CAPACITY];
 static uint8_t report_length;
 static hid_delivery_t delivery;
 static osg_device_actions_t device_actions;
+static osg_events_t input_events;
 static osg_can_client_t can_client;
 static osg_can_delivery_t can_delivery;
 static bool can_initialized,can_reset_requested;
@@ -41,7 +42,8 @@ static void rearm(void) {
 }
 static void reply(const char *text) { tud_cdc_write_str(text); tud_cdc_write_flush(); }
 static void command(const char *line) {
-    if(osg_actions_command(&device_actions.registry,line,config_response,sizeof config_response)) {
+    if(osg_actions_command(&device_actions.registry,line,config_response,sizeof config_response) ||
+       osg_events_command(&input_events,line,config_response,sizeof config_response)) {
         config_response_size=strlen(config_response);
         memcpy(config_response+config_response_size,"\r\n",2);
         config_response_size+=2;config_response_offset=0;
@@ -58,7 +60,7 @@ static void command(const char *line) {
         if(apply) { config_apply_armed=true;config_apply_at=HAL_GetTick()+100U; }
     }
     else if (!strcmp(line, "hello")) reply("Hello from OpenSimGear!\r\n");
-    else if (!strcmp(line, "help")) reply("hello | info | inputs | led on | led off | led auto | can status | config <child-command> | action <command>\r\n");
+    else if (!strcmp(line, "help")) reply("hello | info | inputs | led on | led off | led auto | can status | config <child-command> | action <command> | events state|read <stream> <after>\r\n");
     else if (!strcmp(line, "info")) {
         char module[33], out[160]; osg_gateway_identity_format(&can_client.identity,module);
         snprintf(out, sizeof out, "model=device-template board=0.1.0 profile=%s module=%s protocol=3 buttons=%u axes=%u hats=%u\r\n",
@@ -93,6 +95,7 @@ int main(void) {
     if(!device_profile_load(board_settings_io())) board_fault();
     osg_profile_sample_t initial=board_read_inputs();
     if(!osg_profile_init(&inputs,device_profile(),&initial,HAL_GetTick())) board_fault();
+    if(!osg_events_init(&input_events,device_profile(),&initial,HAL_GetTick(),device_runtime_config()->generation)) board_fault();
     report_length=inputs.layout.length; osg_profile_neutral(&inputs,current_report);
     osg_gateway_identity_t identity; board_module_identity(identity.bytes);
     osg_gateway_profile_t routed_profile;
@@ -102,6 +105,7 @@ int main(void) {
     can_initialized=true; osg_can_delivery_rearm(&can_delivery);
     osg_module_config_can_init(&config_can,&can_client,device_runtime_config());
     osg_module_config_can_actions(&config_can,&device_actions.registry);
+    osg_module_config_can_events(&config_can,&input_events);
     const tusb_rhport_init_t usb = {.role = TUSB_ROLE_DEVICE, .speed = TUSB_SPEED_FULL};
     if (!tusb_init(0, &usb)) board_fault();
     tud_disconnect();
@@ -137,6 +141,7 @@ int main(void) {
         }
         if((uint32_t)(now-last_sample)>=1) {
             osg_profile_sample_t sample=board_read_inputs();
+            osg_events_observe(&input_events,&sample,now);
             osg_profile_update(&inputs,&sample,now,active,current_report); last_sample=now;
             osg_runtime_transform_report(device_runtime_config(),&inputs,current_report);
         }
@@ -200,6 +205,7 @@ int main(void) {
             if(!osg_runtime_finish_apply(device_runtime_config())) board_fault();
             board_inputs_reconfigured();osg_profile_sample_t sample=board_read_inputs();
             if(!osg_profile_init(&inputs,device_profile(),&sample,now)) board_fault();
+            if(!osg_events_init(&input_events,device_profile(),&sample,now,device_runtime_config()->generation)) board_fault();
             report_length=inputs.layout.length;osg_profile_neutral(&inputs,current_report);osg_profile_neutral(&inputs,sent);
             if(!osg_can_profile(device_profile(),&inputs.layout,&can_client.profile)) board_fault();
             can_client.configuration_generation=device_runtime_config()->generation;
