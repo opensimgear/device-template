@@ -47,7 +47,7 @@ python3 simulation/run.py --config simulation/configs/output-only.json
 
 Each JSON declares a unique identity, controller name and input arrays. `output-only.json` and `output-only-board-led.json` declare empty inputs with the same production RGB/boolean or fitted monochrome LED callbacks. They enroll without a HID controller and accept exclusive volatile endpoint leases with independent expiry/fallback. The gateway exposes the devices to Cockpit through its ordinary protocol. The first launch initializes pinned dependencies and builds into this repository’s `.simulation/`; saved configuration survives independent device, gateway and Cockpit restarts. See the [simulation guide](simulation/README.md) for JSON fields, input controls, state isolation and native tests.
 
-Gateway and Cockpit E2E runners clone the components they require under their own `.e2e/` directories and initialize dependencies before building. This repository’s integration workflow clones the gateway runner there and supplies the current device source explicitly. Build commands do not invoke another repository’s E2E runner.
+Gateway and Cockpit E2E runners clone the components they require under their own `.e2e/` directories and initialize dependencies before building. This repository’s integration workflow checks out an immutable gateway runner commit with the same firmware-common pin, then supplies the current device source explicitly. Build commands do not invoke another repository’s E2E runner.
 
 ## Create a device
 
