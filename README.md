@@ -73,7 +73,7 @@ Lite/Pro editions may share firmware and electronics. A material change alone do
 
 ## Licensing
 
-No OpenSimGear license grant is implied for the new authored firmware, electronics or mechanical designs. Included KiCad library data retains its own [license](electronics/boards/starter/0.1.0/LICENSE-KICAD.md). Fetched firmware dependencies retain their upstream licenses; see [third-party notices](firmware/THIRD_PARTY.md).
+Copyright © Ivan Gregurić Ortolan. All rights reserved for original OpenSimGear material while licensing is under review. The [temporary licensing policy](LICENSE) defines the current scope for firmware, electronics, mechanical designs and other original material. Creative external contributions are suspended during review; [CONTRIBUTING.md](CONTRIBUTING.md) explains the policy for factual bug reports and questions. Included KiCad library data retains its own [license](electronics/boards/starter/0.1.0/LICENSE-KICAD.md). Fetched firmware dependencies retain their upstream licenses; see [third-party notices](firmware/THIRD_PARTY.md).
 
 ## JLCPCB exports
 

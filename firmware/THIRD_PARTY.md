@@ -1,6 +1,6 @@
 # Third-party firmware notices
 
-HAL, CMSIS and TinyUSB dependencies are fetched at the commits owned by firmware-common. The application Cyphal transport is a self-contained `shared-cyphal` snapshot synchronized from the canonical `protocol/cyphal` directory; its SHA-256 manifest records the shipped files. Original files retain their upstream copyright notices. These licenses do not select a license for new OpenSimGear code. Preserve applicable notices when packaging binaries.
+HAL, CMSIS and TinyUSB dependencies are fetched at the commits owned by firmware-common. The application Cyphal transport is a self-contained `shared-cyphal` snapshot synchronized from the canonical `protocol/cyphal` directory; its SHA-256 manifest records the shipped files. Third-party files retain their upstream licenses and copyright notices. Separately authored OpenSimGear material is copyright © Ivan Gregurić Ortolan, all rights reserved while licensing is under review; see the repository [temporary licensing policy](../LICENSE) and [contribution policy](../CONTRIBUTING.md). Preserve applicable third-party notices when packaging binaries.
 
 ## TinyUSB
 

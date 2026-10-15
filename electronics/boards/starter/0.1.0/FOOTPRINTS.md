@@ -5,7 +5,7 @@ The starter uses exact component identities in `bom.csv` and hidden `MPN` / `Dat
 ## Library conventions
 
 - `KiCad.pretty/` contains selected upstream KiCad footprints. See `LICENSE-KICAD.md` for upstream attribution and licensing.
-- `OpenSimGear.pretty/` contains footprints authored from manufacturer dimensions for this starter. The `OpenSimGear` library nickname is defined in `fp-lib-table`. Geometry derived from KiCad library entries retains its upstream library license; separately authored geometry has no declared license grant.
+- `OpenSimGear.pretty/` contains footprints authored from manufacturer dimensions for this starter. The `OpenSimGear` library nickname is defined in `fp-lib-table`. Geometry derived from KiCad library entries retains its upstream library license. Separately authored geometry is copyright © Ivan Gregurić Ortolan, all rights reserved while licensing is under review; see the repository [temporary licensing policy](../../../../LICENSE) and [contribution policy](../../../../CONTRIBUTING.md).
 - Each authored footprint records the exact part or package, source URL, drawing revision where available, pad dimensions and orientation in its description. A source drawing is authoritative over distributor preview images or generic catalog metadata.
 - Pin numbering must match the symbol-to-net mapping. Connector geometry is defined looking down at the PCB; manufacturer bottom-view drawings must be converted before assigning coordinates. Locating pegs are not electrical pins.
 - Use F.Fab for nominal body/assembly information, F.CrtYd for assembly allowance, F.SilkS for markings that remain clear of solderable openings, F.Paste for SMD apertures and F.Mask for solder openings. Do not add solder paste to through-hole contacts.
