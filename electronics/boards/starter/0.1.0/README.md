@@ -1,5 +1,9 @@
 # Generic STM32G0B1 starter — v0.1.0
 
+## Development status and disclaimer
+
+This project is heavily under development and is not ready for use. Use it entirely at your own risk. To the fullest extent permitted by applicable law, the authors and contributors disclaim all liability for any damage, loss, or other issues arising from its use.
+
 Open `starter.kicad_pro` in **KiCad 10**. The current design provides **eight analogue inputs, 24 digital lines and I²C for optional 16-input expansion boards**. Firmware profiles assign those resources to the controls each device needs; unused controls are omitted from its USB HID descriptor. The matching board target is `starter_g0b1cb_v0_1_0`. Current firmware supports direct USB and Cyphal/CAN discovery/input delivery through [device-gateway](https://github.com/opensimgear/device-gateway); [CAN integration](../../../../firmware/CAN_BRINGUP.md) records software validation.
 
 The four-layer production and separate two-layer Makera Z1 layouts retain USB and both CAN sockets on the same edge. Both use the four-contact powered-CAN connector standard. See [fabrication](FABRICATION.md), [electrical review](ELECTRICAL.md), [footprints](FOOTPRINTS.md), [validation](VALIDATION.md), [schematic PDF](review/schematic.pdf), [front copper](review/pcb.svg), [back copper](review/pcb-back.svg), [routing PDF](review/routing.pdf) and [BOM](bom.csv). No physical board has been fabricated or tested.

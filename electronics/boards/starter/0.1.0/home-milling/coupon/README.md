@@ -1,5 +1,9 @@
 # Two-layer milling qualification coupon
 
+## Development status and disclaimer
+
+This project is heavily under development and is not ready for use. Use it entirely at your own risk. To the fullest extent permitted by applicable law, the authors and contributors disclaim all liability for any damage, loss, or other issues arising from its use.
+
 This **45 × 35 mm coupon** tests whether the proposed home PCB milling process can reproduce the device-template's smallest features. It is an unpowered geometry and hand-assembly test, **not a working USB circuit, a device PCB, or an impedance test**. No milling toolpaths, machine settings, Gerbers or fabrication order have been created.
 
 Open `milling-coupon.kicad_pro` in KiCad 10, or review [the copper PDF](review/coupon.pdf), [front SVG](review/front.svg) and [back SVG](review/back.svg). The back preview uses top-down coordinates viewed through the board, rather than a mirrored milling setup. Gray `F.Fab` graphics and labels describe the tests; they are not copper and are not intended to be milled. Red/blue preview features are front/back copper; the black holes are NPTH drill features.

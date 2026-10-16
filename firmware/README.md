@@ -1,5 +1,9 @@
 # Generic v0.1.0 module firmware
 
+## Development status and disclaimer
+
+This project is heavily under development and is not ready for use. Use it entirely at your own risk. To the fullest extent permitted by applicable law, the authors and contributors disclaim all liability for any damage, loss, or other issues arising from its use.
+
 C firmware for `starter_g0b1cb_v0_1_0`: STM32G0B1CBT6 with eight analogue channels, 24 direct digital lines and optional 16-input TCA9555 expansion banks. [v0.1.0 electronics](../electronics/boards/starter/0.1.0/README.md) define the matching pin map. Earlier example circuits remain in Git history and use incompatible wiring; use the current PCB with this target.
 
 ## Build factory defaults

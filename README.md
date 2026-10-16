@@ -1,5 +1,9 @@
 # OpenSimGear device template
 
+## Development status and disclaimer
+
+This project is heavily under development and is not ready for use. Use it entirely at your own risk. To the fullest extent permitted by applicable law, the authors and contributors disclaim all liability for any damage, loss, or other issues arising from its use.
+
 Start a new device with C firmware, electronics and mechanical designs in one repository. The **STM32G0B1CBT6 v0.1.0** starter provides **eight analogue inputs, 24 digital lines and optional 16-input I²C expansion boards**. A build-time profile supplies factory defaults; validated runtime configuration selects and calibrates the controls a particular device uses.
 
 ## What is implemented

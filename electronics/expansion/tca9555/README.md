@@ -1,5 +1,9 @@
 # Optional 16-input I²C boards
 
+## Development status and disclaimer
+
+This project is heavily under development and is not ready for use. Use it entirely at your own risk. To the fullest extent permitted by applicable law, the authors and contributors disclaim all liability for any damage, loss, or other issues arising from its use.
+
 The v0.1.0 starter supports optional **3.3 V TCA9555 input boards** inside the peripheral enclosure. Each adds 16 passive contact inputs. Firmware profiles select the fitted addresses and contacts; unselected boards are not polled. This is an electrical interface and wiring reference for compatible expansion boards, not a routed expansion PCB or a claim that a third-party breakout has been qualified. The generic starter PCB and firmware provide the host interface and driver.
 
 ## Connection to the starter

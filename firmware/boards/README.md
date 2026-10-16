@@ -1,5 +1,9 @@
 # Board targets
 
+## Development status and disclaimer
+
+This project is heavily under development and is not ready for use. Use it entirely at your own risk. To the fullest extent permitted by applicable law, the authors and contributors disclaim all liability for any damage, loss, or other issues arising from its use.
+
 `starter_g0b1cb_v0_1_0` matches the [generic v0.1.0 PCB](../../electronics/boards/starter/0.1.0/README.md). It reserves USB, CAN, LED, VBUS sensing and SWD, and exposes eight analogue channels, 24 digital lines and PB6/PB7 I²C. Internal HSI/PLL provides 64 MHz; HSI48 uses USB SOF recovery. The linker uses 124 KiB application flash, reserves the last 4 KiB for the boot-counter journal and uses the guaranteed 128 KiB SRAM region, including 16 KiB stack and 512 bytes heap.
 
 Earlier example circuits use incompatible wiring and remain in Git history. Unsupported board targets fail at configuration. Keep the current target updated while pre-live; follow [PCB versioning](../../electronics/VERSIONING.md) after launch. Mechanical Lite/Pro editions may share a board/profile when their electronics agree. The gateway has its own board port in [device-gateway](https://github.com/opensimgear/device-gateway), using the same MCU family. See [CAN integration](../CAN_BRINGUP.md) for boot-journal preservation and physical acceptance requirements.

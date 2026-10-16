@@ -1,5 +1,9 @@
 # Native device simulation
 
+## Development status and disclaimer
+
+This project is heavily under development and is not ready for use. Use it entirely at your own risk. To the fullest extent permitted by applicable law, the authors and contributors disclaim all liability for any damage, loss, or other issues arising from its use.
+
 Run the device firmware as an independent macOS/Linux process. The simulator supplies a monotonic clock, ADC/contact samples, flash pages, RGB LED 1/boolean LED 2 or the board status LED action, a bounded panel event log and CAN transport. Configuration commands, advertised actions, input acquisition, boot sessions, CAN delivery and HID descriptor generation use the production sources in this repository and its pinned `firmware-common` dependency.
 
 Python 3, Git and a C11 compiler are required. From this repository:
