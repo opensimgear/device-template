@@ -18,7 +18,7 @@ jobs:
       - name: Initialize gateway integration runner
         run: |
           git clone --no-checkout https://github.com/opensimgear/device-gateway.git .e2e/deps/device-gateway
-          git -C .e2e/deps/device-gateway checkout --detach 0b13cdb7cc9642b18f13bd6625d8d2288e0493aa
+          git -C .e2e/deps/device-gateway checkout --detach b47a19ab489935eefee08623866ddb3b450d866b
           git -C .e2e/deps/device-gateway submodule update --init --recursive
       - name: Test independent gateway and JSON devices with sanitizers
         run: |
