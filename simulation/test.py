@@ -492,11 +492,14 @@ class ConfigurationTests(unittest.TestCase):
                     self.assertEqual(initial['module']['config']['axes'], [])
                     self.assertEqual(initial['moduleReportHex'], '')
                     descriptor = action_command('describe 0')
-                    self.assertEqual(descriptor['ownership'], {'schemaVersion': 1, 'scope': 'endpoint', 'maxLeaseMs': 5000})
+                    self.assertEqual(descriptor['ownership'], {
+                        'schemaVersion': 1, 'scope': 'endpoint', 'maxLeaseMs': 5000,
+                        'restorePolicy': 'if-unchanged', 'fallbackPolicy': 'capture-at-claim',
+                    })
                     self.assertNotIn('token', json.dumps(descriptor))
                     claimed = action_command(f'claim 1 {action} {owner} 5000 {fallback}')
                     self.assertTrue(claimed['ok']); lease = claimed['leaseId']
-                    self.assertEqual(state(admin('inspect')), state(initial))  # Claim stores fallback without applying it.
+                    self.assertEqual(state(admin('inspect')), state(initial))  # Legacy explicit fallback does not apply at claim.
                     self.assertEqual(action_command(f'claim 1 {action} {competitor} 5000 {fallback}')['error'], 'outputBusy')
                     self.assertEqual(action_command(f'invoke 1 {action} {active}')['error'], 'outputBusy')
                     if preset.endswith('board-led'):
@@ -518,7 +521,28 @@ class ConfigurationTests(unittest.TestCase):
                     self.assertTrue(action_command(f'invoke_owned {owner} {newer["leaseId"]} 1 {action} {active}')['ok'])
                     disconnected = admin('usb_close')
                     self.assertEqual(state(disconnected)[action], ['000000' if preset == 'output-only' else 'off'])
-                    for result in (expired, disconnected):
+                    # Capture the actual endpoint at admission, including a value changed
+                    # since the initial snapshot; no caller-supplied fallback is involved.
+                    captured = 'FEDCBA' if preset == 'output-only' else 'on'
+                    temporary_value = '000000' if preset == 'output-only' else 'off'
+                    self.assertTrue(action_command(f'invoke 1 {action} {captured}')['ok'])
+                    current = action_command(f'claim_current 1 {action} {owner} 5000')
+                    self.assertTrue(current['ok']); current_lease = current['leaseId']
+                    self.assertGreater(current_lease, newer['leaseId'])
+                    self.assertEqual(state(admin('inspect'))[action], [captured])
+                    captured_owner = action_command('ownership 0')['ownership'][0]
+                    self.assertEqual(captured_owner['fallback'], [captured])
+                    self.assertTrue(action_command(f'invoke_owned {owner} {current_lease} 1 {action} {temporary_value}')['ok'])
+                    repeated = action_command(f'claim_current 1 {action} {owner} 5000')
+                    self.assertEqual(repeated['leaseId'], current_lease)
+                    self.assertEqual(state(admin('inspect'))[action], [temporary_value])
+                    self.assertEqual(action_command('ownership 0')['ownership'][0]['fallback'], [captured])
+                    released = action_command(f'release {owner} {current_lease}')
+                    self.assertTrue(released['ok']); self.assertEqual(released['fallbackStatus'], 'applied')
+                    restored = admin('inspect')
+                    self.assertEqual(state(restored)[action], [captured])
+                    self.assertFalse(action_command('ownership 0')['ownership'][0]['owned'])
+                    for result in (expired, disconnected, restored):
                         for field in ('settingsErases', 'settingsPrograms', 'moduleReconnects', 'descriptorHex'):
                             self.assertEqual(result[field], initial[field], field)
                         self.assertEqual(result['module']['config'], initial['module']['config'])
