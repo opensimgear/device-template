@@ -36,7 +36,7 @@ add_library(osg_hal STATIC
   ${CMSIS}/Source/Templates/system_stm32g0xx.c)
 target_include_directories(osg_hal PUBLIC include ${HAL}/Inc ${CMSIS}/Include ${OSG_CMSIS_CORE_DIR}/CMSIS/Core/Include)
 target_compile_definitions(osg_hal PUBLIC STM32G0B1xx USE_HAL_DRIVER)
-add_executable(osg_hello src/main.c src/profile.c src/usb_descriptors.c src/can_client.c src/can_delivery.c src/boot_session.c src/runtime_config.c src/config_can.c src/device_actions.c
+add_executable(osg_hello src/main.c src/console_info.c src/profile.c src/usb_descriptors.c src/can_client.c src/can_delivery.c src/boot_session.c src/runtime_config.c src/config_can.c src/device_actions.c
   shared-gateway/src/gateway_journal.c
   boards/starter_g0b1cb_v0_1_0/board.c boards/starter_g0b1cb_v0_1_0/can_transport.c boards/starter_g0b1cb_v0_1_0/storage.c
   ${CMSIS}/Source/Templates/gcc/startup_stm32g0b1xx.s)
